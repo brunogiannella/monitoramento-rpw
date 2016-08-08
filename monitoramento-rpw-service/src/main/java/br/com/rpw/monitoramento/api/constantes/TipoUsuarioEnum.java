@@ -1,6 +1,6 @@
 package br.com.rpw.monitoramento.api.constantes;
 
-public enum TipoUsuario {
+public enum TipoUsuarioEnum {
 	
 	ADMINISTRADOR(1),
 	SUPERVISOR(2),
@@ -9,7 +9,7 @@ public enum TipoUsuario {
 
 	public Integer codigo;
 	
-	TipoUsuario(Integer codigo) {
+	TipoUsuarioEnum(Integer codigo) {
 		this.codigo = codigo;
 	}
 
