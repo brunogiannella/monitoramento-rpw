@@ -6,14 +6,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "OCORRENCIA")
+//@Entity
+//@Table(name = "OCORRENCIA")
 public class Ocorrencia {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private TipoOcorrencia tipoOcorrencia;
-	private Turno turno;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private Long id;
+//	private TipoOcorrencia tipoOcorrencia;
+//	private Turno turno;
 
 }

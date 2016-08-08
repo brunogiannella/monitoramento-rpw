@@ -8,16 +8,16 @@ import javax.persistence.Table;
 
 import br.com.rpw.monitoramento.api.constantes.TipoCameraEnum;
 
-@Entity
-@Table(name = "CAMERA")
+//@Entity
+//@Table(name = "CAMERA")
 public class Camera {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private Integer numeroCamera;
-	private String descricaoCamera;
-	private String localizacaoCamera;
-	private TipoCameraEnum tipoCamera;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private Long id;
+//	private Integer numeroCamera;
+//	private String descricaoCamera;
+//	private String localizacaoCamera;
+//	private TipoCameraEnum tipoCamera;
 
 }

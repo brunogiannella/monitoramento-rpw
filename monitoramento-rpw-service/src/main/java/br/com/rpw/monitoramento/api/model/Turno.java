@@ -14,21 +14,21 @@ import br.com.rpw.monitoramento.api.constantes.PeriodoEnum;
 import br.com.rpw.monitoramento.api.constantes.StatusTurnoEnum;
 import br.com.rpw.monitoramento.api.constantes.TempoEnum;
 
-@Entity
-@Table(name = "TURNO")
+//@Entity
+//@Table(name = "TURNO")
 public class Turno {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private Date dataInicio;
-	private Date dataFim;
-	private Usuario usuario;
-	private Cliente cliente;
-	private PeriodoEnum periodo;
-	private CondicoesClimaticasEnum condicaoClimatica;
-	private TempoEnum tempo;
-	private StatusTurnoEnum status;
-	private List<Ocorrencia> ocorrencias;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private Long id;
+//	private Date dataInicio;
+//	private Date dataFim;
+//	private Usuario usuario;
+//	private Cliente cliente;
+//	private PeriodoEnum periodo;
+//	private CondicoesClimaticasEnum condicaoClimatica;
+//	private TempoEnum tempo;
+//	private StatusTurnoEnum status;
+//	private List<Ocorrencia> ocorrencias;
 
 }

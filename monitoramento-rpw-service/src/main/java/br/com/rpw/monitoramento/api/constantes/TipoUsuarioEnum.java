@@ -2,19 +2,19 @@ package br.com.rpw.monitoramento.api.constantes;
 
 public enum TipoUsuarioEnum {
 	
-	ADMINISTRADOR(1),
-	SUPERVISOR(2),
-	FUNCIONARIO(3),
-	CLIENTE(4);
+	ADMINISTRADOR("admin"),
+	SUPERVISOR("supervisor"),
+	FUNCIONARIO("funcionario"),
+	CLIENTE("cliente");
 
-	public Integer codigo;
+	public String descricao;
 	
-	TipoUsuarioEnum(Integer codigo) {
-		this.codigo = codigo;
+	TipoUsuarioEnum(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public Integer getCodigo() {
-		return codigo;
+	public String getDescricao() {
+		return descricao;
 	}
 	
 }
