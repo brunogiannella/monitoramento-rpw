@@ -26,7 +26,7 @@ public class UsuarioDaoImpl extends AbstractDao implements IUsuarioDao{
  
     public void deleteEmployeeById(Long codigoUsuario) {
         Query query = getSession().createSQLQuery("delete from USUARIO where id = :codigoUsuario");
-        query.setLong("codigoUsuario", codigoUsuario);
+        query.setLong("id", codigoUsuario);
         query.executeUpdate();
     }
  
