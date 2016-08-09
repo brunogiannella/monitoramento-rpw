@@ -2,18 +2,18 @@ package br.com.rpw.monitoramento.api.constantes;
 
 public enum TempoEnum {
 	
-	ABERTO(1),
-	ENCOBERTO(2),
-	CHUVA(2);
+	ABERTO("ABERTO"),
+	ENCOBERTO("ENCOBERTO"),
+	CHUVA("CHUVA");
 
-	public Integer codigo;
+	public String descricao;
 	
-	TempoEnum(Integer codigo) {
-		this.codigo = codigo;
+	TempoEnum(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public Integer getCodigo() {
-		return codigo;
+	public String getDescricao() {
+		return descricao;
 	}
 	
 }

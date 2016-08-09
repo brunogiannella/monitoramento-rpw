@@ -28,9 +28,9 @@ public class AutenticacaoController {
 				return new RestObject(200, true, "Nenhum usuário foi encontrado", null);
 			}
 			
-			return new RestObject(200, true, "Consulta realizada com sucesso", autenticacaoResponse);
+			return new RestObject(200, true, "Autenticação realizada com sucesso", autenticacaoResponse);
 		} catch(Exception e) {
-			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
+			return new RestObject(500, false, "Ocorreu um erro na autenticação: " + e.getMessage(), null);
 		}
 	}
 	

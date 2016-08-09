@@ -2,8 +2,8 @@ package br.com.rpw.monitoramento.api.constantes;
 
 public enum PeriodoEnum {
 	
-	DIURNO("diurno"),
-	NOTURNO("noturno");
+	DIURNO("DIURNO"),
+	NOTURNO("NOTURNO");
 
 	public String descricao;
 	

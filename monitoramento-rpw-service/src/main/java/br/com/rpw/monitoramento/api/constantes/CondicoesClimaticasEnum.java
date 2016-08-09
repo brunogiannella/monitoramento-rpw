@@ -2,17 +2,17 @@ package br.com.rpw.monitoramento.api.constantes;
 
 public enum CondicoesClimaticasEnum {
 	
-	FRIO(1),
-	CALOR(2);
+	FRIO("FRIO"),
+	CALOR("CALOR");
 
-	public Integer codigo;
+	public String descricao;
 	
-	CondicoesClimaticasEnum(Integer codigo) {
-		this.codigo = codigo;
+	CondicoesClimaticasEnum(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public Integer getCodigo() {
-		return codigo;
+	public String getDescricao() {
+		return descricao;
 	}
 	
 }

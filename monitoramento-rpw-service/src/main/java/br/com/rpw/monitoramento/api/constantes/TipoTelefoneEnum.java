@@ -2,9 +2,9 @@ package br.com.rpw.monitoramento.api.constantes;
 
 public enum TipoTelefoneEnum {
 	
-	RESIDENCIAL("residencial"),
-	COMERCIAL("comercial"),
-	CELULAR("celular");
+	RESIDENCIAL("RESIDENCIAL"),
+	COMERCIAL("COMERCIAL"),
+	CELULAR("CELULAR");
 
 	public String descricao;
 	
