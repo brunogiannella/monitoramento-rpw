@@ -20,9 +20,10 @@ public class ClienteController {
 	@RequestMapping(value="", method = RequestMethod.POST)
 	public RestObject cadastrarUsuario(@RequestBody CadastrarClienteRequestDTO cadastrarClienteRequestDTO) { 
 		try {
+			clienteService.cadastrarCliente(cadastrarClienteRequestDTO);
 			return new RestObject(200, true, "Cadastro realizado com sucesso", "");
 		} catch(Exception e) {
-			return new RestObject(500, false, "Ocorreu um erro no cadastro do usuário: " + e.getMessage(), null);
+			return new RestObject(500, false, "Ocorreu um erro no cadastro do cliente: " + e.getMessage(), null);
 		}
 	}
 	
