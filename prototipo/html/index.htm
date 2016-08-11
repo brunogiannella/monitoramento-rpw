@@ -1,0 +1,77 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+    	<meta charset="utf-8">
+    	<title>RPW • Login</title>
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+		<link type="text/css" rel="stylesheet" href="css/login.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+		<div id="login_geral" class="row">
+			<div id="login_quadro" class="col hide-on-small-only m7 l8 blue-grey darken-3"></div>
+			<div id="login_lateral" class="col s12 m5 l4">
+				<div id="login_form">
+					<div id="login_logo"><img src="img/login_logo.jpg" width="116" height="143"></div>
+		      		<h5 id="login_titulo">Login</h5>
+      		        <div class="input-field">
+			          <i class="small material-icons prefix">perm_identity</i>
+			          <input id="icon_prefix" type="text" class="validate" length="10">
+			          <label for="icon_prefix">Usuário</label>
+			        </div>
+      		        <div class="input-field">
+			          <i class="small material-icons prefix">lock_outline</i>
+			          <input id="icon_prefix" type="password" class="validate" data-error="wrong" data-success="right" length="6">
+			          <label for="icon_prefix">Senha</label>
+			        </div>
+				    <div id="login_checkbox_lembreme">
+				      <input type="checkbox" id="test5" />
+				      <label for="test5">Lembre-me</label>
+				    </div> 
+		        	<p><a id="login_btn_entrar" class="waves-effect waves-green btn-large darken-1">Entrar</a></p>
+		        	<p id="login_txt_esqueci"><a href="#login_modal_esqueciminhasenha">Esqueci minha senha</a></p>
+		        	
+		        	<!-- MODAL RECUPERAR -->
+					<div id="login_modal_esqueciminhasenha" class="modal">
+						<div class="modal-content">
+							<div class="col s12">
+								<h5 class="center">Esqueci minha senha</h5>
+								<div class="col s1">&nbsp;</div>
+								<div class="col s10">
+								        <div class="input-field">
+								          <i class="small material-icons prefix">email</i>
+								          <input id="icon_prefix" type="email" class="validate">
+								          <label for="icon_prefix">E-mail</label>
+							        	</div>
+									</div>
+								<div class="col s1">&nbsp;</div>	
+							</div>
+						</div>
+						<div class="modal-footer">
+								<div class="col s1">&nbsp;</div>
+								<div class="col s10">
+									<div class="carousel-fixed-item center with-indicators">
+										<a class="btn waves-effect white green darken-1">Recuperar senha</a>
+										<p><a class="modal-action modal-close btn waves-effect white grey-text grey lighten-1">Cancelar</a></p>
+									</div>
+									<p>&nbsp;</p>
+								</div>
+								<div class="col s1">&nbsp;</div>
+						</div>
+					</div>
+		        	<!-- / MODAL -->
+				</div>
+	      	</div>
+		</div>
+
+	    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	    <script type="text/javascript" src="js/materialize.min.js"></script>
+	    <script type="text/javascript">
+			$(document).ready(function(){
+		    	$('#login_txt_esqueci a').leanModal();
+		  	});
+		</script>
+    </body>
+  </html>
