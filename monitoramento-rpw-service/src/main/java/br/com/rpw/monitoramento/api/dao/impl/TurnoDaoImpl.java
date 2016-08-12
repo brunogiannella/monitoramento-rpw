@@ -12,6 +12,7 @@ import br.com.rpw.monitoramento.api.dao.AbstractDao;
 import br.com.rpw.monitoramento.api.dao.ITurnoDao;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.Turno;
+import br.com.rpw.monitoramento.api.model.Usuario;
 
 @Component
 public class TurnoDaoImpl extends AbstractDao implements ITurnoDao {
@@ -33,6 +34,19 @@ public class TurnoDaoImpl extends AbstractDao implements ITurnoDao {
 	public List<Turno> listarTurnos(Cliente cliente) {
 		Criteria criteria = getSession().createCriteria(Turno.class);
 		criteria.add(Restrictions.eq("cliente.id",cliente.getId()));
+        return (List<Turno>) criteria.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Turno> listarTurnos(Usuario usuario, StatusTurnoEnum status) {
+		Criteria criteria = getSession().createCriteria(Turno.class);
+		criteria.add(Restrictions.eq("usuario.id",usuario.getId()));
+		
+		if(status != null) {
+			criteria.add(Restrictions.eq("status",status));
+		}
+		
         return (List<Turno>) criteria.list();
 	}
 

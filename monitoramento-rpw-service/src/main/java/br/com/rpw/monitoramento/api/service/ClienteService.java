@@ -1,4 +1,4 @@
-package br.com.rpw.monitoramento.api.service.impl;
+package br.com.rpw.monitoramento.api.service;
 
 import java.util.ArrayList;
 
