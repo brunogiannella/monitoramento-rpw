@@ -2,6 +2,7 @@ package br.com.rpw.monitoramento.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +11,7 @@ import br.com.rpw.monitoramento.api.constantes.TipoUsuarioEnum;
 import br.com.rpw.monitoramento.api.dto.CadastrarUsuarioRequestDTO;
 import br.com.rpw.monitoramento.api.model.RestObject;
 import br.com.rpw.monitoramento.api.service.impl.UsuarioService;
+import br.com.rpw.monitoramento.api.util.TokenUtil;
 
 @RestController
 @RequestMapping(value="/usuario")
@@ -29,9 +31,15 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping(value="/tipoUsuario", method = RequestMethod.GET)
-	public RestObject consultarTiposUsuario() { 
+	public RestObject consultarTiposUsuario(@RequestHeader(value="x-acess-token") String token) { 
 		try {
-			return new RestObject(200, true, "Consulta realizada com sucesso", TipoUsuarioEnum.values());
+			
+			if(TokenUtil.simpleValidToken(token)) {
+				return new RestObject(200, true, "Consulta realizada com sucesso", TipoUsuarioEnum.values());
+			} else {
+				return new RestObject(401, false, "Token inválido.", null);
+			}
+			
 		} catch(Exception e) {
 			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
 		}

@@ -11,5 +11,6 @@ public interface IUsuarioDao {
     void deleteEmployeeById(Long codigoUsuario);
     Usuario autenticarUsuario(String usuario, String senha);
     void atualizarUsuario(Usuario employee);
+    Usuario consultarUsuario(Long id);
 	
 }

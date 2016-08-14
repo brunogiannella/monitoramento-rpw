@@ -7,6 +7,7 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 
 import br.com.rpw.monitoramento.api.constantes.RpwServiceConstantes;
+import br.com.rpw.monitoramento.api.model.Usuario;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -48,15 +49,51 @@ public class TokenUtil {
 		return claims;
 	}
 	
-	public static Boolean parseJWT(String jwt) {
+	public static Boolean validToken(String jwt, Usuario usuario) {
 		Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(RpwServiceConstantes.SECRET_KEY))
 				.parseClaimsJws(jwt).getBody();
-		System.out.println("ID: " + claims.getId());
-		System.out.println("Subject: " + claims.getSubject());
-		System.out.println("Issuer: " + claims.getIssuer());
-		System.out.println("Expiration: " + claims.getExpiration());
+		
+		if(!"Autenticação RPW".equals(claims.getSubject())) {
+			return false;
+		}
+		
+		if(!claims.getIssuer().equals(usuario.getTipoUsuario().getDescricao())) {
+			return false;
+		}
+
+		if(!claims.getId().equals(usuario.getId())) {
+			return false;
+		}
+		
+		long nowMillis = System.currentTimeMillis();
+		long expireMillis = claims.getExpiration().getTime();
+		if(expireMillis < nowMillis) {
+			return false;
+		}
 		
 		return true;
+	}
+	
+	public static Boolean simpleValidToken(String jwt) {
+		
+		try {
+			Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(RpwServiceConstantes.SECRET_KEY))
+					.parseClaimsJws(jwt).getBody();
+			
+			if(!"Autenticação RPW".equals(claims.getSubject())) {
+				return false;
+			}
+			
+			long nowMillis = System.currentTimeMillis();
+			long expireMillis = claims.getExpiration().getTime();
+			if(expireMillis < nowMillis) {
+				return false;
+			}
+			
+			return true;
+		} catch(Exception e) {
+			return false;
+		}
 	}
 	
 }

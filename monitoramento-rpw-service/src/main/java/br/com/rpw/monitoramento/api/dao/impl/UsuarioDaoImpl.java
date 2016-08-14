@@ -12,7 +12,7 @@ import br.com.rpw.monitoramento.api.dao.IUsuarioDao;
 import br.com.rpw.monitoramento.api.model.Usuario;
 
 @Component
-public class UsuarioDaoImpl extends AbstractDao implements IUsuarioDao{
+public class UsuarioDaoImpl extends AbstractDao implements IUsuarioDao {
  
     public void salvarUsuario(Usuario usuario) {
         persist(usuario);
@@ -41,5 +41,12 @@ public class UsuarioDaoImpl extends AbstractDao implements IUsuarioDao{
     public void atualizarUsuario(Usuario usuario){
         getSession().update(usuario);
     }
+
+	@Override
+	public Usuario consultarUsuario(Long id) {
+		 Criteria criteria = getSession().createCriteria(Usuario.class);
+	     criteria.add(Restrictions.eq("id",id));
+	     return (Usuario) criteria.uniqueResult();
+	}
      
 }

@@ -26,6 +26,10 @@ public class UsuarioService implements IUsuarioService {
 		usuarioDaoImpl.salvarUsuario(converterCadastrarUsuarioRequestDTOemUsuario(cadastrarUsuarioRequestDto));
 	}
 	
+	@Override
+	public Usuario consultarUsuario(Long id) {
+		return usuarioDaoImpl.consultarUsuario(id);
+	}
 	
 	private Usuario converterCadastrarUsuarioRequestDTOemUsuario(CadastrarUsuarioRequestDTO cadastrarUsuarioRequestDto) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		Usuario usuario = new Usuario();

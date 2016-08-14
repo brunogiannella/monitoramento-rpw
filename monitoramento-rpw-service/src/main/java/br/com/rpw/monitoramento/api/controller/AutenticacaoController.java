@@ -12,7 +12,7 @@ import br.com.rpw.monitoramento.api.dto.AutenticacaoResponseDTO;
 import br.com.rpw.monitoramento.api.model.RestObject;
 import br.com.rpw.monitoramento.api.service.impl.AutenticacaoService;
 
-@CrossOrigin(origins = "http://localhost:9080", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping(value="/autenticacao")
 public class AutenticacaoController {
