@@ -30,7 +30,7 @@ public class OcorrenciaDaoImpl extends AbstractDao implements IOcorrenciaDao {
 
 	@Override
 	public void deleteOcorrenciaById(Long codigoOcorrencia) {
-		Query query = getSession().createSQLQuery("delete from OCORRENCIA where id = :codigoOcorrencia");
+		Query query = getSession().createSQLQuery("delete from OCORRENCIA where id = :id");
         query.setLong("id", codigoOcorrencia);
         query.executeUpdate();
 	}

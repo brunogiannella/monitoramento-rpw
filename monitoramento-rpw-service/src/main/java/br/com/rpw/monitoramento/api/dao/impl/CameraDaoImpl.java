@@ -30,7 +30,7 @@ public class CameraDaoImpl extends AbstractDao implements ICameraDao{
 
 	@Override
 	public void deleteCamera(Long codigoCamera) {
-		Query query = getSession().createSQLQuery("delete from CAMERA where id = :codigoCamera");
+		Query query = getSession().createSQLQuery("delete from CAMERA where id = :id");
         query.setLong("id", codigoCamera);
         query.executeUpdate();
 	}

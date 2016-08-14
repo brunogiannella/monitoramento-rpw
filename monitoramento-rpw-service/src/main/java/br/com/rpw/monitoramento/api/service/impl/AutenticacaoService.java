@@ -46,7 +46,11 @@ public class AutenticacaoService implements IAutenticacaoService {
 		autenticacaoUsuario.setAutenticado(true);
 		autenticacaoUsuario.setIdUsuario(usuarioConsultado.getId());
 		autenticacaoUsuario.setToken(TokenUtil.createJWT(usuarioConsultado.getId().toString(), usuarioConsultado.getTipoUsuario().getDescricao(), "Autenticação RPW", new Date().getTime()));
-
+		autenticacaoUsuario.setNomeUsuario(usuarioConsultado.getNome());
+		autenticacaoUsuario.setEmailUsuario(usuarioConsultado.getEmail());
+		autenticacaoUsuario.setTipoUsuario(usuarioConsultado.getTipoUsuario().getDescricao());
+		autenticacaoUsuario.setUsuario(usuarioConsultado.getUsuario());
+		
 		return autenticacaoUsuario;
 	}
 

@@ -15,7 +15,7 @@ import br.com.rpw.monitoramento.api.constantes.PeriodoEnum;
 import br.com.rpw.monitoramento.api.constantes.StatusTurnoEnum;
 import br.com.rpw.monitoramento.api.constantes.TempoEnum;
 import br.com.rpw.monitoramento.api.dao.impl.TurnoDaoImpl;
-import br.com.rpw.monitoramento.api.dto.IniciarTurnoRequestDTO;
+import br.com.rpw.monitoramento.api.dto.TurnoDTO;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.Turno;
 import br.com.rpw.monitoramento.api.model.Usuario;
@@ -29,7 +29,7 @@ public class TurnoService implements ITurnoService {
 	private TurnoDaoImpl turnoDaoImpl;
 
 	@Override
-	public Long iniciarTurno(IniciarTurnoRequestDTO iniciarTurnoRequestDTO)
+	public Long iniciarTurno(TurnoDTO iniciarTurnoRequestDTO)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException {
 		Turno turno = converterIniciarTurnoRequestDTOEmTurno(iniciarTurnoRequestDTO);
 		turnoDaoImpl.salvarTurno(turno);
@@ -62,7 +62,7 @@ public class TurnoService implements ITurnoService {
 		return turnoDaoImpl.listarTurnos(usuario, status);
 	}
 	
-	private Turno converterIniciarTurnoRequestDTOEmTurno(IniciarTurnoRequestDTO iniciarTurnoRequestDTO) throws ParseException {
+	private Turno converterIniciarTurnoRequestDTOEmTurno(TurnoDTO iniciarTurnoRequestDTO) throws ParseException {
 		Turno turno = new Turno();
 		
 		Cliente cliente = new Cliente();
@@ -109,4 +109,25 @@ public class TurnoService implements ITurnoService {
 		return turno;
 	}
 
+	public static TurnoDTO converterTurnoEmTurnoDTO(Turno turno) {
+		TurnoDTO turnoDTO = new TurnoDTO();
+		turnoDTO.setId(turno.getId());
+		
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		turnoDTO.setDataInicio(formato.format(turno.getDataInicio()));
+		turnoDTO.setDataFim(formato.format(turno.getDataFim()));
+		
+		
+		turnoDTO.setCondicaoClimatica(turno.getCondicaoClimatica().getDescricao());
+		turnoDTO.setIdCliente(turno.getCliente().getId());
+		turnoDTO.setIdUsuario(turno.getUsuario().getId());
+		turnoDTO.setPeriodo(turno.getPeriodo().getDescricao());
+		turnoDTO.setStatus(turno.getStatus().getDescricao());
+		turnoDTO.setTempo(turno.getTempo().getDescricao());
+		turnoDTO.setNomeCliente(turno.getCliente().getNome());
+		turnoDTO.setNomeUsuario(turno.getUsuario().getNome());
+		
+		return turnoDTO;
+	}
+	
 }

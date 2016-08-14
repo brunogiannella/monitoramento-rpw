@@ -1,7 +1,7 @@
 package br.com.rpw.monitoramento.api.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -47,8 +47,8 @@ public class Cliente implements Serializable {
 	@Column(name = "EMAILS_RELATORIO_MENSAL")
 	private String emailsRelatorioMensal;
 
-	@OneToMany(mappedBy = "cliente", targetEntity = Camera.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Camera> cameras;
+	@OneToMany(mappedBy = "cliente", targetEntity = Camera.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<Camera> cameras;
 
 	public Long getId() {
 		return id;
@@ -106,11 +106,11 @@ public class Cliente implements Serializable {
 		this.emailsRelatorioMensal = emailsRelatorioMensal;
 	}
 
-	public List<Camera> getCameras() {
+	public Set<Camera> getCameras() {
 		return cameras;
 	}
 
-	public void setCameras(List<Camera> cameras) {
+	public void setCameras(Set<Camera> cameras) {
 		this.cameras = cameras;
 	}
 

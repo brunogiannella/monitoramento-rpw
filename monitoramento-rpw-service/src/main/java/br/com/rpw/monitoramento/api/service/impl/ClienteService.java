@@ -1,6 +1,6 @@
 package br.com.rpw.monitoramento.api.service.impl;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,7 +56,7 @@ public class ClienteService implements IClienteService {
 		cliente.setEmailsRelatorioDiario(emailDiario);
 		cliente.setEmailsRelatorioMensal(emailMensal);
 		
-		cliente.setCameras(new ArrayList<Camera>());
+		cliente.setCameras(new HashSet<Camera>());
 		for(CameraDTO cameraDto : cadastrarClienteRequestDTO.getCameras()) {
 			Camera camera = new Camera();
 			camera.setDescricaoCamera(cameraDto.getDescricaoCamera());

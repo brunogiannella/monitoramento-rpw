@@ -28,7 +28,7 @@ public class ClienteDaoImpl extends AbstractDao implements IClienteDao{
 
 	@Override
 	public void deleteCliente(Long codigoCliente) {
-		Query query = getSession().createSQLQuery("delete from CLIENTE where id = :codigoCliente");
+		Query query = getSession().createSQLQuery("delete from CLIENTE where id = :id");
         query.setLong("id", codigoCliente);
         query.executeUpdate();
 	}

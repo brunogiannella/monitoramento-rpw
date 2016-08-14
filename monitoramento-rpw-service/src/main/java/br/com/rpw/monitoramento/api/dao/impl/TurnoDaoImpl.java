@@ -52,7 +52,7 @@ public class TurnoDaoImpl extends AbstractDao implements ITurnoDao {
 
 	@Override
 	public void deleteTurno(Long codigoTurno) {
-		Query query = getSession().createSQLQuery("delete from TURNO where id = :codigoTurno");
+		Query query = getSession().createSQLQuery("delete from TURNO where id = :id");
         query.setLong("id", codigoTurno);
         query.executeUpdate();
 	}

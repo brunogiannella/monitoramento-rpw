@@ -1,5 +1,6 @@
 package br.com.rpw.monitoramento.api.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.rpw.monitoramento.api.constantes.StatusTurnoEnum;
-import br.com.rpw.monitoramento.api.dto.IniciarTurnoRequestDTO;
+import br.com.rpw.monitoramento.api.dto.TurnoDTO;
 import br.com.rpw.monitoramento.api.model.RestObject;
 import br.com.rpw.monitoramento.api.model.Turno;
 import br.com.rpw.monitoramento.api.service.impl.TurnoService;
@@ -23,7 +24,7 @@ public class TurnoController {
 	private TurnoService turnoService;
 	
 	@RequestMapping(value="", method = RequestMethod.POST)
-	public RestObject iniciarTurno(@RequestBody IniciarTurnoRequestDTO iniciarTurnoRequestDTO) { 
+	public RestObject iniciarTurno(@RequestBody TurnoDTO iniciarTurnoRequestDTO) { 
 		try {
 			Long idTurno = turnoService.iniciarTurno(iniciarTurnoRequestDTO);
 			
@@ -61,7 +62,7 @@ public class TurnoController {
 				return new RestObject(200, true, "O turno não foi encontrado.", null);
 			}
 			
-			return new RestObject(200, true, "Turno consultado com sucesso", turno);
+			return new RestObject(200, true, "Turno consultado com sucesso", TurnoService.converterTurnoEmTurnoDTO(turno));
 		} catch(Exception e) {
 			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
 		}
@@ -76,7 +77,12 @@ public class TurnoController {
 				return new RestObject(200, true, "O usuário não possui nenhum turno.", null);
 			}
 			
-			return new RestObject(200, true, "Turnos consultados com sucesso", turnos);
+			List<TurnoDTO> turnosDto = new ArrayList<TurnoDTO>();
+			for(Turno turno : turnos) {
+				turnosDto.add(TurnoService.converterTurnoEmTurnoDTO(turno));
+			}
+			
+			return new RestObject(200, true, "Turnos consultados com sucesso", turnosDto);
 		} catch(Exception e) {
 			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
 		}

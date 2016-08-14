@@ -1,7 +1,7 @@
 package br.com.rpw.monitoramento.api.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -32,6 +32,9 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(name = "NOME", nullable = false)
+	private String nome;
+
 	@Column(name = "USUARIO", nullable = false)
 	private String usuario;
 
@@ -45,8 +48,8 @@ public class Usuario implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private TipoUsuarioEnum tipoUsuario;
 
-	@OneToMany(mappedBy = "usuario", targetEntity = Telefone.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Telefone> telefones;
+	@OneToMany(mappedBy = "usuario", targetEntity = Telefone.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<Telefone> telefones;
 
 	@ManyToOne
 	@JoinColumn(name = "ID_ENDERECO")
@@ -92,11 +95,11 @@ public class Usuario implements Serializable {
 		this.tipoUsuario = tipoUsuario;
 	}
 
-	public List<Telefone> getTelefones() {
+	public Set<Telefone> getTelefones() {
 		return telefones;
 	}
 
-	public void setTelefones(List<Telefone> telefones) {
+	public void setTelefones(Set<Telefone> telefones) {
 		this.telefones = telefones;
 	}
 
@@ -106,6 +109,14 @@ public class Usuario implements Serializable {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 }

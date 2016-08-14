@@ -2,7 +2,7 @@ package br.com.rpw.monitoramento.api.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -70,8 +70,8 @@ public class Turno implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private StatusTurnoEnum status;
 
-	@OneToMany(mappedBy = "turno", targetEntity = Ocorrencia.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Ocorrencia> ocorrencias;
+	@OneToMany(mappedBy = "turno", targetEntity = Ocorrencia.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<Ocorrencia> ocorrencias;
 
 	public Long getId() {
 		return id;
@@ -145,11 +145,11 @@ public class Turno implements Serializable {
 		this.status = status;
 	}
 
-	public List<Ocorrencia> getOcorrencias() {
+	public Set<Ocorrencia> getOcorrencias() {
 		return ocorrencias;
 	}
 
-	public void setOcorrencias(List<Ocorrencia> ocorrencias) {
+	public void setOcorrencias(Set<Ocorrencia> ocorrencias) {
 		this.ocorrencias = ocorrencias;
 	}
 

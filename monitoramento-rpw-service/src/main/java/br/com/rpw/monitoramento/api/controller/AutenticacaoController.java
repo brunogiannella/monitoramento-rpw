@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.rpw.monitoramento.api.dto.AutenticacaoRequestDTO;
 import br.com.rpw.monitoramento.api.dto.AutenticacaoResponseDTO;
 import br.com.rpw.monitoramento.api.model.RestObject;
-import br.com.rpw.monitoramento.api.model.Usuario;
 import br.com.rpw.monitoramento.api.service.impl.AutenticacaoService;
 
 @RestController

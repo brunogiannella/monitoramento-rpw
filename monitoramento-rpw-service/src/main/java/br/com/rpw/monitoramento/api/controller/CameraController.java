@@ -1,20 +1,55 @@
 package br.com.rpw.monitoramento.api.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.rpw.monitoramento.api.constantes.TipoCameraEnum;
+import br.com.rpw.monitoramento.api.model.Camera;
+import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.RestObject;
+import br.com.rpw.monitoramento.api.service.impl.CameraService;
 
 @RestController
 @RequestMapping(value="/camera")
 public class CameraController {
 
+	@Autowired
+	private CameraService cameraService;
+	
 	@RequestMapping(value="/tipoCamera", method = RequestMethod.GET)
 	public RestObject consultarTiposCamera() { 
 		try {
 			return new RestObject(200, true, "Consulta realizada com sucesso", TipoCameraEnum.values());
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
+		}
+	}
+	
+	@RequestMapping(value="{id}", method = RequestMethod.GET)
+	public RestObject consultarCamera(@PathVariable("id") Long idCamera) { 
+		try {
+			Camera camera = cameraService.consultarCamera(idCamera);
+			return new RestObject(200, true, "Consulta realizada com sucesso", camera);
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
+		}
+	}
+	
+	@RequestMapping(value="/cliente/{id}", method = RequestMethod.GET)
+	public RestObject consultarCamerasCliente(@PathVariable("id") Long idCliente) { 
+		try {
+			
+			Cliente cliente = new Cliente();
+			cliente.setId(idCliente);;
+			
+			List<Camera> cameras = cameraService.consultarCameras(cliente);
+			
+			return new RestObject(200, true, "Consulta realizada com sucesso", cameras);
 		} catch(Exception e) {
 			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
 		}
