@@ -1,6 +1,7 @@
 package br.com.rpw.monitoramento.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,6 +12,7 @@ import br.com.rpw.monitoramento.api.dto.AutenticacaoResponseDTO;
 import br.com.rpw.monitoramento.api.model.RestObject;
 import br.com.rpw.monitoramento.api.service.impl.AutenticacaoService;
 
+@CrossOrigin(origins = "http://localhost:9080", maxAge = 3600)
 @RestController
 @RequestMapping(value="/autenticacao")
 public class AutenticacaoController {
