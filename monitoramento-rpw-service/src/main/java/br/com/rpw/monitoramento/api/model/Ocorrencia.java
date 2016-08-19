@@ -27,6 +27,13 @@ public class Ocorrencia implements Serializable {
 	@JoinColumn(name = "ID_TURNO")
 	private Turno turno;
 
+	@ManyToOne
+	@JoinColumn(name = "ID_TIPO_OCORRENCIA")
+	private TipoOcorrencia tipoOcorrencia;
+
+	@JoinColumn(name = "VALORES")
+	private String valores;
+
 	public Long getId() {
 		return id;
 	}
@@ -43,6 +50,20 @@ public class Ocorrencia implements Serializable {
 		this.turno = turno;
 	}
 
-	// private TipoOcorrencia tipoOcorrencia;
+	public TipoOcorrencia getTipoOcorrencia() {
+		return tipoOcorrencia;
+	}
+
+	public void setTipoOcorrencia(TipoOcorrencia tipoOcorrencia) {
+		this.tipoOcorrencia = tipoOcorrencia;
+	}
+
+	public String getValores() {
+		return valores;
+	}
+
+	public void setValores(String valores) {
+		this.valores = valores;
+	}
 
 }

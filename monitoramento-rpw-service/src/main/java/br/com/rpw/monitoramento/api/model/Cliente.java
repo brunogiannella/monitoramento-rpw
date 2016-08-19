@@ -1,6 +1,7 @@
 package br.com.rpw.monitoramento.api.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -49,6 +52,13 @@ public class Cliente implements Serializable {
 
 	@OneToMany(mappedBy = "cliente", targetEntity = Camera.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Camera> cameras;
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "cliente_ocorrencias", catalog="monitoramentorpw", joinColumns = {
+			@JoinColumn(name = "TIPO_CAMERA_ID", nullable = false, updatable = false) },
+			inverseJoinColumns = { @JoinColumn(name = "CLIENTE_ID",
+					nullable = false, updatable = false) })
+	private Set<TipoOcorrencia> tiposOcorrencia = new HashSet<TipoOcorrencia>(0);
 
 	public Long getId() {
 		return id;
@@ -114,4 +124,12 @@ public class Cliente implements Serializable {
 		this.cameras = cameras;
 	}
 
+	public Set<TipoOcorrencia> getTiposOcorrencia() {
+		return tiposOcorrencia;
+	}
+
+	public void setTiposOcorrencia(Set<TipoOcorrencia> tiposOcorrencia) {
+		this.tiposOcorrencia = tiposOcorrencia;
+	}
+	
 }

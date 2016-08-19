@@ -18,7 +18,7 @@ public class ClienteController {
 	private ClienteService clienteService;
 	
 	@RequestMapping(value="", method = RequestMethod.POST)
-	public RestObject cadastrarUsuario(@RequestBody CadastrarClienteRequestDTO cadastrarClienteRequestDTO) { 
+	public RestObject cadastrarCliente(@RequestBody CadastrarClienteRequestDTO cadastrarClienteRequestDTO) { 
 		try {
 			clienteService.cadastrarCliente(cadastrarClienteRequestDTO);
 			return new RestObject(200, true, "Cadastro realizado com sucesso", "");
