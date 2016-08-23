@@ -1,9 +1,15 @@
 var app = angular.module('app',['ui.router', 
 							    'login.controller',
+                  'home.controller',
 
 							    'constantes.service',
 							    'utils.service',
-							    'login.service']);
+							    'login.service',
+                  'turno.service',
+                  'cliente.service',
+                  'tipoOcorrencia.service',
+                  'usuario.service',
+                  'camera.service']);
  
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
 {

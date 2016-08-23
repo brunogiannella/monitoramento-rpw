@@ -16,7 +16,11 @@
 		}
 
 		function getToken() {
+			if($rootScope.usuarioLogado != null) {
+				return $rootScope.usuarioLogado.token;
+			}
 
+			return null;
 		};
 
 		return {

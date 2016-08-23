@@ -1,6 +1,9 @@
 package br.com.rpw.monitoramento.api.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -14,6 +17,7 @@ import br.com.rpw.monitoramento.api.model.TipoOcorrencia;
 import br.com.rpw.monitoramento.api.service.impl.TipoOcorrenciaService;
 import br.com.rpw.monitoramento.api.util.TokenUtil;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping(value="/tipoOcorrencia")
 public class TipoOcorrenciaController {
@@ -47,6 +51,16 @@ public class TipoOcorrenciaController {
 		try {
 			TipoOcorrencia tipoOcorrencia = tipoOcorrenciaService.consultarTipoOcorrencia(idTipoOcorrencia);
 			return new RestObject(200, true, "Consulta realizada com sucesso", tipoOcorrencia);
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
+		}
+	}
+	
+	@RequestMapping(value="", method = RequestMethod.GET)
+	public RestObject listarTiposOcorrencia() { 
+		try {
+			List<TipoOcorrencia> tiposOcorrencia = tipoOcorrenciaService.listarTiposOcorrencia();
+			return new RestObject(200, true, "Consulta realizada com sucesso", tiposOcorrencia);
 		} catch(Exception e) {
 			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
 		}

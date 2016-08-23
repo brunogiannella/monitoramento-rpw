@@ -1,6 +1,7 @@
 package br.com.rpw.monitoramento.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import br.com.rpw.monitoramento.api.model.RestObject;
 import br.com.rpw.monitoramento.api.service.impl.UsuarioService;
 import br.com.rpw.monitoramento.api.util.TokenUtil;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping(value="/usuario")
 public class UsuarioController {

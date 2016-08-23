@@ -22,7 +22,11 @@
 			$http.post(
 				ConstantesService.URL.SERVIDOR + 'autenticacao/login', data).then(
 			       function(response){
-			        	fncSucesso(response.data.data);
+			       		if(response.data.sucess) {
+				       	  	fncSucesso(response.data.data);
+				       	} else {
+				       	  	return false;
+				       	}
 			       }, 
 			       function(response){
 			       }

@@ -3,6 +3,7 @@ package br.com.rpw.monitoramento.api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +15,7 @@ import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.RestObject;
 import br.com.rpw.monitoramento.api.service.impl.CameraService;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping(value="/camera")
 public class CameraController {
