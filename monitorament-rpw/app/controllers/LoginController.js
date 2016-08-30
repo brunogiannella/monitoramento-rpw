@@ -5,9 +5,9 @@
 		.module('login.controller', [])
 		.controller('LoginController' , LoginController);
 
-	LoginController.$inject = ['$rootScope', 'LoginService', 'UtilsService', 'CameraService'];
+	LoginController.$inject = ['$rootScope', 'LoginService', 'UtilsService'];
 
-	function LoginController($rootScope, LoginService, UtilsService, CameraService) {
+	function LoginController($rootScope, LoginService, UtilsService) {
 
 		this.usuario = null;
 		this.senha = null;
@@ -19,7 +19,7 @@
 				if(data != null) {
 					$rootScope.usuarioLogado = data;
 
-					if($rootScope.usuarioLogado.tipoUsuario == "ADMINISTRATOR") {
+					if($rootScope.usuarioLogado.tipoUsuario == "ADMINISTRADOR") {
 						UtilsService.irPara('home-administrador');
 					} else if($rootScope.usuarioLogado.tipoUsuario == "SUPERVIDOR") {
 						UtilsService.irPara('home-supervisor');

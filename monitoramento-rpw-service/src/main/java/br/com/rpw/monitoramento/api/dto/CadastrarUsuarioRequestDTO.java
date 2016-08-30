@@ -5,12 +5,21 @@ import java.util.List;
 
 public class CadastrarUsuarioRequestDTO {
 
+	private String nome;
 	private String usuario;
 	private String senha;
 	private String email;
 	private String tipoUsuario;
 	private List<TelefoneDTO> telefones = new ArrayList<TelefoneDTO>();
 	private EnderecoDTO endereco;
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
 	public String getUsuario() {
 		return usuario;

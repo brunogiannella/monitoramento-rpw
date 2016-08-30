@@ -1,6 +1,8 @@
 var app = angular.module('app',['ui.router', 
 							    'login.controller',
                   'home.controller',
+                  'homeAdmin.controller',
+                  'cadastroUsuarioController.controller',
 
 							    'constantes.service',
 							    'utils.service',
@@ -27,6 +29,14 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       url: '/home',
       templateUrl: 'app/views/home-funcionario.html',
       controller: 'HomeController as HomeCrtl'
+    }).state('home-administrador', {
+      url: '/home-admin',
+      templateUrl: 'app/views/home-admin.html',
+      controller: 'HomeAdminController as HomeCrtl'
+    }).state('cadastrar-usuario', {
+      url: '/cadastrar-usuario',
+      templateUrl: 'app/views/cadastro-usuario.html',
+      controller: 'CadastroUsuarioController as CadastroUsuarioCrtl'
     });
 
 	    // Utilizando o HTML5 History API

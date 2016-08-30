@@ -94,11 +94,39 @@
 			});
 		};
 
+		function listarCamposOcorrencia(fncSucesso) {
+
+			var  data = {};
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'tipoCamposOcorrencias',
+				method : 'GET',
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		         return false;
+		       }
+		    ).catch(function() {
+				return false;
+			});
+		};
+
 		return {
 			cadastrarTipoOcorrencia : cadastrarTipoOcorrencia,
 			consultarTipoOcorrencia : consultarTipoOcorrencia,
 			listarTiposOcorrencia : listarTiposOcorrencia,
-			listarTiposCamposOcorrencia : listarTiposCamposOcorrencia
+			listarCamposOcorrencia : listarCamposOcorrencia
 		}
 	}
 

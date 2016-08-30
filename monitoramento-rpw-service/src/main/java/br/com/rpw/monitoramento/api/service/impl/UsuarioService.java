@@ -45,6 +45,7 @@ public class UsuarioService implements IUsuarioService {
 
 		usuario.setSenha(hexString.toString());
 		usuario.setEmail(cadastrarUsuarioRequestDto.getEmail());
+		usuario.setNome(cadastrarUsuarioRequestDto.getNome());
 		
 		TipoUsuarioEnum tipoUsuario = null;
 		
