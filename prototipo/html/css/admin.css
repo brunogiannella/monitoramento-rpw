@@ -104,6 +104,9 @@ body {
     width: 100%;
 }
 
+.modal-footer a {
+    width: 100%;
+}
 /* /login */
 
 /* admin */
@@ -275,4 +278,15 @@ ul.side-nav.fixed li.logo {
     font-size: 12px;
     line-height: 1.428571429;
     border-radius: 15px;
+}
+
+/* client */
+
+.bg-transparent {
+  background: transparent;
+}
+
+.bgcliente {
+    background: url(../img/bgcliente.png) no-repeat right top;
+    background-size: cover;
 }

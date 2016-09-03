@@ -1,0 +1,210 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>RPW • Admin</title>
+        <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="css/admin.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body class="bgcliente">
+      <!-- MENU -->
+      <nav>
+
+        <div class="nav-wrapper">
+
+          <div class="logo-symbol hide-on-med-and-up">
+            <img src="img/logo_symbol.png" width="116" height="143">
+          </div>
+
+          <ul class="left hide-on-med-and-up2 btn_menu" data-activates="slide-out">
+            <li><a href="#!"><i class="material-icons">menu</i></a></li>
+          </ul>
+
+          <ul class="right hide-on-small-only btn_sair">
+            <li><a id="fecharturno" href="#fecharturnomodal"><i class="material-icons right">exit_to_app</i>Fechar Turno</a></li>
+          </ul>
+        </div>
+
+            <ul id="slide-out" class="side-nav fixed rpw-menu">
+              <li class="logo"><img src="img/logo_rpw.png" /></li>
+              <li><a href="cliente.html" class="waves-effect"><i class="material-icons">home</i>Bem-vindo</a></li>
+              <li><div class="divider"></div></li>
+              <li><a href="cliente_cadastraturno.html" class="waves-effect"><i class="material-icons">slow_motion_video</i>Cadastro de Turno</a></li>
+              <li><div class="divider"></div></li>
+              <li><a href="cliente_cadastraocorrencia.html" class="waves-effect"><i class="material-icons">add_to_queue</i>Cadastrar Ocorrência</a></li>
+              <li><div class="divider"></div></li>
+              <li class="active"><a href="cliente_consultaocorrencia.html" class="waves-effect"><i class="material-icons">visibility</i>Consultar Ocorrência</a></li>
+              <li><div class="divider"></div></li>
+              <li><a href="cliente_situacaocamera.html" class="waves-effect"><i class="material-icons">videocam</i>Situação da Câmera</a></li>
+            </ul>
+
+
+
+      </nav>
+      <!-- /MENU -->
+
+      <main class="bg-transparent">
+        <div class="section">
+          <div class="container2">
+              <div class="row no-m">
+                <div class="col">
+                  <h5 class="header blue-text text-darken-2 center-on-small-only title"><i class="material-icons">slow_motion_video</i> <span class="light"> Consulta de Ocorrência</span></h5>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col s12 m12 ">
+                  <div class="card-panel">
+                    <p>Utilize o formulário para cadastrar o turno</p>
+                    <div class="row">
+                      <div class="input-field col s12 m12">
+                        <i class="material-icons prefix">textsms</i>
+                        <select class="usuario_tipo selectable">
+                          <option value="" disabled selected>Filtro</option>
+                          <optgroup label="RPW">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                          </optgroup>
+                          <optgroup label="Cliente">
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                          </optgroup>
+                        </select>
+                        <label>Selecione o tipo do filtro</label>
+                      </div>
+                    </div>
+
+                    <table class="responsive-table bordered">
+                      <thead>
+                        <tr>
+                            <th data-field="id">Tipo da Ocorrência</th>
+                            <th data-field="id">Descrição</th>
+                            <th data-field="id" class="center-on-small-only right-align">Link</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Tipo 1</td>
+                          <td>Ocorrência normal</td>
+                          <td><a id="excluir" href="#!"><i class="material-icons right">close</i></a></td>
+                        </tr>
+                        <tr>
+                          <td>Tipo 2</td>
+                          <td>Ocorrência normal</td>
+                          <td><a id="excluir" href="#!"><i class="material-icons right">close</i></a></td>
+                        </tr>
+                        <tr>
+                          <td>Tipo 3</td>
+                          <td>Ocorrência normal</td>
+                          <td><a id="excluir" href="#!"><i class="material-icons right">close</i></a></td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+
+          </div>
+        </div>
+      </main>
+              
+      <!-- MODAL -->
+      <div id="fecharturnomodal" class="modal">
+        <div class="modal-content pb-0">
+          <div class="col s12">
+            <h5 class="center">Fechar Turno</h5>
+            <p>&nbsp;</p>
+
+              <div class="row">
+                <div class="input-field col s6 pr-5">
+                  <input id="usuario_login" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" class="validate">
+                  <label for="usuario_login">Data de início</label>
+                </div>  
+                <div class="input-field col s6 pl-5">
+                  <input id="usuario_senha" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" class="validate">
+                  <label for="usuario_senha">Data de término</label>
+                </div>
+                <div class="input-field col s6 pr-5">
+                  <input id="usuario_login" placeholder="Nome do Usuário" type="text" class="validate">
+                  <label for="usuario_login">Nome do Usuário</label>
+                </div>
+                <div class="input-field col s6 pl-5">
+                  <input id="usuario_senha" placeholder="Nome do cliente" type="text" class="validate">
+                  <label for="usuario_senha">Nome do Cliente</label>
+                </div>
+                <div class="input-field col s6 pr-5">
+                  <select class="usuario_tipo selectable">
+                    <option value="" disabled selected>Escolha</option>
+                    <optgroup label="RPW">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                    </optgroup>
+                    <optgroup label="Cliente">
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                    </optgroup>
+                  </select>
+                  <label>Período</label>
+                </div>
+                <div class="input-field col s6 pl-5">
+                  <select class="usuario_tipo selectable">
+                    <option value="" disabled selected>Escolha</option>
+                    <optgroup label="RPW">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                    </optgroup>
+                    <optgroup label="Cliente">
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                    </optgroup>
+                  </select>
+                  <label>Condição Climática</label>
+                </div>
+                <div class="input-field col s12">
+                  <select class="usuario_tipo selectable">
+                    <option value="" disabled selected>Escolha</option>
+                    <optgroup label="RPW">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                    </optgroup>
+                    <optgroup label="Cliente">
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                    </optgroup>
+                  </select>
+                  <label>Tempo</label>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <div class="col s12">
+              <p><a class="btn waves-effect white green darken-1">Confirmar</a></p>
+              <p><a class="modal-action modal-close btn waves-effect white grey-text grey lighten-1 mb-10">Cancelar</a></p>
+            </div>
+        </div>
+      </div>
+      <!-- / MODAL -->
+
+      <!-- Scripts -->
+      <script type="text/javascript" src="js/materialize.js"></script>
+      <script type="text/javascript">
+        $(document).ready(function(){
+            $('.selectable').material_select();
+            $('#fecharturno').leanModal();
+            $('.btn_menu').sideNav({
+                menuWidth: 285, 
+                closeOnClick: false
+              }
+            );
+            $('.collapsible').collapsible();
+          });
+      </script>
+      <!-- /Scripts -->
+    </body>
+  </html>
