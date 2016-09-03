@@ -283,7 +283,8 @@ ul.side-nav.fixed li.logo {
 /* client */
 
 .bg-transparent {
-  background: transparent;
+  background: transparent;  
+  padding:0 10px;
 }
 
 .bgcliente {
