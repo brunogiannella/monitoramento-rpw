@@ -203,7 +203,21 @@ ul.side-nav.fixed li.logo {
   position: absolute;
 }
 
+.row .col.cadastralast {
+  padding: 0 0.40rem;
+  border-bottom: 1px solid #000;
+}
+
 #front-page-logo{display:inline-block;height:100%;pointer-events:none}
+
+@media (max-width: 320px) {
+  .collapsible-header { 
+    padding: 0 0.7rem;
+  }
+  .collapsible-header i {
+    margin-right: 0.5rem;
+  }
+}
 
 @media (min-width: 767px) {
   main {
@@ -291,3 +305,9 @@ ul.side-nav.fixed li.logo {
     background: url(../img/bgcliente.png) no-repeat right top;
     background-size: cover;
 }
+
+[type="checkbox"] + label {
+
+    padding-left: 18px;
+
+  }

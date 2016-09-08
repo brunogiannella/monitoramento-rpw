@@ -69,7 +69,7 @@
                                 <th data-field="id">Câmeras inativas</th>
                                 <th data-field="id">Turno</th>
                                 <th data-field="id">Data de Verificação</th>
-                                <th data-field="id">Ligada?</th>
+                                <th data-field="id" class="center">Ligada?</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -113,11 +113,10 @@
                                   <label for="usuario_login">Data de início</label>
                                 </div> 
                               </td>
-                              <td>
-                                <p class="center">
-                                  <input type="checkbox" id="test5" />
-                                  <label for="test5"></label>
-                                </p>
+                              <td class="center">
+                                  <input type="checkbox" name="test5" id="test5" />
+                                  <label name="test5" for="test5"></label>
+                                <label class="block center">Sim/Não</label>
                               </td>
                             </tr>
 
@@ -143,7 +142,7 @@
 
                         <tr>
                           <td>
-                            <div class="input-field col s12">
+                            <div class="input-field col s12 no-mt">
                               <select class="usuario_tipo selectable">
                                 <option value="" disabled selected>Selecione</option>
                                 <optgroup label="RPW">
@@ -159,17 +158,17 @@
                             </div>
                           </td>
                           <td>
-                            <div class="input-field col s12">
+                            <div class="input-field col s12 no-mt">
                               <input id="usuario_login" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" class="validate">
                               <label for="usuario_login">Câmera #12</label>
                             </div>
                           </td>
-                          <td><a id="excluir" class="waves-effect waves-light btn green darken-1" href="#!"><i class="material-icons">settings_backup_restore</i></a></td>
+                          <td class="center"><a id="excluir" class="waves-effect waves-light btn green darken-1" href="#!"><i class="material-icons">settings_backup_restore</i></a><br /><label>Reiniciar Câmera</label></td>
                         </tr>
 
                         <tr>
                           <td>
-                            <div class="input-field col s12">
+                            <div class="input-field col s12 no-mt">
                               <select class="usuario_tipo selectable">
                                 <option value="" disabled selected>Selecione</option>
                                 <optgroup label="RPW">
@@ -185,17 +184,17 @@
                             </div>
                           </td>
                           <td>
-                            <div class="input-field col s12">
+                            <div class="input-field col s12 no-mt">
                               <input id="usuario_login" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" class="validate">
                               <label for="usuario_login">Câmera #12</label>
                             </div>
                           </td>
-                          <td><a id="excluir" class="waves-effect waves-light btn green darken-1" href="#!"><i class="material-icons">settings_backup_restore</i></a></td>
+                          <td class="center"><a id="excluir" class="waves-effect waves-light btn green darken-1" href="#!"><i class="material-icons">settings_backup_restore</i></a><br /><label>Reiniciar Câmera</label></td>
                         </tr>
 
                         <tr>
                           <td>
-                            <div class="input-field col s12">
+                            <div class="input-field col s12 no-mt">
                               <select class="usuario_tipo selectable">
                                 <option value="" disabled selected>Selecione</option>
                                 <optgroup label="RPW">
@@ -211,12 +210,12 @@
                             </div>
                           </td>
                           <td>
-                            <div class="input-field col s12">
+                            <div class="input-field col s12 no-mt">
                               <input id="usuario_login" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" class="validate">
                               <label for="usuario_login">Câmera #12</label>
                             </div>
                           </td>
-                          <td><a id="excluir" class="waves-effect waves-light btn green darken-1" href="#!"><i class="material-icons">settings_backup_restore</i></a></td>
+                          <td class="center"><a id="excluir" class="waves-effect waves-light btn green darken-1" href="#!"><i class="material-icons">settings_backup_restore</i></a><br /><label>Reiniciar Câmera</label></td>
                         </tr>
 
                       </tbody>
