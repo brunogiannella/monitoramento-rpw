@@ -99,7 +99,7 @@
 			var  data = {};
 
 			$http({	
-				url : ConstantesService.URL.SERVIDOR + 'tipoCamposOcorrencias',
+				url : ConstantesService.URL.SERVIDOR + 'tipoCamposOcorrencia',
 				method : 'GET',
 				headers: {
 					'x-acess-token': UtilsService.getToken()

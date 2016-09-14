@@ -1,0 +1,202 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>RPW • Admin</title>
+        <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="css/admin.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+      <!-- MENU -->
+      <nav>
+
+        <div class="nav-wrapper">
+
+          <div class="logo-symbol hide-on-med-and-up">
+            <img src="img/logo_symbol.png" width="116" height="143">
+          </div>
+
+          <ul class="left hide-on-med-and-up2 btn_menu" data-activates="slide-out">
+            <li><a href="#!"><i class="material-icons">menu</i></a></li>
+          </ul>
+
+          <ul class="right hide-on-small-only btn_sair">
+            <li><a href="#!"><i class="material-icons right">exit_to_app</i>Sair</a></li>
+          </ul>
+        </div>
+
+        <ul id="slide-out" class="side-nav fixed rpw-menu">
+          <li class="logo"><img src="img/logo_rpw.png" /></li>
+          <li><a href="admin.html" class="waves-effect"><i class="material-icons">home</i>Início</a></li>
+          <li><div class="divider"></div></li>
+          <li class="active"><a href="admin_usuario.html" class="waves-effect"><i class="material-icons">person_add</i>Cadastrar Usuário</a></li>
+          <li><div class="divider"></div></li>
+          <li><a href="admin_cliente.html" class="waves-effect"><i class="material-icons">business</i>Cadastrar Cliente</a></li>
+          <li><div class="divider"></div></li>
+          <li><a href="admin_ocorrencia.html" class="waves-effect"><i class="material-icons">note_add</i>Tipos de ocorrência</a></li>
+        </ul>
+
+
+
+      </nav>
+      <!-- /MENU -->
+
+    <main>
+      <div class="section no-p">
+        <div class="container2">
+          <div class="row no-m">
+            <div class="col">
+              <h5 class="header blue-text text-darken-2 center-on-small-only title"><i class="material-icons">person_add</i> <span class="light"> Cadastrar Usuário</span></h5>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12 m12 ">
+              <div class="card-panel">
+                <p>Utilize o formulário para cadastrar usuários.</p>
+
+                <div class="row">
+                  <div class="input-field col s6 pr-5">
+                    <input ng-model="CadastroUsuarioCrtl.usuario.usuario" id="usuario_login" placeholder="Login do usuário" type="text" class="validate">
+                    <label for="usuario_login">Usuário</label>
+                  </div>
+                  <div class="input-field col s6 pl-5">
+                    <input type="password" ng-model="CadastroUsuarioCrtl.usuario.senha" id="usuario_senha" placeholder="Senha do usuário" type="text" class="validate">
+                    <label for="usuario_senha">Senha</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="input-field col s12 m6">
+                    <input ng-model="CadastroUsuarioCrtl.usuario.nome" id="usuario_nome" placeholder="Nome do usuário" type="text" class="validate">
+                    <label for="usuario_nome">Nome Completo</label>
+                  </div>
+
+                  <div class="input-field col s12 m6">
+                    <input ng-model="CadastroUsuarioCrtl.usuario.email" id="usuario_email" placeholder="exemplo@domínio.com.br" type="text" class="validate">
+                    <label for="usuario_email">E-mail</label>
+                  </div>
+
+                  <div class="input-field col s6">
+                    <input ng-model="CadastroUsuarioCrtl.usuario.telefone[0].ddd" id="usuario_DDD" placeholder="Ex: 11" type="text" class="validate">
+                    <label for="usuario_DDD">DDD</label>
+                  </div>
+
+                  <div class="input-field col s6">
+                    <input ng-model="CadastroUsuarioCrtl.usuario.telefone[0].telefone" id="usuario_telefone" placeholder="Ex: (11) 0000-0000" type="text" class="validate">
+                    <label for="usuario_telefone">Telefone</label>
+                  </div>
+
+                  <div class="input-field col s12 m6">
+                    <input ng-model="CadastroUsuarioCrtl.usuario.endereco.cep" id="usuario_cep" placeholder="Ex: 00000-000" type="text" class="validate">
+                    <label for="usuario_cep">CEP</label>
+                  </div>
+
+                  <div class="input-field col s12 m6">
+                    <input id="tipoUsuario" type="text" style="display:none;" ng-model="CadastroUsuarioCrtl.usuario.tipoUsuario" />
+                    <select onchange="alterarComboTipoUsuario();" class="usuario_tipo selectable">
+                      <option value="" disabled selected>Escolha</option>
+                      <option ng-repeat="item in tiposUsuarioConsulta" value="{{item}}">{{item}}</option>
+                      
+                    </select>
+                    <label>Tipo de usuário</label>
+                </div>
+
+                <div class="input-field col s6">
+                  <input id="estado" type="text" style="display:none;" ng-model="CadastroUsuarioCrtl.usuario.endereco.estado" />
+                  <select onchange="alterarComboEstado();" class="usuario_estado selectable">
+                    <option value="" disabled selected>--</option>
+                    <option value="AC">Acre</option>
+                    <option value="AL">Alagoas</option>
+                    <option value="AP">Amapá</option>
+                    <option value="AM">Amazonas</option>
+                    <option value="BA">Bahia</option>
+                    <option value="CE">Ceará</option>
+                    <option value="DF">Distrito Federal</option>
+                    <option value="ES">Espirito Santo</option>
+                    <option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option>
+                    <option value="MS">Mato Grosso do Sul</option>
+                    <option value="MT">Mato Grosso</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="PA">Pará</option>
+                    <option value="PB">Paraíba</option>
+                    <option value="PR">Paraná</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="PI">Piauí</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="RN">Rio Grande do Norte</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                    <option value="RO">Rondônia</option>
+                    <option value="RR">Roraima</option>
+                    <option value="SC">Santa Catarina</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="SE">Sergipe</option>
+                    <option value="TO">Tocantins</option>
+                  </select>
+                  <label>Estado</label>
+                </div>
+
+                <div class="input-field col s6">
+                  <input ng-model="CadastroUsuarioCrtl.usuario.endereco.cidade" id="usuario_cidade" placeholder="Ex: São Paulo" type="text" class="validate">
+                  <label for="usuario_cidade">Cidade</label>
+                </div>
+
+
+                <div class="input-field col s12 m6">
+                  <input ng-model="CadastroUsuarioCrtl.usuario.endereco.bairro" id="usuario_bairro" placeholder="Ex: Jardim Angela" type="text" class="validate">
+                  <label for="usuario_bairro">Bairro</label>
+                </div>
+
+                <div class="input-field col s12 m6">
+                  <input ng-model="CadastroUsuarioCrtl.usuario.endereco.logradouro" id="usuario_logradouro" placeholder="Ex: Jardim Angela" type="text" class="validate">
+                  <label for="usuario_logradouro">Logradouro</label>
+                </div>
+
+
+                <div class="input-field col s12">
+                  <button class="btn-large blue darken-2 waves-effect waves-light col s12" ng-click="CadastroUsuarioCrtl.cadastrarUsuario();">Cadastrar Usuário
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+
+      <!-- Scripts -->
+      <script type="text/javascript" src="js/materialize.js"></script>
+      <script type="text/javascript">
+        $(document).ready(function(){
+            $('.selectable').material_select();
+            $('.btn_menu').sideNav({
+                menuWidth: 285, 
+                closeOnClick: false
+              }
+            );
+
+
+            $('.collapsible').collapsible();
+          });
+
+        function alterarComboTipoUsuario() {
+          $("#tipoUsuario").val($("div.usuario_tipo li.selected span").get(0).innerHTML);
+          angular.element($("#tipoUsuario")).triggerHandler('input')
+        }
+
+        function alterarComboEstado() {
+          $("#tipoUsuario").val($("div.usuario_tipo li.selected span").get(0).innerHTML);
+          angular.element($("#tipoUsuario")).triggerHandler('input')
+        }
+      </script>
+      <!-- /Scripts -->
+    </body>
+  </html>
