@@ -3,6 +3,7 @@ package br.com.rpw.monitoramento.api.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +25,15 @@ public class ClienteController {
 		try {
 			clienteService.cadastrarCliente(cadastrarClienteRequestDTO);
 			return new RestObject(200, true, "Cadastro realizado com sucesso", "");
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro no cadastro do cliente: " + e.getMessage(), null);
+		}
+	}
+	
+	@RequestMapping(value="", method = RequestMethod.GET)
+	public RestObject consultarClientes(@RequestHeader(value="x-acess-token") String token) { 
+		try {
+			return new RestObject(200, true, "Cadastro realizado com sucesso", clienteService.consultarClientes());
 		} catch(Exception e) {
 			return new RestObject(500, false, "Ocorreu um erro no cadastro do cliente: " + e.getMessage(), null);
 		}

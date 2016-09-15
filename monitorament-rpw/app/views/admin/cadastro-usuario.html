@@ -100,17 +100,17 @@
                   <div class="input-field col s12 m6">
                     <input id="tipoUsuario" type="text" style="display:none;" ng-model="CadastroUsuarioCrtl.usuario.tipoUsuario" />
                     <select onchange="alterarComboTipoUsuario();" class="usuario_tipo selectable">
-                      <option value="" disabled selected>Escolha</option>
+                      <option value="" disabled selected>Selecione</option>
                       <option ng-repeat="item in tiposUsuarioConsulta" value="{{item}}">{{item}}</option>
                       
                     </select>
                     <label>Tipo de usuário</label>
-                </div>
+                  </div>
 
                 <div class="input-field col s6">
                   <input id="estado" type="text" style="display:none;" ng-model="CadastroUsuarioCrtl.usuario.endereco.estado" />
                   <select onchange="alterarComboEstado();" class="usuario_estado selectable">
-                    <option value="" disabled selected>--</option>
+                    <option value="" disabled selected>Selecione</option>
                     <option value="AC">Acre</option>
                     <option value="AL">Alagoas</option>
                     <option value="AP">Amapá</option>
@@ -147,6 +147,7 @@
                   <label for="usuario_cidade">Cidade</label>
                 </div>
 
+                
 
                 <div class="input-field col s12 m6">
                   <input ng-model="CadastroUsuarioCrtl.usuario.endereco.bairro" id="usuario_bairro" placeholder="Ex: Jardim Angela" type="text" class="validate">
@@ -158,6 +159,14 @@
                   <label for="usuario_logradouro">Logradouro</label>
                 </div>
 
+                <div class="input-field col s6">
+                  <input id="cliente" type="text" style="display:none;" ng-model="CadastroUsuarioCrtl.usuario.idCliente" />
+                  <select onchange="alterarComboCliente();" class="usuario_cliente selectable">
+                    <option value="" disabled selected>Selecione</option>
+                    <option ng-repeat="item in clienteConsulta" value="{{item.id}}">{{item.id}} - {{item.nome}}</option>
+                  </select>
+                  <label>Cliente</label>
+                </div>
 
                 <div class="input-field col s12">
                   <button class="btn-large blue darken-2 waves-effect waves-light col s12" ng-click="CadastroUsuarioCrtl.cadastrarUsuario();">Cadastrar Usuário
@@ -185,6 +194,7 @@
 
 
             $('.collapsible').collapsible();
+            $('.caret').remove();
           });
 
         function alterarComboTipoUsuario() {
@@ -195,6 +205,12 @@
         function alterarComboEstado() {
           $("#tipoUsuario").val($("div.usuario_tipo li.selected span").get(0).innerHTML);
           angular.element($("#tipoUsuario")).triggerHandler('input')
+        }
+
+        function alterarComboCliente() {
+          var clienteSelecionado = $("div.usuario_cliente li.selected span").get(0).innerHTML;
+          $("#cliente").val(clienteSelecionado.split(" - ")[0]);
+          angular.element($("#cliente")).triggerHandler('input')
         }
       </script>
       <!-- /Scripts -->

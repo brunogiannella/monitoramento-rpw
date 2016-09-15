@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.rpw.monitoramento.api.constantes.TipoUsuarioEnum;
 import br.com.rpw.monitoramento.api.dao.impl.UsuarioDaoImpl;
 import br.com.rpw.monitoramento.api.dto.CadastrarUsuarioRequestDTO;
+import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.Usuario;
 import br.com.rpw.monitoramento.api.service.IUsuarioService;
 
@@ -20,7 +21,7 @@ public class UsuarioService implements IUsuarioService {
 
 	@Autowired
 	private UsuarioDaoImpl usuarioDaoImpl;
-
+	
 	@Override
 	public void cadastrarUsuario(CadastrarUsuarioRequestDTO cadastrarUsuarioRequestDto) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		usuarioDaoImpl.salvarUsuario(converterCadastrarUsuarioRequestDTOemUsuario(cadastrarUsuarioRequestDto));
@@ -57,6 +58,13 @@ public class UsuarioService implements IUsuarioService {
 		}
 		
 		usuario.setTipoUsuario(tipoUsuario);
+		
+		if(cadastrarUsuarioRequestDto.getIdCliente() != null) {
+			Cliente cliente = new Cliente();
+			cliente.setId(cadastrarUsuarioRequestDto.getIdCliente());
+			usuario.setCliente(cliente);
+		}
+		
 		
 		return usuario;
 	}

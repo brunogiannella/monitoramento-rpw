@@ -32,6 +32,14 @@ public class ClienteDaoImpl extends AbstractDao implements IClienteDao{
         query.setLong("id", codigoCliente);
         query.executeUpdate();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Cliente> consultarClientes() {
+		Criteria criteria = getSession().createCriteria(Cliente.class);
+        //criteria.add(Restrictions.eq("ATIVO", true));
+        return (List<Cliente>) criteria.list();
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override

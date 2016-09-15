@@ -12,5 +12,6 @@ public interface IClienteDao {
     List<Cliente> consultarCliente(String nomeCliente);
     Cliente consultarCliente(Long idCliente);
     void atualizarCliente(Cliente Cliente);
+	List<Cliente> consultarClientes();
 	
 }

@@ -9,6 +9,7 @@ public class CadastrarUsuarioRequestDTO {
 	private String usuario;
 	private String senha;
 	private String email;
+	private Long idCliente;
 	private String tipoUsuario;
 	private List<TelefoneDTO> telefones = new ArrayList<TelefoneDTO>();
 	private EnderecoDTO endereco;
@@ -69,4 +70,12 @@ public class CadastrarUsuarioRequestDTO {
 		this.endereco = endereco;
 	}
 
+	public Long getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(Long idCliente) {
+		this.idCliente = idCliente;
+	}
+	
 }

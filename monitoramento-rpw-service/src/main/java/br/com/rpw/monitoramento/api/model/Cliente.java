@@ -49,11 +49,14 @@ public class Cliente implements Serializable {
 
 	@Column(name = "EMAILS_RELATORIO_MENSAL")
 	private String emailsRelatorioMensal;
+	
+	@Column(name = "ATIVO")
+	private Boolean ativo = true;
 
 	@OneToMany(mappedBy = "cliente", targetEntity = Camera.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Camera> cameras;
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "cliente_ocorrencias", catalog="monitoramentorpw", joinColumns = {
 			@JoinColumn(name = "TIPO_CAMERA_ID", nullable = false, updatable = false) },
 			inverseJoinColumns = { @JoinColumn(name = "CLIENTE_ID",
@@ -130,6 +133,14 @@ public class Cliente implements Serializable {
 
 	public void setTiposOcorrencia(Set<TipoOcorrencia> tiposOcorrencia) {
 		this.tiposOcorrencia = tiposOcorrencia;
+	}
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
 	}
 	
 }

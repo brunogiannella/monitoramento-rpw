@@ -1,6 +1,7 @@
 package br.com.rpw.monitoramento.api.service.impl;
 
 import java.util.HashSet;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,11 @@ public class ClienteService implements IClienteService {
 			camera.setCliente(cliente);
 			cameraDaoImpl.salvarCamera(camera);
 		}
+	}
+	
+	@Override
+	public List<Cliente> consultarClientes() {
+		return clienteDaoImpl.consultarClientes();
 	}
 
 	private Cliente converterCadastrarClienteRequestDTOemCliente(CadastrarClienteRequestDTO cadastrarClienteRequestDTO) {
@@ -79,4 +85,5 @@ public class ClienteService implements IClienteService {
 		
 		return cliente;
 	}
+
 }

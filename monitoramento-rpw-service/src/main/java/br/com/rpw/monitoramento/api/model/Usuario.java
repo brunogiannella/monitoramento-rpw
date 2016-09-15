@@ -43,6 +43,10 @@ public class Usuario implements Serializable {
 
 	@Column(name = "EMAIL")
 	private String email;
+	
+	@ManyToOne
+	@JoinColumn(name = "ID_CLIENTE")
+	private Cliente cliente;
 
 	@Column(name = "TIPO_USUARIO", nullable = false)
 	@Enumerated(EnumType.STRING)
@@ -117,6 +121,14 @@ public class Usuario implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 }

@@ -28,6 +28,7 @@
 			usuarioCadastro.endereco.cidade ="";
 			usuarioCadastro.endereco.estado ="";
 			usuarioCadastro.endereco.cep ="";
+			usuarioCadastro.idCliente ="";
 			usuarioCadastro.telefones = [];
 			usuarioCadastro.telefones[0] = {};
 			usuarioCadastro.telefones[0].ddd = "";
@@ -36,6 +37,7 @@
 			vm.usuario = usuarioCadastro;
 
 			$scope.tiposUsuarioConsulta = $rootScope.dominios.tiposUsuarioConsulta;
+			$scope.clienteConsulta = $rootScope.dominios.clienteConsulta;
 		};
 
 		function cadastrarUsuario() {

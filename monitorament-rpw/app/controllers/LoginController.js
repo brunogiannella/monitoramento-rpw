@@ -5,9 +5,9 @@
 		.module('login.controller', [])
 		.controller('LoginController' , LoginController);
 
-	LoginController.$inject = ['$rootScope', 'LoginService', 'UtilsService', 'UsuarioService', 'TipoOcorrenciaService'];
+	LoginController.$inject = ['$rootScope', 'LoginService', 'UtilsService', 'UsuarioService', 'TipoOcorrenciaService', 'ClienteService'];
 
-	function LoginController($rootScope, LoginService, UtilsService, UsuarioService, TipoOcorrenciaService) {
+	function LoginController($rootScope, LoginService, UtilsService, UsuarioService, TipoOcorrenciaService, ClienteService) {
 
 		this.usuario = null;
 		this.senha = null;
@@ -41,6 +41,8 @@
 					} else if($rootScope.usuarioLogado.tipoUsuario == "CLIENTE") {
 						UtilsService.irPara('home-cliente');
 					}
+				} else {
+					alert("Usuário ou senha inválidos.");
 				}
 				
 			};
@@ -49,8 +51,10 @@
 		}
 
 		function carregarDominiosAdmin() {
+
+			$rootScope.dominios = {};
+
 			var funcSucessoTiposUsuario = function(data) {
-				$rootScope.dominios = {}
 				$rootScope.dominios.tiposUsuarioConsulta = data;
 			};
 
@@ -58,11 +62,16 @@
 
 
 			var funcSucessoTiposCampoOcorrencia = function(data) {
-				$rootScope.dominios = {}
 				$rootScope.dominios.tiposCampoOcorrenciaConsulta = data;
 			};
 
 			TipoOcorrenciaService.listarCamposOcorrencia(funcSucessoTiposCampoOcorrencia);
+
+			var funcSucessoClientes = function(data) {
+				$rootScope.dominios.clienteConsulta = data;
+			};
+
+			ClienteService.consultarClientes(funcSucessoClientes);
 		}
 
 	}
