@@ -12,7 +12,7 @@ public class CadastrarUsuarioRequestDTO {
 	private Long idCliente;
 	private String tipoUsuario;
 	private List<TelefoneDTO> telefones = new ArrayList<TelefoneDTO>();
-	private EnderecoDTO endereco;
+	private EnderecoDTO endereco = new EnderecoDTO();
 
 	public String getNome() {
 		return nome;

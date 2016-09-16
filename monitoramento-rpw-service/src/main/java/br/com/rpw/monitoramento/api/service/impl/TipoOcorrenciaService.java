@@ -33,6 +33,8 @@ public class TipoOcorrenciaService implements ITipoOcorrenciaService {
 		TipoOcorrencia tipoOcorrencia = converterTipoOcorrenciaDTOEmTipoOcorrencia(tipoOcorrenciaDTO);
 		tipoOcorrenciaDaoImpl.salvarTipoOcorrencia(tipoOcorrencia);
 		
+		int indice = 0;
+		tipoOcorrencia.setCampos(new HashSet<CampoOcorrencia>());
 		for(CampoOcorrenciaDTO camposDto : tipoOcorrenciaDTO.getCampos()) {
 			CampoOcorrencia campo = new CampoOcorrencia();
 			campo.setDescricao(camposDto.getDescricao());
@@ -44,9 +46,11 @@ public class TipoOcorrenciaService implements ITipoOcorrenciaService {
 				campo.setTipoCampo(TipoCampoEnum.DATA);
 			}
 			
+			campo.setOrdem(indice);
 			campo.setTipoOcorrencia(tipoOcorrencia);
-			tipoOcorrencia.setCampos(new HashSet<CampoOcorrencia>());
 			tipoOcorrencia.getCampos().add(campo);
+			
+			indice++;
 		}
 		
 		tipoOcorrenciaDaoImpl.atualizarTipoOcorrencia(tipoOcorrencia);

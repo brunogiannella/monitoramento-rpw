@@ -1,12 +1,13 @@
 package br.com.rpw.monitoramento.api.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TipoOcorrenciaDTO {
 
 	private Long id;
 	private String descricao;
-	private List<CampoOcorrenciaDTO> campos;
+	private List<CampoOcorrenciaDTO> campos = new ArrayList<CampoOcorrenciaDTO>();
 
 	public Long getId() {
 		return id;

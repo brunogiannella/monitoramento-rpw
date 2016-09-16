@@ -2,8 +2,8 @@ package br.com.rpw.monitoramento.api.constantes;
 
 public enum TipoCampoEnum {
 	
-	TEXTO("ABERTO"),
-	DATA("ENCOBERTO");
+	TEXTO("TEXTO"),
+	DATA("DATA");
 
 	public String descricao;
 	
