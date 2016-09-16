@@ -9,6 +9,8 @@
 
 	function CadastroClienteController($rootScope, $scope, ClienteService, UtilsService) {
 
+		$scope.sair = UtilsService.logout;
+		
 		var vm = this;
 		vm.inicio = inicio;
 		vm.voltar = voltar;

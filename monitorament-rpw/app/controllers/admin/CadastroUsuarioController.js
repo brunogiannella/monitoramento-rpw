@@ -9,6 +9,8 @@
 
 	function CadastroUsuarioController($rootScope, $scope, UsuarioService, UtilsService) {
 
+		$scope.sair = UtilsService.logout;
+
 		var vm = this;
 
 		vm.usuario = null;

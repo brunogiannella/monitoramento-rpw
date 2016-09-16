@@ -67,30 +67,48 @@
           <div id="dadosCliente" ng-show="ClienteCrtl.edicao">
              <div class="row">
                 <div class="col s12 m12" >
-                <center><h5>Dados cadastrais</h5></center>
+                <h5 class="header black-text text-darken-2 center-on-small-only title"><i class="material-icons">toc</i> <span class="light">Dados cadastrais</span></h5>
                 <div class="card-panel">
-                  <table class="responsive-table striped">
-                    <thead>
-                      <tr>
-                          <th data-field="id">Dados do cliente</th>
-                          <th data-field="id" class="center-on-small-only right-align">Data/Horário</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Alvin dos Santos</td>
-                        <td class="right-align">12/08/2016 • 12:09</td>
-                      </tr>
-                      <tr>
-                        <td>Alan Medeiros</td>
-                        <td class="right-align">8/08/2016 • 12:05</td>
-                      </tr>
-                      <tr>
-                        <td>Jonathan Ferrati</td>
-                        <td class="right-align">2/08/2016 • 12:03</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                    <div class="row">
+                      <div class="col s12 m6" >
+                        <span class="bold">ID:</span>
+                        <span>{{clientesListaConsulta.id}}</span>
+                      </div>
+
+                      <div class="col s12 m6" >
+                        <span class="bold">Nome:</span> 
+                        <span>{{clientesListaConsulta.nome}}</span>
+                      </div>
+                      
+                    </div>
+
+                    <div class="row">
+                      <div class="col s12 m6" >
+                        <span class="bold">Email automático:</span> 
+                        <span>{{clientesListaConsulta.emailAutomatico}}</span>
+                      </div>
+
+                      <div class="col s12 m6" >
+                        <span class="bold">Email responsável:</span> 
+                        <span>{{clientesListaConsulta.emailResposavel}}</span>
+                      </div>
+                      
+                    </div>
+
+                    <div class="row">
+                      <div class="col s12 m12" >
+                        <span class="bold">Emails relatório diário:</span> 
+                        <span>{{clientesListaConsulta.emailsRelatorioDiario}}</span>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col s12 m12" >
+                        <span class="bold">Emails relatório mensal:</span> 
+                        <span>{{clientesListaConsulta.emailsRelatorioMensal}}</span>
+                      </div>
+                    </div>
+                    
                 </div>
                 </div>
               </div>
@@ -98,60 +116,77 @@
 
               <div class="row">
                 <div class="col s12 m12" >
-                <center><h5>Equipamentos cadastrados</h5></center>
+                <h5 class="header black-text text-darken-2 center-on-small-only title"><i class="material-icons">toc</i> <span class="light">Equipamentos cadastrados</span></h5>
                 <div class="card-panel">
-                  <table class="responsive-table striped">
+                  <table class="responsive-table striped" ng-show="clientesListaConsulta.cameras.length > 0">
                     <thead>
                       <tr>
                           <th data-field="id">Descrição</th>
-                          <th data-field="id" class="center-on-small-only right-align">Tipo</th>
+                          <th data-field="id">Tipo</th>
+                          <th data-field="id" class="center-on-small-only right-align">Operações</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      <tr ng-repeat="equipamento in clientesListaConsulta.cameras">
                         <td>Alvin dos Santos</td>
-                        <td class="right-align">12/08/2016 • 12:09</td>
-                      </tr>
-                      <tr>
-                        <td>Alan Medeiros</td>
-                        <td class="right-align">8/08/2016 • 12:05</td>
-                      </tr>
-                      <tr>
-                        <td>Jonathan Ferrati</td>
-                        <td class="right-align">2/08/2016 • 12:03</td>
+                        <td>12/08/2016 • 12:09</td>
+                        <td class="right-align">
+                          <i class="material-icons small blue-text">mode_edit</i>
+                          <i class="material-icons small red-text">delete</i>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
+
+                  <center><h6 ng-show="clientesListaConsulta.cameras.length == 0">Nenhum equipamento cadastrado</h6></center>
+
+                  <div class="row center">
+                    <button style="margin-top: 20px;"class="btn-large grey darken-2 waves-effect waves-light col s3 right" ng-click="ClienteCrtl.cadastrar();" name="action">ADICIONAR</button>
+                  </div>
                 </div>
+
                 </div>
               </div>
 
+             
 
               <div class="row">
                 <div class="col s12 m12" >
-                <center><h5>Ocorrências associadas</h5></center>
+                <h5 class="header black-text text-darken-2 center-on-small-only title"><i class="material-icons">toc</i> <span class="light">Ocorrências associadas</span></h5>
                 <div class="card-panel">
-                  <table class="responsive-table striped">
+                  <table class="responsive-table striped" ng-show="clientesListaConsulta.tiposOcorrencia.length > 0">
                     <thead>
                       <tr>
                           <th data-field="id">Descrição ocorrência</th>
+                          <th data-field="id" class="center-on-small-only right-align">Operações</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      <tr  ng-repeat="ocorrencia in clientesListaConsulta.tiposOcorrencia">
                         <td>Alvin dos Santos</td>
-                      </tr>
-                      <tr>
-                        <td>Alan Medeiros</td>
-                      </tr>
-                      <tr>
-                        <td>Jonathan Ferrati</td>
+                        <td class="right-align">
+                          <i class="material-icons small blue-text">mode_edit</i>
+                          <i class="material-icons small red-text">delete</i>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
+
+                  <center><h6 ng-show="clientesListaConsulta.tiposOcorrencia.length == 0">Nenhuma ocorrência associada</h6></center>
+
+                  <div class="row center">
+                    <button style="margin-top: 20px;"class="btn-large grey darken-2 waves-effect waves-light col s3 right" ng-click="ClienteCrtl.cadastrar();" name="action">ADICIONAR</button>
+                  </div>
                 </div>
+
                 </div>
               </div>
+
+              
+
+              <br>
+              <br>
+              <br>
 
               <div class="row">
                 <button class="btn-large blue darken-2 waves-effect waves-light col s12" ng-click="CadastrarTipoOcorrenciaCrtl.cadastrarTipoOcorrencia();" name="action">ALTERAR CLIENTE</button>

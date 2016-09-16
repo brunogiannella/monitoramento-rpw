@@ -54,12 +54,18 @@
                       <tr>
                           <th data-field="desc">Descrição</th>
                           <th data-field="qtdOcorrencias">Quantidade de campos</th>
+                          <th data-field="id" class="center-on-small-only right-align">Operações</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr ng-repeat="tipo in TipoOcorrenciaCrtl.tiposOcorrencia">
                         <td>{{tipo.descricao}}</td>
                         <td>{{tipo.quantidadeCampos}}</td>
+                        <td class="right-align">
+                          <i class="material-icons small blue-text">mode_edit</i>
+                          <i class="material-icons small red-text">delete</i>
+                        </td>
+
                       </tr>
                       
                     </tbody>

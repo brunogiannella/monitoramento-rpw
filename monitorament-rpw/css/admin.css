@@ -4,6 +4,7 @@ body {
 }
 .container {
     height: 100%;
+    background: #eee;
 }
 /* login */
 #login_geral {
@@ -277,4 +278,8 @@ ul.side-nav.fixed li.logo {
 .text-bold {
     font-weight: bold;
     font-size: medium;
+}
+
+.bold {
+    font-weight: bold;
 }

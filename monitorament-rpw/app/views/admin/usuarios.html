@@ -54,14 +54,19 @@
                       <tr>
                           <th data-field="id">Nome</th>
                           <th data-field="id">Usuário</th>
-                          <th data-field="id" class="center-on-small-only right-align">Tipo</th>
+                          <th data-field="id">Tipo</th>
+                          <th data-field="id" class="center-on-small-only right-align">Operações</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr ng-repeat="usuario in UsuarioCrtl.usuarios">
                         <td>{{usuario.nome}}</td>
                         <td>{{usuario.usuario}}</td>
-                        <td class="right-align">{{usuario.tipoUsuario}}</td>
+                        <td>{{usuario.tipoUsuario}}</td>
+                        <td class="right-align">
+                          <i class="material-icons small blue-text">mode_edit</i>
+                          <i class="material-icons small red-text">delete</i>
+                        </td>
                       </tr>
                       
                     </tbody>

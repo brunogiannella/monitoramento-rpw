@@ -47,6 +47,7 @@
 		vm.tipoOcorrencia.campos = [];
 		vm.voltar = voltar;
 		vm.inicio = inicio;
+		$scope.sair = UtilsService.logout;
 		vm.cadastrarTipoOcorrencia = cadastrarTipoOcorrencia;
 
 		inicializar();

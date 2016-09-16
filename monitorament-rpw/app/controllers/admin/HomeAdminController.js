@@ -10,12 +10,7 @@
 	function HomeAdminController($rootScope, $location, UtilsService) {
 		this.nomeUsuario = $rootScope.usuarioLogado.nomeUsuario;
 		this.irPara = UtilsService.irPara;
-		this.sair = sair;
-
-		function sair() {
-			$rootScope.usuarioLogado = null;
-			UtilsService.irPara("login");
-		}
+		this.sair = UtilsService.logout;
 	}
 
 })();

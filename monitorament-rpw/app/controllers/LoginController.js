@@ -11,6 +11,7 @@
 
 		this.usuario = null;
 		this.senha = null;
+		this.exibirModal = false;
 		this.realizarLogin = realizarLogin;
 
 		if($rootScope.usuarioLogado != null) {

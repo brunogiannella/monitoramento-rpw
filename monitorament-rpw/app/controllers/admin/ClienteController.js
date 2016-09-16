@@ -18,7 +18,7 @@
 			$scope.sair = UtilsService.logout;
 			vm.edicao = false;
 			vm.idCliente = null;
-			vm.usuario = null;
+			vm.cliente = null;
 			$scope.clienteConsulta = $rootScope.dominios.clienteConsulta;
 		}
 
@@ -34,7 +34,7 @@
 			vm.edicao = true;
 
 			var funcSucesso = function(data) {
-				vm.usuario = data;
+				$scope.clientesListaConsulta = data;
 			};
 
 			ClienteService.consultarCliente(vm.idCliente, funcSucesso);
