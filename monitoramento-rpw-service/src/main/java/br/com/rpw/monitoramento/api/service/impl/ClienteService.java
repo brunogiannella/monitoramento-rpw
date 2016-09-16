@@ -41,6 +41,11 @@ public class ClienteService implements IClienteService {
 	public List<Cliente> consultarClientes() {
 		return clienteDaoImpl.consultarClientes();
 	}
+	
+	@Override
+	public Cliente consultarCliente(Long id) {
+		return clienteDaoImpl.consultarCliente(id);
+	}
 
 	private Cliente converterCadastrarClienteRequestDTOemCliente(CadastrarClienteRequestDTO cadastrarClienteRequestDTO) {
 		Cliente cliente = new Cliente();

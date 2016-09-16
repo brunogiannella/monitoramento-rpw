@@ -32,6 +32,15 @@ public class UsuarioController {
 		}
 	}
 	
+	@RequestMapping(value="", method = RequestMethod.GET)
+	public RestObject consultarUsuarios(@RequestHeader(value="x-acess-token") String token) { 
+		try {
+			return new RestObject(200, true, "Consulta realizada com sucesso", usuarioService.consultarUsuarios());
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro na consulta de usuários: " + e.getMessage(), null);
+		}
+	}
+	
 	@RequestMapping(value="/tipoUsuario", method = RequestMethod.GET)
 	public RestObject consultarTiposUsuario(@RequestHeader(value="x-acess-token") String token) { 
 		try {

@@ -6,7 +6,9 @@ var app = angular.module('app',['ui.router',
                   'iniciarNovoTurnoController.controller',
                   'gerenciarCamerasController.controller',
                   'homeAdmin.controller',
+                  'usuario.controller',
                   'cadastroUsuarioController.controller',
+                  'cliente.controller',
                   'cadastroClienteController.controller',
                   'cadastrarTipoOcorrenciaController.controller',
 
@@ -62,10 +64,20 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       templateUrl: 'app/views/admin/home-admin.html',
       controller: 'HomeAdminController as HomeCrtl'
     })
+    .state('usuarios', {
+      url: '/usuarios',
+      templateUrl: 'app/views/admin/usuarios.html',
+      controller: 'UsuarioController as UsuarioCrtl'
+    })
     .state('cadastrar-usuario', {
       url: '/cadastrar-usuario',
       templateUrl: 'app/views/admin/cadastro-usuario.html',
       controller: 'CadastroUsuarioController as CadastroUsuarioCrtl'
+    })
+    .state('clientes', {
+      url: '/clientes',
+      templateUrl: 'app/views/admin/clientes.html',
+      controller: 'ClienteController as ClienteCrtl'
     })
     .state('cadastrar-cliente', {
       url: '/cadastrar-cliente',

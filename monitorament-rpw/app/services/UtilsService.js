@@ -15,6 +15,11 @@
 			$state.go(tela, parametro);
 		}
 
+		function logout() {
+			$rootScope.usuarioLogado = null;
+			irPara('login');
+		}
+
 		function getToken() {
 			if($rootScope.usuarioLogado != null) {
 				return $rootScope.usuarioLogado.token;
@@ -25,7 +30,8 @@
 
 		return {
 			irPara : irPara,
-			getToken : getToken
+			getToken : getToken,
+			logout : logout
 		}
 	}
 

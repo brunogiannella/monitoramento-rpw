@@ -31,16 +31,10 @@
 
             <ul id="slide-out" class="side-nav fixed rpw-menu">
               <li class="logo"><img src="img/logo_rpw.png" /></li>
-              <li><a href="admin.html" class="waves-effect"><i class="material-icons">home</i>Início</a></li>
+              <li><a ng-click="CadastroClienteCrtl.inicio();" class="waves-effect"><i class="material-icons">home</i>Início</a></li>
               <li><div class="divider"></div></li>
-              <li><a href="admin_usuario.html" class="waves-effect"><i class="material-icons">person_add</i>Cadastrar Usuário</a></li>
-              <li><div class="divider"></div></li>
-              <li class="active"><a href="admin_cliente.html" class="waves-effect"><i class="material-icons">business</i>Cadastrar Cliente</a></li>
-              <li><div class="divider"></div></li>
-              <li><a href="admin_ocorrencia.html" class="waves-effect"><i class="material-icons">note_add</i>Tipos de ocorrência</a></li>
+              <li><a ng-click="CadastroClienteCrtl.voltar();" class="waves-effect"><i class="material-icons">business</i>Voltar</a></li>
             </ul>
-
-
 
           </nav>
           <!-- /MENU -->
@@ -73,17 +67,13 @@
                             <a href="#step-2" type="button" class="btn indigo darken-3 btn-default btn-circle" disabled>2</a>
                             <p>Passo 2</p>
                           </div>
-                          <div class="stepwizard-step">
-                            <a href="#step-3" type="button" class="btn indigo darken-3 btn-default btn-circle" disabled>3</a>
-                            <p>Passo 3</p>
-                          </div>
                         </div>
                       </div>
                       <!-- /header passos -->
                       
                       <form role="form" action="" method="post">
                         <!-- passo 1 -->
-                        <div class="row setup-content" id="step-1">
+                        <div style="margin-top: 30px;" class="row setup-content" id="step-1" ng-show="CadastroClienteCrtl.step == 1">
                           <div class="">
                             <div class="">
 
@@ -166,7 +156,7 @@
                               <div class="input-field col hide-on-small-only m6"> <!-- vazio --> </div>
 
                               <div class="input-field col s12">
-                                <button class="btn-large blue darken-2 waves-effect waves-light col s12 nextBtn" type="submit" name="action">Próximo
+                                <button class="btn-large blue darken-2 waves-effect waves-light col s12"  ng-click="CadastroClienteCrtl.avancarStep2();">Próximo
                                   <i class="material-icons right">arrow_forward</i>
                                 </button>
                               </div>
@@ -176,22 +166,38 @@
                         <!-- /passo 1 -->
 
                         <!-- passo 2 -->
-                        <div class="row setup-content" id="step-2">
-                          <div class="col-xs-6 col-md-offset-3">
+                        <div style="margin-top: 30px;" class="row setup-content" id="step-2" ng-show="CadastroClienteCrtl.step == 2">
+                          <div class="col-xs-12">
               
                             <div class="col s12">
-                               <p><b>Lista de e-mails relatório diario</b></p>
+                               <p><b>Lista de e-mails relatório mensal</b></p>
                             </div>
                             <div class="input-field col s11 m11">
                               <input id="passo2_emaildiario" type="email" class="validate">
                               <label for="passo2_emaildiario">E-mail</label>
                             </div>
 
-                            <div class="input-field col s12 m1">
-                              <a class="btn-floating"><i class="material-icons">add</i></a>
+                            <div class="input-field col s11 m11">
+                              <input id="passo2_emaildiario" type="email" class="validate">
+                              <label for="passo2_emaildiario">E-mail</label>
                             </div>
 
-                            <div class="col s12">
+                            <div class="input-field col s11 m11">
+                              <input id="passo2_emaildiario" type="email" class="validate">
+                              <label for="passo2_emaildiario">E-mail</label>
+                            </div>
+
+                            <div class="input-field col s11 m11">
+                              <input id="passo2_emaildiario" type="email" class="validate">
+                              <label for="passo2_emaildiario">E-mail</label>
+                            </div>
+
+                            <div class="input-field col s11 m11">
+                              <input id="passo2_emaildiario" type="email" class="validate">
+                              <label for="passo2_emaildiario">E-mail</label>
+                            </div>
+
+                            <div class="col s12" style="margin-top: 4rem;">
                                <p><b>Lista de e-mails relatório diario</b></p>
                             </div>
 
@@ -200,8 +206,24 @@
                               <label for="passo2_emailmensal">E-mail</label>
                             </div>
 
-                            <div class="input-field col s1 m1">
-                              <a class="btn-floating"><i class="material-icons">add</i></a>
+                            <div class="input-field col s11 m11">
+                              <input id="passo2_emailmensal" type="email" class="validate">
+                              <label for="passo2_emailmensal">E-mail</label>
+                            </div>
+
+                            <div class="input-field col s11 m11">
+                              <input id="passo2_emailmensal" type="email" class="validate">
+                              <label for="passo2_emailmensal">E-mail</label>
+                            </div>
+
+                            <div class="input-field col s11 m11">
+                              <input id="passo2_emailmensal" type="email" class="validate">
+                              <label for="passo2_emailmensal">E-mail</label>
+                            </div>
+
+                            <div class="input-field col s11 m11">
+                              <input id="passo2_emailmensal" type="email" class="validate">
+                              <label for="passo2_emailmensal">E-mail</label>
                             </div>
 
                             <div class="input-field col s12 m6"> 
@@ -209,8 +231,8 @@
                                 <i class="material-icons left">arrow_back</i>
                               </button>
                             </div>
-                            <div class="input-field col s12">
-                              <button class="btn-large blue darken-2 waves-effect waves-light col s12 nextBtn" type="submit" name="action">Próximo
+                            <div class="input-field col s12 m6">
+                              <button class="btn-large green darken-2 waves-effect waves-light col s12" ng-click="CadastroClienteCrtl.cadastrarCliente();" name="action">Finalizar
                                 <i class="material-icons right">arrow_forward</i>
                               </button>
                             </div>
@@ -219,93 +241,6 @@
                           </div>
                         </div>
                         <!-- /passo 2 -->
-
-                        <!-- passo 3 -->
-                        <div class="row setup-content" id="step-3">
-                          <div class="col-xs-6 col-md-offset-3">
-                            
-                              
-
-                            <div class="col s12">
-                               <p><b>Lista de Câmeras</b></p>
-                            </div>
-                            <div class="input-field col s12 m6">
-                              <input id="passo2_emaildiario" type="email" class="validate">
-                              <label for="passo2_emaildiario">Número</label>
-                            </div>
-
-                            <div class="input-field col s12 m6">
-                              <input id="passo2_emailmensal" type="email" class="validate">
-                              <label for="passo2_emailmensal">Descrição</label>
-                            </div>
-
-                            <div class="input-field col s12 m6">
-                              <input id="passo2_emailmensal" type="email" class="validate">
-                              <label for="passo2_emailmensal">Localização</label>
-                            </div>
-
-                            <div class="input-field col s12 m6">
-                              <select class="usuario_tipo selectable">
-                                <option value="" disabled selected>Escolha</option>
-                                <option value="1">Tipo 1</option>
-                                <option value="2">Tipo 2</option>=
-                              </select>
-                              <label>Tipo da Câmera</label>
-                            </div>
-
-                            <div class="input-field col s12 m12">
-                              <a class="btn-floating right"><i class="material-icons">add</i></a>
-                            </div>
-
-                            <div class="row">
-                              <div class="col s12 m12" >
-                                <table class="responsive-table striped">
-                                  <thead>
-                                    <tr>
-                                        <th data-field="id">Número</th>
-                                        <th data-field="id">Descrição</th>
-                                        <th data-field="id">Localização</th>
-                                        <th data-field="id">Tipo da Câmera</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <td>000001</td>
-                                      <td>--</td>
-                                      <td>Entrada</td>
-                                      <td>Tipo 1</td>
-                                    </tr>
-                                    <tr>
-                                      <td>000002</td>
-                                      <td>--</td>
-                                      <td>Sala de Reunião</td>
-                                      <td>Tipo 2</td>
-                                    </tr>
-                                    <tr>
-                                      <td>000003</td>
-                                      <td>--</td>
-                                      <td>Porão</td>
-                                      <td>Tipo 3</td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                              </div>
-                            </div>
-
-                            <div class="input-field col s12 m6"> 
-                              <button class="btn-large grey darken-1 waves-effect waves-light col s12 prevBtn" type="submit" name="action">Anterior
-                                <i class="material-icons left">arrow_back</i>
-                              </button>
-                            </div>
-                            <div class="input-field col s12 m6">
-                              <button class="btn-large green darken-2 waves-effect waves-light col s12 nextBtn" type="submit" name="action">Finalizar
-                                <i class="material-icons right">arrow_forward</i>
-                              </button>
-                            </div>
-
-                          </div>
-                        </div>
-                        <!-- /passo 3 -->
                       </form>
                         
                     </div>
@@ -324,56 +259,7 @@
           <!-- Scripts -->
           <script type="text/javascript" src="js/materialize.js"></script>
           <script type="text/javascript">
-            $(document).ready(function () {
-              var navListItems = $('div.setup-panel div a'),
-                      allWells = $('.setup-content'),
-                      allNextBtn = $('.nextBtn'),
-                    allPrevBtn = $('.prevBtn');
-
-              allWells.hide();
-
-              navListItems.click(function (e) {
-                  e.preventDefault();
-                  var $target = $($(this).attr('href')),
-                          $item = $(this);
-
-                  if (!$item.hasClass('disabled')) {
-                      navListItems.removeClass('btn-primary').addClass('btn-default');
-                      $item.addClass('btn-primary');
-                      allWells.hide();
-                      $target.show();
-                      $target.find('input:eq(0)').focus();
-                  }
-              });
-              
-              allPrevBtn.click(function(){
-                  var curStep = $(this).closest(".setup-content"),
-                      curStepBtn = curStep.attr("id"),
-                      prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
-
-                      prevStepWizard.removeAttr('disabled').trigger('click');
-              });
-
-              allNextBtn.click(function(){
-                  var curStep = $(this).closest(".setup-content"),
-                      curStepBtn = curStep.attr("id"),
-                      nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-                      curInputs = curStep.find("input[type='text'],input[type='url']"),
-                      isValid = true;
-
-                  $(".form-group").removeClass("has-error");
-                  for(var i=0; i<curInputs.length; i++){
-                      if (!curInputs[i].validity.valid){
-                          isValid = false;
-                          $(curInputs[i]).closest(".form-group").addClass("has-error");
-                      }
-                  }
-z
-                  if (isValid)
-                      nextStepWizard.removeAttr('disabled').trigger('click');
-              });
-
-              $('div.setup-panel div a.btn-primary').trigger('click');
+            $(document).ready(function () {              
 
               $('.selectable').material_select();
               $('.btn_menu').sideNav({

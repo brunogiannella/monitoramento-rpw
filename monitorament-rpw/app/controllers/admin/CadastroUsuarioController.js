@@ -12,6 +12,8 @@
 		var vm = this;
 
 		vm.usuario = null;
+		vm.voltar = voltar;
+		vm.inicio = inicio;
 		vm.usuarioLogado = $rootScope.usuarioLogado;
 		vm.cadastrarUsuario = cadastrarUsuario;
 
@@ -53,8 +55,12 @@
 			
 		};
 
+		function inicio() {
+			UtilsService.irPara('home-administrador');
+		}
+
 		function voltar() {
-			UtilsService.irPara("listaTurnos");
+			UtilsService.irPara("usuarios");
 		};
 
 		function validarUsuario(usuarioDto) {

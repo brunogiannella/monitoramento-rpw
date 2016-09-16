@@ -40,6 +40,35 @@
 		};
 
 
+		function consultarCliente(id, fncSucesso) {
+
+			var  data = {};
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'cliente/'+id,
+				method : 'GET',
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		         return false;
+		       }
+		    ).catch(function() {
+				return false;
+			});
+		};
+
+
 		function cadastrarCliente(clienteDto, fncSucesso) {
 
 			$http({	
@@ -69,6 +98,7 @@
 
 		return {
 			cadastrarCliente : cadastrarCliente,
+			consultarCliente : consultarCliente,
 			consultarClientes : consultarClientes
 		}
 	}

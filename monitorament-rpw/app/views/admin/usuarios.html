@@ -1,0 +1,106 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>RPW • Admin</title>
+        <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="css/admin.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+      <!-- MENU -->
+      <nav>
+
+        <div class="nav-wrapper">
+
+          <div class="logo-symbol hide-on-med-and-up">
+            <img src="img/logo_symbol.png" width="116" height="143">
+          </div>
+
+          <ul class="left hide-on-med-and-up2 btn_menu" data-activates="slide-out">
+            <li><a href="#!"><i class="material-icons">menu</i></a></li>
+          </ul>
+
+          <ul class="right hide-on-small-only btn_sair">
+            <li><a href="#" ng-click="sair();"><i class="material-icons right">exit_to_app</i>Sair</a></li>
+          </ul>
+        </div>
+            <ul id="slide-out" class="side-nav fixed rpw-menu">
+              <li class="logo"><img src="img/logo_rpw.png" /></li>
+              <li><a ng-click="UsuarioCrtl.voltar();" class="waves-effect"><i class="material-icons">home</i>Início</a></li>
+            </ul>
+      </nav>
+      <!-- /MENU -->
+
+    <main>
+      <div class="section">
+        <div class="container2">
+           <div class="row no-m">
+                <div class="col">
+                  <h5 class="header blue-text text-darken-2 center-on-small-only title"><i class="material-icons">note_add</i> <span class="light">Usuários</span></h5>
+                </div>
+              </div>
+
+          <div class="row card-panel">
+
+          <div id="dadosCliente">
+             <div class="row">
+                <div class="col s12 m12" >
+                  <table class="responsive-table striped">
+                    <thead>
+                      <tr>
+                          <th data-field="id">Nome</th>
+                          <th data-field="id">Usuário</th>
+                          <th data-field="id" class="center-on-small-only right-align">Tipo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="usuario in UsuarioCrtl.usuarios">
+                        <td>{{usuario.nome}}</td>
+                        <td>{{usuario.usuario}}</td>
+                        <td class="right-align">{{usuario.tipoUsuario}}</td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <button class="btn-large blue darken-2 waves-effect waves-light col s12" ng-click="UsuarioCrtl.cadastrar();" name="action">NOVO USUÁRIO</button>
+              </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+
+      <!-- Scripts -->
+      <script type="text/javascript" src="js/materialize.js"></script>
+      <script type="text/javascript">
+        $(document).ready(function(){
+            $('.selectable').material_select();
+            $('.btn_menu').sideNav({
+                menuWidth: 285, 
+                closeOnClick: false
+              }
+            );
+
+            $('.caret').remove();
+            $('.collapsible').collapsible();
+          });
+
+
+        function alterarComboCliente() {
+          var clienteSelecionado = $("div.select_cliente li.selected span").get(0).innerHTML;
+          $("#cliente").val(clienteSelecionado.split(" - ")[0]);
+          angular.element($("#cliente")).triggerHandler('input')
+        }
+      </script>
+      <!-- /Scripts -->
+    </body>
+  </html>

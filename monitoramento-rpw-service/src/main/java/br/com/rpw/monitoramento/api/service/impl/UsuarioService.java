@@ -3,6 +3,7 @@ package br.com.rpw.monitoramento.api.service.impl;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,11 @@ public class UsuarioService implements IUsuarioService {
 	@Override
 	public Usuario consultarUsuario(Long id) {
 		return usuarioDaoImpl.consultarUsuario(id);
+	}
+	
+	@Override
+	public List<Usuario> consultarUsuarios() {
+		return usuarioDaoImpl.listarUsuarios();
 	}
 	
 	private Usuario converterCadastrarUsuarioRequestDTOemUsuario(CadastrarUsuarioRequestDTO cadastrarUsuarioRequestDto) throws NoSuchAlgorithmException, UnsupportedEncodingException {
