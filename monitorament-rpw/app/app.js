@@ -10,6 +10,7 @@ var app = angular.module('app',['ui.router',
                   'cadastroUsuarioController.controller',
                   'cliente.controller',
                   'cadastroClienteController.controller',
+                  'tipoOcorrencia.controller',
                   'cadastrarTipoOcorrenciaController.controller',
 
 							    'constantes.service',
@@ -83,6 +84,11 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       url: '/cadastrar-cliente',
       templateUrl: 'app/views/admin/cadastro-cliente.html',
       controller: 'CadastroClienteController as CadastroClienteCrtl'
+    })
+    .state('tipos-ocorrencia', {
+      url: '/tipos-ocorrencia',
+      templateUrl: 'app/views/admin/tipos-ocorrencia.html',
+      controller: 'TipoOcorrenciaController as TipoOcorrenciaCrtl'
     })
     .state('cadastrar-tipo-ocorrencias', {
       url: '/cadastrar-tipo-ocorrencias',

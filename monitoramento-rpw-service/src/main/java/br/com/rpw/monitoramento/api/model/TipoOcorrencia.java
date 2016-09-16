@@ -34,7 +34,7 @@ public class TipoOcorrencia implements Serializable {
 	@OneToMany(mappedBy = "tipoOcorrencia", targetEntity = CampoOcorrencia.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<CampoOcorrencia> campos;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "tiposOcorrencia")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "tiposOcorrencia")
 	private Set<Cliente> clientes = new HashSet<Cliente>(0);
 	
 	public Long getId() {

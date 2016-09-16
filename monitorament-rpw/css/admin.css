@@ -1,12 +1,9 @@
   html,
 body {
     height: 100%;
-    background: #eee;
 }
 .container {
     height: 100%;
-
-    background: #f0e68c;
 }
 /* login */
 #login_geral {

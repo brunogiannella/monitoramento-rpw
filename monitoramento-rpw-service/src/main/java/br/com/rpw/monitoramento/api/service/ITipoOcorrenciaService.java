@@ -12,6 +12,6 @@ import br.com.rpw.monitoramento.api.model.TipoOcorrencia;
 public interface ITipoOcorrenciaService {
 	Long cadastrarTipoOcorrencia(TipoOcorrenciaDTO tipoOcorrenciaDTO) throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException;
 	TipoOcorrencia consultarTipoOcorrencia(Long idTipoOcorrencia) throws NoSuchAlgorithmException, UnsupportedEncodingException;
-	List<TipoOcorrencia> listarTiposOcorrencia() throws NoSuchAlgorithmException, UnsupportedEncodingException;
+	List<TipoOcorrenciaDTO> listarTiposOcorrencia() throws NoSuchAlgorithmException, UnsupportedEncodingException;
 	List<TipoOcorrencia> listarTiposOcorrencia(Cliente cliente) throws NoSuchAlgorithmException, UnsupportedEncodingException;
 }

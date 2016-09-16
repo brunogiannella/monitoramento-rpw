@@ -25,48 +25,54 @@
           </ul>
 
           <ul class="right hide-on-small-only btn_sair">
-            <li><a href="#" ng-click="HomeCrtl.sair();"><i class="material-icons right">exit_to_app</i>Sair</a></li>
+            <li><a href="#" ng-click="sair();"><i class="material-icons right">exit_to_app</i>Sair</a></li>
           </ul>
         </div>
-
             <ul id="slide-out" class="side-nav fixed rpw-menu">
               <li class="logo"><img src="img/logo_rpw.png" /></li>
-              <li class="active"><a href="admin.html" class="waves-effect"><i class="material-icons">home</i>Início</a></li>
-              <li><div class="divider"></div></li>
-              <li><a href="#" ng-click="HomeCrtl.irPara('usuarios');" class="waves-effect"><i class="material-icons">person_add</i>Usuários</a></li>
-              <li><div class="divider"></div></li>
-              <li><a href="#" ng-click="HomeCrtl.irPara('clientes');" class="waves-effect"><i class="material-icons">business</i>Clientes</a></li>
-              <li><div class="divider"></div></li>
-              <li><a href="#" ng-click="HomeCrtl.irPara('tipos-ocorrencia');" class="waves-effect"><i class="material-icons">note_add</i>Tipos de ocorrência</a></li>
+              <li><a ng-click="TipoOcorrenciaCrtl.voltar();" class="waves-effect"><i class="material-icons">home</i>Início</a></li>
             </ul>
-
-
-
       </nav>
       <!-- /MENU -->
 
     <main>
       <div class="section">
         <div class="container2">
-          <div class="row no-m">
-            <div class="col">
-              <h5 class="header blue-text text-darken-2 center-on-small-only"><span class="light">Bem-vindo,</span> <span ng-bind="HomeCrtl.nomeUsuario"></span> </h5>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col s12 m12">
-              <div class="card-panel">
-                <span>Sistema 100% Operacional
-                </span>
-                <div class="progress">
-                    <div class="determinate" style="width: 100%"></div>
+           <div class="row no-m">
+                <div class="col">
+                  <h5 class="header blue-text text-darken-2 center-on-small-only title"><i class="material-icons">note_add</i> <span class="light">Tipos de ocorrência</span></h5>
                 </div>
               </div>
-            </div>
+
+          <div class="row card-panel">
+
+          <div id="dadosCliente">
+             <div class="row">
+                <div class="col s12 m12" >
+                  <table class="responsive-table striped">
+                    <thead>
+                      <tr>
+                          <th data-field="desc">Descrição</th>
+                          <th data-field="qtdOcorrencias">Quantidade de campos</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="tipo in TipoOcorrenciaCrtl.tiposOcorrencia">
+                        <td>{{tipo.descricao}}</td>
+                        <td>{{tipo.quantidadeCampos}}</td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <button class="btn-large blue darken-2 waves-effect waves-light col s12" ng-click="TipoOcorrenciaCrtl.cadastrar();" name="action">NOVO TIPO DE OCORRÊNCIA</button>
+              </div>
           </div>
 
-          
         </div>
       </div>
     </main>
@@ -75,12 +81,14 @@
       <script type="text/javascript" src="js/materialize.js"></script>
       <script type="text/javascript">
         $(document).ready(function(){
-            $('#login_txt_esqueci a').leanModal();
+            $('.selectable').material_select();
             $('.btn_menu').sideNav({
                 menuWidth: 285, 
                 closeOnClick: false
               }
             );
+
+            $('.caret').remove();
             $('.collapsible').collapsible();
           });
       </script>

@@ -7,6 +7,7 @@ public class TipoOcorrenciaDTO {
 
 	private Long id;
 	private String descricao;
+	private Integer quantidadeCampos;
 	private List<CampoOcorrenciaDTO> campos = new ArrayList<CampoOcorrenciaDTO>();
 
 	public Long getId() {
@@ -33,4 +34,12 @@ public class TipoOcorrenciaDTO {
 		this.campos = campos;
 	}
 
+	public Integer getQuantidadeCampos() {
+		return quantidadeCampos;
+	}
+
+	public void setQuantidadeCampos(Integer quantidadeCampos) {
+		this.quantidadeCampos = quantidadeCampos;
+	}
+	
 }

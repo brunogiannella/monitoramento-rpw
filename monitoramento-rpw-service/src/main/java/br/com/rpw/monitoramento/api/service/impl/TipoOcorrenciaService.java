@@ -3,6 +3,7 @@ package br.com.rpw.monitoramento.api.service.impl;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -65,8 +66,20 @@ public class TipoOcorrenciaService implements ITipoOcorrenciaService {
 	}
 
 	@Override
-	public List<TipoOcorrencia> listarTiposOcorrencia() throws NoSuchAlgorithmException, UnsupportedEncodingException {
-		return tipoOcorrenciaDaoImpl.listarTipoOcorrencias();
+	public List<TipoOcorrenciaDTO> listarTiposOcorrencia() throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		List<TipoOcorrencia> tiposOcorrencia = tipoOcorrenciaDaoImpl.listarTipoOcorrencias();
+		
+		List<TipoOcorrenciaDTO> tiposOcorrenciaDto = new ArrayList<TipoOcorrenciaDTO>();
+		
+		for(TipoOcorrencia tipo : tiposOcorrencia) {
+			TipoOcorrenciaDTO tipoDto = new TipoOcorrenciaDTO();
+			tipoDto.setDescricao(tipo.getDescricao());
+			tipoDto.setQuantidadeCampos(tipo.getCampos().size());
+			
+			tiposOcorrenciaDto.add(tipoDto);
+		}
+		
+		return tiposOcorrenciaDto;
 	}
 
 	@Override

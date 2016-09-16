@@ -1,7 +1,5 @@
 package br.com.rpw.monitoramento.api.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,8 +57,7 @@ public class TipoOcorrenciaController {
 	@RequestMapping(value="", method = RequestMethod.GET)
 	public RestObject listarTiposOcorrencia() { 
 		try {
-			List<TipoOcorrencia> tiposOcorrencia = tipoOcorrenciaService.listarTiposOcorrencia();
-			return new RestObject(200, true, "Consulta realizada com sucesso", tiposOcorrencia);
+			return new RestObject(200, true, "Consulta realizada com sucesso", tipoOcorrenciaService.listarTiposOcorrencia());
 		} catch(Exception e) {
 			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
 		}

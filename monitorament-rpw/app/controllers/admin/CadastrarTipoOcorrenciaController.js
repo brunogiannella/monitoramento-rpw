@@ -32,10 +32,21 @@
 			return true;
 		};
 
+		function inicio() {
+			UtilsService.irPara('home-administrador');
+		}
+
+		function voltar() {
+			UtilsService.irPara("tipos-ocorrencia");
+		};
+
+
 		
 		var vm = this;
 		vm.tipoOcorrencia = {};
 		vm.tipoOcorrencia.campos = [];
+		vm.voltar = voltar;
+		vm.inicio = inicio;
 		vm.cadastrarTipoOcorrencia = cadastrarTipoOcorrencia;
 
 		inicializar();
