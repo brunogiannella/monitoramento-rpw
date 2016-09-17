@@ -80,26 +80,25 @@
                               <div class="row">
 
                                 <div class="input-field col s12 m12">
-                                  <input id="passo1_nome" type="text" class="validate form-group" required>
+                                  <input id="passo1_nome" ng-model="CadastroClienteCrtl.cliente.nome" type="text" class="form-group">
                                   <label for="passo1_nome">Nome</label>
                                 </div>
 
                                 <div class="input-field col s12 m6">
-                                  <input id="passo1_emailautomatico" type="text" class="validate form-group" required>
-                                  <label for="passo1_emailautomatico">Email automatico</label>
-
+                                  <input id="passo1_emailresponsavel" ng-model="CadastroClienteCrtl.cliente.emailResposavel" type="text" class="form-group">
+                                  <label for="passo1_emailresponsavel">Email do responsável</label>
                                 </div>
 
                                 <div class="input-field col s12 m6">
-                                  <input id="passo1_emailresponsavel" type="text" class="validate form-group" required>
-                                  <label for="passo1_emailresponsavel">Email do responsável</label>
+                                  <input type="checkbox" ng-model="CadastroClienteCrtl.cliente.emailAutomatico" id="passo1_emailautomatico" />
+                                  <label for="passo1_emailautomatico">Email automatico</label>
                                 </div>
 
                               </div>
 
 
                               <div class="input-field col s12 m6">
-                                <input id="passo1_cep" placeholder="Ex: 00000-000" type="text" class="validate form-group" required>
+                                <input id="passo1_cep" ng-model="CadastroClienteCrtl.cliente.endereco.cep" placeholder="Ex: 00000-000" type="text" class="form-group">
                                 <label for="passo1_cep">CEP</label>
                               </div>
 
@@ -138,18 +137,18 @@
                               </div>
 
                               <div class="input-field col s12 m6">
-                                <input id="passo1_cidade" placeholder="Ex: São Paulo" type="text" class="validate">
+                                <input id="passo1_cidade" ng-model="CadastroClienteCrtl.cliente.endereco.cidade" placeholder="Ex: São Paulo" type="text" class="validate">
                                 <label for="passo1_cidade">Cidade</label>
                               </div>
 
 
                               <div class="input-field col s12 m6">
-                                <input id="passo1_bairro" placeholder="Ex: Jardim Angela" type="text" class="validate">
+                                <input id="passo1_bairro" ng-model="CadastroClienteCrtl.cliente.endereco.bairro" placeholder="Ex: Jardim Angela" type="text" class="validate">
                                 <label for="passo1_bairro">Bairro</label>
                               </div>
 
                               <div class="input-field col s12">
-                                <input id="passo1_logradouro" placeholder="Ex: Jardim Angela" type="text" class="validate">
+                                <input id="passo1_logradouro" ng-model="CadastroClienteCrtl.cliente.endereco.logradouro" placeholder="Ex: Jardim Angela" type="text" class="validate">
                                 <label for="passo1_logradouro">Logradouro</label>
                               </div>  
 
@@ -173,27 +172,27 @@
                                <p><b>Lista de e-mails relatório mensal</b></p>
                             </div>
                             <div class="input-field col s11 m11">
-                              <input id="passo2_emaildiario" type="email" class="validate">
+                              <input id="passo2_emaildiario" ng-model="CadastroClienteCrtl.cliente.emailsRelatorioDiario[0]" type="email" class="validate">
                               <label for="passo2_emaildiario">E-mail</label>
                             </div>
 
                             <div class="input-field col s11 m11">
-                              <input id="passo2_emaildiario" type="email" class="validate">
+                              <input id="passo2_emaildiario" ng-model="CadastroClienteCrtl.cliente.emailsRelatorioDiario[1]" type="email" class="validate">
                               <label for="passo2_emaildiario">E-mail</label>
                             </div>
 
                             <div class="input-field col s11 m11">
-                              <input id="passo2_emaildiario" type="email" class="validate">
+                              <input id="passo2_emaildiario" ng-model="CadastroClienteCrtl.cliente.emailsRelatorioDiario[2]" type="email" class="validate">
                               <label for="passo2_emaildiario">E-mail</label>
                             </div>
 
                             <div class="input-field col s11 m11">
-                              <input id="passo2_emaildiario" type="email" class="validate">
+                              <input id="passo2_emaildiario" ng-model="CadastroClienteCrtl.cliente.emailsRelatorioDiario[3]" type="email" class="validate">
                               <label for="passo2_emaildiario">E-mail</label>
                             </div>
 
                             <div class="input-field col s11 m11">
-                              <input id="passo2_emaildiario" type="email" class="validate">
+                              <input id="passo2_emaildiario" ng-model="CadastroClienteCrtl.cliente.emailsRelatorioDiario[4]" type="email" class="validate">
                               <label for="passo2_emaildiario">E-mail</label>
                             </div>
 
@@ -202,27 +201,27 @@
                             </div>
 
                             <div class="input-field col s11 m11">
-                              <input id="passo2_emailmensal" type="email" class="validate">
+                              <input id="passo2_emailmensal" ng-model="CadastroClienteCrtl.cliente.emailsRelatorioMensal[0]" type="email" class="validate">
                               <label for="passo2_emailmensal">E-mail</label>
                             </div>
 
                             <div class="input-field col s11 m11">
-                              <input id="passo2_emailmensal" type="email" class="validate">
+                              <input id="passo2_emailmensal" ng-model="CadastroClienteCrtl.cliente.emailsRelatorioMensal[1]" type="email" class="validate">
                               <label for="passo2_emailmensal">E-mail</label>
                             </div>
 
                             <div class="input-field col s11 m11">
-                              <input id="passo2_emailmensal" type="email" class="validate">
+                              <input id="passo2_emailmensal" ng-model="CadastroClienteCrtl.cliente.emailsRelatorioMensal[2]" type="email" class="validate">
                               <label for="passo2_emailmensal">E-mail</label>
                             </div>
 
                             <div class="input-field col s11 m11">
-                              <input id="passo2_emailmensal" type="email" class="validate">
+                              <input id="passo2_emailmensal" ng-model="CadastroClienteCrtl.cliente.emailsRelatorioMensal[3]" type="email" class="validate">
                               <label for="passo2_emailmensal">E-mail</label>
                             </div>
 
                             <div class="input-field col s11 m11">
-                              <input id="passo2_emailmensal" type="email" class="validate">
+                              <input id="passo2_emailmensal" ng-model="CadastroClienteCrtl.cliente.emailsRelatorioMensal[4]" type="email" class="validate">
                               <label for="passo2_emailmensal">E-mail</label>
                             </div>
 
@@ -268,6 +267,8 @@
                 }
               );
               $('.collapsible').collapsible();
+
+              $('form').submit(false);
 
             });
 

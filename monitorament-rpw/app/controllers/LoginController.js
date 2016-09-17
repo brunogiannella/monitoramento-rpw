@@ -5,9 +5,9 @@
 		.module('login.controller', [])
 		.controller('LoginController' , LoginController);
 
-	LoginController.$inject = ['$rootScope', 'LoginService', 'UtilsService', 'UsuarioService', 'TipoOcorrenciaService', 'ClienteService'];
+	LoginController.$inject = ['$rootScope', 'LoginService', 'UtilsService', 'UsuarioService', 'TipoOcorrenciaService', 'ClienteService', 'CameraService'];
 
-	function LoginController($rootScope, LoginService, UtilsService, UsuarioService, TipoOcorrenciaService, ClienteService) {
+	function LoginController($rootScope, LoginService, UtilsService, UsuarioService, TipoOcorrenciaService, ClienteService, CameraService) {
 
 		this.usuario = null;
 		this.senha = null;
@@ -73,6 +73,21 @@
 			};
 
 			ClienteService.consultarClientes(funcSucessoClientes);
+
+			TipoOcorrenciaService.listarCamposOcorrencia(funcSucessoTiposCampoOcorrencia);
+
+			var funcSucessoTiposOcorrencia = function(data) {
+				$rootScope.dominios.tipoOcorrenciasConsulta = data;
+			};
+
+			TipoOcorrenciaService.listarTiposOcorrencia(funcSucessoTiposOcorrencia);
+
+			var funcSucessoTiposCamera = function(data) {
+				$rootScope.dominios.tipoCamerasConsulta = data;
+			};
+
+			CameraService.listarTiposCamera(funcSucessoTiposCamera);
+			
 		}
 
 	}

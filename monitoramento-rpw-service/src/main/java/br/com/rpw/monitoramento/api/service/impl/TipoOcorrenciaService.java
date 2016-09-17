@@ -73,6 +73,7 @@ public class TipoOcorrenciaService implements ITipoOcorrenciaService {
 		
 		for(TipoOcorrencia tipo : tiposOcorrencia) {
 			TipoOcorrenciaDTO tipoDto = new TipoOcorrenciaDTO();
+			tipoDto.setId(tipo.getId());
 			tipoDto.setDescricao(tipo.getDescricao());
 			tipoDto.setQuantidadeCampos(tipo.getCampos().size());
 			

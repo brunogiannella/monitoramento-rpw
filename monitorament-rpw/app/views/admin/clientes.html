@@ -141,7 +141,9 @@
                   <center><h6 ng-show="clientesListaConsulta.cameras.length == 0">Nenhum equipamento cadastrado</h6></center>
 
                   <div class="row center">
-                    <button style="margin-top: 20px;"class="btn-large grey darken-2 waves-effect waves-light col s3 right" ng-click="ClienteCrtl.cadastrar();" name="action">ADICIONAR</button>
+                    <div class="input-field col s12 m12">
+                      <a class="btn-floating right" ng-click="ClienteCrtl.cadastrarEquipamento(clientesListaConsulta.id, clientesListaConsulta.nome);"><i class="material-icons">add</i></a>
+                    </div>
                   </div>
                 </div>
 
@@ -175,7 +177,9 @@
                   <center><h6 ng-show="clientesListaConsulta.tiposOcorrencia.length == 0">Nenhuma ocorrência associada</h6></center>
 
                   <div class="row center">
-                    <button style="margin-top: 20px;"class="btn-large grey darken-2 waves-effect waves-light col s3 right" ng-click="ClienteCrtl.cadastrar();" name="action">ADICIONAR</button>
+                    <div class="input-field col s12 m12">
+                      <a class="btn-floating right" ng-click="ClienteCrtl.associarOcorrencia(clientesListaConsulta.id, clientesListaConsulta.nome);"><i class="material-icons">add</i></a>
+                    </div>
                   </div>
                 </div>
 

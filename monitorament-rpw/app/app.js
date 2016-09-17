@@ -10,6 +10,8 @@ var app = angular.module('app',['ui.router',
                   'cadastroUsuarioController.controller',
                   'cliente.controller',
                   'cadastroClienteController.controller',
+                  'cadastrarEquipamento.controller',
+                  'associarTipoOcorrencia.controller',
                   'tipoOcorrencia.controller',
                   'cadastrarTipoOcorrenciaController.controller',
 
@@ -84,6 +86,24 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       url: '/cadastrar-cliente',
       templateUrl: 'app/views/admin/cadastro-cliente.html',
       controller: 'CadastroClienteController as CadastroClienteCrtl'
+    })
+    .state('cadastrar-equipamento', {
+      url: '/cadastrar-equipamento',
+      params: {
+        idCliente : null,
+        nomeCliente : null
+      },
+      templateUrl: 'app/views/admin/cadastrar-equipamento.html',
+      controller: 'CadastrarEquipamentoController as CadastrarEquipamentoCrtl'
+    })
+    .state('associar-tipo-ocorrencia', {
+      url: '/associar-tipo-ocorrencia',
+      params: {
+        idCliente : null,
+        nomeCliente : null
+      },
+      templateUrl: 'app/views/admin/associar-tipo-ocorrencia.html',
+      controller: 'AssociarTipoOcorrenciaController as AssociarTipoOcorrenciaCrtl'
     })
     .state('tipos-ocorrencia', {
       url: '/tipos-ocorrencia',

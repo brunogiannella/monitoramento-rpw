@@ -10,10 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.rpw.monitoramento.api.constantes.TipoCameraEnum;
 import br.com.rpw.monitoramento.api.dao.impl.CameraDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.ClienteDaoImpl;
+import br.com.rpw.monitoramento.api.dao.impl.EnderecoDaoImpl;
 import br.com.rpw.monitoramento.api.dto.CadastrarClienteRequestDTO;
 import br.com.rpw.monitoramento.api.dto.CameraDTO;
 import br.com.rpw.monitoramento.api.model.Camera;
 import br.com.rpw.monitoramento.api.model.Cliente;
+import br.com.rpw.monitoramento.api.model.Endereco;
 import br.com.rpw.monitoramento.api.service.IClienteService;
 
 @Service
@@ -25,15 +27,21 @@ public class ClienteService implements IClienteService {
 	
 	@Autowired
 	private CameraDaoImpl cameraDaoImpl;
+	
+	@Autowired
+	private EnderecoDaoImpl enderecoDaoImpl;
 
 	@Override
 	public void cadastrarCliente(CadastrarClienteRequestDTO cadastrarClienteRequestDTO) {
 		Cliente cliente = converterCadastrarClienteRequestDTOemCliente(cadastrarClienteRequestDTO);
+		enderecoDaoImpl.salvarEndereco(cliente.getEndereco());
 		clienteDaoImpl.salvarCliente(cliente);
 		
-		for(Camera camera : cliente.getCameras()) {
-			camera.setCliente(cliente);
-			cameraDaoImpl.salvarCamera(camera);
+		if(cliente.getCameras() != null) {
+			for(Camera camera : cliente.getCameras()) {
+				camera.setCliente(cliente);
+				cameraDaoImpl.salvarCamera(camera);
+			}
 		}
 	}
 	
@@ -67,26 +75,37 @@ public class ClienteService implements IClienteService {
 		cliente.setEmailsRelatorioDiario(emailDiario);
 		cliente.setEmailsRelatorioMensal(emailMensal);
 		
+		cliente.setEndereco(new Endereco());
+		cliente.getEndereco().setBairro(cadastrarClienteRequestDTO.getEndereco().getBairro());
+		cliente.getEndereco().setCep(cadastrarClienteRequestDTO.getEndereco().getCep());
+		cliente.getEndereco().setCidade(cadastrarClienteRequestDTO.getEndereco().getCidade());
+		cliente.getEndereco().setEstado(cadastrarClienteRequestDTO.getEndereco().getEstado());
+		cliente.getEndereco().setLogradouro(cadastrarClienteRequestDTO.getEndereco().getLogradouro());
+		
 		cliente.setCameras(new HashSet<Camera>());
-		for(CameraDTO cameraDto : cadastrarClienteRequestDTO.getCameras()) {
-			Camera camera = new Camera();
-			camera.setDescricaoCamera(cameraDto.getDescricaoCamera());
-			camera.setLocalizacaoCamera(cameraDto.getLocalizacaoCamera());
-			camera.setNumeroCamera(cameraDto.getNumeroCamera());
-			
-			TipoCameraEnum tipoCamera = null;
-			
-			for(TipoCameraEnum tipo : TipoCameraEnum.values()) {
-				if(tipo.getDescricao().equals(cameraDto.getTipoCamera())) {
-					tipoCamera = tipo;
-					break;
+		
+		if(cadastrarClienteRequestDTO.getCameras() != null) {
+			for(CameraDTO cameraDto : cadastrarClienteRequestDTO.getCameras()) {
+				Camera camera = new Camera();
+				camera.setDescricaoCamera(cameraDto.getDescricaoCamera());
+				camera.setLocalizacaoCamera(cameraDto.getLocalizacaoCamera());
+				camera.setNumeroCamera(cameraDto.getNumeroCamera());
+				
+				TipoCameraEnum tipoCamera = null;
+				
+				for(TipoCameraEnum tipo : TipoCameraEnum.values()) {
+					if(tipo.getDescricao().equals(cameraDto.getTipoCamera())) {
+						tipoCamera = tipo;
+						break;
+					}
 				}
+				
+				camera.setTipoCamera(tipoCamera);
+				
+				cliente.getCameras().add(camera);
 			}
-			
-			camera.setTipoCamera(tipoCamera);
-			
-			cliente.getCameras().add(camera);
 		}
+		
 		
 		return cliente;
 	}

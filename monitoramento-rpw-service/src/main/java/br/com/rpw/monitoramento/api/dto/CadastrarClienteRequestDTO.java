@@ -1,5 +1,6 @@
 package br.com.rpw.monitoramento.api.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CadastrarClienteRequestDTO {
@@ -7,9 +8,9 @@ public class CadastrarClienteRequestDTO {
 	private String nome;
 	private Boolean emailAutomatico;
 	private String emailResposavel;
-	private List<String> emailsRelatorioDiario;
-	private List<String> emailsRelatorioMensal;
-	private EnderecoDTO endereco;
+	private List<String> emailsRelatorioDiario = new ArrayList<String>();
+	private List<String> emailsRelatorioMensal = new ArrayList<String>();
+	private EnderecoDTO endereco = new EnderecoDTO();
 	private List<CameraDTO> cameras;
 
 	public String getNome() {

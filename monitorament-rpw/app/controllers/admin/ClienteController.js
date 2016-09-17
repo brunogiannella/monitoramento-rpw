@@ -10,9 +10,12 @@
 	function ClienteController($rootScope, $scope, ClienteService, UtilsService) {
 
 		var vm = this;
+		vm.irPara = UtilsService.irPara;
 		vm.cadastrar = cadastrar;
 		vm.voltar = voltar;
 		vm.consultarCliente = consultarCliente;
+		vm.cadastrarEquipamento = cadastrarEquipamento;
+		vm.associarOcorrencia = associarOcorrencia;
 
 		function inicializar() {
 			$scope.sair = UtilsService.logout;
@@ -28,6 +31,14 @@
 
 		function voltar() {
 			UtilsService.irPara('home-administrador');
+		}
+
+		function cadastrarEquipamento(id, nome) {
+			UtilsService.irPara('cadastrar-equipamento', {idCliente:id, nomeCliente:nome});
+		}
+
+		function associarOcorrencia(id, nome) {
+			UtilsService.irPara('associar-tipo-ocorrencia', {idCliente:id, nomeCliente:nome});
 		}
 
 		function consultarCliente() {
