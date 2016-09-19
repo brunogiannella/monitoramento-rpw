@@ -27,7 +27,7 @@ var app = angular.module('app',['ui.router',
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
 {
    	// remove o # da url
-   	$locationProvider.html5Mode(true);
+   	//$locationProvider.html5Mode(true);
  
    	$urlRouterProvider.otherwise('/');
 
@@ -117,5 +117,5 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
     });
 
 	    // Utilizando o HTML5 History API
-	$locationProvider.html5Mode(true);
+	 $locationProvider.html5Mode(true);
 });
