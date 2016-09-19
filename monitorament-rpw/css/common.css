@@ -2,3 +2,18 @@
 	height : 100%;
 	background: #eee;
 }
+
+.mensagensValidacao {
+	background: #FFDAB9;
+	border: solid 1px;
+	border-color: red;
+	border-radius: 6px;
+	font-weight: bold;
+	font-size: small;
+	padding: 5px;
+	margin-bottom: 5px;
+}
+
+.mr10 {
+	margin-right: 10px;
+}

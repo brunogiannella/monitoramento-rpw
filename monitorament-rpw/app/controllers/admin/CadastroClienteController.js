@@ -25,7 +25,7 @@
 		};
 
 		function cadastrarCliente() {
-			if(validarCliente(this.usuario)) {
+			if(validarCliente(vm.usuario)) {
 				var funcSucesso = function(data) {
 					alert("Cliente cadastrado com sucesso");
 					UtilsService.irPara("home-administrador");

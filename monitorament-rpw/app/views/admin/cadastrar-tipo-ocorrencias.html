@@ -55,129 +55,146 @@
                   <div class="card-panel">
                     <p>Utilize o formulário para cadastrar o tipo da ocorrência.</p>
 
-                    <div class="row">
-                      <div class="input-field col s12 pr-5">
-                        <input id="usuario_login" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.descricao" type="text" class="validate">
-                        <label for="usuario_login">Descrição da ocorrência</label>
-                      </div>
-                    </div>
+                    <form novalidate name="mainForm" ng-submit="CadastrarTipoOcorrenciaCrtl.cadastrarTipoOcorrencia();"> 
 
-                    <!--  -->
-                    <div class="row no-m">
-                      <div class="input-field col s12 m6">
-                        <input id="descricaoCampo[0]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[0].descricao" type="text" class="validate">
-                        <label for="descricaoCampo[0]">campo</label>
+                      <div id="mensagensValidacaoDescricao" class="row mensagensValidacao" ng-show="mainForm.descricao.$dirty && (mainForm.descricao.$error.required)">
+                        <div class="col">
+                          <span ng-class="error" ng-show="mainForm.descricao.$dirty && mainForm.descricao.$error.required"><i class="tiny material-icons mr10">error</i>Descrição do tipo de ocorrência é obrigatório</span>
+                        </div>  
                       </div>
 
-                      <div class="input-field col s12 m5">
-                        <input id="tipoCampo0" type="text" style="display:none;" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[0].tipoCampo" />
-                        <select onchange="alterarComboTipoOcorrencia(0);" class="tipoCampo0 selectable">
-                          <option value="" disabled selected>Selecione</option>
-                          <option ng-repeat="item in tiposCampoOcorrenciaConsulta" value="{{item}}">{{item}}</option>
-                          
-                        </select>
-                        <label>Tipo do campo</label>
+                      <div id="mensagensValidacaoCampos" class="row mensagensValidacao" ng-show="mainForm.descricaoCampo[0].$dirty && (mainForm.descricaoCampo[0].$error.required)">
+                        <div class="col">
+                          <span ng-class="error" ng-show="mainForm.descricaoCampo[0].$dirty && mainForm.descricaoCampo[0].$error.required"><i class="tiny material-icons mr10">error</i>É obrigatório o preenchimento de no mínimo um campo</span>
+                        </div>  
                       </div>
-                      <!--  -->
+
+                      <div class="row">
+                        <div class="input-field col s12 pr-5">
+                          <input id="descricao" name="descricao" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.descricao" type="text" required>
+                          <label for="descricao">Descrição da ocorrência</label>
+                        </div>
+                      </div>
 
                       <!--  -->
-                    <div class="row no-m">
-                      <div class="input-field col s12 m6">
-                        <input id="descricaoCampo[1]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[1].descricao" type="text" class="validate">
-                        <label for="descricaoCampo[1]">campo</label>
-                      </div>
+                      <div class="row no-m">
+                        <div class="input-field col s12 m6">
+                          <input id="descricaoCampo[0]" name="descricaoCampo[0]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[0].descricao" type="text" required>
+                          <label for="descricaoCampo[0]">campo</label>
+                        </div>
 
-                      <div class="input-field col s12 m5">
-                        <input id="tipoCampo1" type="text" style="display:none;" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[1].tipoCampo" />
-                        <select onchange="alterarComboTipoOcorrencia(1);" class="tipoCampo1 selectable">
-                          <option value="" disabled selected>Selecione</option>
-                          <option ng-repeat="item in tiposCampoOcorrenciaConsulta" value="{{item}}">{{item}}</option>
-                          
-                        </select>
-                        <label>Tipo do campo</label>
-                      </div>
-                      <!--  -->
+                        <div class="input-field col s12 m5">
+                          <input id="tipoCampo0" type="text" style="display:none;" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[0].tipoCampo" />
+                          <select onchange="alterarComboTipoOcorrencia(0);" class="tipoCampo0 selectable">
+                            <option value="" disabled selected>Selecione</option>
+                            <option ng-repeat="item in tiposCampoOcorrenciaConsulta" value="{{item}}">{{item}}</option>
+                            
+                          </select>
+                          <label>Tipo do campo</label>
+                        </div>
+                        <!--  -->
 
-                      <!--  -->
-                    <div class="row no-m">
-                      <div class="input-field col s12 m6">
-                        <input id="descricaoCampo[2]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[2].descricao" type="text" class="validate">
-                        <label for="descricaoCampo[2]">campo</label>
-                      </div>
+                        <!--  -->
+                      <div class="row no-m">
+                        <div class="input-field col s12 m6">
+                          <input id="descricaoCampo[1]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[1].descricao" type="text" class="validate">
+                          <label for="descricaoCampo[1]">campo</label>
+                        </div>
 
-                      <div class="input-field col s12 m5">
-                        <input id="tipoCampo2" type="text" style="display:none;" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[2].tipoCampo" />
-                        <select onchange="alterarComboTipoOcorrencia(2);" class="tipoCampo2 selectable">
-                          <option value="" disabled selected>Selecione</option>
-                          <option ng-repeat="item in tiposCampoOcorrenciaConsulta" value="{{item}}">{{item}}</option>
-                          
-                        </select>
-                        <label>Tipo do campo</label>
-                      </div>
-                      <!--  -->
+                        <div class="input-field col s12 m5">
+                          <input id="tipoCampo1" type="text" style="display:none;" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[1].tipoCampo" />
+                          <select onchange="alterarComboTipoOcorrencia(1);" class="tipoCampo1 selectable">
+                            <option value="" disabled selected>Selecione</option>
+                            <option ng-repeat="item in tiposCampoOcorrenciaConsulta" value="{{item}}">{{item}}</option>
+                            
+                          </select>
+                          <label>Tipo do campo</label>
+                        </div>
+                        <!--  -->
 
-                      <!--  -->
-                    <div class="row no-m">
-                      <div class="input-field col s12 m6">
-                        <input id="descricaoCampo[3]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[3].descricao" type="text" class="validate">
-                        <label for="descricaoCampo[3]">campo</label>
-                      </div>
+                        <!--  -->
+                      <div class="row no-m">
+                        <div class="input-field col s12 m6">
+                          <input id="descricaoCampo[2]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[2].descricao" type="text" class="validate">
+                          <label for="descricaoCampo[2]">campo</label>
+                        </div>
 
-                      <div class="input-field col s12 m5">
-                        <input id="tipoCampo3" type="text" style="display:none;" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[3].tipoCampo" />
-                        <select onchange="alterarComboTipoOcorrencia(3);" class="tipoCampo3 selectable">
-                          <option value="" disabled selected>Selecione</option>
-                          <option ng-repeat="item in tiposCampoOcorrenciaConsulta" value="{{item}}">{{item}}</option>
-                          
-                        </select>
-                        <label>Tipo do campo</label>
-                      </div>
-                      <!--  -->
+                        <div class="input-field col s12 m5">
+                          <input id="tipoCampo2" type="text" style="display:none;" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[2].tipoCampo" />
+                          <select onchange="alterarComboTipoOcorrencia(2);" class="tipoCampo2 selectable">
+                            <option value="" disabled selected>Selecione</option>
+                            <option ng-repeat="item in tiposCampoOcorrenciaConsulta" value="{{item}}">{{item}}</option>
+                            
+                          </select>
+                          <label>Tipo do campo</label>
+                        </div>
+                        <!--  -->
 
-                      <!--  -->
-                    <div class="row no-m">
-                      <div class="input-field col s12 m6">
-                        <input id="descricaoCampo[4]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[4].descricao" type="text" class="validate">
-                        <label for="descricaoCampo[4]">campo</label>
-                      </div>
+                        <!--  -->
+                      <div class="row no-m">
+                        <div class="input-field col s12 m6">
+                          <input id="descricaoCampo[3]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[3].descricao" type="text" class="validate">
+                          <label for="descricaoCampo[3]">campo</label>
+                        </div>
 
-                      <div class="input-field col s12 m5">
-                        <input id="tipoCampo4" type="text" style="display:none;" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[4].tipoCampo" />
-                        <select onchange="alterarComboTipoOcorrencia(4);" class="tipoCampo4 selectable">
-                          <option value="" disabled selected>Selecione</option>
-                          <option ng-repeat="item in tiposCampoOcorrenciaConsulta" value="{{item}}">{{item}}</option>
-                          
-                        </select>
-                        <label>Tipo do campo</label>
-                      </div>
-                      <!--  -->
+                        <div class="input-field col s12 m5">
+                          <input id="tipoCampo3" type="text" style="display:none;" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[3].tipoCampo" />
+                          <select onchange="alterarComboTipoOcorrencia(3);" class="tipoCampo3 selectable">
+                            <option value="" disabled selected>Selecione</option>
+                            <option ng-repeat="item in tiposCampoOcorrenciaConsulta" value="{{item}}">{{item}}</option>
+                            
+                          </select>
+                          <label>Tipo do campo</label>
+                        </div>
+                        <!--  -->
 
-                      <!--  -->
-                    <div class="row no-m">
-                      <div class="input-field col s12 m6">
-                        <input id="descricaoCampo[5]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[5].descricao" type="text" class="validate">
-                        <label for="descricaoCampo[5]">campo</label>
-                      </div>
+                        <!--  -->
+                      <div class="row no-m">
+                        <div class="input-field col s12 m6">
+                          <input id="descricaoCampo[4]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[4].descricao" type="text" class="validate">
+                          <label for="descricaoCampo[4]">campo</label>
+                        </div>
 
-                      <div class="input-field col s12 m5">
-                        <input id="tipoCampo5" type="text" style="display:none;" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[5].tipoCampo" />
-                        <select onchange="alterarComboTipoOcorrencia(5);" class="tipoCampo5 selectable">
-                          <option value="" disabled selected>Selecione</option>
-                          <option ng-repeat="item in tiposCampoOcorrenciaConsulta" value="{{item}}">{{item}}</option>
-                          
-                        </select>
-                        <label>Tipo do campo</label>
-                      </div>
-                      <!--  -->
+                        <div class="input-field col s12 m5">
+                          <input id="tipoCampo4" type="text" style="display:none;" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[4].tipoCampo" />
+                          <select onchange="alterarComboTipoOcorrencia(4);" class="tipoCampo4 selectable">
+                            <option value="" disabled selected>Selecione</option>
+                            <option ng-repeat="item in tiposCampoOcorrenciaConsulta" value="{{item}}">{{item}}</option>
+                            
+                          </select>
+                          <label>Tipo do campo</label>
+                        </div>
+                        <!--  -->
+
+                        <!--  -->
+                      <div class="row no-m">
+                        <div class="input-field col s12 m6">
+                          <input id="descricaoCampo[5]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[5].descricao" type="text" class="validate">
+                          <label for="descricaoCampo[5]">campo</label>
+                        </div>
+
+                        <div class="input-field col s12 m5">
+                          <input id="tipoCampo5" type="text" style="display:none;" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[5].tipoCampo" />
+                          <select onchange="alterarComboTipoOcorrencia(5);" class="tipoCampo5 selectable">
+                            <option value="" disabled selected>Selecione</option>
+                            <option ng-repeat="item in tiposCampoOcorrenciaConsulta" value="{{item}}">{{item}}</option>
+                            
+                          </select>
+                          <label>Tipo do campo</label>
+                        </div>
+                        <!--  -->
+                      
+
+                        <div class="input-field col s12">
+                          <button type="submit" class="btn-large blue darken-2 waves-effect waves-light col s12" name="action" ng-disabled="mainForm.$invalid">CADASTRAR TIPO OCORRÊNCIA
+                            <i class="material-icons right">send</i>
+                          </button>
+                        </div>
+
+                    </form>
                     
 
-                      <div class="input-field col s12">
-                        <button class="btn-large blue darken-2 waves-effect waves-light col s12" ng-click="CadastrarTipoOcorrenciaCrtl.cadastrarTipoOcorrencia();" name="action">CADASTRAR TIPO OCORRÊNCIA
-                          <i class="material-icons right">send</i>
-                        </button>
-                      </div>
-
-                      </div>
+                  </div>
 
                   </div>
                 </div>

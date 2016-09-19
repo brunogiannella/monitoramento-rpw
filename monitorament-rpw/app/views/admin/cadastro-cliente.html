@@ -71,21 +71,59 @@
                       </div>
                       <!-- /header passos -->
                       
-                      <form role="form" action="" method="post">
+                      <form novalidate name="mainForm" ng-submit="CadastroClienteCrtl.cadastrarCliente();">
                         <!-- passo 1 -->
                         <div style="margin-top: 30px;" class="row setup-content" id="step-1" ng-show="CadastroClienteCrtl.step == 1">
                           <div class="">
                             <div class="">
 
+
+                              <div id="mensagensValidacaoNome" class="row mensagensValidacao" ng-show="mainForm.passo1_nome.$dirty && (mainForm.passo1_nome.$error.required)">
+                                <div class="col">
+                                  <span ng-class="error" ng-show="mainForm.passo1_nome.$dirty && mainForm.passo1_nome.$error.required"><i class="tiny material-icons mr10">error</i>Nome do cliente é obrigatório</span>
+                                </div>  
+                              </div>
+
+                              <div id="mensagensValidacaoEmail" class="row mensagensValidacao" ng-show="mainForm.passo1_emailresponsavel.$dirty && (mainForm.passo1_emailresponsavel.$error.required || mainForm.passo1_emailresponsavel.$error.email)">
+                                <div class="col">
+                                  <span ng-class="error" ng-show="mainForm.passo1_emailresponsavel.$dirty && mainForm.passo1_emailresponsavel.$error.required"><i class="tiny material-icons mr10">error</i>E-mail do responsável é obrigatório</span>
+                                </div>  
+                              </div>
+
+                              <div id="mensagensValidacaoCEP" class="row mensagensValidacao" ng-show="mainForm.passo1_cep.$dirty && (mainForm.passo1_cep.$error.required)">
+                                <div class="col">
+                                  <span ng-class="error" ng-show="mainForm.passo1_cep.$dirty && mainForm.passo1_cep.$error.required"><i class="tiny material-icons mr10">error</i>CEP do cliente é obrigatório</span>
+                                </div>  
+                              </div>
+
+                              <div id="mensagensValidacaoCidade" class="row mensagensValidacao" ng-show="mainForm.passo1_cidade.$dirty && (mainForm.passo1_cidade.$error.required)">
+                                <div class="col">
+                                  <span ng-class="error" ng-show="mainForm.passo1_cidade.$dirty && mainForm.passo1_cidade.$error.required"><i class="tiny material-icons mr10">error</i>Cidade do cliente é obrigatório</span>
+                                </div>  
+                              </div>
+
+                              <div id="mensagensValidacaoBairro" class="row mensagensValidacao" ng-show="mainForm.passo1_bairro.$dirty && (mainForm.passo1_bairro.$error.required)">
+                                <div class="col">
+                                  <span ng-class="error" ng-show="mainForm.passo1_bairro.$dirty && mainForm.passo1_bairro.$error.required"><i class="tiny material-icons mr10">error</i>Bairro do cliente é obrigatório</span>
+                                </div>  
+                              </div>
+
+                              <div id="mensagensValidacaoLogradouro" class="row mensagensValidacao" ng-show="mainForm.passo1_logradouro.$dirty && (mainForm.passo1_logradouro.$error.required)">
+                                <div class="col">
+                                  <span ng-class="error" ng-show="mainForm.passo1_logradouro.$dirty && mainForm.passo1_logradouro.$error.required"><i class="tiny material-icons mr10">error</i>Logradouro do cliente é obrigatório</span>
+                                </div>  
+                              </div>
+
+
                               <div class="row">
 
                                 <div class="input-field col s12 m12">
-                                  <input id="passo1_nome" ng-model="CadastroClienteCrtl.cliente.nome" type="text" class="form-group">
+                                  <input id="passo1_nome" name="passo1_nome" ng-model="CadastroClienteCrtl.cliente.nome" type="text" class="form-group" required>
                                   <label for="passo1_nome">Nome</label>
                                 </div>
 
                                 <div class="input-field col s12 m6">
-                                  <input id="passo1_emailresponsavel" ng-model="CadastroClienteCrtl.cliente.emailResposavel" type="text" class="form-group">
+                                  <input id="passo1_emailresponsavel" name="passo1_emailresponsavel" ng-model="CadastroClienteCrtl.cliente.emailResposavel" type="text" class="form-group" required>
                                   <label for="passo1_emailresponsavel">Email do responsável</label>
                                 </div>
 
@@ -98,7 +136,7 @@
 
 
                               <div class="input-field col s12 m6">
-                                <input id="passo1_cep" ng-model="CadastroClienteCrtl.cliente.endereco.cep" placeholder="Ex: 00000-000" type="text" class="form-group">
+                                <input id="passo1_cep" name="passo1_cep" ng-model="CadastroClienteCrtl.cliente.endereco.cep" placeholder="Ex: 00000-000" type="text" class="form-group" required>
                                 <label for="passo1_cep">CEP</label>
                               </div>
 
@@ -137,25 +175,25 @@
                               </div>
 
                               <div class="input-field col s12 m6">
-                                <input id="passo1_cidade" ng-model="CadastroClienteCrtl.cliente.endereco.cidade" placeholder="Ex: São Paulo" type="text" class="validate">
+                                <input id="passo1_cidade" name="passo1_cidade" ng-model="CadastroClienteCrtl.cliente.endereco.cidade" placeholder="Ex: São Paulo" type="text" required>
                                 <label for="passo1_cidade">Cidade</label>
                               </div>
 
 
                               <div class="input-field col s12 m6">
-                                <input id="passo1_bairro" ng-model="CadastroClienteCrtl.cliente.endereco.bairro" placeholder="Ex: Jardim Angela" type="text" class="validate">
+                                <input id="passo1_bairro" name="passo1_bairro" ng-model="CadastroClienteCrtl.cliente.endereco.bairro" placeholder="Ex: Jardim Angela" type="text" required>
                                 <label for="passo1_bairro">Bairro</label>
                               </div>
 
                               <div class="input-field col s12">
-                                <input id="passo1_logradouro" ng-model="CadastroClienteCrtl.cliente.endereco.logradouro" placeholder="Ex: Jardim Angela" type="text" class="validate">
+                                <input id="passo1_logradouro" name="passo1_logradouro" ng-model="CadastroClienteCrtl.cliente.endereco.logradouro" placeholder="Ex: Jardim Angela" type="text" required>
                                 <label for="passo1_logradouro">Logradouro</label>
                               </div>  
 
                               <div class="input-field col hide-on-small-only m6"> <!-- vazio --> </div>
 
                               <div class="input-field col s12">
-                                <button class="btn-large blue darken-2 waves-effect waves-light col s12"  ng-click="CadastroClienteCrtl.avancarStep2();">Próximo
+                                <button class="btn-large blue darken-2 waves-effect waves-light col s12"  ng-click="CadastroClienteCrtl.avancarStep2();" ng-disabled="mainForm.$invalid">Próximo
                                   <i class="material-icons right">arrow_forward</i>
                                 </button>
                               </div>
@@ -231,9 +269,8 @@
                               </button>
                             </div>
                             <div class="input-field col s12 m6">
-                              <button class="btn-large green darken-2 waves-effect waves-light col s12" ng-click="CadastroClienteCrtl.cadastrarCliente();" name="action">Finalizar
-                                <i class="material-icons right">arrow_forward</i>
-                              </button>
+                              <button type="submit" class="btn-large blue darken-2 waves-effect waves-light col s12" ng-disabled="mainForm.$invalid">Finalizar
+                    </button>
                             </div>
 
 

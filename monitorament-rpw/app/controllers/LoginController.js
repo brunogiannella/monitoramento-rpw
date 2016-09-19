@@ -5,13 +5,12 @@
 		.module('login.controller', [])
 		.controller('LoginController' , LoginController);
 
-	LoginController.$inject = ['$rootScope', 'LoginService', 'UtilsService', 'UsuarioService', 'TipoOcorrenciaService', 'ClienteService', 'CameraService'];
+	LoginController.$inject = ['$scope', '$rootScope', 'LoginService', 'UtilsService', 'UsuarioService', 'TipoOcorrenciaService', 'ClienteService', 'CameraService'];
 
-	function LoginController($rootScope, LoginService, UtilsService, UsuarioService, TipoOcorrenciaService, ClienteService, CameraService) {
+	function LoginController($scope, $rootScope, LoginService, UtilsService, UsuarioService, TipoOcorrenciaService, ClienteService, CameraService) {
 
 		this.usuario = null;
 		this.senha = null;
-		this.exibirModal = false;
 		this.realizarLogin = realizarLogin;
 
 		if($rootScope.usuarioLogado != null) {
@@ -27,6 +26,10 @@
 		}
 
 		function realizarLogin() {
+
+			$scope.erro = false;
+			$scope.mensagemErro = "";
+
 			var funcSucesso = function(data) {
 
 				if(data != null) {
@@ -43,7 +46,8 @@
 						UtilsService.irPara('home-cliente');
 					}
 				} else {
-					alert("Usuário ou senha inválidos.");
+					$scope.erro = true;
+					$scope.mensagemErro = "Usuário ou senha inválidos";
 				}
 				
 			};
