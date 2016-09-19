@@ -58,6 +58,9 @@ public class Usuario implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "ID_ENDERECO")
 	private Endereco endereco;
+	
+	@Column(name = "ATIVO")
+	private Boolean ativo;
 
 	public Long getId() {
 		return id;
@@ -131,4 +134,12 @@ public class Usuario implements Serializable {
 		this.cliente = cliente;
 	}
 
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
+	
 }

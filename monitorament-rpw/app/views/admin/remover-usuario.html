@@ -32,10 +32,12 @@
             <ul id="slide-out" class="side-nav fixed rpw-menu">
               <li class="logo"><img src="img/logo_rpw.png" /></li>
 
-              <li><a ng-click="AssociarTipoOcorrenciaCrtl.inicio();" class="waves-effect"><i class="material-icons">home</i>Início</a></li>
+              <li><a ng-click="RemoverUsuarioCrtl.inicio();" class="waves-effect"><i class="material-icons">home</i>Início</a></li>
               <li><div class="divider"></div></li>
-              <li><a ng-click="AssociarTipoOcorrenciaCrtl.voltar();" class="waves-effect"><i class="material-icons">business</i>Voltar</a></li>
+              <li><a ng-click="RemoverUsuarioCrtl.voltar();" class="waves-effect"><i class="material-icons">business</i>Voltar</a></li>
             </ul>
+
+
 
           </nav>
           <!-- /MENU -->
@@ -45,7 +47,7 @@
             <div class="container2">
               <div class="row no-m">
                 <div class="col">
-                  <h5 class="header blue-text text-darken-2 center-on-small-only title"><i class="material-icons">business</i> <span class="light">Associar tipo ocorrência</span></h5>
+                  <h5 class="header blue-text text-darken-2 center-on-small-only title"><i class="material-icons">business</i> <span class="light"> Remover usuário</span></h5>
                 </div>
               </div>
 
@@ -57,33 +59,22 @@
 
                     <div class="container_passos mt-20">
                       
-                      <!-- /header passos -->
-                      
-                      <form role="form" action="" method="post">
-
-                        <div class="row">
+                        <div class="row setup-content" id="step-3">
                           <div class="col-xs-12">
-                            
-							             <div class="input-field col s12 m12">
-                              <span class="text-bold">{{AssociarTipoOcorrenciaCrtl.nomeCliente}}</label>
+
+							              <div class="input-field col s12 m12">
+                              <span class="text-bold">Você deseja mesmo remover o usuário {{RemoverUsuarioCrtl.loginUsuario}}?</label>
                             </div>
 							
-                            <div class="input-field col s12 m6">
-                              <input id="tipoOcorrencia" type="text" style="display:none;" ng-model="AssociarTipoOcorrenciaCrtl.associarTipoOcorrencia.tipoOcorrencia" />
-                              <select onchange="alterarComboTipoOcorrencia();" class="tipoocorrencia_cliente selectable">
-                                <option value="" disabled selected>Selecione</option>
-                                <option ng-repeat="item in tipoOcorrenciasConsulta" value="{{item.id}}">{{item.id}} - {{item.descricao}}</option>
-                              </select>
-                              <label>Cliente</label>
+                            <div class="input-field col s12 m3">
+              							   <button  class="btn-large red darken-2 waves-effect waves-light col s12" ng-click="RemoverUsuarioCrtl.removerUsuario();" name="action">SIM</button>
+              						  </div>
+                            <div class="input-field col s12 m3">
+                               <button  class="btn-large grey darken-2 waves-effect waves-light col s12" ng-click="RemoverUsuarioCrtl.voltar();" name="action">NÃO</button>
                             </div>
 
                           </div>
-
-                          <div class="input-field col s12 m6">
-                              <button style="margin-left: 40px;" class="btn-large blue darken-2 waves-effect waves-light col s3" ng-click="CadastrarEquipamentoCrtl.cadastrarEquipamento();" name="action">ASSOCIAR OCORRÊNCIA</button>
-                            </div>
                         </div>
-                      </form>
                         
                     </div>
 
@@ -115,12 +106,10 @@
             });
 
 
-            function alterarComboTipoOcorrencia() {
-              var tipoOcorrenciaSelecionada = $("div.tipoocorrencia_cliente li.selected span").get(0).innerHTML;
-              $("#cliente").val(tipoOcorrenciaSelecionada.split(" - ")[0]);
-              angular.element($("#tipoOcorrencia")).triggerHandler('input')
+            function alterarComboTipoUsuario() {
+              $("#tipoCamera").val($("div.tipoCamera_equipamento li.selected span").get(0).innerHTML);
+              angular.element($("#tipoCamera")).triggerHandler('input')
             }
-
           </script>
           <!-- /Scripts -->
         </body>

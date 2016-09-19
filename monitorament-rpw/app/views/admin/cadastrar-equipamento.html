@@ -61,7 +61,7 @@
                       
                       <!-- /header passos -->
                       
-                      <form role="form" action="" method="post">
+                      <form novalidate name="mainForm" ng-submit="CadastrarEquipamentoCrtl.cadastrarEquipamento();"> 
 
                         <!-- passo 3 -->
                         <div class="row setup-content" id="step-3">
@@ -73,23 +73,35 @@
                                <p><b>Equipamento</b></p>
                             </div>
 							
-							<div class="input-field col s12 m12">
+							              <div class="input-field col s12 m12">
                               <span class="text-bold">{{CadastrarEquipamentoCrtl.nomeCliente}}</label>
+                            </div>
+
+                            <div id="mensagensValidacaoDescricao" class="col s12 m12 mensagensValidacao" ng-show="mainForm.descricao.$dirty && (mainForm.descricao.$error.required)">
+                              <div class="col">
+                                <span ng-class="error" ng-show="mainForm.descricao.$dirty && mainForm.descricao.$error.required"><i class="tiny material-icons mr10">error</i>Descrição do equipamento é obrigatório</span>
+                              </div>  
+                            </div>
+
+                            <div id="mensagensValidacaoNumero" class="col s12 m12 mensagensValidacao" ng-show="mainForm.numero.$dirty && (mainForm.numero.$error.required)">
+                              <div class="col">
+                                <span ng-class="error" ng-show="mainForm.numero.$dirty && mainForm.numero.$error.required"><i class="tiny material-icons mr10">error</i>Número do equipamento é obrigatório</span>
+                              </div>  
                             </div>
 							
                             <div class="input-field col s12 m6">
-                              <input id="passo2_emaildiario" type="email" class="validate">
-                              <label for="passo2_emaildiario">Número</label>
+                              <input id="numero" type="text" name="numero" ng-model="CadastrarEquipamentoCrtl.equipamento.numero" required>
+                              <label for="numero">Número</label>
                             </div>
 
                             <div class="input-field col s12 m6">
-                              <input id="passo2_emailmensal" type="email" class="validate">
-                              <label for="passo2_emailmensal">Descrição</label>
+                              <input id="descricao" type="text" name="descricao" ng-model="CadastrarEquipamentoCrtl.equipamento.descricao" required>
+                              <label for="descricao">Descrição</label>
                             </div>
 
                             <div class="input-field col s12 m6">
-                              <input id="passo2_emailmensal" type="email" class="validate">
-                              <label for="passo2_emailmensal">Localização</label>
+                              <input id="localizacao" type="email">
+                              <label for="localizacao">Localização</label>
                             </div>
 
                             <div class="input-field col s12 m6">
@@ -104,8 +116,8 @@
                             
 
                             <div class="input-field col s12 m12">
-							<button class="btn-large blue darken-2 waves-effect waves-light col s12" ng-click="CadastrarEquipamentoCrtl.cadastrarEquipamento();" name="action">CADASTRAR EQUIPAMENTO</button>
-						  </div>
+              							   <button type="submit" class="btn-large blue darken-2 waves-effect waves-light col s12" ng-disabled="mainForm.$invalid" name="action">CADASTRAR EQUIPAMENTO</button>
+              						  </div>
 
                           </div>
                         </div>
@@ -137,6 +149,7 @@
                 }
               );
               $('.collapsible').collapsible();
+              $('.caret').remove();
 
             });
 

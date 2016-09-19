@@ -64,8 +64,8 @@
                         <td>{{usuario.usuario}}</td>
                         <td>{{usuario.tipoUsuario}}</td>
                         <td class="right-align">
-                          <i class="material-icons small blue-text">mode_edit</i>
-                          <i class="material-icons small red-text">delete</i>
+                          <a href="#"><i class="material-icons small blue-text">mode_edit</i></a>
+                          <a href="#" ng-click="UsuarioCrtl.removerUsuario(usuario.id, usuario.usuario);"><i class="material-icons small red-text">delete</i></a>
                         </td>
                       </tr>
                       

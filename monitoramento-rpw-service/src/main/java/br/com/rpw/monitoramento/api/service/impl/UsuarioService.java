@@ -41,6 +41,11 @@ public class UsuarioService implements IUsuarioService {
 	}
 	
 	@Override
+	public void removerUsuario(Long id) {
+		usuarioDaoImpl.deleteEmployeeById(id);
+	}
+	
+	@Override
 	public List<Usuario> consultarUsuarios() {
 		return usuarioDaoImpl.listarUsuarios();
 	}

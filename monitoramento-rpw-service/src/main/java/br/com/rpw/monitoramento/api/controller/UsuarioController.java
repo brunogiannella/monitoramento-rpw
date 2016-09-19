@@ -2,6 +2,7 @@ package br.com.rpw.monitoramento.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,16 @@ public class UsuarioController {
 	public RestObject consultarUsuarios(@RequestHeader(value="x-acess-token") String token) { 
 		try {
 			return new RestObject(200, true, "Consulta realizada com sucesso", usuarioService.consultarUsuarios());
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro na consulta de usuários: " + e.getMessage(), null);
+		}
+	}
+	
+	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
+	public RestObject removerUsuario(@PathVariable Long id, @RequestHeader(value="x-acess-token") String token) { 
+		try {
+			usuarioService.removerUsuario(id);
+			return new RestObject(200, true, "Consulta realizada com sucesso", "");
 		} catch(Exception e) {
 			return new RestObject(500, false, "Ocorreu um erro na consulta de usuários: " + e.getMessage(), null);
 		}
