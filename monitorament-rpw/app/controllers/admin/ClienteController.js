@@ -16,6 +16,7 @@
 		vm.consultarCliente = consultarCliente;
 		vm.cadastrarEquipamento = cadastrarEquipamento;
 		vm.associarOcorrencia = associarOcorrencia;
+		vm.removerCliente = removerCliente;
 
 		function inicializar() {
 			$scope.sair = UtilsService.logout;
@@ -39,6 +40,10 @@
 
 		function associarOcorrencia(id, nome) {
 			UtilsService.irPara('associar-tipo-ocorrencia', {idCliente:id, nomeCliente:nome});
+		}
+
+		function removerCliente(idCliente, nomeCliente) {
+			UtilsService.irPara('remover-cliente', {idCliente:idCliente, nomeCliente:nomeCliente});
 		}
 
 		function consultarCliente() {

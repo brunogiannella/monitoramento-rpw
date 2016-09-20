@@ -3,7 +3,6 @@ package br.com.rpw.monitoramento.api.dao.impl;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +15,7 @@ public class ClienteDaoImpl extends AbstractDao implements IClienteDao{
 
 	@Override
 	public void salvarCliente(Cliente cliente) {
+		cliente.setAtivo(true);
 		persist(cliente);
 	}
 
@@ -28,16 +28,16 @@ public class ClienteDaoImpl extends AbstractDao implements IClienteDao{
 
 	@Override
 	public void deleteCliente(Long codigoCliente) {
-		Query query = getSession().createSQLQuery("delete from CLIENTE where id = :id");
-        query.setLong("id", codigoCliente);
-        query.executeUpdate();
+		Cliente cliente = consultarCliente(codigoCliente);
+		cliente.setAtivo(false);
+		atualizarCliente(cliente);
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Cliente> consultarClientes() {
 		Criteria criteria = getSession().createCriteria(Cliente.class);
-        //criteria.add(Restrictions.eq("ATIVO", true));
+        criteria.add(Restrictions.eq("ativo", true));
         return (List<Cliente>) criteria.list();
 	}
 

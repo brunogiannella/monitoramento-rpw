@@ -283,3 +283,8 @@ ul.side-nav.fixed li.logo {
 .bold {
     font-weight: bold;
 }
+
+.barraBuscaFont {
+  font-size: 14px;
+  font-weight: bold;
+}

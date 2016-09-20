@@ -68,6 +68,33 @@
 			});
 		};
 
+		function removerCliente(id, fncSucesso) {
+
+			var  data = {};
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'cliente/'+id,
+				method : 'DELETE',
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		         return false;
+		       }
+		    ).catch(function() {
+				return false;
+			});
+		};
 
 		function cadastrarCliente(clienteDto, fncSucesso) {
 
@@ -99,7 +126,8 @@
 		return {
 			cadastrarCliente : cadastrarCliente,
 			consultarCliente : consultarCliente,
-			consultarClientes : consultarClientes
+			consultarClientes : consultarClientes,
+			removerCliente : removerCliente
 		}
 	}
 

@@ -49,4 +49,14 @@ public class ClienteController {
 		}
 	}
 	
+	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
+	public RestObject removerCliente(@PathVariable Long id, @RequestHeader(value="x-acess-token") String token) { 
+		try {
+			clienteService.removerCliente(id);
+			return new RestObject(200, true, "Cadastro realizado com sucesso", "");
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro no cadastro do cliente: " + e.getMessage(), null);
+		}
+	}
+	
 }
