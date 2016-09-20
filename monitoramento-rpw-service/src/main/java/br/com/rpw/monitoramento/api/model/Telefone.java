@@ -6,18 +6,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.com.rpw.monitoramento.api.constantes.TipoTelefoneEnum;
-import br.com.rpw.monitoramento.api.model.pk.TelefonePK;
 
 @Entity
 @Table(name = "TELEFONE")
-@IdClass(value=TelefonePK.class)
 public class Telefone implements Serializable {
 
 	/**
@@ -26,20 +23,26 @@ public class Telefone implements Serializable {
 	private static final long serialVersionUID = 881295858930258074L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
 	@Column(name = "DDD", nullable = false)
 	private Integer ddd;
 
-	@Id
 	@Column(name = "TELEFONE", nullable = false)
 	private Long telefone;
 
-	@Column(name = "TIPO_TELEFONE", nullable = false)
+	@Column(name = "TIPO_TELEFONE")
 	@Enumerated(EnumType.STRING)
 	private TipoTelefoneEnum tipoTelefone;
 
-	@ManyToOne
-	@JoinColumn(name = "ID_USUARIO")
-	private Usuario usuario;
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Integer getDdd() {
 		return ddd;
@@ -63,14 +66,6 @@ public class Telefone implements Serializable {
 
 	public void setTipoTelefone(TipoTelefoneEnum tipoTelefone) {
 		this.tipoTelefone = tipoTelefone;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
 	}
 
 }

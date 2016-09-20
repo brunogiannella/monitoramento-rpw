@@ -33,6 +33,16 @@ public class UsuarioController {
 		}
 	}
 	
+	@RequestMapping(value="", method = RequestMethod.PUT)
+	public RestObject atualizarUsuario(@RequestBody CadastrarUsuarioRequestDTO cadastrarUsuarioRequestDTO, @RequestHeader(value="x-acess-token") String token) { 
+		try {
+			usuarioService.atualizarUsuario(cadastrarUsuarioRequestDTO);
+			return new RestObject(200, true, "Update realizado com sucesso", "");
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro no update do usuário: " + e.getMessage(), null);
+		}
+	}
+	
 	@RequestMapping(value="", method = RequestMethod.GET)
 	public RestObject consultarUsuarios(@RequestHeader(value="x-acess-token") String token) { 
 		try {
@@ -47,6 +57,15 @@ public class UsuarioController {
 		try {
 			usuarioService.removerUsuario(id);
 			return new RestObject(200, true, "Consulta realizada com sucesso", "");
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro na consulta de usuários: " + e.getMessage(), null);
+		}
+	}
+	
+	@RequestMapping(value="/{id}", method = RequestMethod.GET)
+	public RestObject consultarUsuario(@PathVariable Long id, @RequestHeader(value="x-acess-token") String token) { 
+		try {
+			return new RestObject(200, true, "Consulta realizada com sucesso", usuarioService.consultarUsuario(id));
 		} catch(Exception e) {
 			return new RestObject(500, false, "Ocorreu um erro na consulta de usuários: " + e.getMessage(), null);
 		}

@@ -12,5 +12,9 @@ public class EnderecoDaoImpl extends AbstractDao implements IEnderecoDao {
     public void salvarEndereco(Endereco endereco) {
         persist(endereco);
     }
+    
+    public void atualizarEndereco(Endereco endereco){
+        getSession().update(endereco);
+    }
  
 }

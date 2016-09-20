@@ -8,6 +8,7 @@ var app = angular.module('app',['ui.router',
                   'homeAdmin.controller',
                   'usuario.controller',
                   'removerUsuario.controller',
+                  'editarUsuario.controller',
                   'cadastroUsuarioController.controller',
                   'cliente.controller',
                   'removerCliente.controller',
@@ -82,6 +83,14 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       },
       templateUrl: 'app/views/admin/remover-usuario.html',
       controller: 'RemoverUsuarioController as RemoverUsuarioCrtl'
+    })
+    .state('editar-usuario', {
+      url: '/editar-usuario',
+      params: {
+        idUsuario : null
+      },
+      templateUrl: 'app/views/admin/cadastro-usuario.html',
+      controller: 'EditarUsuarioController as CadastroUsuarioCrtl'
     })
     .state('cadastrar-usuario', {
       url: '/cadastrar-usuario',

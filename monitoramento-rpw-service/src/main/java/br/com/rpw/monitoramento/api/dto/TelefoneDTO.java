@@ -2,9 +2,18 @@ package br.com.rpw.monitoramento.api.dto;
 
 public class TelefoneDTO {
 
+	private Long id;
 	private Integer ddd;
 	private Long telefone;
 	private String tipoTelefone;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Integer getDdd() {
 		return ddd;

@@ -38,6 +38,33 @@
 			});
 		};
 
+		function atualizarUsuario(usuarioDto, fncSucesso) {
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'usuario',
+				method : 'PUT',
+				data: usuarioDto,
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		         return false;
+		       }
+		    ).catch(function() {
+				return false;
+			});
+		};
+
 		function consultarUsuarios(fncSucesso) {
 
 			var  data = {};
@@ -122,10 +149,40 @@
 			});
 		};
 
+		function consultarUsuario(idUsuario, fncSucesso, controller) {
+
+			var  data = {};
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'usuario/'+idUsuario,
+				method : 'GET',
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data, controller);
+		       	  } else {
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		         return false;
+		       }
+		    ).catch(function() {
+				return false;
+			});
+		};
+
 		return {
 			cadastrarUsuario : cadastrarUsuario,
+			atualizarUsuario : atualizarUsuario,
 			consultarTiposUsuario : consultarTiposUsuario,
 			consultarUsuarios : consultarUsuarios,
+			consultarUsuario : consultarUsuario,
 			removerUsuario : removerUsuario
 		}
 	}

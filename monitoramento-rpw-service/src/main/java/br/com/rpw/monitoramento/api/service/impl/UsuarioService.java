@@ -11,10 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.rpw.monitoramento.api.constantes.TipoUsuarioEnum;
 import br.com.rpw.monitoramento.api.dao.impl.EnderecoDaoImpl;
+import br.com.rpw.monitoramento.api.dao.impl.TelefoneDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.UsuarioDaoImpl;
 import br.com.rpw.monitoramento.api.dto.CadastrarUsuarioRequestDTO;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.Endereco;
+import br.com.rpw.monitoramento.api.model.Telefone;
 import br.com.rpw.monitoramento.api.model.Usuario;
 import br.com.rpw.monitoramento.api.service.IUsuarioService;
 
@@ -28,11 +30,23 @@ public class UsuarioService implements IUsuarioService {
 	@Autowired
 	private EnderecoDaoImpl enderecoDaoImpl;
 	
+	@Autowired
+	private TelefoneDaoImpl telefoneDaoImpl;
+	
 	@Override
 	public void cadastrarUsuario(CadastrarUsuarioRequestDTO cadastrarUsuarioRequestDto) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		Usuario usuario = converterCadastrarUsuarioRequestDTOemUsuario(cadastrarUsuarioRequestDto);
 		enderecoDaoImpl.salvarEndereco(usuario.getEndereco());
+		telefoneDaoImpl.salvarTelefone(usuario.getTelefone());
 		usuarioDaoImpl.salvarUsuario(usuario);
+	}
+	
+	@Override
+	public void atualizarUsuario(CadastrarUsuarioRequestDTO cadastrarUsuarioRequestDto) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		Usuario usuario = converterCadastrarUsuarioRequestDTOemUsuario(cadastrarUsuarioRequestDto);
+		enderecoDaoImpl.atualizarEndereco(usuario.getEndereco());
+		telefoneDaoImpl.atualizarTelefone(usuario.getTelefone());
+		usuarioDaoImpl.atualizarUsuario(usuario);
 	}
 	
 	@Override
@@ -52,7 +66,13 @@ public class UsuarioService implements IUsuarioService {
 	
 	private Usuario converterCadastrarUsuarioRequestDTOemUsuario(CadastrarUsuarioRequestDTO cadastrarUsuarioRequestDto) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		Usuario usuario = new Usuario();
+		
+		if(cadastrarUsuarioRequestDto.getId() != null) {
+			usuario.setId(cadastrarUsuarioRequestDto.getId());
+		}
+		
 		usuario.setEndereco(new Endereco());
+		usuario.setTelefone(new Telefone());
 		usuario.setUsuario(cadastrarUsuarioRequestDto.getUsuario());
 		
 		MessageDigest algorithm = MessageDigest.getInstance("MD5");
@@ -63,6 +83,15 @@ public class UsuarioService implements IUsuarioService {
 			hexString.append(String.format("%02X", 0xFF & b));
 		}
 
+		if(cadastrarUsuarioRequestDto.getTelefone().getId() != null) {
+			usuario.getTelefone().setId(cadastrarUsuarioRequestDto.getTelefone().getId());
+		}
+		usuario.getTelefone().setDdd(cadastrarUsuarioRequestDto.getTelefone().getDdd());
+		usuario.getTelefone().setTelefone(cadastrarUsuarioRequestDto.getTelefone().getTelefone());
+		
+		if(cadastrarUsuarioRequestDto.getEndereco().getId() != null) {
+			usuario.getEndereco().setId(cadastrarUsuarioRequestDto.getEndereco().getId());
+		}
 		usuario.getEndereco().setBairro(cadastrarUsuarioRequestDto.getEndereco().getBairro());
 		usuario.getEndereco().setCep(cadastrarUsuarioRequestDto.getEndereco().getCep());
 		usuario.getEndereco().setCidade(cadastrarUsuarioRequestDto.getEndereco().getCidade());

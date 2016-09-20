@@ -1,17 +1,15 @@
 package br.com.rpw.monitoramento.api.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CadastrarUsuarioRequestDTO {
 
+	private Long id;
 	private String nome;
 	private String usuario;
 	private String senha;
 	private String email;
 	private Long idCliente;
 	private String tipoUsuario;
-	private List<TelefoneDTO> telefones = new ArrayList<TelefoneDTO>();
+	private TelefoneDTO telefone = new TelefoneDTO();
 	private EnderecoDTO endereco = new EnderecoDTO();
 
 	public String getNome() {
@@ -54,12 +52,12 @@ public class CadastrarUsuarioRequestDTO {
 		this.tipoUsuario = tipoUsuario;
 	}
 
-	public List<TelefoneDTO> getTelefones() {
-		return telefones;
+	public TelefoneDTO getTelefone() {
+		return telefone;
 	}
 
-	public void setTelefones(List<TelefoneDTO> telefones) {
-		this.telefones = telefones;
+	public void setTelefone(TelefoneDTO telefone) {
+		this.telefone = telefone;
 	}
 
 	public EnderecoDTO getEndereco() {
@@ -76,6 +74,14 @@ public class CadastrarUsuarioRequestDTO {
 
 	public void setIdCliente(Long idCliente) {
 		this.idCliente = idCliente;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

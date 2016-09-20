@@ -1,20 +1,16 @@
 package br.com.rpw.monitoramento.api.model;
 
 import java.io.Serializable;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.com.rpw.monitoramento.api.constantes.TipoUsuarioEnum;
@@ -52,8 +48,9 @@ public class Usuario implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private TipoUsuarioEnum tipoUsuario;
 
-	@OneToMany(mappedBy = "usuario", targetEntity = Telefone.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private Set<Telefone> telefones;
+	@ManyToOne
+	@JoinColumn(name = "ID_TELEFONE")
+	private Telefone telefone;
 
 	@ManyToOne
 	@JoinColumn(name = "ID_ENDERECO")
@@ -102,12 +99,12 @@ public class Usuario implements Serializable {
 		this.tipoUsuario = tipoUsuario;
 	}
 
-	public Set<Telefone> getTelefones() {
-		return telefones;
+	public Telefone getTelefone() {
+		return telefone;
 	}
 
-	public void setTelefones(Set<Telefone> telefones) {
-		this.telefones = telefones;
+	public void setTelefone(Telefone telefone) {
+		this.telefone = telefone;
 	}
 
 	public Endereco getEndereco() {

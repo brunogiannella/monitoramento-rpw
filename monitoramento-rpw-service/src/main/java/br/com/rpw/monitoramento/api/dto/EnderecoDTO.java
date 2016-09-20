@@ -2,6 +2,7 @@ package br.com.rpw.monitoramento.api.dto;
 
 public class EnderecoDTO {
 
+	private Long id;
 	private String estado;
 	private String cidade;
 	private String bairro;
@@ -48,4 +49,12 @@ public class EnderecoDTO {
 		this.cep = cep;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 }

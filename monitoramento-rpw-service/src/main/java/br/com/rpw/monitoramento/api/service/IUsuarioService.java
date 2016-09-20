@@ -12,4 +12,6 @@ public interface IUsuarioService {
 	Usuario consultarUsuario(Long id);
 	List<Usuario> consultarUsuarios();
 	void removerUsuario(Long id);
+	void atualizarUsuario(CadastrarUsuarioRequestDTO cadastrarUsuarioRequestDto)
+			throws NoSuchAlgorithmException, UnsupportedEncodingException;
 }

@@ -33,10 +33,9 @@
 			usuarioCadastro.endereco.estado ="";
 			usuarioCadastro.endereco.cep ="";
 			usuarioCadastro.idCliente ="";
-			usuarioCadastro.telefones = [];
-			usuarioCadastro.telefones[0] = {};
-			usuarioCadastro.telefones[0].ddd = "";
-			usuarioCadastro.telefones[0].telefone = "";
+			usuarioCadastro.telefone = {};
+			usuarioCadastro.telefone.ddd = "";
+			usuarioCadastro.telefone.telefone = "";
 
 			vm.usuario = usuarioCadastro;
 
@@ -49,7 +48,7 @@
 			if(validarUsuario(this.usuario)) {
 				var funcSucesso = function(data) {
 					alert("Usuario cadastrado com sucesso");
-					UtilsService.irPara("home-administrador");
+					UtilsService.irPara("usuarios");
 				};
 
 				UsuarioService.cadastrarUsuario(this.usuario, funcSucesso);

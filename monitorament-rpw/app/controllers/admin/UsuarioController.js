@@ -13,6 +13,7 @@
 		vm.voltar = voltar;
 		vm.cadastrar = cadastrar;
 		vm.removerUsuario = removerUsuario;
+		vm.editarUsuario = editarUsuario;
 
 		function inicializar() {
 			$scope.sair = UtilsService.logout;
@@ -40,6 +41,10 @@
 
 		function removerUsuario(idUsuario, loginUsuario) {
 			UtilsService.irPara('remover-usuario', {idUsuario:idUsuario, loginUsuario:loginUsuario});
+		}
+
+		function editarUsuario(idUsuario) {
+			UtilsService.irPara('editar-usuario', {idUsuario:idUsuario});
 		}
 
 		inicializar();
