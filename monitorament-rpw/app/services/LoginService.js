@@ -7,9 +7,9 @@
 		.module('login.service', [])
 		.factory('LoginService', LoginService);
 
-	LoginService.$inject = ['$http', 'UtilsService', 'ConstantesService'];
+	LoginService.$inject = ['$http', 'ConstantesService'];
 
-	function LoginService($http, UtilsService, ConstantesService) {
+	function LoginService($http, ConstantesService) {
 
 
 		function realizarLogin(usuario, senha, fncSucesso) {

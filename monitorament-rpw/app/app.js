@@ -26,7 +26,8 @@ var app = angular.module('app',['ui.router',
                   'cliente.service',
                   'tipoOcorrencia.service',
                   'usuario.service',
-                  'camera.service']);
+                  'camera.service',
+                  'equipamento.service']);
  
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
 {
@@ -116,6 +117,15 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       url: '/cadastrar-cliente',
       templateUrl: 'app/views/admin/cadastro-cliente.html',
       controller: 'CadastroClienteController as CadastroClienteCrtl'
+    })
+    .state('cadastrar-camera', {
+      url: '/cadastrar-camera',
+      params: {
+        idCliente : null,
+        nomeCliente : null
+      },
+      templateUrl: 'app/views/admin/cadastrar-camera.html',
+      controller: 'CadastrarCameraController as CadastrarCameraCrtl'
     })
     .state('cadastrar-equipamento', {
       url: '/cadastrar-equipamento',

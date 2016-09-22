@@ -11,7 +11,10 @@
   </head> 
 
    <body> 
-      <div class="main-div" ui-view></div>
+      <div class="main-div" ui-view>
+      </div>
+      <img src="img/loading.gif" ng-show="loadingRodando" class="loading-gif" id="centro" />
+
  
 	  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	  <script src="js/materialize.min.js"></script>
@@ -48,5 +51,6 @@
       <script src="app/services/TipoOcorrenciaService.js"></script>
       <script src="app/services/UsuarioService.js"></script>
       <script src="app/services/CameraService.js"></script>
+      <script src="app/services/EquipamentoService.js"></script>
    </body>
 </html>

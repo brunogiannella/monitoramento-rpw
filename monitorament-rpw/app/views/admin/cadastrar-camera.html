@@ -32,9 +32,9 @@
             <ul id="slide-out" class="side-nav fixed rpw-menu">
               <li class="logo"><img src="img/logo_rpw.png" /></li>
 
-              <li><a ng-click="CadastrarEquipamentoCrtl.inicio();" class="waves-effect"><i class="material-icons">home</i>Início</a></li>
+              <li><a ng-click="CadastrarCameraCrtl.inicio();" class="waves-effect"><i class="material-icons">home</i>Início</a></li>
               <li><div class="divider"></div></li>
-              <li><a ng-click="CadastrarEquipamentoCrtl.voltar();" class="waves-effect"><i class="material-icons">business</i>Voltar</a></li>
+              <li><a ng-click="CadastrarCameraCrtl.voltar();" class="waves-effect"><i class="material-icons">business</i>Voltar</a></li>
             </ul>
 
 
@@ -61,7 +61,7 @@
                       
                       <!-- /header passos -->
                       
-                      <form novalidate name="mainForm" ng-submit="CadastrarEquipamentoCrtl.cadastrarEquipamento();"> 
+                      <form novalidate name="mainForm" ng-submit="CadastrarCameraCrtl.cadastrarCamera();"> 
 
                         <!-- passo 3 -->
                         <div class="row setup-content" id="step-3">
@@ -74,7 +74,7 @@
                             </div>
 							
 							              <div class="input-field col s12 m12">
-                              <span class="text-bold">{{CadastrarEquipamentoCrtl.nomeCliente}}</label>
+                              <span class="text-bold">{{CadastrarCameraCrtl.nomeCliente}}</label>
                             </div>
 
                             <div id="mensagensValidacaoDescricao" class="col s12 m12 mensagensValidacao" ng-show="mainForm.descricao.$dirty && (mainForm.descricao.$error.required)">
@@ -90,23 +90,33 @@
                             </div>
 							
                             <div class="input-field col s12 m6">
-                              <input id="numero" type="text" name="numero" ng-model="CadastrarEquipamentoCrtl.equipamento.numero" required>
+                              <input id="numero" type="text" name="numero" ng-model="CadastrarCameraCrtl.camera.numeroCamera" required>
                               <label for="numero">Número</label>
                             </div>
 
                             <div class="input-field col s12 m6">
-                              <input id="descricao" type="text" name="descricao" ng-model="CadastrarEquipamentoCrtl.equipamento.descricao" required>
+                              <input id="descricao" type="text" name="descricao" ng-model="CadastrarCameraCrtl.camera.descricaoCamera" required>
                               <label for="descricao">Descrição</label>
                             </div>
 
                             <div class="input-field col s12 m6">
-                              <input id="localizacao" type="text" ng-model="CadastrarEquipamentoCrtl.equipamento.localizacao">
+                              <input id="localizacao" type="text" ng-model="CadastrarCameraCrtl.camera.localizacaoCamera">
                               <label for="localizacao">Localização</label>
                             </div>
 
+                            <div class="input-field col s12 m6">
+                              <input id="tipoCamera" type="text" style="display:none;" ng-model="CadastrarCameraCrtl.camera.tipoCamera" />
+                              <select onchange="alterarComboTipoCamera();" class="tipoCamera_equipamento selectable">
+                                <option value="" disabled selected>Selecione</option>
+                                <option ng-repeat="item in tipoCamerasConsulta" value="{{item}}">{{item}}</option>
+                                
+                              </select>
+                              <label>Tipo de câmera</label>
+                            </div>
+                            
 
                             <div class="input-field col s12 m12">
-              							   <button type="submit" class="btn-large blue darken-2 waves-effect waves-light col s12" ng-disabled="mainForm.$invalid" name="action">CADASTRAR EQUIPAMENTO</button>
+              							   <button type="submit" class="btn-large blue darken-2 waves-effect waves-light col s12" ng-disabled="mainForm.$invalid" name="action">CADASTRAR CAMERA</button>
               						  </div>
 
                           </div>
@@ -142,6 +152,12 @@
               $('.caret').remove();
 
             });
+
+
+            function alterarComboTipoCamera() {
+              $("#tipoCamera").val($("div.tipoCamera_equipamento li.selected span").get(0).innerHTML);
+              angular.element($("#tipoCamera")).triggerHandler('input')
+            }
           </script>
           <!-- /Scripts -->
         </body>

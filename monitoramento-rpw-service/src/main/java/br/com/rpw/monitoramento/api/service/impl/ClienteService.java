@@ -11,6 +11,7 @@ import br.com.rpw.monitoramento.api.constantes.TipoCameraEnum;
 import br.com.rpw.monitoramento.api.dao.impl.CameraDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.ClienteDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.EnderecoDaoImpl;
+import br.com.rpw.monitoramento.api.dao.impl.EquipamentoDaoImpl;
 import br.com.rpw.monitoramento.api.dto.CameraDTO;
 import br.com.rpw.monitoramento.api.dto.ClienteDTO;
 import br.com.rpw.monitoramento.api.dto.EnderecoDTO;
@@ -31,6 +32,9 @@ public class ClienteService implements IClienteService {
 	
 	@Autowired
 	private CameraDaoImpl cameraDaoImpl;
+	
+	@Autowired
+	private EquipamentoDaoImpl equipamentoDaoImpl;
 	
 	@Autowired
 	private EnderecoDaoImpl enderecoDaoImpl;
@@ -66,8 +70,10 @@ public class ClienteService implements IClienteService {
 		Cliente cliente = new Cliente();
 		cliente.setId(id);
 		List<Camera> camerasCliente = cameraDaoImpl.listarCameras(cliente);
+		List<Equipamento> equipamentosCliente = equipamentoDaoImpl.listarEquipamentos(cliente);
 		cliente = clienteDaoImpl.consultarCliente(id);
 		cliente.setCameras(camerasCliente);
+		cliente.setEquipamento(equipamentosCliente);
 		
 		return converterClienteEmClienteDTO(cliente);
 	}
@@ -75,6 +81,7 @@ public class ClienteService implements IClienteService {
 	@Override
 	public void removerCliente(Long id) {
 		cameraDaoImpl.deleteCamerasByCliente(id);
+		equipamentoDaoImpl.deleteEquipamentosByCliente(id);
 		clienteDaoImpl.deleteCliente(id);
 	}
 
@@ -149,7 +156,13 @@ public class ClienteService implements IClienteService {
 		
 		cliente.setNome(cadastrarClienteRequestDTO.getNome());
 		cliente.setEmailResposavel(cadastrarClienteRequestDTO.getEmailResposavel());
-		cliente.setEmailAutomatico(cadastrarClienteRequestDTO.getEmailAutomatico());
+		
+		if(cadastrarClienteRequestDTO.getEmailAutomatico() == null) {
+			cliente.setEmailAutomatico(false);
+		} else {
+			cliente.setEmailAutomatico(cadastrarClienteRequestDTO.getEmailAutomatico());
+		}
+		
 		
 		String emailDiario = "";
 		for(String email : cadastrarClienteRequestDTO.getEmailsRelatorioDiario()) {

@@ -118,6 +118,11 @@
                 <div class="col s12 m12" >
                 <h5 class="header black-text text-darken-2 center-on-small-only title"><i class="material-icons">toc</i> <span class="light">Cameras cadastradas</span></h5>
                 <div class="card-panel">
+                
+                  <div class="row">
+                    <label class="col s12 barraBuscaFont">Digite a sua pesquisa: <input style="color:black;" ng-model="searchTextCamera"></label>
+                  </div>
+
                   <table class="responsive-table striped" ng-show="clientesListaConsulta.cameras.length > 0">
                     <thead>
                       <tr>
@@ -127,7 +132,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr ng-repeat="camera in clientesListaConsulta.cameras">
+                      <tr ng-repeat="camera in clientesListaConsulta.cameras | filter:searchTextCamera">
                         <td>{{camera.descricaoCamera}}</td>
                         <td>{{camera.tipoCamera}}</td>
                         <td class="right-align">
@@ -142,7 +147,7 @@
 
                   <div class="row center">
                     <div class="input-field col s12 m12">
-                      <a class="btn-floating right" ng-click="ClienteCrtl.cadastrarEquipamento(clientesListaConsulta.id, clientesListaConsulta.nome);"><i class="material-icons">add</i></a>
+                      <a class="btn-floating right" ng-click="ClienteCrtl.cadastrarCamera(clientesListaConsulta.id, clientesListaConsulta.nome);"><i class="material-icons">add</i></a>
                     </div>
                   </div>
                 </div>
@@ -156,6 +161,11 @@
                 <div class="col s12 m12" >
                 <h5 class="header black-text text-darken-2 center-on-small-only title"><i class="material-icons">toc</i> <span class="light">Equipamentos cadastradas</span></h5>
                 <div class="card-panel">
+
+                  <div class="row">
+                    <label class="col s12 barraBuscaFont">Digite a sua pesquisa: <input style="color:black;" ng-model="searchTextEquipamento"></label>
+                  </div>
+
                   <table class="responsive-table striped" ng-show="clientesListaConsulta.equipamentos.length > 0">
                     <thead>
                       <tr>
@@ -165,11 +175,11 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr ng-repeat="equipamentos in clientesListaConsulta.equipamentos">
+                      <tr ng-repeat="equipamentos in clientesListaConsulta.equipamentos | filter:searchTextEquipamento">
                         <td>{{equipamentos.descricao}}</td>
                         <td>{{equipamentos.numero}}</td>
                         <td class="right-align">
-                           <i class="material-icons small blue-text">mode_edit</i>
+                          <i class="material-icons small blue-text">mode_edit</i>
                           <i class="material-icons small red-text">delete</i>
                         </td>
                       </tr>

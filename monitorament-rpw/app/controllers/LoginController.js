@@ -26,7 +26,7 @@
 		}
 
 		function realizarLogin() {
-
+			UtilsService.ativarLoading();
 			$scope.erro = false;
 			$scope.mensagemErro = "";
 
@@ -49,6 +49,8 @@
 					$scope.erro = true;
 					$scope.mensagemErro = "Usuário ou senha inválidos";
 				}
+
+				UtilsService.desativarLoading();
 				
 			};
 

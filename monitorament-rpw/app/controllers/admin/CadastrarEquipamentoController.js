@@ -5,18 +5,17 @@
 		.module('cadastrarEquipamento.controller', [])
 		.controller('CadastrarEquipamentoController' , CadastrarEquipamentoController);
 
-	CadastrarEquipamentoController.$inject = ['$rootScope', '$scope', '$stateParams', 'CameraService', 'ClienteService', 'UtilsService', 'TipoOcorrenciaService'];
+	CadastrarEquipamentoController.$inject = ['$rootScope', '$scope', '$stateParams', 'EquipamentoService', 'ClienteService', 'UtilsService', 'TipoOcorrenciaService'];
 
-	function CadastrarEquipamentoController($rootScope, $scope, $stateParams, CameraService, ClienteService, UtilsService, TipoOcorrenciaService) {
+	function CadastrarEquipamentoController($rootScope, $scope, $stateParams, EquipamentoService, ClienteService, UtilsService, TipoOcorrenciaService) {
 
 		
 
 		function inicializar() {
-			$scope.tipoCamerasConsulta = $rootScope.dominios.tipoCamerasConsulta
 			vm.nomeCliente = $stateParams.nomeCliente;
 			vm.idCliente = $stateParams.idCliente;
-			vm.camera = {};
-			vm.camera.idCliente = $stateParams.idCliente;
+			vm.equipamento = {};
+			vm.equipamento.idCliente = $stateParams.idCliente;
 		};
 
 		function cadastrarEquipamento() {
@@ -32,7 +31,7 @@
 					ClienteService.consultarClientes(funcSucessoClientes);
 				};
 
-				CameraService.cadastrarCamera(vm.camera, funcSucesso);
+				EquipamentoService.cadastrarEquipamento(vm.equipamento, funcSucesso);
 			}
 			
 		};

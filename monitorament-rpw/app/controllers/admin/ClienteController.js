@@ -14,6 +14,7 @@
 		vm.cadastrar = cadastrar;
 		vm.voltar = voltar;
 		vm.consultarCliente = consultarCliente;
+		vm.cadastrarCamera = cadastrarCamera;
 		vm.cadastrarEquipamento = cadastrarEquipamento;
 		vm.associarOcorrencia = associarOcorrencia;
 		vm.removerCliente = removerCliente;
@@ -32,6 +33,10 @@
 
 		function voltar() {
 			UtilsService.irPara('home-administrador');
+		}
+
+		function cadastrarCamera(id, nome) {
+			UtilsService.irPara('cadastrar-camera', {idCliente:id, nomeCliente:nome});
 		}
 
 		function cadastrarEquipamento(id, nome) {

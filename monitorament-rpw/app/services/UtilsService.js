@@ -11,6 +11,14 @@
 
 	function UtilsService($rootScope, $state) {
 
+		function ativarLoading() {
+			$rootScope.loadingRodando = true;
+		}
+
+		function desativarLoading() {
+			$rootScope.loadingRodando = false;
+		}
+
 		function irPara(tela, parametro) {
 			$state.go(tela, parametro);
 		}
@@ -31,7 +39,9 @@
 		return {
 			irPara : irPara,
 			getToken : getToken,
-			logout : logout
+			logout : logout,
+			ativarLoading : ativarLoading,
+			desativarLoading : desativarLoading
 		}
 	}
 
