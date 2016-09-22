@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.rpw.monitoramento.api.dto.CadastrarClienteRequestDTO;
+import br.com.rpw.monitoramento.api.dto.ClienteDTO;
 import br.com.rpw.monitoramento.api.model.RestObject;
 import br.com.rpw.monitoramento.api.service.impl.ClienteService;
 
@@ -22,12 +22,22 @@ public class ClienteController {
 	private ClienteService clienteService;
 	
 	@RequestMapping(value="", method = RequestMethod.POST)
-	public RestObject cadastrarCliente(@RequestBody CadastrarClienteRequestDTO cadastrarClienteRequestDTO) { 
+	public RestObject cadastrarCliente(@RequestBody ClienteDTO cadastrarClienteRequestDTO) { 
 		try {
 			clienteService.cadastrarCliente(cadastrarClienteRequestDTO);
 			return new RestObject(200, true, "Cadastro realizado com sucesso", "");
 		} catch(Exception e) {
 			return new RestObject(500, false, "Ocorreu um erro no cadastro do cliente: " + e.getMessage(), null);
+		}
+	}
+	
+	@RequestMapping(value="", method = RequestMethod.PUT)
+	public RestObject atualizarCliente(@RequestBody ClienteDTO cadastrarClienteRequestDTO) { 
+		try {
+			clienteService.atualizarCliente(cadastrarClienteRequestDTO);
+			return new RestObject(200, true, "Alteração realizada com sucesso", "");
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro na alteração do cliente: " + e.getMessage(), null);
 		}
 	}
 	

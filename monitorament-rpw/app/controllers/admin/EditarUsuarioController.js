@@ -29,7 +29,7 @@
 				usuarioCadastro.senha = data.senha;
 				usuarioCadastro.nome = data.nome;
 				usuarioCadastro.email = data.email;
-				usuarioCadastro.tipoUsuario ="";
+				usuarioCadastro.tipoUsuario = data.tipoUsuario;
 
 				usuarioCadastro.endereco = {};
 				if(data.endereco != null) {
@@ -37,12 +37,14 @@
 					usuarioCadastro.endereco.logradouro = data.endereco.logradouro;
 					usuarioCadastro.endereco.bairro = data.endereco.bairro;
 					usuarioCadastro.endereco.cidade = data.endereco.cidade;
-					usuarioCadastro.endereco.estado ="";
+					usuarioCadastro.endereco.estado = data.endereco.estado;
 					usuarioCadastro.endereco.cep = data.endereco.cep;
 				}
 
-				usuarioCadastro.idCliente ="";
-
+				if(data.cliente != null) {
+					usuarioCadastro.idCliente = data.cliente.id;
+				}
+				
 				usuarioCadastro.telefone = {};
 				if(data.telefone != null) {
 					usuarioCadastro.telefone.ddd = data.telefone.ddd;

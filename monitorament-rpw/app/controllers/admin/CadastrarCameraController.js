@@ -2,12 +2,12 @@
 	'use strict';
 
 	angular
-		.module('cadastrarEquipamento.controller', [])
-		.controller('CadastrarEquipamentoController' , CadastrarEquipamentoController);
+		.module('cadastrarCamera.controller', [])
+		.controller('CadastrarCameraController' , CadastrarCameraController);
 
-	CadastrarEquipamentoController.$inject = ['$rootScope', '$scope', '$stateParams', 'CameraService', 'ClienteService', 'UtilsService', 'TipoOcorrenciaService'];
+	CadastrarCameraController.$inject = ['$rootScope', '$scope', '$stateParams', 'CameraService', 'ClienteService', 'UtilsService', 'TipoOcorrenciaService'];
 
-	function CadastrarEquipamentoController($rootScope, $scope, $stateParams, CameraService, ClienteService, UtilsService, TipoOcorrenciaService) {
+	function CadastrarCameraController($rootScope, $scope, $stateParams, CameraService, ClienteService, UtilsService, TipoOcorrenciaService) {
 
 		
 
@@ -19,7 +19,7 @@
 			vm.camera.idCliente = $stateParams.idCliente;
 		};
 
-		function cadastrarEquipamento() {
+		function cadastrarCamera() {
 
 			if(validarEquipamento(vm.camera)) {
 				var funcSucesso = function(data) {
@@ -55,7 +55,7 @@
 		vm.voltar = voltar;
 		vm.inicio = inicio;
 		$scope.sair = UtilsService.logout;
-		vm.cadastrarEquipamento = cadastrarEquipamento;
+		vm.cadastrarCamera = cadastrarCamera;
 
 		inicializar();
 

@@ -2,6 +2,7 @@ package br.com.rpw.monitoramento.api.model;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,8 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "CLIENTE")
@@ -53,8 +54,11 @@ public class Cliente implements Serializable {
 	@Column(name = "ATIVO")
 	private Boolean ativo = true;
 
-	@OneToMany(mappedBy = "cliente", targetEntity = Camera.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private Set<Camera> cameras;
+	@Transient
+	private List<Camera> cameras;
+	
+	@Transient
+	private List<Equipamento> equipamento;
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "cliente_ocorrencias", catalog="monitoramentorpw", joinColumns = {
@@ -119,11 +123,11 @@ public class Cliente implements Serializable {
 		this.emailsRelatorioMensal = emailsRelatorioMensal;
 	}
 
-	public Set<Camera> getCameras() {
+	public List<Camera> getCameras() {
 		return cameras;
 	}
 
-	public void setCameras(Set<Camera> cameras) {
+	public void setCameras(List<Camera> cameras) {
 		this.cameras = cameras;
 	}
 
@@ -141,6 +145,14 @@ public class Cliente implements Serializable {
 
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
+	}
+
+	public List<Equipamento> getEquipamento() {
+		return equipamento;
+	}
+
+	public void setEquipamento(List<Equipamento> equipamento) {
+		this.equipamento = equipamento;
 	}
 	
 }

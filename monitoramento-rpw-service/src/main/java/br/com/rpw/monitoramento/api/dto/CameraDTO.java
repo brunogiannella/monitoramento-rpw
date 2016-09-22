@@ -2,9 +2,11 @@ package br.com.rpw.monitoramento.api.dto;
 
 public class CameraDTO {
 
+	private Long id;
 	private Integer numeroCamera;
 	private String descricaoCamera;
 	private String localizacaoCamera;
+	private Long idCliente;
 	private String tipoCamera;
 
 	public Integer getNumeroCamera() {
@@ -39,4 +41,20 @@ public class CameraDTO {
 		this.tipoCamera = tipoCamera;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(Long idCliente) {
+		this.idCliente = idCliente;
+	}
+	
 }

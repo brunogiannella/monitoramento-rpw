@@ -5,11 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.rpw.monitoramento.api.constantes.TipoCameraEnum;
+import br.com.rpw.monitoramento.api.dto.CameraDTO;
 import br.com.rpw.monitoramento.api.model.Camera;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.RestObject;
@@ -22,6 +24,16 @@ public class CameraController {
 
 	@Autowired
 	private CameraService cameraService;
+	
+	@RequestMapping(value="", method = RequestMethod.POST)
+	public RestObject cadastrarCamera(@RequestBody CameraDTO cameraDto) { 
+		try {
+			cameraService.cadastrarCamera(cameraDto);
+			return new RestObject(200, true, "Cadastro realizado com sucesso", "");
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro no cadastro da camera: " + e.getMessage(), null);
+		}
+	}
 	
 	@RequestMapping(value="/tipoCamera", method = RequestMethod.GET)
 	public RestObject consultarTiposCamera() { 

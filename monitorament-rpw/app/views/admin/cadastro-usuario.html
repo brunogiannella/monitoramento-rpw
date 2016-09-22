@@ -120,7 +120,7 @@
                     </div>
 
                     <div class="input-field col s6">
-                      <input ng-model="CadastroUsuarioCrtl.usuario.telefone.ddd" id="usuario_DDD" name="usuario_DDD" placeholder="Ex: 11" type="text" required ng-minlength="3">
+                      <input ng-model="CadastroUsuarioCrtl.usuario.telefone.ddd" id="usuario_DDD" name="usuario_DDD" placeholder="Ex: 11" type="text" required ng-minlength="2">
                       <label for="usuario_DDD">DDD</label>
                     </div>
 
@@ -139,7 +139,6 @@
                       <select onchange="alterarComboTipoUsuario();" class="usuario_tipo selectable">
                         <option value="" disabled selected>Selecione</option>
                         <option ng-repeat="item in tiposUsuarioConsulta" value="{{item}}">{{item}}</option>
-                        
                       </select>
                       <label>Tipo de usuário</label>
                     </div>
@@ -232,20 +231,49 @@
 
             $('.collapsible').collapsible();
             $('.caret').remove();
+
+            angular.element($("#tipoUsuario")).triggerHandler('input')
+            var tipoUsuario = $("#tipoUsuario").val();
+            if(tipoUsuario != null && tipoUsuario != "") {
+              
+              $("label").each(function( key, value ) {
+                $(this).addClass("active");
+              });
+
+              $("div.usuario_tipo > input.select-dropdown").val(tipoUsuario);  
+              $("div.usuario_tipo > label").removeClass("active");  
+            }
+
+            angular.element($("#estado")).triggerHandler('input')
+            var estado = $("#estado").val();
+            if(estado != null && estado != "") {
+              $("div.usuario_estado > input.select-dropdown").val(estado);
+              $("div.usuario_estado > label").get(0).removeClass("active");  
+            }
+
+            angular.element($("#cliente")).triggerHandler('input')
+            var cliente = $("#cliente").val();
+            if(cliente != null && cliente != "") {
+              $("div.usuario_cliente > input.select-dropdown").val(cliente);  
+              $("div.usuario_cliente > label").get(0).removeClass("active");
+            }
+
           });
 
         function alterarComboTipoUsuario() {
-          $("#tipoUsuario").val($("div.usuario_tipo li.selected span").get(0).innerHTML);
+          var tipousuarioSelecionado = $("div.usuario_tipo > input.select-dropdown").val();
+          $("#tipoUsuario").val(tipousuarioSelecionado);
           angular.element($("#tipoUsuario")).triggerHandler('input')
         }
 
         function alterarComboEstado() {
-          $("#tipoUsuario").val($("div.usuario_tipo li.selected span").get(0).innerHTML);
-          angular.element($("#tipoUsuario")).triggerHandler('input')
+          var estadoSelecionado = $("div.usuario_estado > input.select-dropdown").val();
+          $("#estado").val(estadoSelecionado);
+          angular.element($("#estado")).triggerHandler('input')
         }
 
         function alterarComboCliente() {
-          var clienteSelecionado = $("div.usuario_cliente li.selected span").get(0).innerHTML;
+          var clienteSelecionado = $("div.usuario_cliente > input.select-dropdown").val();
           $("#cliente").val(clienteSelecionado.split(" - ")[0]);
           angular.element($("#cliente")).triggerHandler('input')
         }

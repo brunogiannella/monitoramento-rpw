@@ -12,5 +12,6 @@ public interface ICameraDao {
     void deleteCamera(Long codigoCamera);
     Camera consultarCamera(Long idCamera);
     void atualizarCamera(Camera Camera);
+	void deleteCamerasByCliente(Long codigoCliente);
 	
 }

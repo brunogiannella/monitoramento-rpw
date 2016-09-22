@@ -38,6 +38,33 @@
 			});
 		};
 
+		function cadastrarCamera(cameraDto, fncSucesso) {
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'camera',
+				method : 'POST',
+				data: cameraDto,
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		         return false;
+		       }
+		    ).catch(function() {
+				return false;
+			});
+		};
+
 		function listarTiposCamera(fncSucesso) {
 
 			var  data = {};
@@ -126,6 +153,7 @@
 			inserirAvaliacaoCamera : inserirAvaliacaoCamera,
 			listarTiposCamera : listarTiposCamera,
 			consultarCamera : consultarCamera,
+			cadastrarCamera : cadastrarCamera,
 			listarCamerasCliente : listarCamerasCliente
 		}
 	}

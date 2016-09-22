@@ -2,14 +2,15 @@ package br.com.rpw.monitoramento.api.service;
 
 import java.util.List;
 
-import br.com.rpw.monitoramento.api.dto.CadastrarClienteRequestDTO;
+import br.com.rpw.monitoramento.api.dto.ClienteDTO;
 import br.com.rpw.monitoramento.api.model.Cliente;
 
 public interface IClienteService {
 
-	void cadastrarCliente(CadastrarClienteRequestDTO cadastrarClienteRequestDTO);
+	void cadastrarCliente(ClienteDTO cadastrarClienteRequestDTO);
 	List<Cliente> consultarClientes();
-	Cliente consultarCliente(Long id);
+	ClienteDTO consultarCliente(Long id);
 	void removerCliente(Long id);
+	void atualizarCliente(ClienteDTO cadastrarClienteRequestDTO);
 	
 }

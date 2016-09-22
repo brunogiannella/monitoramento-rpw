@@ -90,22 +90,22 @@
                             </div>
 							
                             <div class="input-field col s12 m6">
-                              <input id="numero" type="text" name="numero" ng-model="CadastrarEquipamentoCrtl.equipamento.numero" required>
+                              <input id="numero" type="text" name="numero" ng-model="CadastrarEquipamentoCrtl.camera.numeroCamera" required>
                               <label for="numero">Número</label>
                             </div>
 
                             <div class="input-field col s12 m6">
-                              <input id="descricao" type="text" name="descricao" ng-model="CadastrarEquipamentoCrtl.equipamento.descricao" required>
+                              <input id="descricao" type="text" name="descricao" ng-model="CadastrarEquipamentoCrtl.camera.descricaoCamera" required>
                               <label for="descricao">Descrição</label>
                             </div>
 
                             <div class="input-field col s12 m6">
-                              <input id="localizacao" type="email">
+                              <input id="localizacao" type="text" ng-model="CadastrarEquipamentoCrtl.camera.localizacaoCamera">
                               <label for="localizacao">Localização</label>
                             </div>
 
                             <div class="input-field col s12 m6">
-                              <input id="tipoCamera" type="text" style="display:none;" ng-model="CadastrarEquipamentoCrtl.equipamento.tipoCamera" />
+                              <input id="tipoCamera" type="text" style="display:none;" ng-model="CadastrarEquipamentoCrtl.camera.tipoCamera" />
                               <select onchange="alterarComboTipoCamera();" class="tipoCamera_equipamento selectable">
                                 <option value="" disabled selected>Selecione</option>
                                 <option ng-repeat="item in tipoCamerasConsulta" value="{{item}}">{{item}}</option>
@@ -154,7 +154,7 @@
             });
 
 
-            function alterarComboTipoUsuario() {
+            function alterarComboTipoCamera() {
               $("#tipoCamera").val($("div.tipoCamera_equipamento li.selected span").get(0).innerHTML);
               angular.element($("#tipoCamera")).triggerHandler('input')
             }

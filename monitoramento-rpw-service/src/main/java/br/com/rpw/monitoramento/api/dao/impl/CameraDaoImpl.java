@@ -27,6 +27,13 @@ public class CameraDaoImpl extends AbstractDao implements ICameraDao{
 		criteria.add(Restrictions.eq("cliente.id",cliente.getId()));
         return (List<Camera>) criteria.list();
 	}
+	
+	@Override
+	public void deleteCamerasByCliente(Long codigoCliente) {
+		Query query = getSession().createSQLQuery("delete from CAMERA where ID_CLIENTE = :id");
+        query.setLong("id", codigoCliente);
+        query.executeUpdate();
+	}
 
 	@Override
 	public void deleteCamera(Long codigoCamera) {

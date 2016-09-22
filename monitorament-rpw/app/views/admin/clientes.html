@@ -116,7 +116,7 @@
 
               <div class="row">
                 <div class="col s12 m12" >
-                <h5 class="header black-text text-darken-2 center-on-small-only title"><i class="material-icons">toc</i> <span class="light">Equipamentos cadastrados</span></h5>
+                <h5 class="header black-text text-darken-2 center-on-small-only title"><i class="material-icons">toc</i> <span class="light">Cameras cadastradas</span></h5>
                 <div class="card-panel">
                   <table class="responsive-table striped" ng-show="clientesListaConsulta.cameras.length > 0">
                     <thead>
@@ -127,9 +127,9 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr ng-repeat="equipamento in clientesListaConsulta.cameras">
-                        <td>Alvin dos Santos</td>
-                        <td>12/08/2016 • 12:09</td>
+                      <tr ng-repeat="camera in clientesListaConsulta.cameras">
+                        <td>{{camera.descricaoCamera}}</td>
+                        <td>{{camera.tipoCamera}}</td>
                         <td class="right-align">
                            <i class="material-icons small blue-text">mode_edit</i>
                           <i class="material-icons small red-text">delete</i>
@@ -138,7 +138,45 @@
                     </tbody>
                   </table>
 
-                  <center><h6 ng-show="clientesListaConsulta.cameras.length == 0">Nenhum equipamento cadastrado</h6></center>
+                  <center><h6 ng-show="clientesListaConsulta.cameras.length == 0">Nenhuma câmera cadastrada</h6></center>
+
+                  <div class="row center">
+                    <div class="input-field col s12 m12">
+                      <a class="btn-floating right" ng-click="ClienteCrtl.cadastrarEquipamento(clientesListaConsulta.id, clientesListaConsulta.nome);"><i class="material-icons">add</i></a>
+                    </div>
+                  </div>
+                </div>
+
+                </div>
+              </div>
+
+
+
+              <div class="row">
+                <div class="col s12 m12" >
+                <h5 class="header black-text text-darken-2 center-on-small-only title"><i class="material-icons">toc</i> <span class="light">Equipamentos cadastradas</span></h5>
+                <div class="card-panel">
+                  <table class="responsive-table striped" ng-show="clientesListaConsulta.equipamentos.length > 0">
+                    <thead>
+                      <tr>
+                          <th data-field="id">Descrição</th>
+                          <th data-field="id">Núnero</th>
+                          <th data-field="id" class="center-on-small-only right-align">Operações</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="equipamentos in clientesListaConsulta.equipamentos">
+                        <td>{{equipamentos.descricao}}</td>
+                        <td>{{equipamentos.numero}}</td>
+                        <td class="right-align">
+                           <i class="material-icons small blue-text">mode_edit</i>
+                          <i class="material-icons small red-text">delete</i>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <center><h6 ng-show="clientesListaConsulta.equipamentos.length == 0">Nenhum equipamento cadastrado</h6></center>
 
                   <div class="row center">
                     <div class="input-field col s12 m12">
