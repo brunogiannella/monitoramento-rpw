@@ -171,8 +171,8 @@ public class ClienteService implements IClienteService {
 			for(TipoOcorrencia tipoOcorrencia : cliente.getTipoOcorrencias()) {
 				TipoOcorrenciaDTO tipoOcorrenciaDto = new TipoOcorrenciaDTO();
 				tipoOcorrenciaDto.setId(tipoOcorrencia.getId());
-				tipoOcorrenciaDto.setDescricao(tipoOcorrenciaDto.getDescricao());
-				tipoOcorrenciaDto.setQuantidadeCampos(tipoOcorrenciaDto.getCampos().size());
+				tipoOcorrenciaDto.setDescricao(tipoOcorrencia.getDescricao());
+				tipoOcorrenciaDto.setQuantidadeCampos(tipoOcorrencia.getCampos().size());
 				
 				clienteDto.getTiposOcorrencia().add(tipoOcorrenciaDto);
 			}
