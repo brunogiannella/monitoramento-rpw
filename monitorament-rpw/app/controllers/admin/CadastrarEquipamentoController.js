@@ -24,7 +24,7 @@
 				var funcSucesso = function(data) {
 					var funcSucessoClientes = function(data) {
 						$rootScope.dominios.clienteConsulta = data;
-						alert("Camera cadastrada com sucesso");
+						alert("Equipamento cadastrado com sucesso");
 						UtilsService.irPara("clientes");
 					};
 

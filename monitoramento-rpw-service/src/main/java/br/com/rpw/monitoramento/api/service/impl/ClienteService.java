@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.rpw.monitoramento.api.constantes.TipoCameraEnum;
 import br.com.rpw.monitoramento.api.dao.impl.CameraDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.ClienteDaoImpl;
+import br.com.rpw.monitoramento.api.dao.impl.ClienteTipoOcorrenciaDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.EnderecoDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.EquipamentoDaoImpl;
 import br.com.rpw.monitoramento.api.dto.CameraDTO;
@@ -19,8 +20,10 @@ import br.com.rpw.monitoramento.api.dto.EquipamentoDTO;
 import br.com.rpw.monitoramento.api.dto.TipoOcorrenciaDTO;
 import br.com.rpw.monitoramento.api.model.Camera;
 import br.com.rpw.monitoramento.api.model.Cliente;
+import br.com.rpw.monitoramento.api.model.ClienteTipoOcorrencia;
 import br.com.rpw.monitoramento.api.model.Endereco;
 import br.com.rpw.monitoramento.api.model.Equipamento;
+import br.com.rpw.monitoramento.api.model.TipoOcorrencia;
 import br.com.rpw.monitoramento.api.service.IClienteService;
 
 @Service
@@ -38,6 +41,9 @@ public class ClienteService implements IClienteService {
 	
 	@Autowired
 	private EnderecoDaoImpl enderecoDaoImpl;
+	
+	@Autowired
+	private ClienteTipoOcorrenciaDaoImpl clienteTipoOcorrenciaDaoImpl;
 
 	@Override
 	public void cadastrarCliente(ClienteDTO cadastrarClienteRequestDTO) {
@@ -66,6 +72,11 @@ public class ClienteService implements IClienteService {
 	}
 	
 	@Override
+	public void associarTipoOcorrencia(Cliente cliente, TipoOcorrencia tipoOcorrencia) {
+		clienteTipoOcorrenciaDaoImpl.salvarClienteTipoOcorrencia(tipoOcorrencia, cliente);
+	}
+	
+	@Override
 	public ClienteDTO consultarCliente(Long id) {
 		Cliente cliente = new Cliente();
 		cliente.setId(id);
@@ -75,13 +86,26 @@ public class ClienteService implements IClienteService {
 		cliente.setCameras(camerasCliente);
 		cliente.setEquipamento(equipamentosCliente);
 		
+		List<ClienteTipoOcorrencia> tipoOcorrencia = clienteTipoOcorrenciaDaoImpl.listarTipoOcorrencias(cliente);
+		if(tipoOcorrencia != null) {
+			cliente.setTipoOcorrencias(new ArrayList<TipoOcorrencia>());
+			
+			for(ClienteTipoOcorrencia clienteTipoOcorrencia : tipoOcorrencia) {
+				cliente.getTipoOcorrencias().add(clienteTipoOcorrencia.getTipoOcorrencia());
+			}
+		}
+		
 		return converterClienteEmClienteDTO(cliente);
 	}
 	
 	@Override
 	public void removerCliente(Long id) {
+		Cliente cliente = new Cliente();
+		cliente.setId(id);
+		
 		cameraDaoImpl.deleteCamerasByCliente(id);
 		equipamentoDaoImpl.deleteEquipamentosByCliente(id);
+		clienteTipoOcorrenciaDaoImpl.deleteClienteTipoOcorrencia(cliente);
 		clienteDaoImpl.deleteCliente(id);
 	}
 
@@ -143,6 +167,16 @@ public class ClienteService implements IClienteService {
 		}
 		
 		clienteDto.setTiposOcorrencia(new ArrayList<TipoOcorrenciaDTO>());
+		if(cliente.getTipoOcorrencias() != null) {
+			for(TipoOcorrencia tipoOcorrencia : cliente.getTipoOcorrencias()) {
+				TipoOcorrenciaDTO tipoOcorrenciaDto = new TipoOcorrenciaDTO();
+				tipoOcorrenciaDto.setId(tipoOcorrencia.getId());
+				tipoOcorrenciaDto.setDescricao(tipoOcorrenciaDto.getDescricao());
+				tipoOcorrenciaDto.setQuantidadeCampos(tipoOcorrenciaDto.getCampos().size());
+				
+				clienteDto.getTiposOcorrencia().add(tipoOcorrenciaDto);
+			}
+		}
 		
 		return clienteDto;
 	}

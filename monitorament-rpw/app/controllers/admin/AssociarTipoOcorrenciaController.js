@@ -5,28 +5,29 @@
 		.module('associarTipoOcorrencia.controller', [])
 		.controller('AssociarTipoOcorrenciaController' , AssociarTipoOcorrenciaController);
 
-	AssociarTipoOcorrenciaController.$inject = ['$rootScope', '$scope', '$stateParams', 'TipoOcorrenciaService', 'UtilsService'];
+	AssociarTipoOcorrenciaController.$inject = ['$rootScope', '$scope', '$stateParams', 'ClienteService', 'UtilsService'];
 
-	function AssociarTipoOcorrenciaController($rootScope, $scope, $stateParams, TipoOcorrenciaService, UtilsService) {
+	function AssociarTipoOcorrenciaController($rootScope, $scope, $stateParams, ClienteService, UtilsService) {
 
 		
 
 		function inicializar() {
 			$scope.tipoOcorrenciasConsulta = $rootScope.dominios.tipoOcorrenciasConsulta;
 			vm.associarTipoOcorrencia = {};
+			vm.associarTipoOcorrencia.idCliente = $stateParams.idCliente;
 			vm.nomeCliente = $stateParams.nomeCliente;
 			vm.idCliente = $stateParams.idCliente;
 		};
 
 		function associarOcorrencia() {
 
-			if(validarAssociacao(this.tipoOcorrencia)) {
+			if(validarAssociacao(this.associarTipoOcorrencia)) {
 				var funcSucesso = function(data) {
-					alert("Tipo ocorrência cadastrada com sucesso");
-					UtilsService.irPara("home-administrador");
+					alert("Tipo ocorrência associada com sucesso");
+					UtilsService.irPara("clientes");
 				};
 
-				TipoOcorrenciaService.cadastrarTipoOcorrencia(this.tipoOcorrencia, funcSucesso);
+				ClienteService.associarTipoOcorrencia(this.associarTipoOcorrencia, funcSucesso);
 			}
 			
 		};

@@ -1,7 +1,6 @@
 package br.com.rpw.monitoramento.api.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,7 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -33,9 +31,6 @@ public class TipoOcorrencia implements Serializable {
 	
 	@OneToMany(mappedBy = "tipoOcorrencia", targetEntity = CampoOcorrencia.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<CampoOcorrencia> campos;
-
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "tiposOcorrencia")
-	private Set<Cliente> clientes = new HashSet<Cliente>(0);
 	
 	public Long getId() {
 		return id;
@@ -61,12 +56,4 @@ public class TipoOcorrencia implements Serializable {
 		this.campos = campos;
 	}
 
-	public Set<Cliente> getClientes() {
-		return clientes;
-	}
-
-	public void setClientes(Set<Cliente> clientes) {
-		this.clientes = clientes;
-	}
-	
 }

@@ -208,12 +208,14 @@
                     <thead>
                       <tr>
                           <th data-field="id">Descrição ocorrência</th>
+                          <th data-field="id">Quantidade de campos</th>
                           <th data-field="id" class="center-on-small-only right-align">Operações</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr  ng-repeat="ocorrencia in clientesListaConsulta.tiposOcorrencia">
-                        <td>Alvin dos Santos</td>
+                        <td>{{ocorrencia.descricao}}</td>
+                         <td>{{ocorrencia.quantidadeCampos}}</td>
                         <td class="right-align">
                           <i class="material-icons small blue-text">mode_edit</i>
                           <i class="material-icons small red-text">delete</i>
