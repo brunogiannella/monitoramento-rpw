@@ -20,7 +20,7 @@
 			if(validarTipoOcorrencia(this.tipoOcorrencia)) {
 				var funcSucesso = function(data) {
 					alert("Tipo ocorrência cadastrada com sucesso");
-					UtilsService.irPara("home-administrador");
+					UtilsService.irPara("tipos-ocorrencia");
 				};
 
 				TipoOcorrenciaService.cadastrarTipoOcorrencia(this.tipoOcorrencia, funcSucesso);

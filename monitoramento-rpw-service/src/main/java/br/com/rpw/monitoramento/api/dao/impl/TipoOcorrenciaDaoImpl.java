@@ -3,7 +3,6 @@ package br.com.rpw.monitoramento.api.dao.impl;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +16,7 @@ public class TipoOcorrenciaDaoImpl extends AbstractDao implements ITipoOcorrenci
 
 	@Override
 	public void salvarTipoOcorrencia(TipoOcorrencia tipoOcorrencia) {
+		tipoOcorrencia.setAtivo(true);
 		persist(tipoOcorrencia);
 	}
 
@@ -24,14 +24,15 @@ public class TipoOcorrenciaDaoImpl extends AbstractDao implements ITipoOcorrenci
 	@Override
 	public List<TipoOcorrencia> listarTipoOcorrencias() {
 		Criteria criteria = getSession().createCriteria(TipoOcorrencia.class);
+		criteria.add(Restrictions.eq("ativo", true));
         return (List<TipoOcorrencia>) criteria.list();
 	}
 
 	@Override
 	public void deleteTipoOcorrencia(Long codigoTipoOcorrencia) {
-		Query query = getSession().createSQLQuery("delete from TIPO_OCORRENCIA where id = :id");
-        query.setLong("id", codigoTipoOcorrencia);
-        query.executeUpdate();
+		TipoOcorrencia tipoOcorrencia = consultarTipoOcorrencia(codigoTipoOcorrencia);
+		tipoOcorrencia.setAtivo(false);
+		atualizarTipoOcorrencia(tipoOcorrencia);
 	}
 
 	@Override

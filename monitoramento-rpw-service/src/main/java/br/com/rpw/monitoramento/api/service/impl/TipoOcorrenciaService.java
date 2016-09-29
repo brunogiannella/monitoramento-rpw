@@ -26,7 +26,7 @@ public class TipoOcorrenciaService implements ITipoOcorrenciaService {
 
 	@Autowired
 	private TipoOcorrenciaDaoImpl tipoOcorrenciaDaoImpl;
-
+	
 	@Override
 	public Long cadastrarTipoOcorrencia(TipoOcorrenciaDTO tipoOcorrenciaDTO)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException {
@@ -94,6 +94,11 @@ public class TipoOcorrenciaService implements ITipoOcorrenciaService {
 		TipoOcorrencia tipoOcorrencia = new TipoOcorrencia();
 		tipoOcorrencia.setDescricao(tipoOcorrenciaDTO.getDescricao());
 		return tipoOcorrencia;
+	}
+
+	@Override
+	public void removerTipoOcorrencia(Long idTipoOcorrencia) {
+		tipoOcorrenciaDaoImpl.deleteTipoOcorrencia(idTipoOcorrencia);
 	}
 
 }

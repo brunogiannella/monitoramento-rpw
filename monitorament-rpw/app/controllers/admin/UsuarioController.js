@@ -44,7 +44,41 @@
 		}
 
 		function editarUsuario(idUsuario) {
-			UtilsService.irPara('editar-usuario', {idUsuario:idUsuario});
+
+			var funcSucesso = function(data, controller) {
+				var usuarioCadastro = {};
+				usuarioCadastro.id = data.id;
+				usuarioCadastro.usuario = data.usuario;
+				usuarioCadastro.senha = data.senha;
+				usuarioCadastro.nome = data.nome;
+				usuarioCadastro.email = data.email;
+				usuarioCadastro.tipoUsuario = data.tipoUsuario;
+
+				usuarioCadastro.endereco = {};
+				if(data.endereco != null) {
+					usuarioCadastro.endereco.id = data.endereco.id;
+					usuarioCadastro.endereco.logradouro = data.endereco.logradouro;
+					usuarioCadastro.endereco.bairro = data.endereco.bairro;
+					usuarioCadastro.endereco.cidade = data.endereco.cidade;
+					usuarioCadastro.endereco.estado = data.endereco.estado;
+					usuarioCadastro.endereco.cep = data.endereco.cep;
+				}
+
+				if(data.cliente != null) {
+					usuarioCadastro.idCliente = data.cliente.id;
+				}
+				
+				usuarioCadastro.telefone = {};
+				if(data.telefone != null) {
+					usuarioCadastro.telefone.id = data.telefone.id;
+					usuarioCadastro.telefone.ddd = data.telefone.ddd;
+					usuarioCadastro.telefone.telefone = data.telefone.telefone;
+				}
+				
+				UtilsService.irPara('editar-usuario', {usuario:usuarioCadastro});
+			};
+
+			UsuarioService.consultarUsuario(idUsuario, funcSucesso, $scope);
 		}
 
 		inicializar();

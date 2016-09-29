@@ -29,6 +29,9 @@ public class TipoOcorrencia implements Serializable {
 	@Column(name = "DESCRICAO", nullable = false)
 	private String descricao;
 	
+	@Column(name = "ATIVO", nullable = false)
+	private Boolean ativo;
+	
 	@OneToMany(mappedBy = "tipoOcorrencia", targetEntity = CampoOcorrencia.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<CampoOcorrencia> campos;
 	
@@ -54,6 +57,14 @@ public class TipoOcorrencia implements Serializable {
 
 	public void setCampos(Set<CampoOcorrencia> campos) {
 		this.campos = campos;
+	}
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
 	}
 
 }

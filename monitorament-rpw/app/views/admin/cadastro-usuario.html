@@ -102,7 +102,7 @@
                       <input ng-model="CadastroUsuarioCrtl.usuario.usuario" id="usuario_login" name="usuario_login" placeholder="Login do usuário" type="text" required ng-minlength="8">
                       <label for="usuario_login">Usuário</label>
                     </div>
-                    <div class="input-field col s6 pl-5">
+                    <div class="input-field col s6 pl-5" ng-show="CadastroUsuarioCrtl.usuario.senha == ''">
                       <input type="password" ng-model="CadastroUsuarioCrtl.usuario.senha" id="usuario_senha" name="usuario_senha" placeholder="Senha do usuário" type="text" required ng-minlength="8">
                       <label for="usuario_senha">Senha</label>
                     </div>
@@ -205,7 +205,7 @@
                   </div>
 
                   <div class="input-field col s12">
-                    <button type="submit" class="btn-large blue darken-2 waves-effect waves-light col s12" ng-disabled="mainForm.$invalid">Cadastrar Usuário
+                    <button type="submit" class="btn-large blue darken-2 waves-effect waves-light col s12" ng-disabled="mainForm.$invalid">Confirmar
                     </button>
                   </div>
 
@@ -248,14 +248,14 @@
             var estado = $("#estado").val();
             if(estado != null && estado != "") {
               $("div.usuario_estado > input.select-dropdown").val(estado);
-              $("div.usuario_estado > label").get(0).removeClass("active");  
+              $("div.usuario_estado > label").removeClass("active");  
             }
 
             angular.element($("#cliente")).triggerHandler('input')
             var cliente = $("#cliente").val();
             if(cliente != null && cliente != "") {
               $("div.usuario_cliente > input.select-dropdown").val(cliente);  
-              $("div.usuario_cliente > label").get(0).removeClass("active");
+              $("div.usuario_cliente > label").removeClass("active");
             }
 
           });

@@ -54,6 +54,16 @@ public class TipoOcorrenciaController {
 		}
 	}
 	
+	@RequestMapping(value="{id}", method = RequestMethod.DELETE)
+	public RestObject removerTipoOcorrencia(@PathVariable("id") Long idTipoOcorrencia) { 
+		try {
+			tipoOcorrenciaService.removerTipoOcorrencia(idTipoOcorrencia);
+			return new RestObject(200, true, "Tipo ocorrência removido com sucesso", "");
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro na hora de remover o tipo de ocorrência: " + e.getMessage(), null);
+		}
+	}
+	
 	@RequestMapping(value="", method = RequestMethod.GET)
 	public RestObject listarTiposOcorrencia() { 
 		try {

@@ -14,4 +14,5 @@ public interface ITipoOcorrenciaService {
 	TipoOcorrencia consultarTipoOcorrencia(Long idTipoOcorrencia) throws NoSuchAlgorithmException, UnsupportedEncodingException;
 	List<TipoOcorrenciaDTO> listarTiposOcorrencia() throws NoSuchAlgorithmException, UnsupportedEncodingException;
 	List<TipoOcorrencia> listarTiposOcorrencia(Cliente cliente) throws NoSuchAlgorithmException, UnsupportedEncodingException;
+	void removerTipoOcorrencia(Long idTipoOcorrencia);
 }

@@ -66,6 +66,34 @@
 			});
 		};
 
+		function removerTipoOcorrencia(idTipoOcorrencia, fncSucesso) {
+
+			var  data = {};
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'tipoOcorrencia/'+idTipoOcorrencia,
+				method : 'DELETE',
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		         return false;
+		       }
+		    ).catch(function() {
+				return false;
+			});
+		};
+
 		function listarTiposOcorrencia(fncSucesso) {
 
 			var  data = {};
@@ -125,6 +153,7 @@
 		return {
 			cadastrarTipoOcorrencia : cadastrarTipoOcorrencia,
 			consultarTipoOcorrencia : consultarTipoOcorrencia,
+			removerTipoOcorrencia : removerTipoOcorrencia,
 			listarTiposOcorrencia : listarTiposOcorrencia,
 			listarCamposOcorrencia : listarCamposOcorrencia
 		}

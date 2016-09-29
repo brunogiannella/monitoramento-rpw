@@ -17,6 +17,7 @@ var app = angular.module('app',['ui.router',
                   'cadastrarEquipamento.controller',
                   'associarTipoOcorrencia.controller',
                   'tipoOcorrencia.controller',
+                  'removerTipoOcorrencia.controller',
                   'cadastrarTipoOcorrenciaController.controller',
 
 							    'constantes.service',
@@ -89,7 +90,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
     .state('editar-usuario', {
       url: '/editar-usuario',
       params: {
-        idUsuario : null
+        usuario : null
       },
       templateUrl: 'app/views/admin/cadastro-usuario.html',
       controller: 'EditarUsuarioController as CadastroUsuarioCrtl'
@@ -149,6 +150,15 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       url: '/tipos-ocorrencia',
       templateUrl: 'app/views/admin/tipos-ocorrencia.html',
       controller: 'TipoOcorrenciaController as TipoOcorrenciaCrtl'
+    })
+    .state('remover-tipo-ocorrencia', {
+      url: '/remover-tipo-ocorrencia',
+      params: {
+        idTipoOcorrencia : null,
+        nomeTipoOcorrencia : null
+      },
+      templateUrl: 'app/views/admin/remover-tipo-ocorrencia.html',
+      controller: 'RemoverTipoOcorrenciaController as RemoverTipoOcorrenciaCrtl'
     })
     .state('cadastrar-tipo-ocorrencias', {
       url: '/cadastrar-tipo-ocorrencias',

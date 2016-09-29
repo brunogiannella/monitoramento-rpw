@@ -20,43 +20,7 @@
 		vm.cadastrarUsuario = cadastrarUsuario;
 
 		function inicializarCadastro() {
-			
-
-			var funcSucesso = function(data, controller) {
-				var usuarioCadastro = {};
-				usuarioCadastro.id = data.id;
-				usuarioCadastro.usuario = data.usuario;
-				usuarioCadastro.senha = data.senha;
-				usuarioCadastro.nome = data.nome;
-				usuarioCadastro.email = data.email;
-				usuarioCadastro.tipoUsuario = data.tipoUsuario;
-
-				usuarioCadastro.endereco = {};
-				if(data.endereco != null) {
-					usuarioCadastro.endereco.id = data.endereco.id;
-					usuarioCadastro.endereco.logradouro = data.endereco.logradouro;
-					usuarioCadastro.endereco.bairro = data.endereco.bairro;
-					usuarioCadastro.endereco.cidade = data.endereco.cidade;
-					usuarioCadastro.endereco.estado = data.endereco.estado;
-					usuarioCadastro.endereco.cep = data.endereco.cep;
-				}
-
-				if(data.cliente != null) {
-					usuarioCadastro.idCliente = data.cliente.id;
-				}
-				
-				usuarioCadastro.telefone = {};
-				if(data.telefone != null) {
-					usuarioCadastro.telefone.ddd = data.telefone.ddd;
-					usuarioCadastro.telefone.telefone = data.telefone.telefone;
-				}
-				
-
-				controller.usuario = usuarioCadastro;
-			};
-
-			UsuarioService.consultarUsuario($stateParams.idUsuario, funcSucesso, vm);
-
+			vm.usuario = $stateParams.usuario;
 			$scope.tiposUsuarioConsulta = $rootScope.dominios.tiposUsuarioConsulta;
 			$scope.clienteConsulta = $rootScope.dominios.clienteConsulta;
 		};
