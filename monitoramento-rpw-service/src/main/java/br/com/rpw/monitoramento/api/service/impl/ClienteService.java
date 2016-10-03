@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.rpw.monitoramento.api.constantes.TipoCameraEnum;
 import br.com.rpw.monitoramento.api.dao.impl.CameraDaoImpl;
+import br.com.rpw.monitoramento.api.dao.impl.CampoOcorrenciaDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.ClienteDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.ClienteTipoOcorrenciaDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.EnderecoDaoImpl;
@@ -44,6 +45,9 @@ public class ClienteService implements IClienteService {
 	
 	@Autowired
 	private ClienteTipoOcorrenciaDaoImpl clienteTipoOcorrenciaDaoImpl;
+	
+	@Autowired
+	private CampoOcorrenciaDaoImpl campoOcorrenciaDaoImpl;
 
 	@Override
 	public void cadastrarCliente(ClienteDTO cadastrarClienteRequestDTO) {
@@ -91,7 +95,9 @@ public class ClienteService implements IClienteService {
 			cliente.setTipoOcorrencias(new ArrayList<TipoOcorrencia>());
 			
 			for(ClienteTipoOcorrencia clienteTipoOcorrencia : tipoOcorrencia) {
-				cliente.getTipoOcorrencias().add(clienteTipoOcorrencia.getTipoOcorrencia());
+				TipoOcorrencia tipoOcorrenciaAtual = clienteTipoOcorrencia.getTipoOcorrencia();
+				tipoOcorrenciaAtual.setCampos(campoOcorrenciaDaoImpl.consultarCamposOcorrencia(tipoOcorrenciaAtual));
+				cliente.getTipoOcorrencias().add(tipoOcorrenciaAtual);
 			}
 		}
 		
@@ -172,7 +178,10 @@ public class ClienteService implements IClienteService {
 				TipoOcorrenciaDTO tipoOcorrenciaDto = new TipoOcorrenciaDTO();
 				tipoOcorrenciaDto.setId(tipoOcorrencia.getId());
 				tipoOcorrenciaDto.setDescricao(tipoOcorrencia.getDescricao());
-				tipoOcorrenciaDto.setQuantidadeCampos(tipoOcorrencia.getCampos().size());
+				
+				if(tipoOcorrencia.getCampos() != null) {
+					tipoOcorrenciaDto.setQuantidadeCampos(tipoOcorrencia.getCampos().size());
+				}
 				
 				clienteDto.getTiposOcorrencia().add(tipoOcorrenciaDto);
 			}

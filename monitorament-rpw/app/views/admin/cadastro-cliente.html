@@ -136,12 +136,13 @@
 
 
                               <div class="input-field col s12 m6">
-                                <input id="passo1_cep" name="passo1_cep" ng-model="CadastroClienteCrtl.cliente.endereco.cep" placeholder="Ex: 00000-000" type="text" class="form-group" required>
+                                <input id="passo1_cep" name="passo1_cep" ng-model="CadastroClienteCrtl.cliente.endereco.cep" placeholder="Ex: 00000000" type="text" class="form-group" required>
                                 <label for="passo1_cep">CEP</label>
                               </div>
 
                               <div class="input-field col s12 m6">
-                                <select class="passo1_estado selectable">
+                                <input id="estado" type="text" style="display:none;" ng-model="CadastroClienteCrtl.cliente.endereco.estado" />
+                                <select onchange="alterarComboEstado();" class="passo1_estado selectable">
                                   <option value="" disabled selected>--</option>
                                   <option value="AC">Acre</option>
                                   <option value="AL">Alagoas</option>
@@ -193,9 +194,9 @@
                               <div class="input-field col hide-on-small-only m6"> <!-- vazio --> </div>
 
                               <div class="input-field col s12">
-                                <button class="btn-large blue darken-2 waves-effect waves-light col s12"  ng-click="CadastroClienteCrtl.avancarStep2();" ng-disabled="mainForm.$invalid">Próximo
+                                <a class="btn-large blue darken-2 waves-effect waves-light col s12"  ng-click="CadastroClienteCrtl.avancarStep2();" ng-disabled="mainForm.$invalid">Próximo
                                   <i class="material-icons right">arrow_forward</i>
-                                </button>
+                                </a>
                               </div>
                             </div>  
                           </div>
@@ -264,9 +265,9 @@
                             </div>
 
                             <div class="input-field col s12 m6"> 
-                              <button class="btn-large grey darken-1 waves-effect waves-light col s12 prevBtn" type="submit" name="action">Anterior
+                              <a class="btn-large grey darken-1 waves-effect waves-light col s12 prevBtn"   ng-click="CadastroClienteCrtl.voltarPasso1();" name="action">Anterior
                                 <i class="material-icons left">arrow_back</i>
-                              </button>
+                              </a>
                             </div>
                             <div class="input-field col s12 m6">
                               <button type="submit" class="btn-large blue darken-2 waves-effect waves-light col s12" ng-disabled="mainForm.$invalid">Finalizar
@@ -307,8 +308,20 @@
 
               $('form').submit(false);
 
+              angular.element($("#estado")).triggerHandler('input')
+              var estado = $("#estado").val();
+              if(estado != null && estado != "") {
+                $("div.passo1_estado > input.select-dropdown").val(estado);
+                $("div.passo1_estado > label").removeClass("active");  
+              }
+
             });
 
+            function alterarComboEstado() {
+              var estadoSelecionado = $("div.passo1_estado > input.select-dropdown").val();
+              $("#estado").val(estadoSelecionado);
+              angular.element($("#estado")).triggerHandler('input')
+            }
 
           </script>
           <!-- /Scripts -->

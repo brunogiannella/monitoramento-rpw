@@ -12,9 +12,12 @@ var app = angular.module('app',['ui.router',
                   'cadastroUsuarioController.controller',
                   'cliente.controller',
                   'removerCliente.controller',
+                  'editarCliente.controller',
                   'cadastroClienteController.controller',
                   'cadastrarCamera.controller',
                   'cadastrarEquipamento.controller',
+                  'editarEquipamento.controller',
+                  'removerEquipamento.controller',
                   'associarTipoOcorrencia.controller',
                   'tipoOcorrencia.controller',
                   'removerTipoOcorrencia.controller',
@@ -114,6 +117,14 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       templateUrl: 'app/views/admin/remover-cliente.html',
       controller: 'RemoverClienteController as RemoverClienteCrtl'
     })
+    .state('editar-cliente', {
+      url: '/editar-cliente',
+      params: {
+        cliente : null
+      },
+      templateUrl: 'app/views/admin/cadastro-cliente.html',
+      controller: 'EditarClienteController as CadastroClienteCrtl'
+    })
     .state('cadastrar-cliente', {
       url: '/cadastrar-cliente',
       templateUrl: 'app/views/admin/cadastro-cliente.html',
@@ -136,6 +147,23 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       },
       templateUrl: 'app/views/admin/cadastrar-equipamento.html',
       controller: 'CadastrarEquipamentoController as CadastrarEquipamentoCrtl'
+    })
+    .state('editar-equipamento', {
+      url: '/editar-equipamento',
+      params: {
+        equipamento : null
+      },
+      templateUrl: 'app/views/admin/cadastrar-equipamento.html',
+      controller: 'EditarEquipamentoController as CadastrarEquipamentoCrtl'
+    })
+    .state('remover-equipamento', {
+      url: '/remover-equipamento',
+      params: {
+        idEquipamento : null,
+        nomeEquipamento : null
+      },
+      templateUrl: 'app/views/admin/remover-equipamento.html',
+      controller: 'RemoverEquipamentoController as RemoverEquipamentoCrtl'
     })
     .state('associar-tipo-ocorrencia', {
       url: '/associar-tipo-ocorrencia',

@@ -15,6 +15,7 @@
 		vm.inicio = inicio;
 		vm.voltar = voltar;
 		vm.avancarStep2 = avancarStep2;
+		vm.voltarPasso1 = voltarPasso1;
 		vm.cadastrarCliente = cadastrarCliente;
 
 		function inicializarCadastro() {
@@ -43,6 +44,10 @@
 
 		function avancarStep2() {
 			vm.step = 2;
+		}
+
+		function voltarPasso1() {
+			vm.step = 1;
 		}
 		
 		function inicio() {

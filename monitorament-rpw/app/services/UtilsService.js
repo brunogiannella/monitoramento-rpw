@@ -36,12 +36,17 @@
 			return null;
 		};
 
+		function tratarErrosHttp(response) {
+			alert("Ocorreu um problema durante a operação. Tente novamente por favor.");
+		}
+
 		return {
 			irPara : irPara,
 			getToken : getToken,
 			logout : logout,
 			ativarLoading : ativarLoading,
-			desativarLoading : desativarLoading
+			desativarLoading : desativarLoading,
+			tratarErrosHttp : tratarErrosHttp
 		}
 	}
 

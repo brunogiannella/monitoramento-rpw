@@ -1,17 +1,15 @@
 package br.com.rpw.monitoramento.api.model;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "TIPO_OCORRENCIA")
@@ -32,8 +30,8 @@ public class TipoOcorrencia implements Serializable {
 	@Column(name = "ATIVO", nullable = false)
 	private Boolean ativo;
 	
-	@OneToMany(mappedBy = "tipoOcorrencia", targetEntity = CampoOcorrencia.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private Set<CampoOcorrencia> campos;
+	@Transient
+	private List<CampoOcorrencia> campos;
 	
 	public Long getId() {
 		return id;
@@ -51,11 +49,11 @@ public class TipoOcorrencia implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Set<CampoOcorrencia> getCampos() {
+	public List<CampoOcorrencia> getCampos() {
 		return campos;
 	}
 
-	public void setCampos(Set<CampoOcorrencia> campos) {
+	public void setCampos(List<CampoOcorrencia> campos) {
 		this.campos = campos;
 	}
 

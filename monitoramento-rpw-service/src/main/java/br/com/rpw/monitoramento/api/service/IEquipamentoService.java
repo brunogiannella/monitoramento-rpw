@@ -12,4 +12,6 @@ public interface IEquipamentoService {
 	Equipamento consultarEquipamento(Long idEquipamento) throws NoSuchAlgorithmException, UnsupportedEncodingException;
 	List<Equipamento> consultarEquipamentos(Cliente cliente) throws NoSuchAlgorithmException, UnsupportedEncodingException;
 	void cadastrarEquipamento(EquipamentoDTO EquipamentoDto) throws NoSuchAlgorithmException, UnsupportedEncodingException;
+	void atualizarEquipamento(EquipamentoDTO EquipamentoDto) throws NoSuchAlgorithmException, UnsupportedEncodingException;
+	void removerEquipamento(Long idEquipamento) throws NoSuchAlgorithmException, UnsupportedEncodingException;
 }

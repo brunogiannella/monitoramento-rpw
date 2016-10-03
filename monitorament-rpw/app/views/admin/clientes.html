@@ -178,7 +178,8 @@
                         <td>{{equipamentos.descricao}}</td>
                         <td>{{equipamentos.numero}}</td>
                         <td class="right-align">
-                          <i class="material-icons small red-text">delete</i>
+                          <a href="#" ng-click="ClienteCrtl.editarEquipamento(equipamentos);"><i class="material-icons small blue-text">mode_edit</i></a>
+                          <a href="#" ng-click="ClienteCrtl.removerEquipamento(equipamentos.id, equipamentos.descricao);"><i class="material-icons small red-text">delete</i></a>
                         </td>
                       </tr>
                     </tbody>
@@ -240,7 +241,7 @@
               <br>
 
               <div class="row">
-                <button class="btn-large blue darken-2 waves-effect waves-light col s5" ng-click="CadastrarTipoOcorrenciaCrtl.cadastrarTipoOcorrencia();">ALTERAR CLIENTE</button>
+                <button class="btn-large blue darken-2 waves-effect waves-light col s5" ng-click="ClienteCrtl.editarCliente(clientesListaConsulta);">ALTERAR CLIENTE</button>
                 <div class="col s2"></div>
                 <button class="btn-large red darken-2 waves-effect waves-light col s5" ng-click="ClienteCrtl.removerCliente(clientesListaConsulta.id, clientesListaConsulta.nome);">REMOVER CLIENTE</button>
               </div>

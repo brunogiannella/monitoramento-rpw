@@ -17,6 +17,7 @@ public class EquipamentoDaoImpl extends AbstractDao implements IEquipamentoDao {
 
 	@Override
 	public void salvarEquipamento(Equipamento equipamento) {
+		equipamento.setAtivo(true);
 		persist(equipamento);
 	}
 
@@ -24,7 +25,8 @@ public class EquipamentoDaoImpl extends AbstractDao implements IEquipamentoDao {
 	@Override
 	public List<Equipamento> listarEquipamentos(Cliente cliente) {
 		Criteria criteria = getSession().createCriteria(Equipamento.class);
-		criteria.add(Restrictions.eq("cliente.id",cliente.getId()));
+		criteria.add(Restrictions.eq("cliente.id", cliente.getId()));
+		criteria.add(Restrictions.eq("ativo", true));
         return (List<Equipamento>) criteria.list();
 	}
 	
@@ -37,15 +39,16 @@ public class EquipamentoDaoImpl extends AbstractDao implements IEquipamentoDao {
 
 	@Override
 	public void deleteEquipamento(Long codigoEquipamento) {
-		Query query = getSession().createSQLQuery("delete from EQUIPAMENTO where id = :id");
-        query.setLong("id", codigoEquipamento);
-        query.executeUpdate();
+		Equipamento equipamento = consultarEquipamento(codigoEquipamento);
+		equipamento.setAtivo(false);
+		atualizarEquipamento(equipamento);
 	}
 
 	@Override
 	public Equipamento consultarEquipamento(Long idEquipamento) {
 		Criteria criteria = getSession().createCriteria(Equipamento.class);
         criteria.add(Restrictions.eq("id",idEquipamento));
+        criteria.add(Restrictions.eq("ativo", true));
         return (Equipamento) criteria.uniqueResult();
 	}
 

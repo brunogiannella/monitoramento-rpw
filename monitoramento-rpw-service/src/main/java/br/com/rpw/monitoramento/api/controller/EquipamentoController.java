@@ -33,6 +33,16 @@ public class EquipamentoController {
 			return new RestObject(500, false, "Ocorreu um erro no cadastro da equipamento: " + e.getMessage(), null);
 		}
 	}
+	
+	@RequestMapping(value="", method = RequestMethod.PUT)
+	public RestObject atualizarEquipamento(@RequestBody EquipamentoDTO equipamentoDto) { 
+		try {
+			equipamentoService.atualizarEquipamento(equipamentoDto);
+			return new RestObject(200, true, "Alteração realizado com sucesso", "");
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro na alteração do equipamento: " + e.getMessage(), null);
+		}
+	}
 		
 	@RequestMapping(value="{id}", method = RequestMethod.GET)
 	public RestObject consultarEquipamento(@PathVariable("id") Long idEquipamento) { 
@@ -41,6 +51,16 @@ public class EquipamentoController {
 			return new RestObject(200, true, "Consulta realizada com sucesso", equipamento);
 		} catch(Exception e) {
 			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
+		}
+	}
+	
+	@RequestMapping(value="{id}", method = RequestMethod.DELETE)
+	public RestObject removerEquipamento(@PathVariable("id") Long idEquipamento) { 
+		try {
+			equipamentoService.removerEquipamento(idEquipamento);
+			return new RestObject(200, true, "Equipamento removido com sucesso", "");
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro na remoção: " + e.getMessage(), null);
 		}
 	}
 	

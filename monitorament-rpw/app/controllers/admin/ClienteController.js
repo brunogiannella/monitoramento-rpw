@@ -18,6 +18,9 @@
 		vm.cadastrarEquipamento = cadastrarEquipamento;
 		vm.associarOcorrencia = associarOcorrencia;
 		vm.removerCliente = removerCliente;
+		vm.editarCliente = editarCliente;
+		vm.editarEquipamento = editarEquipamento;
+		vm.removerEquipamento = removerEquipamento;
 
 		function inicializar() {
 			$scope.sair = UtilsService.logout;
@@ -49,6 +52,43 @@
 
 		function removerCliente(idCliente, nomeCliente) {
 			UtilsService.irPara('remover-cliente', {idCliente:idCliente, nomeCliente:nomeCliente});
+		}
+
+		function editarCliente(data) {
+			var clienteEdicao = {};
+			clienteEdicao.id = data.id;
+			clienteEdicao.nome = data.nome;
+			clienteEdicao.emailResposavel = data.emailResposavel;
+			clienteEdicao.emailAutomatico = data.emailAutomatico;
+
+			clienteEdicao.endereco = {};
+			if(data.endereco != null) {
+				clienteEdicao.endereco.id = data.endereco.id;
+				clienteEdicao.endereco.logradouro = data.endereco.logradouro;
+				clienteEdicao.endereco.bairro = data.endereco.bairro;
+				clienteEdicao.endereco.cidade = data.endereco.cidade;
+				clienteEdicao.endereco.estado = data.endereco.estado;
+				clienteEdicao.endereco.cep = data.endereco.cep;
+			}
+
+			clienteEdicao.emailsRelatorioDiario = data.emailsRelatorioDiario;
+			clienteEdicao.emailsRelatorioMensal = data.emailsRelatorioMensal;
+			
+			UtilsService.irPara('editar-cliente', {cliente:clienteEdicao});
+		}
+
+		function editarEquipamento(data) {
+			var equipamentoEdicao = {};
+			equipamentoEdicao.id = data.id;
+			equipamentoEdicao.numero = data.numero;
+			equipamentoEdicao.descricao = data.descricao;
+			equipamentoEdicao.localizacao = data.localizacao;
+			equipamentoEdicao.idCliente = data.idCliente;
+			UtilsService.irPara('editar-equipamento', {equipamento:equipamentoEdicao});
+		}
+
+		function removerEquipamento(idEquipamento, nomeEquipamento) {
+			UtilsService.irPara('remover-equipamento', {idEquipamento:idEquipamento, nomeEquipamento:nomeEquipamento});
 		}
 
 		function consultarCliente() {

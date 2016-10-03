@@ -33,6 +33,9 @@ public class Equipamento implements Serializable {
 	@Column(name = "LOCALIZACAO")
 	private String localizacao;
 	
+	@Column(name = "ATIVO")
+	private Boolean ativo;
+	
 	@ManyToOne
 	@JoinColumn(name = "ID_CLIENTE")
 	private Cliente cliente;
@@ -77,4 +80,12 @@ public class Equipamento implements Serializable {
 		this.cliente = cliente;
 	}
 
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
+	
 }

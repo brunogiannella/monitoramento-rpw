@@ -19,8 +19,13 @@
 
 			if(validarTipoOcorrencia(this.tipoOcorrencia)) {
 				var funcSucesso = function(data) {
-					alert("Tipo ocorrência cadastrada com sucesso");
-					UtilsService.irPara("tipos-ocorrencia");
+					var funcSucessoTiposCampoOcorrencia = function(data) {
+						$rootScope.dominios.tipoOcorrenciasConsulta = data;
+						alert("Tipo ocorrência cadastrada com sucesso");
+						UtilsService.irPara("tipos-ocorrencia");
+					};
+
+					TipoOcorrenciaService.listarTiposOcorrencia(funcSucessoTiposCampoOcorrencia);
 				};
 
 				TipoOcorrenciaService.cadastrarTipoOcorrencia(this.tipoOcorrencia, funcSucesso);

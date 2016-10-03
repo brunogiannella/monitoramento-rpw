@@ -4,7 +4,6 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.rpw.monitoramento.api.constantes.TipoCampoEnum;
+import br.com.rpw.monitoramento.api.dao.impl.CampoOcorrenciaDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.TipoOcorrenciaDaoImpl;
 import br.com.rpw.monitoramento.api.dto.CampoOcorrenciaDTO;
 import br.com.rpw.monitoramento.api.dto.TipoOcorrenciaDTO;
@@ -27,6 +27,9 @@ public class TipoOcorrenciaService implements ITipoOcorrenciaService {
 	@Autowired
 	private TipoOcorrenciaDaoImpl tipoOcorrenciaDaoImpl;
 	
+	@Autowired
+	private CampoOcorrenciaDaoImpl campoOcorrenciaDaoImpl;
+	
 	@Override
 	public Long cadastrarTipoOcorrencia(TipoOcorrenciaDTO tipoOcorrenciaDTO)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException {
@@ -35,7 +38,6 @@ public class TipoOcorrenciaService implements ITipoOcorrenciaService {
 		tipoOcorrenciaDaoImpl.salvarTipoOcorrencia(tipoOcorrencia);
 		
 		int indice = 0;
-		tipoOcorrencia.setCampos(new HashSet<CampoOcorrencia>());
 		for(CampoOcorrenciaDTO camposDto : tipoOcorrenciaDTO.getCampos()) {
 			CampoOcorrencia campo = new CampoOcorrencia();
 			campo.setDescricao(camposDto.getDescricao());
@@ -45,16 +47,16 @@ public class TipoOcorrenciaService implements ITipoOcorrenciaService {
 				campo.setTipoCampo(TipoCampoEnum.TEXTO);
 			} else if(TipoCampoEnum.DATA.getDescricao().equals(camposDto.getTipoCampo())) {
 				campo.setTipoCampo(TipoCampoEnum.DATA);
+			} else if(TipoCampoEnum.EQUIPAMENTOS.getDescricao().equals(camposDto.getTipoCampo())) {
+				campo.setTipoCampo(TipoCampoEnum.EQUIPAMENTOS);
 			}
 			
 			campo.setOrdem(indice);
 			campo.setTipoOcorrencia(tipoOcorrencia);
-			tipoOcorrencia.getCampos().add(campo);
 			
+			campoOcorrenciaDaoImpl.salvarCampoOcorrencia(campo);
 			indice++;
 		}
-		
-		tipoOcorrenciaDaoImpl.atualizarTipoOcorrencia(tipoOcorrencia);
 		
 		return tipoOcorrencia.getId();
 	}
@@ -75,7 +77,12 @@ public class TipoOcorrenciaService implements ITipoOcorrenciaService {
 			TipoOcorrenciaDTO tipoDto = new TipoOcorrenciaDTO();
 			tipoDto.setId(tipo.getId());
 			tipoDto.setDescricao(tipo.getDescricao());
-			tipoDto.setQuantidadeCampos(tipo.getCampos().size());
+			
+			List<CampoOcorrencia> campos = campoOcorrenciaDaoImpl.consultarCamposOcorrencia(tipo);
+			
+			if(campos != null) {
+				tipoDto.setQuantidadeCampos(campos.size());
+			}
 			
 			tiposOcorrenciaDto.add(tipoDto);
 		}

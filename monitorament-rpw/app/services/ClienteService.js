@@ -27,18 +27,50 @@
 		       	  if(response.data.sucess) {
 		       	  	fncSucesso(response.data.data);
 		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
 		       	  	return false;
 		       	  }
 
 		       }, 
 		       function(response){
-		         return false;
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
 		       }
 		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
 				return false;
 			});
 		};
 
+		function atualizarCliente(clienteDto, fncSucesso) {
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'cliente',
+				method : 'PUT',
+				data: clienteDto,
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
+		       }
+		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
+				return false;
+			});
+		};
 
 		function consultarCliente(id, fncSucesso) {
 
@@ -56,14 +88,17 @@
 		       	  if(response.data.sucess) {
 		       	  	fncSucesso(response.data.data);
 		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
 		       	  	return false;
 		       	  }
 
 		       }, 
 		       function(response){
-		         return false;
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
 		       }
 		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
 				return false;
 			});
 		};
@@ -84,14 +119,17 @@
 		       	  if(response.data.sucess) {
 		       	  	fncSucesso(response.data.data);
 		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
 		       	  	return false;
 		       	  }
 
 		       }, 
 		       function(response){
-		         return false;
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
 		       }
 		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
 				return false;
 			});
 		};
@@ -111,14 +149,17 @@
 		       	  if(response.data.sucess) {
 		       	  	fncSucesso(response.data.data);
 		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
 		       	  	return false;
 		       	  }
 
 		       }, 
 		       function(response){
-		         return false;
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
 		       }
 		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
 				return false;
 			});
 		};
@@ -138,20 +179,24 @@
 		       	  if(response.data.sucess) {
 		       	  	fncSucesso(response.data.data);
 		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
 		       	  	return false;
 		       	  }
 
 		       }, 
 		       function(response){
-		         return false;
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
 		       }
 		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
 				return false;
 			});
 		};
 
 		return {
 			cadastrarCliente : cadastrarCliente,
+			atualizarCliente : atualizarCliente,
 			consultarCliente : consultarCliente,
 			consultarClientes : consultarClientes,
 			removerCliente : removerCliente,

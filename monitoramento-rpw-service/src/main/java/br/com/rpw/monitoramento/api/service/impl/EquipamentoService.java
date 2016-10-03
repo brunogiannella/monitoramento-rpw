@@ -28,6 +28,18 @@ public class EquipamentoService implements IEquipamentoService {
 	}
 	
 	@Override
+	public void atualizarEquipamento(EquipamentoDTO equipamentoDto) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		Equipamento Equipamento = converterEquipamentoDTOemEquipamento(equipamentoDto);
+		Equipamento.setAtivo(true);
+		equipamentoDaoImpl.atualizarEquipamento(Equipamento);
+	}
+	
+	@Override
+	public void removerEquipamento(Long idEquipamento) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		equipamentoDaoImpl.deleteEquipamento(idEquipamento);
+	}
+	
+	@Override
 	public Equipamento consultarEquipamento(Long idEquipamento) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		return equipamentoDaoImpl.consultarEquipamento(idEquipamento);
 	}

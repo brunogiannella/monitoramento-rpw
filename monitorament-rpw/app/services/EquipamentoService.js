@@ -26,14 +26,47 @@
 		       	  if(response.data.sucess) {
 		       	  	fncSucesso(response.data.data);
 		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
 		       	  	return false;
 		       	  }
 
 		       }, 
 		       function(response){
-		         return false;
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
 		       }
 		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
+				return false;
+			});
+		};
+
+		function atualizarEquipamento(equipamentoDto, fncSucesso) {
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'equipamento',
+				method : 'PUT',
+				data: equipamentoDto,
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
+		       }
+		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
 				return false;
 			});
 		};
@@ -54,14 +87,48 @@
 		       	  if(response.data.sucess) {
 		       	  	fncSucesso(response.data.data);
 		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
 		       	  	return false;
 		       	  }
 
 		       }, 
 		       function(response){
-		         return false;
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
 		       }
 		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
+				return false;
+			});
+		};
+
+		function removerEquipamento(idEquipamento, fncSucesso) {
+
+			var  data = {};
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'equipamento/' + idEquipamento,
+				method : 'DELETE',
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
+		       }
+		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
 				return false;
 			});
 		};
@@ -82,21 +149,26 @@
 		       	  if(response.data.sucess) {
 		       	  	fncSucesso(response.data.data);
 		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
 		       	  	return false;
 		       	  }
 
 		       }, 
 		       function(response){
-		         return false;
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
 		       }
 		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
 				return false;
 			});
 		};
 
 		return {
 			consultarEquipamento : consultarEquipamento,
+			atualizarEquipamento : atualizarEquipamento,
 			cadastrarEquipamento : cadastrarEquipamento,
+			removerEquipamento : removerEquipamento,
 			listarEquipamentosCliente : listarEquipamentosCliente
 		}
 	}

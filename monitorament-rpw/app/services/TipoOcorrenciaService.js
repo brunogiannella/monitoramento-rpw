@@ -26,14 +26,17 @@
 		       	  if(response.data.sucess) {
 		       	  	fncSucesso(response.data.data);
 		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
 		       	  	return false;
 		       	  }
 
 		       }, 
 		       function(response){
-		         return false;
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
 		       }
 		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
 				return false;
 			});
 		};
@@ -54,14 +57,17 @@
 		       	  if(response.data.sucess) {
 		       	  	fncSucesso(response.data.data);
 		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
 		       	  	return false;
 		       	  }
 
 		       }, 
 		       function(response){
-		         return false;
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
 		       }
 		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
 				return false;
 			});
 		};
@@ -82,14 +88,17 @@
 		       	  if(response.data.sucess) {
 		       	  	fncSucesso(response.data.data);
 		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
 		       	  	return false;
 		       	  }
 
 		       }, 
 		       function(response){
-		         return false;
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
 		       }
 		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
 				return false;
 			});
 		};
@@ -110,14 +119,17 @@
 		       	  if(response.data.sucess) {
 		       	  	fncSucesso(response.data.data);
 		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
 		       	  	return false;
 		       	  }
 
 		       }, 
 		       function(response){
-		         return false;
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
 		       }
 		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
 				return false;
 			});
 		};
@@ -138,14 +150,17 @@
 		       	  if(response.data.sucess) {
 		       	  	fncSucesso(response.data.data);
 		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
 		       	  	return false;
 		       	  }
 
 		       }, 
 		       function(response){
-		         return false;
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
 		       }
 		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
 				return false;
 			});
 		};
