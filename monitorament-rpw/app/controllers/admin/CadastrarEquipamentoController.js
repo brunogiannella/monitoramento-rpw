@@ -12,6 +12,7 @@
 		
 
 		function inicializar() {
+			$scope.tipoEquipamentosConsulta = $rootScope.dominios.tipoEquipamentosConsulta
 			vm.nomeCliente = $stateParams.nomeCliente;
 			vm.idCliente = $stateParams.idCliente;
 			vm.equipamento = {};

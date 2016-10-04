@@ -84,6 +84,7 @@
 			equipamentoEdicao.descricao = data.descricao;
 			equipamentoEdicao.localizacao = data.localizacao;
 			equipamentoEdicao.idCliente = data.idCliente;
+			equipamentoEdicao.tipoEquipamento = data.tipoEquipamento;
 			UtilsService.irPara('editar-equipamento', {equipamento:equipamentoEdicao});
 		}
 

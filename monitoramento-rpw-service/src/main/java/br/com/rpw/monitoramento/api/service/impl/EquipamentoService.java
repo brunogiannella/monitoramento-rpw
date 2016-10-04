@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.rpw.monitoramento.api.constantes.TipoEquipamentoEnum;
 import br.com.rpw.monitoramento.api.dao.impl.EquipamentoDaoImpl;
 import br.com.rpw.monitoramento.api.dto.EquipamentoDTO;
 import br.com.rpw.monitoramento.api.model.Cliente;
@@ -62,7 +63,18 @@ public class EquipamentoService implements IEquipamentoService {
 		equipamento.setDescricao(equipamentoDto.getDescricao());
 		equipamento.setLocalizacao(equipamentoDto.getLocalizacao());
 		equipamento.setNumero(equipamentoDto.getNumero());
-				
+		
+		TipoEquipamentoEnum tipoEquipamento = null;
+		
+		for(TipoEquipamentoEnum tipo : TipoEquipamentoEnum.values()) {
+			if(tipo.getDescricao().equals(equipamentoDto.getTipoEquipamento())) {
+				tipoEquipamento = tipo;
+				break;
+			}
+		}
+		
+		equipamento.setTipoEquipamento(tipoEquipamento);
+		
 		return equipamento;
 	}
 

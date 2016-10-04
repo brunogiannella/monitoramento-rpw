@@ -20,6 +20,7 @@
 		vm.cadastrarEquipamento = cadastrarEquipamento;
 
 		function inicializarCadastro() {
+			$scope.tipoEquipamentosConsulta = $rootScope.dominios.tipoEquipamentosConsulta
 			vm.equipamento = $stateParams.equipamento;
 			vm.step = 1;
 		};

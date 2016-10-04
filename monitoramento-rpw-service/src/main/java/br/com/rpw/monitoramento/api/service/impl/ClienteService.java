@@ -168,6 +168,10 @@ public class ClienteService implements IClienteService {
 				equipamentoDTO.setLocalizacao(equipamento.getLocalizacao());
 				equipamentoDTO.setNumero(equipamento.getNumero());
 				
+				if(equipamento.getTipoEquipamento() != null) {
+					equipamentoDTO.setTipoEquipamento(equipamento.getTipoEquipamento().getDescricao());
+				}
+				
 				clienteDto.getEquipamentos().add(equipamentoDTO);
 			}
 		}

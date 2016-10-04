@@ -4,12 +4,16 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import br.com.rpw.monitoramento.api.constantes.TipoEquipamentoEnum;
 
 @Entity
 @Table(name = "EQUIPAMENTO")
@@ -35,6 +39,10 @@ public class Equipamento implements Serializable {
 	
 	@Column(name = "ATIVO")
 	private Boolean ativo;
+	
+	@Column(name = "TIPO_EQUIPAMENTO")
+	@Enumerated(EnumType.STRING)
+	private TipoEquipamentoEnum tipoEquipamento;
 	
 	@ManyToOne
 	@JoinColumn(name = "ID_CLIENTE")
@@ -86,6 +94,14 @@ public class Equipamento implements Serializable {
 
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
+	}
+
+	public TipoEquipamentoEnum getTipoEquipamento() {
+		return tipoEquipamento;
+	}
+
+	public void setTipoEquipamento(TipoEquipamentoEnum tipoEquipamento) {
+		this.tipoEquipamento = tipoEquipamento;
 	}
 	
 }

@@ -104,6 +104,16 @@
                               <label for="localizacao">Localização</label>
                             </div>
 
+                            <div class="input-field col s12 m6">
+                              <input id="tipoEquipamento" type="text" style="display:none;" ng-model="CadastrarEquipamentoCrtl.equipamento.tipoEquipamento" />
+                              <select onchange="alterarComboTipoEquipamento();" class="tipoEquipamento_equipamento selectable">
+                                <option value="" disabled selected>Selecione</option>
+                                <option ng-repeat="item in tipoEquipamentosConsulta" value="{{item}}">{{item}}</option>
+                                
+                              </select>
+                              <label>Tipo de equipamento</label>
+                            </div>
+
 
                             <div class="input-field col s12 m12">
               							   <button type="submit" class="btn-large blue darken-2 waves-effect waves-light col s12" ng-disabled="mainForm.$invalid" name="action">CADASTRAR EQUIPAMENTO</button>
@@ -141,7 +151,26 @@
               $('.collapsible').collapsible();
               $('.caret').remove();
 
+
+              angular.element($("#tipoEquipamento")).triggerHandler('input')
+              var tipoEquipamento = $("#tipoEquipamento").val();
+              if(tipoEquipamento != null && tipoEquipamento != "") {
+                
+                $("label").each(function( key, value ) {
+                  $(this).addClass("active");
+                });
+
+                $("div.tipoEquipamento_equipamento > input.select-dropdown").val(tipoEquipamento);  
+                $("div.tipoEquipamento_equipamento > label").removeClass("active");  
+              }
+
             });
+
+
+            function alterarComboTipoEquipamento() {
+              $("#tipoEquipamento").val($("div.tipoEquipamento_equipamento li.selected span").get(0).innerHTML);
+              angular.element($("#tipoEquipamento")).triggerHandler('input')
+            }
           </script>
           <!-- /Scripts -->
         </body>

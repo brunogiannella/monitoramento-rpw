@@ -7,6 +7,7 @@ public class EquipamentoDTO {
 	private String descricao;
 	private String localizacao;
 	private Long idCliente;
+	private String tipoEquipamento;
 
 	public Long getId() {
 		return id;
@@ -48,4 +49,12 @@ public class EquipamentoDTO {
 		this.idCliente = idCliente;
 	}
 
+	public String getTipoEquipamento() {
+		return tipoEquipamento;
+	}
+
+	public void setTipoEquipamento(String tipoEquipamento) {
+		this.tipoEquipamento = tipoEquipamento;
+	}
+	
 }

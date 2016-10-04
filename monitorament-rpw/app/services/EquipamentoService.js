@@ -164,11 +164,43 @@
 			});
 		};
 
+		function consultarTiposEquipamento(fncSucesso) {
+
+			var  data = {};
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'equipamento/tipoEquipamento',
+				method : 'GET',
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
+		       }
+		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
+				return false;
+			});
+		};
+
 		return {
 			consultarEquipamento : consultarEquipamento,
 			atualizarEquipamento : atualizarEquipamento,
 			cadastrarEquipamento : cadastrarEquipamento,
 			removerEquipamento : removerEquipamento,
+			consultarTiposEquipamento : consultarTiposEquipamento,
 			listarEquipamentosCliente : listarEquipamentosCliente
 		}
 	}

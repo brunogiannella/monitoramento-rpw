@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.rpw.monitoramento.api.constantes.TipoEquipamentoEnum;
 import br.com.rpw.monitoramento.api.dto.EquipamentoDTO;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.Equipamento;
@@ -31,6 +32,15 @@ public class EquipamentoController {
 			return new RestObject(200, true, "Cadastro realizado com sucesso", "");
 		} catch(Exception e) {
 			return new RestObject(500, false, "Ocorreu um erro no cadastro da equipamento: " + e.getMessage(), null);
+		}
+	}
+	
+	@RequestMapping(value="/tipoEquipamento", method = RequestMethod.GET)
+	public RestObject consultarTiposEquipamento() { 
+		try {
+			return new RestObject(200, true, "Consulta realizada com sucesso", TipoEquipamentoEnum.values());
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
 		}
 	}
 	
