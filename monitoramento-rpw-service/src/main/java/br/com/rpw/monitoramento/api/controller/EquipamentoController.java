@@ -1,5 +1,6 @@
 package br.com.rpw.monitoramento.api.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,14 @@ public class EquipamentoController {
 	@RequestMapping(value="/tipoEquipamento", method = RequestMethod.GET)
 	public RestObject consultarTiposEquipamento() { 
 		try {
-			return new RestObject(200, true, "Consulta realizada com sucesso", TipoEquipamentoEnum.values());
+			List<String> tiposEquipamento = new ArrayList<String>();
+			TipoEquipamentoEnum[] enums = TipoEquipamentoEnum.values();
+			
+			for(TipoEquipamentoEnum tpEquip : enums) {
+				tiposEquipamento.add(tpEquip.getDescricao());
+			}
+			
+			return new RestObject(200, true, "Consulta realizada com sucesso", tiposEquipamento);
 		} catch(Exception e) {
 			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
 		}

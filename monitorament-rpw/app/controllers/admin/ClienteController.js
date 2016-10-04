@@ -5,9 +5,9 @@
 		.module('cliente.controller', [])
 		.controller('ClienteController' , ClienteController);
 
-	ClienteController.$inject = ['$rootScope', '$scope', 'ClienteService', 'UtilsService'];
+	ClienteController.$inject = ['$rootScope', '$scope', '$stateParams', 'ClienteService', 'UtilsService'];
 
-	function ClienteController($rootScope, $scope, ClienteService, UtilsService) {
+	function ClienteController($rootScope, $scope, $stateParams, ClienteService, UtilsService) {
 
 		var vm = this;
 		vm.irPara = UtilsService.irPara;
@@ -28,6 +28,16 @@
 			vm.idCliente = null;
 			vm.cliente = null;
 			$scope.clienteConsulta = $rootScope.dominios.clienteConsulta;
+
+			if($stateParams.idCliente != null) {
+				vm.edicao = true;
+
+				var funcSucesso = function(data) {
+					$scope.clientesListaConsulta = data;
+				};
+
+				ClienteService.consultarCliente($stateParams.idCliente, funcSucesso);
+			}
 		}
 
 		function cadastrar() {

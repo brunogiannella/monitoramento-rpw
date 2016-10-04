@@ -105,6 +105,9 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
     })
     .state('clientes', {
       url: '/clientes',
+      params: {
+        idCliente : null
+      },
       templateUrl: 'app/views/admin/clientes.html',
       controller: 'ClienteController as ClienteCrtl'
     })

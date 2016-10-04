@@ -26,7 +26,7 @@
 					var funcSucessoClientes = function(data) {
 						$rootScope.dominios.clienteConsulta = data;
 						alert("Equipamento cadastrado com sucesso");
-						UtilsService.irPara("clientes");
+						UtilsService.irPara("clientes", {idCliente:$stateParams.idCliente});
 					};
 
 					ClienteService.consultarClientes(funcSucessoClientes);
@@ -46,7 +46,7 @@
 		}
 
 		function voltar() {
-			UtilsService.irPara("clientes");
+			UtilsService.irPara("clientes", {idCliente:$stateParams.idCliente});
 		};
 
 

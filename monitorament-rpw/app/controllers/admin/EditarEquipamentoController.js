@@ -30,7 +30,7 @@
 			if(validarEquipamento(this.equipamento)) {
 				var funcSucesso = function(data) {
 					alert("Equipamento alterado com sucesso");
-					UtilsService.irPara("clientes");
+					UtilsService.irPara("clientes", {idCliente:$stateParams.equipamento.idCliente});
 				};
 
 				EquipamentoService.atualizarEquipamento(this.equipamento, funcSucesso);
@@ -43,7 +43,7 @@
 		}
 
 		function voltar() {
-			UtilsService.irPara("clientes");
+			UtilsService.irPara("clientes", {idCliente:$stateParams.equipamento.idCliente});
 		};
 
 		function validarEquipamento(equipamentoDto) {

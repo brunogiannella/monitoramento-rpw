@@ -31,7 +31,7 @@
 			if(validarCliente(this.cliente)) {
 				var funcSucesso = function(data) {
 					alert("Cliente alterado com sucesso");
-					UtilsService.irPara("clientes");
+					UtilsService.irPara("clientes", {idCliente:$stateParams.cliente.id});
 				};
 
 				ClienteService.atualizarCliente(this.cliente, funcSucesso);
@@ -44,7 +44,7 @@
 		}
 
 		function voltar() {
-			UtilsService.irPara("clientes");
+			UtilsService.irPara("clientes", {idCliente:$stateParams.cliente.id});
 		};
 
 		function validarCliente(clienteDto) {
