@@ -35,6 +35,16 @@ public class CameraController {
 		}
 	}
 	
+	@RequestMapping(value="", method = RequestMethod.PUT)
+	public RestObject atualizarCamera(@RequestBody CameraDTO cameraDto) { 
+		try {
+			cameraService.atualizarCamera(cameraDto);
+			return new RestObject(200, true, "Alteração realizado com sucesso", "");
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro na alteração da camera: " + e.getMessage(), null);
+		}
+	}
+	
 	@RequestMapping(value="/tipoCamera", method = RequestMethod.GET)
 	public RestObject consultarTiposCamera() { 
 		try {
@@ -51,6 +61,16 @@ public class CameraController {
 			return new RestObject(200, true, "Consulta realizada com sucesso", camera);
 		} catch(Exception e) {
 			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
+		}
+	}
+	
+	@RequestMapping(value="{id}", method = RequestMethod.DELETE)
+	public RestObject removerCamera(@PathVariable("id") Long idCamera) { 
+		try {
+			cameraService.removerCamera(idCamera);
+			return new RestObject(200, true, "Operação realizada com sucesso", "");
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro na operação: " + e.getMessage(), null);
 		}
 	}
 	

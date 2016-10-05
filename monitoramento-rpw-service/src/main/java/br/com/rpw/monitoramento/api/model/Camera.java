@@ -41,6 +41,9 @@ public class Camera implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private TipoCameraEnum tipoCamera;
 	
+	@Column(name = "ATIVO")
+	private Boolean ativo;
+	
 	@ManyToOne
 	@JoinColumn(name = "ID_CLIENTE")
 	private Cliente cliente;
@@ -91,6 +94,14 @@ public class Camera implements Serializable {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
 	}
 	
 }

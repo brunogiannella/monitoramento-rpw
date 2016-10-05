@@ -71,6 +71,36 @@
 			});
 		};
 
+		function atualizarCamera(cameraDto, fncSucesso) {
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'camera',
+				method : 'PUT',
+				data: cameraDto,
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
+		       }
+		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
+				return false;
+			});
+		};
+
 		function listarTiposCamera(fncSucesso) {
 
 			var  data = {};
@@ -133,6 +163,37 @@
 			});
 		};
 
+		function removerCamera(idCamera, fncSucesso) {
+
+			var  data = {};
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'camera/' + idCamera,
+				method : 'DELETE',
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
+		       }
+		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
+				return false;
+			});
+		};
+
 		function listarCamerasCliente(idCliente, fncSucesso) {
 
 			var  data = {};
@@ -169,6 +230,8 @@
 			listarTiposCamera : listarTiposCamera,
 			consultarCamera : consultarCamera,
 			cadastrarCamera : cadastrarCamera,
+			removerCamera : removerCamera,
+			atualizarCamera : atualizarCamera,
 			listarCamerasCliente : listarCamerasCliente
 		}
 	}

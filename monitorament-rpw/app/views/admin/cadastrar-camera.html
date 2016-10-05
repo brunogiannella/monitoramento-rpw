@@ -47,7 +47,7 @@
             <div class="container2">
               <div class="row no-m">
                 <div class="col">
-                  <h5 class="header blue-text text-darken-2 center-on-small-only title"><i class="material-icons">business</i> <span class="light"> Cadastrar Equipamento</span></h5>
+                  <h5 class="header blue-text text-darken-2 center-on-small-only title"><i class="material-icons">business</i> <span class="light"> Cadastrar Câmera</span></h5>
                 </div>
               </div>
 
@@ -70,7 +70,7 @@
                               
 
                             <div class="col s12">
-                               <p><b>Equipamento</b></p>
+                               <p><b>Câmera</b></p>
                             </div>
 							
 							              <div class="input-field col s12 m12">
@@ -150,6 +150,19 @@
               );
               $('.collapsible').collapsible();
               $('.caret').remove();
+
+
+              angular.element($("#tipoCamera")).triggerHandler('input')
+              var tipoCamera = $("#tipoCamera").val();
+              if(tipoCamera != null && tipoCamera != "") {
+                
+                $("label").each(function( key, value ) {
+                  $(this).addClass("active");
+                });
+
+                $("div.tipoCamera_equipamento > input.select-dropdown").val(tipoCamera);  
+                $("div.tipoCamera_equipamento > label").removeClass("active");  
+              }
 
             });
 

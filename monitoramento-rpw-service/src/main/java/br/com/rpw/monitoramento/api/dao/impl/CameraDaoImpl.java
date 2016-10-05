@@ -17,6 +17,7 @@ public class CameraDaoImpl extends AbstractDao implements ICameraDao{
 
 	@Override
 	public void salvarCamera(Camera camera) {
+		camera.setAtivo(true);
 		persist(camera);
 	}
 
@@ -25,6 +26,7 @@ public class CameraDaoImpl extends AbstractDao implements ICameraDao{
 	public List<Camera> listarCameras(Cliente cliente) {
 		Criteria criteria = getSession().createCriteria(Camera.class);
 		criteria.add(Restrictions.eq("cliente.id",cliente.getId()));
+		criteria.add(Restrictions.eq("ativo", true));
         return (List<Camera>) criteria.list();
 	}
 	
@@ -37,9 +39,9 @@ public class CameraDaoImpl extends AbstractDao implements ICameraDao{
 
 	@Override
 	public void deleteCamera(Long codigoCamera) {
-		Query query = getSession().createSQLQuery("delete from CAMERA where id = :id");
-        query.setLong("id", codigoCamera);
-        query.executeUpdate();
+		Camera camera = consultarCamera(codigoCamera);
+		camera.setAtivo(false);
+		atualizarCamera(camera);
 	}
 
 	@Override

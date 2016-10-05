@@ -21,6 +21,8 @@
 		vm.editarCliente = editarCliente;
 		vm.editarEquipamento = editarEquipamento;
 		vm.removerEquipamento = removerEquipamento;
+		vm.editarCamera = editarCamera;
+		vm.removerCamera = removerCamera;
 
 		function inicializar() {
 			$scope.sair = UtilsService.logout;
@@ -98,8 +100,23 @@
 			UtilsService.irPara('editar-equipamento', {equipamento:equipamentoEdicao});
 		}
 
-		function removerEquipamento(idEquipamento, nomeEquipamento) {
-			UtilsService.irPara('remover-equipamento', {idEquipamento:idEquipamento, nomeEquipamento:nomeEquipamento});
+		function editarCamera(data) {
+			var cameraEdicao = {};
+			cameraEdicao.id = data.id;
+			cameraEdicao.numeroCamera = data.numeroCamera;
+			cameraEdicao.descricaoCamera = data.descricaoCamera;
+			cameraEdicao.localizacaoCamera = data.localizacaoCamera;
+			cameraEdicao.idCliente = data.idCliente;
+			cameraEdicao.tipoCamera = data.tipoCamera;
+			UtilsService.irPara('editar-camera', {camera:cameraEdicao});
+		}
+
+		function removerEquipamento(idCliente, idEquipamento, nomeEquipamento) {
+			UtilsService.irPara('remover-equipamento', {idCliente:idCliente, idEquipamento:idEquipamento, nomeEquipamento:nomeEquipamento});
+		}
+
+		function removerCamera(idCliente, idCamera, nomeCamera) {
+			UtilsService.irPara('remover-camera', {idCliente:idCliente, idCamera:idCamera, nomeCamera:nomeCamera});
 		}
 
 		function consultarCliente() {

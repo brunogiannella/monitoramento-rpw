@@ -30,7 +30,7 @@
 		}
 
 		function voltar() {
-			UtilsService.irPara("clientes");
+			UtilsService.irPara("clientes", {idCliente:$stateParams.idCliente});
 		};
 		
 		var vm = this;

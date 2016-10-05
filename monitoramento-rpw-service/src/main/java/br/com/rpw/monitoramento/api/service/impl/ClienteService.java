@@ -109,9 +109,9 @@ public class ClienteService implements IClienteService {
 		Cliente cliente = new Cliente();
 		cliente.setId(id);
 		
-		cameraDaoImpl.deleteCamerasByCliente(id);
-		equipamentoDaoImpl.deleteEquipamentosByCliente(id);
-		clienteTipoOcorrenciaDaoImpl.deleteClienteTipoOcorrencia(cliente);
+		//cameraDaoImpl.deleteCamerasByCliente(id);
+		//equipamentoDaoImpl.deleteEquipamentosByCliente(id);
+		//clienteTipoOcorrenciaDaoImpl.deleteClienteTipoOcorrencia(cliente);
 		clienteDaoImpl.deleteCliente(id);
 	}
 

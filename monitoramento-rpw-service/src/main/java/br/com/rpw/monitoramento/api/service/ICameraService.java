@@ -12,4 +12,6 @@ public interface ICameraService {
 	Camera consultarCamera(Long idCamera) throws NoSuchAlgorithmException, UnsupportedEncodingException;
 	List<Camera> consultarCameras(Cliente cliente) throws NoSuchAlgorithmException, UnsupportedEncodingException;
 	void cadastrarCamera(CameraDTO cameraDto) throws NoSuchAlgorithmException, UnsupportedEncodingException;
+	void removerCamera(Long idCamera) throws NoSuchAlgorithmException, UnsupportedEncodingException;
+	void atualizarCamera(CameraDTO cameraDto) throws NoSuchAlgorithmException, UnsupportedEncodingException;
 }

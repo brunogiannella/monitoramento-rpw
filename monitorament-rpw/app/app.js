@@ -15,6 +15,8 @@ var app = angular.module('app',['ui.router',
                   'editarCliente.controller',
                   'cadastroClienteController.controller',
                   'cadastrarCamera.controller',
+                  'editarCamera.controller',
+                  'removerCamera.controller',
                   'cadastrarEquipamento.controller',
                   'editarEquipamento.controller',
                   'removerEquipamento.controller',
@@ -142,6 +144,24 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       templateUrl: 'app/views/admin/cadastrar-camera.html',
       controller: 'CadastrarCameraController as CadastrarCameraCrtl'
     })
+    .state('remover-camera', {
+      url: '/remover-camera',
+      params: {
+        idCliente : null,
+        idCamera : null,
+        nomeCamera : null
+      },
+      templateUrl: 'app/views/admin/remover-camera.html',
+      controller: 'RemoverCameraController as RemoverCameraCrtl'
+    })
+    .state('editar-camera', {
+      url: '/editar-camera',
+      params: {
+        camera : null
+      },
+      templateUrl: 'app/views/admin/cadastrar-camera.html',
+      controller: 'EditarCameraController as CadastrarCameraCrtl'
+    })
     .state('cadastrar-equipamento', {
       url: '/cadastrar-equipamento',
       params: {
@@ -162,6 +182,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
     .state('remover-equipamento', {
       url: '/remover-equipamento',
       params: {
+        idCliente : null,
         idEquipamento : null,
         nomeEquipamento : null
       },

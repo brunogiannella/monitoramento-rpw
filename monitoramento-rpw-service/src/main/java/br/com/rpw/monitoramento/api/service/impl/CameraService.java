@@ -29,8 +29,20 @@ public class CameraService implements ICameraService {
 	}
 	
 	@Override
+	public void atualizarCamera(CameraDTO cameraDto) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		Camera camera = converterCameraDTOemCamera(cameraDto);
+		camera.setAtivo(true);
+		cameraDaoImpl.atualizarCamera(camera);
+	}
+	
+	@Override
 	public Camera consultarCamera(Long idCamera) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		return cameraDaoImpl.consultarCamera(idCamera);
+	}
+	
+	@Override
+	public void removerCamera(Long idCamera) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		cameraDaoImpl.deleteCamera(idCamera);
 	}
 
 	@Override
