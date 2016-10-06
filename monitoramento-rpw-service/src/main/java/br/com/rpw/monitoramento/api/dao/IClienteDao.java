@@ -1,5 +1,6 @@
 package br.com.rpw.monitoramento.api.dao;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import br.com.rpw.monitoramento.api.model.Cliente;
@@ -13,5 +14,6 @@ public interface IClienteDao {
     Cliente consultarCliente(Long idCliente);
     void atualizarCliente(Cliente Cliente);
 	List<Cliente> consultarClientes();
+	BigInteger consultarQuantidadeClientesAtivos();
 	
 }

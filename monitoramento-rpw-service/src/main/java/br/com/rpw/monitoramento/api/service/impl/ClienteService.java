@@ -1,5 +1,6 @@
 package br.com.rpw.monitoramento.api.service.impl;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -305,6 +306,11 @@ public class ClienteService implements IClienteService {
 		
 		
 		return cliente;
+	}
+
+	@Override
+	public BigInteger consultarQuantidadeClientesAtivos() {
+		return clienteDaoImpl.consultarQuantidadeClientesAtivos();
 	}
 
 }

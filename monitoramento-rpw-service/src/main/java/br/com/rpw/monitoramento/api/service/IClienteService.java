@@ -1,5 +1,6 @@
 package br.com.rpw.monitoramento.api.service;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import br.com.rpw.monitoramento.api.dto.ClienteDTO;
@@ -18,5 +19,6 @@ public interface IClienteService {
 	void associarTipoOcorrenciaPersonalizada(Cliente cliente, TipoOcorrenciaPersonalizada tipoOcorrencia);
 	void desassociarTipoOcorrencia(Cliente cliente, TipoOcorrencia tipoOcorrencia);
 	void desassociarTipoOcorrenciaPersonalizada(Cliente cliente, TipoOcorrenciaPersonalizada tipoOcorrencia);
+	BigInteger consultarQuantidadeClientesAtivos();
 	
 }

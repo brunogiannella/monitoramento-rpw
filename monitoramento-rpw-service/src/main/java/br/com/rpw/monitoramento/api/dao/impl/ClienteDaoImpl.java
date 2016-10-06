@@ -1,8 +1,10 @@
 package br.com.rpw.monitoramento.api.dao.impl;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +26,15 @@ public class ClienteDaoImpl extends AbstractDao implements IClienteDao{
 	public List<Cliente> listarClientes() {
 		Criteria criteria = getSession().createCriteria(Cliente.class);
         return (List<Cliente>) criteria.list();
+	}
+	
+	@Override
+	public BigInteger consultarQuantidadeClientesAtivos() {
+		Query query = getSession().createSQLQuery("SELECT count(*) from CLIENTE where ATIVO = :ativo");
+        query.setBoolean("ativo", true);
+        BigInteger quantidadeClientes = (BigInteger) query.uniqueResult();
+        
+        return quantidadeClientes;
 	}
 
 	@Override

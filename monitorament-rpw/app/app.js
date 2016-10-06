@@ -30,6 +30,7 @@ var app = angular.module('app',['ui.router',
 
 							    'constantes.service',
 							    'utils.service',
+                  'indicadores.service',
 							    'login.service',
                   'turno.service',
                   'cliente.service',
