@@ -103,12 +103,74 @@
 			});
 		};
 
+		function removerTipoOcorrenciaPersonalizada(idTipoOcorrencia, fncSucesso) {
+
+			var  data = {};
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'tipoOcorrencia/personalizada/'+idTipoOcorrencia,
+				method : 'DELETE',
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
+		       }
+		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
+				return false;
+			});
+		};
+
 		function listarTiposOcorrencia(fncSucesso) {
 
 			var  data = {};
 
 			$http({	
 				url : ConstantesService.URL.SERVIDOR + 'tipoOcorrencia',
+				method : 'GET',
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
+		       }
+		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
+				return false;
+			});
+		};
+
+		function listarTiposOcorrenciasPersonalizadas(fncSucesso) {
+
+			var  data = {};
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'tipoOcorrencia/personalizadas',
 				method : 'GET',
 				headers: {
 					'x-acess-token': UtilsService.getToken()
@@ -170,7 +232,9 @@
 			consultarTipoOcorrencia : consultarTipoOcorrencia,
 			removerTipoOcorrencia : removerTipoOcorrencia,
 			listarTiposOcorrencia : listarTiposOcorrencia,
-			listarCamposOcorrencia : listarCamposOcorrencia
+			listarTiposOcorrenciasPersonalizadas : listarTiposOcorrenciasPersonalizadas,
+			listarCamposOcorrencia : listarCamposOcorrencia,
+			removerTipoOcorrenciaPersonalizada : removerTipoOcorrenciaPersonalizada
 		}
 	}
 

@@ -8,6 +8,7 @@ import java.util.List;
 import br.com.rpw.monitoramento.api.dto.TipoOcorrenciaDTO;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.TipoOcorrencia;
+import br.com.rpw.monitoramento.api.model.TipoOcorrenciaPersonalizada;
 
 public interface ITipoOcorrenciaService {
 	Long cadastrarTipoOcorrencia(TipoOcorrenciaDTO tipoOcorrenciaDTO) throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException;
@@ -15,4 +16,8 @@ public interface ITipoOcorrenciaService {
 	List<TipoOcorrenciaDTO> listarTiposOcorrencia() throws NoSuchAlgorithmException, UnsupportedEncodingException;
 	List<TipoOcorrencia> listarTiposOcorrencia(Cliente cliente) throws NoSuchAlgorithmException, UnsupportedEncodingException;
 	void removerTipoOcorrencia(Long idTipoOcorrencia);
+	Long cadastrarTipoOcorrenciaPersonalizada(TipoOcorrenciaDTO tipoOcorrenciaDTO) throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException;
+	TipoOcorrenciaPersonalizada consultarTipoOcorrenciaPersonalizada(Long idTipoOcorrencia) throws NoSuchAlgorithmException, UnsupportedEncodingException;
+	List<TipoOcorrenciaDTO> listarTiposOcorrenciaPersonalizada() throws NoSuchAlgorithmException, UnsupportedEncodingException;
+	void removerTipoOcorrenciaPersonalizada(Long idTipoOcorrencia);
 }

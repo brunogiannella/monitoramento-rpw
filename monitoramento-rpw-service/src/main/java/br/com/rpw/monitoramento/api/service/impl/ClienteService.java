@@ -12,6 +12,7 @@ import br.com.rpw.monitoramento.api.dao.impl.CameraDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.CampoOcorrenciaDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.ClienteDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.ClienteTipoOcorrenciaDaoImpl;
+import br.com.rpw.monitoramento.api.dao.impl.ClienteTipoOcorrenciaPersonalizadaDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.EnderecoDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.EquipamentoDaoImpl;
 import br.com.rpw.monitoramento.api.dto.CameraDTO;
@@ -22,9 +23,11 @@ import br.com.rpw.monitoramento.api.dto.TipoOcorrenciaDTO;
 import br.com.rpw.monitoramento.api.model.Camera;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.ClienteTipoOcorrencia;
+import br.com.rpw.monitoramento.api.model.ClienteTipoOcorrenciaPersonalizada;
 import br.com.rpw.monitoramento.api.model.Endereco;
 import br.com.rpw.monitoramento.api.model.Equipamento;
 import br.com.rpw.monitoramento.api.model.TipoOcorrencia;
+import br.com.rpw.monitoramento.api.model.TipoOcorrenciaPersonalizada;
 import br.com.rpw.monitoramento.api.service.IClienteService;
 
 @Service
@@ -45,6 +48,9 @@ public class ClienteService implements IClienteService {
 	
 	@Autowired
 	private ClienteTipoOcorrenciaDaoImpl clienteTipoOcorrenciaDaoImpl;
+	
+	@Autowired
+	private ClienteTipoOcorrenciaPersonalizadaDaoImpl clienteTipoOcorrenciaPersonalizadaDaoImpl;
 	
 	@Autowired
 	private CampoOcorrenciaDaoImpl campoOcorrenciaDaoImpl;
@@ -81,6 +87,11 @@ public class ClienteService implements IClienteService {
 	}
 	
 	@Override
+	public void associarTipoOcorrenciaPersonalizada(Cliente cliente, TipoOcorrenciaPersonalizada tipoOcorrencia) {
+		clienteTipoOcorrenciaPersonalizadaDaoImpl.salvarClienteTipoOcorrenciaPersonalizada(tipoOcorrencia, cliente);
+	}
+	
+	@Override
 	public ClienteDTO consultarCliente(Long id) {
 		Cliente cliente = new Cliente();
 		cliente.setId(id);
@@ -98,6 +109,16 @@ public class ClienteService implements IClienteService {
 				TipoOcorrencia tipoOcorrenciaAtual = clienteTipoOcorrencia.getTipoOcorrencia();
 				tipoOcorrenciaAtual.setCampos(campoOcorrenciaDaoImpl.consultarCamposOcorrencia(tipoOcorrenciaAtual));
 				cliente.getTipoOcorrencias().add(tipoOcorrenciaAtual);
+			}
+		}
+		
+		List<ClienteTipoOcorrenciaPersonalizada> tipoOcorrenciaPersonalizada = clienteTipoOcorrenciaPersonalizadaDaoImpl.listarTipoOcorrenciaPersonalizadas(cliente);
+		if(tipoOcorrenciaPersonalizada != null) {
+			cliente.setTipoOcorrenciasPersonalizada(new ArrayList<TipoOcorrenciaPersonalizada>());
+			
+			for(ClienteTipoOcorrenciaPersonalizada clienteTipoOcorrencia : tipoOcorrenciaPersonalizada) {
+				TipoOcorrenciaPersonalizada tipoOcorrenciaAtual = clienteTipoOcorrencia.getTipoOcorrencia();
+				cliente.getTipoOcorrenciasPersonalizada().add(tipoOcorrenciaAtual);
 			}
 		}
 		
@@ -188,6 +209,17 @@ public class ClienteService implements IClienteService {
 				}
 				
 				clienteDto.getTiposOcorrencia().add(tipoOcorrenciaDto);
+			}
+		}
+		
+		clienteDto.setTiposOcorrenciaPersonalizada(new ArrayList<TipoOcorrenciaDTO>());
+		if(cliente.getTipoOcorrenciasPersonalizada() != null) {
+			for(TipoOcorrenciaPersonalizada tipoOcorrencia : cliente.getTipoOcorrenciasPersonalizada()) {
+				TipoOcorrenciaDTO tipoOcorrenciaDto = new TipoOcorrenciaDTO();
+				tipoOcorrenciaDto.setId(tipoOcorrencia.getId());
+				tipoOcorrenciaDto.setDescricao(tipoOcorrencia.getDescricao());
+								
+				clienteDto.getTiposOcorrenciaPersonalizada().add(tipoOcorrenciaDto);
 			}
 		}
 		

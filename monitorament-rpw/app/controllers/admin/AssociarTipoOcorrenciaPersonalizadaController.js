@@ -2,17 +2,17 @@
 	'use strict';
 
 	angular
-		.module('associarTipoOcorrencia.controller', [])
-		.controller('AssociarTipoOcorrenciaController' , AssociarTipoOcorrenciaController);
+		.module('associarTipoOcorrenciaPersonalizada.controller', [])
+		.controller('AssociarTipoOcorrenciaPersonalizadaController' , AssociarTipoOcorrenciaPersonalizadaController);
 
-	AssociarTipoOcorrenciaController.$inject = ['$rootScope', '$scope', '$stateParams', 'ClienteService', 'UtilsService'];
+	AssociarTipoOcorrenciaPersonalizadaController.$inject = ['$rootScope', '$scope', '$stateParams', 'ClienteService', 'UtilsService'];
 
-	function AssociarTipoOcorrenciaController($rootScope, $scope, $stateParams, ClienteService, UtilsService) {
+	function AssociarTipoOcorrenciaPersonalizadaController($rootScope, $scope, $stateParams, ClienteService, UtilsService) {
 
 		
 
 		function inicializar() {
-			$scope.tipoOcorrenciasConsulta = $rootScope.dominios.tipoOcorrenciasConsulta;
+			$scope.tipoOcorrenciasConsulta = $rootScope.dominios.tipoOcorrenciasPersonalizadasConsulta;
 			vm.associarTipoOcorrencia = {};
 			vm.associarTipoOcorrencia.idCliente = $stateParams.idCliente;
 			vm.nomeCliente = $stateParams.nomeCliente;
@@ -23,11 +23,11 @@
 
 			if(validarAssociacao(this.associarTipoOcorrencia)) {
 				var funcSucesso = function(data) {
-					alert("Tipo ocorrência associada com sucesso");
+					alert("Tipo ocorrência personalizada associada com sucesso");
 					UtilsService.irPara("clientes", {idCliente:$stateParams.idCliente});
 				};
 
-				ClienteService.associarTipoOcorrencia(this.associarTipoOcorrencia, funcSucesso);
+				ClienteService.associarTipoOcorrenciaPersonalizada(this.associarTipoOcorrencia, funcSucesso);
 			}
 			
 		};

@@ -14,6 +14,7 @@ import br.com.rpw.monitoramento.api.dto.ClienteDTO;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.RestObject;
 import br.com.rpw.monitoramento.api.model.TipoOcorrencia;
+import br.com.rpw.monitoramento.api.model.TipoOcorrenciaPersonalizada;
 import br.com.rpw.monitoramento.api.service.impl.ClienteService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -75,6 +76,22 @@ public class ClienteController {
 			return new RestObject(200, true, "Tipo de ocorrência associada com sucesso", null);
 		} catch(Exception e) {
 			return new RestObject(500, false, "Ocorreu um erro ao associar tipo de ocorrência: " + e.getMessage(), null);
+		}
+	}
+	
+	@RequestMapping(value="/associar-tipo-ocorrencia/personalizada", method = RequestMethod.POST)
+	public RestObject associarTipoOcorrenciaPersonalizada(@RequestBody AssociarTipoOcorrenciaDTO associarTipoOcorrenciaDTO, @RequestHeader(value="x-acess-token") String token) { 
+		try {
+			Cliente cliente = new Cliente();
+			cliente.setId(associarTipoOcorrenciaDTO.getIdCliente());
+			
+			TipoOcorrenciaPersonalizada tipoOcorrencia = new TipoOcorrenciaPersonalizada();
+			tipoOcorrencia.setId(associarTipoOcorrenciaDTO.getIdTipoOcorrencia());
+			
+			clienteService.associarTipoOcorrenciaPersonalizada(cliente, tipoOcorrencia);
+			return new RestObject(200, true, "Tipo de ocorrência personalizada associada com sucesso", null);
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro ao associar tipo de ocorrência personalizada: " + e.getMessage(), null);
 		}
 	}
 	

@@ -9,8 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "CLIENTE_OCORRENCIA")
-public class ClienteTipoOcorrencia implements Serializable {
+@Table(name = "CLIENTE_OCORRENCIA_PERSONALIZADA")
+public class ClienteTipoOcorrenciaPersonalizada implements Serializable {
 
 	/**
 	 * 
@@ -25,7 +25,7 @@ public class ClienteTipoOcorrencia implements Serializable {
 	@Id
 	@ManyToOne
 	@JoinColumn(name = "ID_TPO_OCOR", nullable = false)
-	private TipoOcorrencia tipoOcorrencia;
+	private TipoOcorrenciaPersonalizada tipoOcorrencia;
 
 	public Cliente getCliente() {
 		return cliente;
@@ -35,11 +35,11 @@ public class ClienteTipoOcorrencia implements Serializable {
 		this.cliente = cliente;
 	}
 
-	public TipoOcorrencia getTipoOcorrencia() {
+	public TipoOcorrenciaPersonalizada getTipoOcorrencia() {
 		return tipoOcorrencia;
 	}
 
-	public void setTipoOcorrencia(TipoOcorrencia tipoOcorrencia) {
+	public void setTipoOcorrencia(TipoOcorrenciaPersonalizada tipoOcorrencia) {
 		this.tipoOcorrencia = tipoOcorrencia;
 	}
 

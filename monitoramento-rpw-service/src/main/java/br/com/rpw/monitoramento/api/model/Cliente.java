@@ -56,6 +56,9 @@ public class Cliente implements Serializable {
 	
 	@Transient
 	private List<TipoOcorrencia> tipoOcorrencias;
+	
+	@Transient
+	private List<TipoOcorrenciaPersonalizada> tipoOcorrenciasPersonalizada;
 
 	public Long getId() {
 		return id;
@@ -143,6 +146,14 @@ public class Cliente implements Serializable {
 
 	public void setEquipamento(List<Equipamento> equipamento) {
 		this.equipamento = equipamento;
+	}
+
+	public List<TipoOcorrenciaPersonalizada> getTipoOcorrenciasPersonalizada() {
+		return tipoOcorrenciasPersonalizada;
+	}
+
+	public void setTipoOcorrenciasPersonalizada(List<TipoOcorrenciaPersonalizada> tipoOcorrenciasPersonalizada) {
+		this.tipoOcorrenciasPersonalizada = tipoOcorrenciasPersonalizada;
 	}
 	
 }

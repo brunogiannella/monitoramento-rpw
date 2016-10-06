@@ -15,6 +15,7 @@ public class ClienteDTO {
 	private List<CameraDTO> cameras;
 	private List<EquipamentoDTO> equipamentos;
 	private List<TipoOcorrenciaDTO> tiposOcorrencia;
+	private List<TipoOcorrenciaDTO> tiposOcorrenciaPersonalizada;
 
 	public String getNome() {
 		return nome;
@@ -94,6 +95,14 @@ public class ClienteDTO {
 
 	public void setEquipamentos(List<EquipamentoDTO> equipamentos) {
 		this.equipamentos = equipamentos;
+	}
+
+	public List<TipoOcorrenciaDTO> getTiposOcorrenciaPersonalizada() {
+		return tiposOcorrenciaPersonalizada;
+	}
+
+	public void setTiposOcorrenciaPersonalizada(List<TipoOcorrenciaDTO> tiposOcorrenciaPersonalizada) {
+		this.tiposOcorrenciaPersonalizada = tiposOcorrenciaPersonalizada;
 	}
 	
 }

@@ -21,6 +21,7 @@ var app = angular.module('app',['ui.router',
                   'editarEquipamento.controller',
                   'removerEquipamento.controller',
                   'associarTipoOcorrencia.controller',
+                  'associarTipoOcorrenciaPersonalizada.controller',
                   'tipoOcorrencia.controller',
                   'removerTipoOcorrencia.controller',
                   'cadastrarTipoOcorrenciaController.controller',
@@ -197,6 +198,15 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       },
       templateUrl: 'app/views/admin/associar-tipo-ocorrencia.html',
       controller: 'AssociarTipoOcorrenciaController as AssociarTipoOcorrenciaCrtl'
+    })
+    .state('associar-tipo-ocorrencia-personalizada', {
+      url: '/associar-tipo-ocorrencia-personalizada',
+      params: {
+        idCliente : null,
+        nomeCliente : null
+      },
+      templateUrl: 'app/views/admin/associar-tipo-ocorrencia.html',
+      controller: 'AssociarTipoOcorrenciaPersonalizadaController as AssociarTipoOcorrenciaCrtl'
     })
     .state('tipos-ocorrencia', {
       url: '/tipos-ocorrencia',

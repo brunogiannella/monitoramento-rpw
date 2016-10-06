@@ -17,6 +17,7 @@
 		vm.cadastrarCamera = cadastrarCamera;
 		vm.cadastrarEquipamento = cadastrarEquipamento;
 		vm.associarOcorrencia = associarOcorrencia;
+		vm.associarOcorrenciaPersonalizada = associarOcorrenciaPersonalizada;
 		vm.removerCliente = removerCliente;
 		vm.editarCliente = editarCliente;
 		vm.editarEquipamento = editarEquipamento;
@@ -60,6 +61,10 @@
 
 		function associarOcorrencia(id, nome) {
 			UtilsService.irPara('associar-tipo-ocorrencia', {idCliente:id, nomeCliente:nome});
+		}
+
+		function associarOcorrenciaPersonalizada(id, nome) {
+			UtilsService.irPara('associar-tipo-ocorrencia-personalizada', {idCliente:id, nomeCliente:nome});
 		}
 
 		function removerCliente(idCliente, nomeCliente) {
