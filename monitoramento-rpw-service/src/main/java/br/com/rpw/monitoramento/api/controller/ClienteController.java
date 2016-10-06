@@ -79,6 +79,22 @@ public class ClienteController {
 		}
 	}
 	
+	@RequestMapping(value="/desassociar-tipo-ocorrencia", method = RequestMethod.POST)
+	public RestObject desassociarTipoOcorrencia(@RequestBody AssociarTipoOcorrenciaDTO associarTipoOcorrenciaDTO, @RequestHeader(value="x-acess-token") String token) { 
+		try {
+			Cliente cliente = new Cliente();
+			cliente.setId(associarTipoOcorrenciaDTO.getIdCliente());
+			
+			TipoOcorrencia tipoOcorrencia = new TipoOcorrencia();
+			tipoOcorrencia.setId(associarTipoOcorrenciaDTO.getIdTipoOcorrencia());
+			
+			clienteService.desassociarTipoOcorrencia(cliente, tipoOcorrencia);
+			return new RestObject(200, true, "Tipo de ocorrência associada com sucesso", null);
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro ao associar tipo de ocorrência: " + e.getMessage(), null);
+		}
+	}
+	
 	@RequestMapping(value="/associar-tipo-ocorrencia/personalizada", method = RequestMethod.POST)
 	public RestObject associarTipoOcorrenciaPersonalizada(@RequestBody AssociarTipoOcorrenciaDTO associarTipoOcorrenciaDTO, @RequestHeader(value="x-acess-token") String token) { 
 		try {
@@ -89,6 +105,22 @@ public class ClienteController {
 			tipoOcorrencia.setId(associarTipoOcorrenciaDTO.getIdTipoOcorrencia());
 			
 			clienteService.associarTipoOcorrenciaPersonalizada(cliente, tipoOcorrencia);
+			return new RestObject(200, true, "Tipo de ocorrência personalizada associada com sucesso", null);
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro ao associar tipo de ocorrência personalizada: " + e.getMessage(), null);
+		}
+	}
+	
+	@RequestMapping(value="/desassociar-tipo-ocorrencia/personalizada", method = RequestMethod.POST)
+	public RestObject desassociarTipoOcorrenciaPersonalizada(@RequestBody AssociarTipoOcorrenciaDTO associarTipoOcorrenciaDTO, @RequestHeader(value="x-acess-token") String token) { 
+		try {
+			Cliente cliente = new Cliente();
+			cliente.setId(associarTipoOcorrenciaDTO.getIdCliente());
+			
+			TipoOcorrenciaPersonalizada tipoOcorrencia = new TipoOcorrenciaPersonalizada();
+			tipoOcorrencia.setId(associarTipoOcorrenciaDTO.getIdTipoOcorrencia());
+			
+			clienteService.desassociarTipoOcorrenciaPersonalizada(cliente, tipoOcorrencia);
 			return new RestObject(200, true, "Tipo de ocorrência personalizada associada com sucesso", null);
 		} catch(Exception e) {
 			return new RestObject(500, false, "Ocorreu um erro ao associar tipo de ocorrência personalizada: " + e.getMessage(), null);

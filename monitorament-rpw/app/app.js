@@ -25,6 +25,8 @@ var app = angular.module('app',['ui.router',
                   'tipoOcorrencia.controller',
                   'removerTipoOcorrencia.controller',
                   'cadastrarTipoOcorrenciaController.controller',
+                  'desassociarTipoOcorrencia.controller',
+                  'desassociarTipoOcorrenciaPersonalizada.controller',
 
 							    'constantes.service',
 							    'utils.service',
@@ -207,6 +209,26 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       },
       templateUrl: 'app/views/admin/associar-tipo-ocorrencia.html',
       controller: 'AssociarTipoOcorrenciaPersonalizadaController as AssociarTipoOcorrenciaCrtl'
+    })
+    .state('desassociar-tipo-ocorrencia', {
+      url: '/desassociar-tipo-ocorrencia',
+      params: {
+        idCliente : null,
+        idTipoOcorrencia : null,
+        nomeTipoOcorrencia : null
+      },
+      templateUrl: 'app/views/admin/desassociar-tipo-ocorrencia.html',
+      controller: 'DesassociarTipoOcorrenciaController as DesassociarTipoOcorrenciaCrtl'
+    })
+    .state('desassociar-tipo-ocorrencia-personalizada', {
+      url: '/desassociar-tipo-ocorrencia-personalizada',
+      params: {
+        idCliente : null,
+        idTipoOcorrencia : null,
+        nomeTipoOcorrencia : null
+      },
+      templateUrl: 'app/views/admin/desassociar-tipo-ocorrencia.html',
+      controller: 'DesassociarTipoOcorrenciaPersonalizadaController as DesassociarTipoOcorrenciaCrtl'
     })
     .state('tipos-ocorrencia', {
       url: '/tipos-ocorrencia',

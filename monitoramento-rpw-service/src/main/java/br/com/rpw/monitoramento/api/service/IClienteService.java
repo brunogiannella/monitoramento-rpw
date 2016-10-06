@@ -16,5 +16,7 @@ public interface IClienteService {
 	void atualizarCliente(ClienteDTO cadastrarClienteRequestDTO);
 	void associarTipoOcorrencia(Cliente cliente, TipoOcorrencia tipoOcorrencia);
 	void associarTipoOcorrenciaPersonalizada(Cliente cliente, TipoOcorrenciaPersonalizada tipoOcorrencia);
+	void desassociarTipoOcorrencia(Cliente cliente, TipoOcorrencia tipoOcorrencia);
+	void desassociarTipoOcorrenciaPersonalizada(Cliente cliente, TipoOcorrenciaPersonalizada tipoOcorrencia);
 	
 }

@@ -224,6 +224,68 @@
 			});
 		};
 
+
+		function desassociarTipoOcorrencia(associarTipoOcorrenciaDTO, fncSucesso) {
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'cliente/desassociar-tipo-ocorrencia',
+				method : 'POST',
+				data: associarTipoOcorrenciaDTO,
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
+		       }
+		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
+				return false;
+			});
+		};
+
+		function desassociarTipoOcorrenciaPersonalizada(associarTipoOcorrenciaDTO, fncSucesso) {
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'cliente/desassociar-tipo-ocorrencia/personalizada',
+				method : 'POST',
+				data: associarTipoOcorrenciaDTO,
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
+		       }
+		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
+				return false;
+			});
+		};
+
+
 		return {
 			cadastrarCliente : cadastrarCliente,
 			atualizarCliente : atualizarCliente,
@@ -231,7 +293,9 @@
 			consultarClientes : consultarClientes,
 			removerCliente : removerCliente,
 			associarTipoOcorrenciaPersonalizada : associarTipoOcorrenciaPersonalizada,
-			associarTipoOcorrencia : associarTipoOcorrencia
+			associarTipoOcorrencia : associarTipoOcorrencia,
+			desassociarTipoOcorrencia : desassociarTipoOcorrencia,
+			desassociarTipoOcorrenciaPersonalizada : desassociarTipoOcorrenciaPersonalizada
 		}
 	}
 

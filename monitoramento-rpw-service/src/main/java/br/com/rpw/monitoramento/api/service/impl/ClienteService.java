@@ -87,8 +87,18 @@ public class ClienteService implements IClienteService {
 	}
 	
 	@Override
+	public void desassociarTipoOcorrencia(Cliente cliente, TipoOcorrencia tipoOcorrencia) {
+		clienteTipoOcorrenciaDaoImpl.deleteClienteTipoOcorrencia(tipoOcorrencia, cliente);
+	}
+	
+	@Override
 	public void associarTipoOcorrenciaPersonalizada(Cliente cliente, TipoOcorrenciaPersonalizada tipoOcorrencia) {
 		clienteTipoOcorrenciaPersonalizadaDaoImpl.salvarClienteTipoOcorrenciaPersonalizada(tipoOcorrencia, cliente);
+	}
+	
+	@Override
+	public void desassociarTipoOcorrenciaPersonalizada(Cliente cliente, TipoOcorrenciaPersonalizada tipoOcorrencia) {
+		clienteTipoOcorrenciaPersonalizadaDaoImpl.deleteClienteTipoOcorrenciaPersonalizada(tipoOcorrencia, cliente);
 	}
 	
 	@Override

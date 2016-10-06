@@ -24,6 +24,8 @@
 		vm.removerEquipamento = removerEquipamento;
 		vm.editarCamera = editarCamera;
 		vm.removerCamera = removerCamera;
+		vm.desassociarOcorrencia = desassociarOcorrencia;
+		vm.desassociarOcorrenciaPersonalizada = desassociarOcorrenciaPersonalizada;
 
 		function inicializar() {
 			$scope.sair = UtilsService.logout;
@@ -65,6 +67,14 @@
 
 		function associarOcorrenciaPersonalizada(id, nome) {
 			UtilsService.irPara('associar-tipo-ocorrencia-personalizada', {idCliente:id, nomeCliente:nome});
+		}
+
+		function desassociarOcorrencia(id, idTipoOcorrencia, nome) {
+			UtilsService.irPara('desassociar-tipo-ocorrencia', {idCliente:id, idTipoOcorrencia:idTipoOcorrencia, nomeTipoOcorrencia:nome});
+		}
+
+		function desassociarOcorrenciaPersonalizada(id, idTipoOcorrencia, nome) {
+			UtilsService.irPara('desassociar-tipo-ocorrencia-personalizada', {idCliente:id, idTipoOcorrencia:idTipoOcorrencia, nomeTipoOcorrencia:nome});
 		}
 
 		function removerCliente(idCliente, nomeCliente) {

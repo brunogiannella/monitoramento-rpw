@@ -35,7 +35,7 @@ public class ClienteTipoOcorrenciaDaoImpl extends AbstractDao implements IClient
 
 	@Override
 	public void deleteClienteTipoOcorrencia(TipoOcorrencia tipoOcorrencia, Cliente cliente) {
-		Query query = getSession().createSQLQuery("delete from CLIENTE_OCORRENCIA where ID_CLIENTE = :idCliente AND ID_TIPO_OCORRENCIA= :idTipoOcorrencia");
+		Query query = getSession().createSQLQuery("delete from CLIENTE_OCORRENCIA where ID_CLIENTE = :idCliente AND ID_TPO_OCOR= :idTipoOcorrencia");
         query.setLong("idCliente", cliente.getId());
         query.setLong("idTipoOcorrencia", tipoOcorrencia.getId());
         query.executeUpdate();

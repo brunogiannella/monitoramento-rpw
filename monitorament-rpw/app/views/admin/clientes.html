@@ -217,7 +217,7 @@
                         <td>{{ocorrencia.descricao}}</td>
                          <td>{{ocorrencia.quantidadeCampos}}</td>
                         <td class="right-align">
-                          <i class="material-icons small red-text">delete</i>
+                          <a class="right" href="#" ng-click="ClienteCrtl.desassociarOcorrencia(clientesListaConsulta.id, ocorrencia.id, ocorrencia.descricao);"><i class="material-icons small red-text">delete</i></a>
                         </td>
                       </tr>
                     </tbody>
@@ -251,7 +251,7 @@
                       <tr  ng-repeat="ocorrencia in clientesListaConsulta.tiposOcorrenciaPersonalizada">
                         <td>{{ocorrencia.descricao}}</td>
                         <td class="right-align">
-                          <i class="material-icons small red-text">delete</i>
+                          <a class="right" href="#" ng-click="ClienteCrtl.desassociarOcorrenciaPersonalizada(clientesListaConsulta.id, ocorrencia.id, ocorrencia.descricao);"><i class="material-icons small red-text">delete</i></a>
                         </td>
                       </tr>
                     </tbody>
