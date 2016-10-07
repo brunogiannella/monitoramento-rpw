@@ -1,6 +1,7 @@
 package br.com.rpw.monitoramento.api.service;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.util.List;
@@ -20,4 +21,6 @@ public interface ITipoOcorrenciaService {
 	TipoOcorrenciaPersonalizada consultarTipoOcorrenciaPersonalizada(Long idTipoOcorrencia) throws NoSuchAlgorithmException, UnsupportedEncodingException;
 	List<TipoOcorrenciaDTO> listarTiposOcorrenciaPersonalizada() throws NoSuchAlgorithmException, UnsupportedEncodingException;
 	void removerTipoOcorrenciaPersonalizada(Long idTipoOcorrencia);
+	BigInteger consultarQuantidadeTipoOcorrenciasAtivas();
+	BigInteger consultarQuantidadeTipoOcorrenciasPersonalizadasAtivas();
 }

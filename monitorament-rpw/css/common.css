@@ -27,3 +27,8 @@
 	margin-top:-50px;
 	margin-left:-50px;
 }
+
+.texto_destaque {
+	font-weight: bold;
+    font-size: 20px;
+}

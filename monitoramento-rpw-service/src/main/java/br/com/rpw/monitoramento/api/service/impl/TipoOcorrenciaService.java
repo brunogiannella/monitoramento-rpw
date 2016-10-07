@@ -1,6 +1,7 @@
 package br.com.rpw.monitoramento.api.service.impl;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -154,6 +155,16 @@ public class TipoOcorrenciaService implements ITipoOcorrenciaService {
 	@Override
 	public void removerTipoOcorrenciaPersonalizada(Long idTipoOcorrencia) {
 		tipoOcorrenciaPersonalizadaDaoImpl.deleteTipoOcorrencia(idTipoOcorrencia);
+	}
+
+	@Override
+	public BigInteger consultarQuantidadeTipoOcorrenciasAtivas() {
+		return tipoOcorrenciaDaoImpl.consultarQuantidadeTipoOcorrenciasAtivas();
+	}
+
+	@Override
+	public BigInteger consultarQuantidadeTipoOcorrenciasPersonalizadasAtivas() {
+		return tipoOcorrenciaPersonalizadaDaoImpl.consultarQuantidadeTipoOcorrenciaPersonalizadassAtivas();
 	}
 
 }

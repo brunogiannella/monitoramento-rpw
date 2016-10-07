@@ -1,8 +1,10 @@
 package br.com.rpw.monitoramento.api.dao.impl;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +30,15 @@ public class TipoOcorrenciaPersonalizadaDaoImpl extends AbstractDao implements I
         return (List<TipoOcorrenciaPersonalizada>) criteria.list();
 	}
 
+	@Override
+	public BigInteger consultarQuantidadeTipoOcorrenciaPersonalizadassAtivas() {
+		Query query = getSession().createSQLQuery("SELECT count(*) from TIPO_OCORRENCIA_PERSONALIZADA where ATIVO = :ativo");
+        query.setBoolean("ativo", true);
+        BigInteger quantidadeClientes = (BigInteger) query.uniqueResult();
+        
+        return quantidadeClientes;
+	}
+	
 	@Override
 	public void deleteTipoOcorrencia(Long codigoTipoOcorrencia) {
 		TipoOcorrenciaPersonalizada tipoOcorrencia = consultarTipoOcorrencia(codigoTipoOcorrencia);

@@ -1,6 +1,7 @@
 package br.com.rpw.monitoramento.api.service.impl;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -122,5 +123,10 @@ public class UsuarioService implements IUsuarioService {
 		
 		
 		return usuario;
+	}
+
+	@Override
+	public BigInteger consultarQuantidadeUsuariosAtivos() {
+		return usuarioDaoImpl.consultarQuantidadeUsuariosAtivos();
 	}
 }

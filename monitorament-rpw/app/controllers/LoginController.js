@@ -36,8 +36,8 @@
 					$rootScope.usuarioLogado = data;
 
 					if($rootScope.usuarioLogado.tipoUsuario == "ADMINISTRADOR") {
-						carregarDominiosAdmin();
 						UtilsService.irPara('home-administrador');
+						carregarDominiosAdmin();
 					} else if($rootScope.usuarioLogado.tipoUsuario == "SUPERVIDOR") {
 						UtilsService.irPara('home-supervisor');
 					} else if($rootScope.usuarioLogado.tipoUsuario == "FUNCIONARIO") {
@@ -60,6 +60,7 @@
 		function carregarDominiosAdmin() {
 
 			$rootScope.dominios = {};
+			$rootScope.indicadores = {};
 
 			var funcSucessoTiposUsuario = function(data) {
 				$rootScope.dominios.tiposUsuarioConsulta = data;
@@ -107,10 +108,28 @@
 			EquipamentoService.consultarTiposEquipamento(funcSucessoTiposEquipamento);
 
 			var funcSucessoQuantidadeClientes = function(data) {
-				$rootScope.dominios.quantidadeClientes = data;
+				$rootScope.indicadores.quantidadeClientes = data;
 			};
 
 			IndicadoresService.consultarQuantidadeClientes(funcSucessoQuantidadeClientes);
+
+			var funcSucessoQuantidadeUsuarios = function(data) {
+				$rootScope.indicadores.quantidadeUsuarios = data;
+			};
+
+			IndicadoresService.consultarQuantidadeUsuarios(funcSucessoQuantidadeUsuarios);
+
+			var funcSucessoQuantidadeTiposOcorrencia = function(data) {
+				$rootScope.indicadores.quantidadeTiposOcorrencia = data;
+			};
+
+			IndicadoresService.consultarQuantidadeTiposOcorrencias(funcSucessoQuantidadeTiposOcorrencia);
+
+			var funcSucessoQuantidadeTiposOcorrenciaPersonalizadas = function(data) {
+				$rootScope.indicadores.quantidadeTiposOcorrenciaPersonalizadas = data;
+			};
+
+			IndicadoresService.consultarQuantidadeTiposOcorrenciaPersonalizadas(funcSucessoQuantidadeTiposOcorrenciaPersonalizadas);
 		}
 
 	}

@@ -1,6 +1,7 @@
 package br.com.rpw.monitoramento.api.service;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
@@ -14,4 +15,5 @@ public interface IUsuarioService {
 	void removerUsuario(Long id);
 	void atualizarUsuario(CadastrarUsuarioRequestDTO cadastrarUsuarioRequestDto)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException;
+	BigInteger consultarQuantidadeUsuariosAtivos();
 }

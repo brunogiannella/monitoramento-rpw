@@ -1,8 +1,10 @@
 package br.com.rpw.monitoramento.api.dao.impl;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +33,14 @@ public class UsuarioDaoImpl extends AbstractDao implements IUsuarioDao {
     	atualizarUsuario(usuario);
     }
  
+    @Override
+	public BigInteger consultarQuantidadeUsuariosAtivos() {
+		Query query = getSession().createSQLQuery("SELECT count(*) from USUARIO where ATIVO = :ativo");
+        query.setBoolean("ativo", true);
+        BigInteger quantidadeClientes = (BigInteger) query.uniqueResult();
+        
+        return quantidadeClientes;
+	}
      
     public Usuario autenticarUsuario(String usuario, String senha){
         Criteria criteria = getSession().createCriteria(Usuario.class);

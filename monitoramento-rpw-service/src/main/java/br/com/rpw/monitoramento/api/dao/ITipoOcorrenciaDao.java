@@ -1,5 +1,6 @@
 package br.com.rpw.monitoramento.api.dao;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import br.com.rpw.monitoramento.api.model.Cliente;
@@ -13,5 +14,6 @@ public interface ITipoOcorrenciaDao {
     void deleteTipoOcorrencia(Long codigoTipoOcorrencia);
     TipoOcorrencia consultarTipoOcorrencia(Long idTipoOcorrencia);
     void atualizarTipoOcorrencia(TipoOcorrencia tipoOcorrencia);
+	BigInteger consultarQuantidadeTipoOcorrenciasAtivas();
 	
 }
