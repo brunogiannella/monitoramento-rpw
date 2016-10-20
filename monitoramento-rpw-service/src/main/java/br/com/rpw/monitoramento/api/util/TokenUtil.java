@@ -61,7 +61,7 @@ public class TokenUtil {
 			return false;
 		}
 
-		if(!claims.getId().equals(usuario.getId())) {
+		if(!claims.getId().equals(usuario.getId().toString())) {
 			return false;
 		}
 		

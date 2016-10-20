@@ -25,19 +25,17 @@
           </ul>
 
           <ul class="right hide-on-small-only btn_sair">
-            <li><a id="fecharturno" href="#fecharturnomodal"><i class="material-icons right">exit_to_app</i>Fechar Turno</a></li>
+            <li><a href="#" ng-click="HomeCrtl.sair();"><i class="material-icons right">exit_to_app</i>Sair</a></li>
           </ul>
         </div>
 
             <ul id="slide-out" class="side-nav fixed rpw-menu">
               <li class="logo"><img src="img/logo_rpw.png" /></li>
-              <li class="active"><a href="#" ng-click="HomeCrtl.irPara('home-funcionario');" class="waves-effect"><i class="material-icons">home</i>Bem-vindo</a></li>
+              <li class="active"><a href="#" ng-click="HomeCrtl.irPara('home-funcionario');" class="waves-effect"><i class="material-icons">home</i>Meu painel</a></li>
               <li><div class="divider"></div></li>
               <li><a href="#" ng-click="HomeCrtl.irPara('cadastrar-turno');" class="waves-effect"><i class="material-icons">slow_motion_video</i>Cadastro de Turno</a></li>
               <li><div class="divider"></div></li>
               <li><a href="#" ng-click="HomeCrtl.irPara('cadastrar-ocorrencia');" class="waves-effect"><i class="material-icons">add_to_queue</i>Cadastrar Ocorrência</a></li>
-              <li><div class="divider"></div></li>
-              <li><a href="#" ng-click="HomeCrtl.irPara('consultar-ocorrencias-funcionario');" class="waves-effect"><i class="material-icons">visibility</i>Consultar Ocorrência</a></li>
               <li><div class="divider"></div></li>
               <li><a href="#" ng-click="HomeCrtl.irPara('gerenciar-cameras');" class="waves-effect"><i class="material-icons">videocam</i>Situação da Câmera</a></li>
             </ul>
@@ -52,7 +50,7 @@
           <div class="container2">
             <div class="row no-m">
               <div class="col">
-                <h5 class="header blue-text text-darken-2 center-on-small-only"><span class="light">Bem-vindo,</span> <span>Fabiano Silva</span> </h5>
+                <h5 class="header blue-text text-darken-2 center-on-small-only"><span class="light">Bem-vindo,</span> <span ng-bind="HomeCrtl.nomeUsuario"></span> </h5>
               </div>
             </div>
           </div>

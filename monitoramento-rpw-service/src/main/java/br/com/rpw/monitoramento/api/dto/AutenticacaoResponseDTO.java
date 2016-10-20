@@ -8,6 +8,8 @@ public class AutenticacaoResponseDTO {
 	private String nomeUsuario;
 	private String emailUsuario;
 	private String tipoUsuario;
+	private Long idCliente;
+	private String nomeCliente;
 	private String usuario;
 
 	public Boolean getAutenticado() {
@@ -64,6 +66,22 @@ public class AutenticacaoResponseDTO {
 
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
+	}
+
+	public Long getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(Long idCliente) {
+		this.idCliente = idCliente;
+	}
+
+	public String getNomeCliente() {
+		return nomeCliente;
+	}
+
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente = nomeCliente;
 	}
 
 }

@@ -25,21 +25,15 @@
           </ul>
 
           <ul class="right hide-on-small-only btn_sair">
-            <li><a id="fecharturno" href="#fecharturnomodal"><i class="material-icons right">exit_to_app</i>Fechar Turno</a></li>
+            <li><a href="#" ng-click="sair();"><i class="material-icons right">exit_to_app</i>Sair</a></li>
           </ul>
         </div>
 
-            <ul id="slide-out" class="side-nav fixed rpw-menu">
+             <ul id="slide-out" class="side-nav fixed rpw-menu">
               <li class="logo"><img src="img/logo_rpw.png" /></li>
-              <li><a href="cliente.html" class="waves-effect"><i class="material-icons">home</i>Bem-vindo</a></li>
+              <li><a ng-click="IniciarNovoTurnoCrtl.inicio();" class="waves-effect"><i class="material-icons">home</i>Início</a></li>
               <li><div class="divider"></div></li>
-              <li class="active"><a href="funcionariocadastraturno.html" class="waves-effect"><i class="material-icons">slow_motion_video</i>Cadastro de Turno</a></li>
-              <li><div class="divider"></div></li>
-              <li><a href="funcionariocadastraocorrencia.html" class="waves-effect"><i class="material-icons">add_to_queue</i>Cadastrar Ocorrência</a></li>
-              <li><div class="divider"></div></li>
-              <li><a href="funcionarioconsultaocorrencia.html" class="waves-effect"><i class="material-icons">visibility</i>Consultar Ocorrência</a></li>
-              <li><div class="divider"></div></li>
-              <li><a href="funcionariosituacaocamera.html" class="waves-effect"><i class="material-icons">videocam</i>Situação da Câmera</a></li>
+              <li><a ng-click="IniciarNovoTurnoCrtl.voltar();" class="waves-effect"><i class="material-icons">business</i>Voltar</a></li>
             </ul>
 
 
@@ -54,163 +48,66 @@
               <div class="col s12">
                   <h5 class="header blue-text text-darken-2 center-on-small-only title"><i class="material-icons">slow_motion_video</i> <span class="light"> Cadastro de Turno</span></h5>
 
-                
-          
+                  <form novalidate name="mainForm" ng-submit="IniciarNovoTurnoCrtl.iniciarNovoTurno();">
                     <div class="card-panel">
                       <p>Utilize o formulário para cadastrar o turno</p>
                       <div class="row">
                       <div class="input-field col s6 pr-5">
-                        <input id="usuario_login" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" class="validate">
+                        <input id="usuario_login" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" ng-model="IniciarNovoTurnoCrtl.turno.dataInicio" onblur="(this.type='text')">
                         <label for="usuario_login">Data de início</label>
                       </div>  
                       <div class="input-field col s6 pl-5">
-                        <input id="usuario_senha" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" class="validate">
+                        <input id="usuario_senha" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" ng-model="IniciarNovoTurnoCrtl.turno.dataFim" onblur="(this.type='text')">
                         <label for="usuario_senha">Data de término</label>
                       </div>
                       <div class="input-field col s6 pr-5">
-                        <input id="usuario_login" placeholder="Usuário" type="text" class="validate">
+                        <input id="usuario_login" placeholder="Usuário" type="text" ng-model="IniciarNovoTurnoCrtl.turno.nomeUsuario">
                         <label for="usuario_login">Nome do Usuário</label>
                       </div>
                       <div class="input-field col s6 pl-5">
-                        <input id="usuario_senha" placeholder="Cliente" type="text" class="validate">
+                        <input id="usuario_senha" placeholder="Cliente" type="text" ng-model="IniciarNovoTurnoCrtl.turno.nomeCliente">
                         <label for="usuario_senha">Nome do Cliente</label>
                       </div>
                       <div class="input-field col s6 pr-5">
-                        <select class="usuario_tipo selectable">
-                          <option value="" disabled selected>Escolha</option>
-                          <optgroup label="RPW">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                          </optgroup>
-                          <optgroup label="Cliente">
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                          </optgroup>
-                        </select>
-                        <label>Período</label>
+                          <input id="periodo" type="text" style="display:none;" ng-model="IniciarNovoTurnoCrtl.turno.periodo" />
+                          <select onchange="alterarComboPeriodo();" class="usuario_periodo selectable">
+                            <option value="" disabled selected>Selecione</option>
+                            <option ng-repeat="item in IniciarNovoTurnoCrtl.periodos" value="{{item}}">{{item}}</option>
+                          </select>
+                          <label>Período</label>
                       </div>
                       <div class="input-field col s6 pl-5">
-                        <select class="usuario_tipo selectable">
-
-                          <option value="" disabled selected>Escolha</option>
-                          <optgroup label="RPW">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                          </optgroup>
-                          <optgroup label="Cliente">
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                          </optgroup>
+                        <input id="condicaoClimatica" type="text" style="display:none;" ng-model="IniciarNovoTurnoCrtl.turno.condicaoClimatica" />
+                        <select onchange="alterarComboCondicoesClimaticas();" class="usuario_condicaoClimatica selectable">
+                          <option value="" disabled selected>Selecione</option>
+                          <option ng-repeat="item in IniciarNovoTurnoCrtl.condicoesClimaticas" value="{{item}}">{{item}}</option>
                         </select>
-                        <label>Condição Climática</label>
+                        <label>Condição Climatica</label>
                       </div>
                       <div class="input-field col s12">
-                        <select class="usuario_tipo selectable">
-                          <option value="" disabled selected>Escolha</option>
-                          <optgroup label="RPW">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                          </optgroup>
-                          <optgroup label="Cliente">
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                          </optgroup>
+                        <input id="tempo" type="text" style="display:none;" ng-model="IniciarNovoTurnoCrtl.turno.tempo" />
+                        <select onchange="alterarComboTempo();" class="usuario_tempo selectable">
+                          <option value="" disabled selected>Selecione</option>
+                          <option ng-repeat="item in IniciarNovoTurnoCrtl.tempo" value="{{item}}">{{item}}</option>
                         </select>
                         <label>Tempo</label>
                       </div>
                     </div>
                   </div>
-                
+
+                  <div class="input-field col s12">
+                    <button type="submit" class="btn-large blue darken-2 waves-effect waves-light col s12" ng-disabled="mainForm.$invalid">Confirmar
+                    </button>
+                  </div>
+
+                  </form>
+
               </div>
             </div>
           </div>
         </div>
-      </main>
-              
-      <!-- MODAL -->
-      <div id="fecharturnomodal" class="modal">
-        <div class="modal-content pb-0">
-          <div class="col s12">
-            <h5 class="center">Fechar Turno</h5>
-            <p>&nbsp;</p>
-
-              <div class="row">
-                <div class="input-field col s6 pr-5">
-                  <input id="usuario_login" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" class="validate">
-                  <label for="usuario_login">Data de início</label>
-                </div>  
-                <div class="input-field col s6 pl-5">
-                  <input id="usuario_senha" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" class="validate">
-                  <label for="usuario_senha">Data de término</label>
-                </div>
-                <div class="input-field col s6 pr-5">
-                  <input id="usuario_login" placeholder="Nome do Usuário" type="text" class="validate">
-                  <label for="usuario_login">Nome do Usuário</label>
-                </div>
-                <div class="input-field col s6 pl-5">
-                  <input id="usuario_senha" placeholder="Nome do cliente" type="text" class="validate">
-                  <label for="usuario_senha">Nome do Cliente</label>
-                </div>
-                <div class="input-field col s6 pr-5">
-                  <select class="usuario_tipo selectable">
-                    <option value="" disabled selected>Escolha</option>
-                    <optgroup label="RPW">
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                    </optgroup>
-                    <optgroup label="Cliente">
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                    </optgroup>
-                  </select>
-                  <label>Período</label>
-                </div>
-                <div class="input-field col s6 pl-5">
-                  <select class="usuario_tipo selectable">
-                    <option value="" disabled selected>Escolha</option>
-                    <optgroup label="RPW">
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                    </optgroup>
-                    <optgroup label="Cliente">
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                    </optgroup>
-                  </select>
-                  <label>Condição Climática</label>
-                </div>
-                <div class="input-field col s12">
-                  <select class="usuario_tipo selectable">
-                    <option value="" disabled selected>Escolha</option>
-                    <optgroup label="RPW">
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                    </optgroup>
-                    <optgroup label="Cliente">
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                    </optgroup>
-                  </select>
-                  <label>Tempo</label>
-                </div>
-              </div>
-          </div>
-        </div>
-
-        <div class="input-field">
-          <button class="btn-large blue darken-2 waves-effect waves-light col s12" type="submit" name="action">Iniciar turno
-            <i class="material-icons right">done_all</i>
-          </button>
-        </div>
-
-        <div class="modal-footer">
-            <div class="col s12">
-              <p><a class="btn waves-effect white green darken-1">Confirmar</a></p>
-              <p><a class="modal-action modal-close btn waves-effect white grey-text grey lighten-1 mb-10">Cancelar</a></p>
-            </div>
-        </div>
-      </div>
-      <!-- / MODAL -->
+      </main>        
+      
 
       <!-- Scripts -->
       <script type="text/javascript" src="js/materialize.js"></script>
@@ -224,7 +121,26 @@
               }
             );
             $('.collapsible').collapsible();
+            $('.caret').remove();
           });
+
+        function alterarComboTempo() {
+          var tempoSelecionado = $("div.usuario_tempo > input.select-dropdown").val();
+          $("#tempo").val(tempoSelecionado);
+          angular.element($("#tempo")).triggerHandler('input')
+        }
+
+        function alterarComboPeriodo() {
+          var periodoSelecionado = $("div.usuario_periodo > input.select-dropdown").val();
+          $("#periodo").val(periodoSelecionado);
+          angular.element($("#periodo")).triggerHandler('input')
+        }
+
+        function alterarComboCondicoesClimaticas() {
+          var condicoesClimaticasSelecionado = $("div.usuario_condicaoClimatica > input.select-dropdown").val();
+          $("#condicaoClimatica").val(condicoesClimaticasSelecionado);
+          angular.element($("#condicaoClimatica")).triggerHandler('input')
+        }
       </script>
       <!-- /Scripts -->
     </body>

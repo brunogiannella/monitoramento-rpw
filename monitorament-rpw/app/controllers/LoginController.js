@@ -5,9 +5,9 @@
 		.module('login.controller', [])
 		.controller('LoginController' , LoginController);
 
-	LoginController.$inject = ['$scope', '$rootScope', 'LoginService', 'UtilsService', 'UsuarioService', 'TipoOcorrenciaService', 'ClienteService', 'CameraService', 'EquipamentoService', 'IndicadoresService'];
+	LoginController.$inject = ['$scope', '$rootScope', 'LoginService', 'UtilsService', 'UsuarioService', 'TipoOcorrenciaService', 'ClienteService', 'CameraService', 'EquipamentoService', 'IndicadoresService', 'TurnoService'];
 
-	function LoginController($scope, $rootScope, LoginService, UtilsService, UsuarioService, TipoOcorrenciaService, ClienteService, CameraService, EquipamentoService, IndicadoresService) {
+	function LoginController($scope, $rootScope, LoginService, UtilsService, UsuarioService, TipoOcorrenciaService, ClienteService, CameraService, EquipamentoService, IndicadoresService, TurnoService) {
 
 		this.usuario = null;
 		this.senha = null;
@@ -42,6 +42,7 @@
 						UtilsService.irPara('home-supervisor');
 					} else if($rootScope.usuarioLogado.tipoUsuario == "FUNCIONARIO") {
 						UtilsService.irPara('home-funcionario');
+						carregarDominiosFuncionario();
 					} else if($rootScope.usuarioLogado.tipoUsuario == "CLIENTE") {
 						UtilsService.irPara('home-cliente');
 					}
@@ -55,6 +56,28 @@
 			};
 
 			LoginService.realizarLogin(this.usuario, this.senha, funcSucesso);
+		}
+
+		function carregarDominiosFuncionario() {
+			$rootScope.dominios = {};
+
+			var funcSucessoCondicoesClimaticas = function(data) {
+				$rootScope.dominios.condicoesClimaticas = data;
+			};
+
+			TurnoService.consultarCondicoesClimaticas(funcSucessoCondicoesClimaticas);
+
+			var funcSucessoTempo = function(data) {
+				$rootScope.dominios.tempo = data;
+			};
+
+			TurnoService.consultarTempo(funcSucessoTempo);
+
+			var funcSucessoPeriodos = function(data) {
+				$rootScope.dominios.periodos = data;
+			};
+
+			TurnoService.consultarPeriodos(funcSucessoPeriodos);
 		}
 
 		function carregarDominiosAdmin() {

@@ -5,62 +5,60 @@
 		.module('iniciarNovoTurnoController.controller', [])
 		.controller('IniciarNovoTurnoController' , IniciarNovoTurnoController);
 
-	IniciarNovoTurnoController.$inject = ['$rootScope', 'TurnoService', 'UtilsService'];
+	IniciarNovoTurnoController.$inject = ['$rootScope', '$scope', 'TurnoService', 'UtilsService'];
 
-	function IniciarNovoTurnoController($rootScope, $stateParams, TurnoService, UtilsService) {
+	function IniciarNovoTurnoController($rootScope, $scope, TurnoService, UtilsService) {
 
-		this.turno = new Object();
-
-		this.usuario = $rootScope.usuarioLogado;
-		this.clientes = null;
+		this.voltar = voltar;
+		this.inicio = inicio;
+		this.iniciarNovoTurno = iniciarNovoTurno;
+		$scope.sair = UtilsService.logout;
+		this.turno = {};
+		var vm = this;
 
 		function iniciliazarProcessoTurno() {
-			this.turno.dataInicio = "";
-			this.turno.dataFim = "";
-			this.turno.nomeCliente = "";
-			this.turno.idCliente ="";
-			this.turno.periodo = "";
-			this.turno.condicaoClimatica = "";
-			this.turno.tempo = "";
+			vm.turno.dataInicio = "";
+			vm.turno.dataFim = "";
+			vm.turno.nomeCliente = $rootScope.usuarioLogado.nomeCliente;
+			vm.turno.idCliente = $rootScope.usuarioLogado.idCliente;
+			vm.turno.periodo = "";
+			vm.turno.condicaoClimatica = "";
+			vm.turno.tempo = "";
+			vm.turno.idUsuario = $rootScope.usuarioLogado.idUsuario;
+			vm.turno.nomeUsuario = $rootScope.usuarioLogado.nomeUsuario;
 
-			var funcSucessoPeriodos = function(data) {
-				$scope.periodosConsulta = data;
-			};
-
-			var funcSucessoCondicoesClimaticas = function(data) {
-				$scope.condicoesClimaticasConsulta = data;
-			};
-
-			var funcSucessoTempos = function(data) {
-				$scope.temposConsulta = data;
-			};
-
-			TurnoService.consultarPeriodos(funcSucessoPeriodos);
-			TurnoService.consultarCondicoesClimaticas(funcSucessoCondicoesClimaticas);
-			TurnoService.consultarTempos(funcSucessoTempos);
-
+			vm.condicoesClimaticas = $rootScope.dominios.condicoesClimaticas;
+			vm.periodos = $rootScope.dominios.periodos;
+			vm.tempo = $rootScope.dominios.tempo;
 		}
 
 		function iniciarNovoTurno() {
 
-			if(validarTurno(this.turno)) {
+			if(validarTurno(vm.turno)) {
 				var funcSucesso = function(data) {
 					alert("Turno aberto com sucesso");
 					UtilsService.irPara("listaTurnos");
 				};
 
-				TurnoService.iniciarTurno(this.turno, funcSucesso);
+				TurnoService.iniciarTurno(vm.turno, funcSucesso);
 			}
 			
 		};
 
 		function voltar() {
-			UtilsService.irPara("listaTurnos");
+			UtilsService.irPara("home-funcionario");
+		}
+
+		function inicio() {
+			UtilsService.irPara("home-funcionario");
 		}
 
 		function validarTurno(turnoDto) {
 			return true;
 		}
+
+
+		iniciliazarProcessoTurno();
 
 	}
 

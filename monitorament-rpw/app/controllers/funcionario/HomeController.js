@@ -5,17 +5,30 @@
 		.module('home.controller', [])
 		.controller('HomeController' , HomeController);
 
-	HomeController.$inject = ['$rootScope', '$location', 'UtilsService'];
+	HomeController.$inject = ['$rootScope', 'UtilsService', 'TurnoService'];
 
-	function HomeController($rootScope, $location, UtilsService) {
+	function HomeController($rootScope, UtilsService, TurnoService) {
 		this.nomeUsuario = $rootScope.usuarioLogado.nomeUsuario;
 		this.irPara = UtilsService.irPara;
-		this.sair = sair;
+		this.sair = UtilsService.logout;
 
-		function sair() {
-			$rootScope.usuarioLogado = null;
-			UtilsService.irPara("login");
-		}
+		this.turnos = function() {
+			var codigoUsuario = $rootScope.idUsuario;
+
+			var funcSucesso = function(data) {
+
+				if(data != null && data.length > 0) {
+					$scope.turnosUsuarioConsultado = data;
+					alert("No momento seu usuário possui um turno aberto, é necessário fecha-lo antes de abrir novo turno.")
+				} else {
+					UtilsService.irPara("cadastrar-turno");
+				}
+				
+			};
+
+			TurnoService.consultarTurnosUsuario(codigoUsuario, funcSucesso);
+		};
+
 	}
 
 })();

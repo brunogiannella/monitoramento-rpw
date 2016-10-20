@@ -214,7 +214,8 @@
 			consultarTurno : consultarTurno,
 			consultarTurnosUsuario : consultarTurnosUsuario,
 			consultarCondicoesClimaticas : consultarCondicoesClimaticas,
-			consultarPeriodos : consultarPeriodos
+			consultarPeriodos : consultarPeriodos,
+			consultarTempo : consultarTempo
 		}
 	}
 
