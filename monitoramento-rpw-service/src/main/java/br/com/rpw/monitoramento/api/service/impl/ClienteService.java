@@ -17,11 +17,13 @@ import br.com.rpw.monitoramento.api.dao.impl.ClienteTipoOcorrenciaPersonalizadaD
 import br.com.rpw.monitoramento.api.dao.impl.EnderecoDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.EquipamentoDaoImpl;
 import br.com.rpw.monitoramento.api.dto.CameraDTO;
+import br.com.rpw.monitoramento.api.dto.CampoOcorrenciaDTO;
 import br.com.rpw.monitoramento.api.dto.ClienteDTO;
 import br.com.rpw.monitoramento.api.dto.EnderecoDTO;
 import br.com.rpw.monitoramento.api.dto.EquipamentoDTO;
 import br.com.rpw.monitoramento.api.dto.TipoOcorrenciaDTO;
 import br.com.rpw.monitoramento.api.model.Camera;
+import br.com.rpw.monitoramento.api.model.CampoOcorrencia;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.ClienteTipoOcorrencia;
 import br.com.rpw.monitoramento.api.model.ClienteTipoOcorrenciaPersonalizada;
@@ -103,6 +105,44 @@ public class ClienteService implements IClienteService {
 	}
 	
 	@Override
+	public List<TipoOcorrenciaDTO> consultarTiposOcorrencia(Cliente cliente) {
+		List<ClienteTipoOcorrencia> clienteTiposOcorrencia = clienteTipoOcorrenciaDaoImpl.listarTipoOcorrencias(cliente);
+		
+		List<TipoOcorrenciaDTO> tiposOcorrencia = new ArrayList<TipoOcorrenciaDTO>();
+		
+		for(ClienteTipoOcorrencia clienteTipoOcorrencia : clienteTiposOcorrencia) {
+			TipoOcorrencia tipoOcorrenciaAtual = clienteTipoOcorrencia.getTipoOcorrencia();
+			tipoOcorrenciaAtual.setCampos(campoOcorrenciaDaoImpl.consultarCamposOcorrencia(tipoOcorrenciaAtual));
+			tiposOcorrencia.add(converterTipoOcorrenciaEmTipoOcorrenciaDTO(tipoOcorrenciaAtual));
+		}
+		
+		return tiposOcorrencia;
+	}
+	
+	public TipoOcorrenciaDTO converterTipoOcorrenciaEmTipoOcorrenciaDTO(TipoOcorrencia tipoOcorrencia) {
+		TipoOcorrenciaDTO tipoOcorrenciaDto = new TipoOcorrenciaDTO();
+		tipoOcorrenciaDto.setCampos(new ArrayList<CampoOcorrenciaDTO>());
+		
+		tipoOcorrenciaDto.setId(tipoOcorrencia.getId());
+		tipoOcorrenciaDto.setDescricao(tipoOcorrencia.getDescricao());
+		
+		if(tipoOcorrencia.getCampos() != null) {
+			tipoOcorrenciaDto.setQuantidadeCampos(tipoOcorrencia.getCampos().size());
+			
+			for(CampoOcorrencia campo : tipoOcorrencia.getCampos()) {
+				CampoOcorrenciaDTO campoDto = new CampoOcorrenciaDTO();
+				campoDto.setId(campo.getId());
+				campoDto.setTipoCampo(campo.getTipoCampo().getDescricao());
+				campoDto.setDescricao(campo.getDescricao());
+				
+				tipoOcorrenciaDto.getCampos().add(campoDto);
+			}
+		}
+		
+		return tipoOcorrenciaDto;
+	}
+	
+	@Override
 	public ClienteDTO consultarCliente(Long id) {
 		Cliente cliente = new Cliente();
 		cliente.setId(id);
@@ -168,12 +208,14 @@ public class ClienteService implements IClienteService {
 		}
 		
 		clienteDto.setEndereco(new EnderecoDTO());
-		clienteDto.getEndereco().setBairro(cliente.getEndereco().getBairro());
-		clienteDto.getEndereco().setCep(cliente.getEndereco().getCep());
-		clienteDto.getEndereco().setCidade(cliente.getEndereco().getCidade());
-		clienteDto.getEndereco().setEstado(cliente.getEndereco().getEstado());
-		clienteDto.getEndereco().setId(cliente.getEndereco().getId());
-		clienteDto.getEndereco().setLogradouro(cliente.getEndereco().getLogradouro());
+		if(cliente.getEndereco() != null) {
+			clienteDto.getEndereco().setBairro(cliente.getEndereco().getBairro());
+			clienteDto.getEndereco().setCep(cliente.getEndereco().getCep());
+			clienteDto.getEndereco().setCidade(cliente.getEndereco().getCidade());
+			clienteDto.getEndereco().setEstado(cliente.getEndereco().getEstado());
+			clienteDto.getEndereco().setId(cliente.getEndereco().getId());
+			clienteDto.getEndereco().setLogradouro(cliente.getEndereco().getLogradouro());
+		}
 		
 		clienteDto.setCameras(new ArrayList<CameraDTO>());
 		if(cliente.getCameras() != null) {

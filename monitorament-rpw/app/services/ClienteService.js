@@ -285,6 +285,40 @@
 			});
 		};
 
+		function consultarTiposOcorrenciaCliente(id, fncSucesso) {
+
+			var  data = {};
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'cliente/'+id+'/tiposOcorrencia',
+				method : 'GET',
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  	UtilsService.desativarLoading();
+		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
+		       	  	UtilsService.desativarLoading();
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		       		UtilsService.tratarErrosHttp(response);
+		       		UtilsService.desativarLoading();
+		         	return false;
+		       }
+		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
+		    	UtilsService.desativarLoading();
+				return false;
+			});
+		};
 
 		return {
 			cadastrarCliente : cadastrarCliente,
@@ -295,7 +329,8 @@
 			associarTipoOcorrenciaPersonalizada : associarTipoOcorrenciaPersonalizada,
 			associarTipoOcorrencia : associarTipoOcorrencia,
 			desassociarTipoOcorrencia : desassociarTipoOcorrencia,
-			desassociarTipoOcorrenciaPersonalizada : desassociarTipoOcorrenciaPersonalizada
+			desassociarTipoOcorrenciaPersonalizada : desassociarTipoOcorrenciaPersonalizada,
+			consultarTiposOcorrenciaCliente : consultarTiposOcorrenciaCliente
 		}
 	}
 

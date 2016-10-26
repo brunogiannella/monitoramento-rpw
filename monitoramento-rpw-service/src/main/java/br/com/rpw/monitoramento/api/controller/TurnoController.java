@@ -93,11 +93,12 @@ public class TurnoController {
 	}
 	
 	@RequestMapping(value="/usuario/{id}", method = RequestMethod.GET)
-	public RestObject consultarTurnosAbertosUsuario(@PathVariable("id") Long isUsuario, @RequestHeader(value="x-acess-token") String token) { 
+	public RestObject consultarTurnosAbertosUsuario(@PathVariable("id") Long idUsuario, @RequestHeader(value="x-acess-token") String token) { 
 		try {
 			
-			if(TokenUtil.simpleValidToken(token)) {
-				List<Turno> turnos = turnoService.consultarTurnos(isUsuario, StatusTurnoEnum.EM_ANDAMENTO);
+			Usuario usuario = usuarioService.consultarUsuario(idUsuario);
+			if(TokenUtil.validToken(token, usuario)) {
+				List<Turno> turnos = turnoService.consultarTurnos(idUsuario, StatusTurnoEnum.EM_ANDAMENTO);
 				
 				if(turnos == null) {
 					return new RestObject(200, true, "O usuário não possui nenhum turno.", null);

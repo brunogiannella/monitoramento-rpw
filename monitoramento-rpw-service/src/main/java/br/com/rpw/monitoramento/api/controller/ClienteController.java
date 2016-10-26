@@ -137,4 +137,17 @@ public class ClienteController {
 		}
 	}
 	
+	@RequestMapping(value="/{id}/tiposOcorrencia", method = RequestMethod.GET)
+	public RestObject consultarTiposOcorrenciaCliente(@PathVariable Long id, @RequestHeader(value="x-acess-token") String token) {
+				
+		Cliente cliente = new Cliente();
+		cliente.setId(id);
+		
+		try {
+			return new RestObject(200, true, "Cadastro realizado com sucesso", clienteService.consultarTiposOcorrencia(cliente));
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro no cadastro do cliente: " + e.getMessage(), null);
+		}
+	}
+	
 }

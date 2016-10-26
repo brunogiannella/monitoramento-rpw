@@ -12,7 +12,14 @@
 		
 
 		function inicializar() {
+			UtilsService.ativarLoading();
+			var codigoCliente = $rootScope.usuarioLogado.idCliente;
 
+			var funcSucesso = function(data) {
+				vm.tiposOcorrencia = data;
+			};
+
+			ClienteService.consultarTiposOcorrenciaCliente(codigoCliente, funcSucesso);
 		};
 		
 		var vm = this;

@@ -99,12 +99,11 @@ public class TurnoService implements ITurnoService {
 			}
 		}
 		turno.setTempo(tempoEnum);
-		
 		turno.setStatus(StatusTurnoEnum.EM_ANDAMENTO);
 		
-		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy hh:mm");
-		turno.setDataInicio(formato.parse(iniciarTurnoRequestDTO.getDataInicio()));
-		turno.setDataFim(formato.parse(iniciarTurnoRequestDTO.getDataFim()));
+		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		turno.setDataInicio(formato.parse(iniciarTurnoRequestDTO.getDataInicio().replace("T", " ")));
+		turno.setDataFim(formato.parse(iniciarTurnoRequestDTO.getDataFim().replace("T", " ")));
 		
 		return turno;
 	}

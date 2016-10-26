@@ -33,9 +33,9 @@
               <li class="logo"><img src="img/logo_rpw.png" /></li>
               <li class="active"><a href="#" ng-click="HomeCrtl.irPara('home-funcionario');" class="waves-effect"><i class="material-icons">home</i>Meu painel</a></li>
               <li><div class="divider"></div></li>
-              <li><a href="#" ng-click="HomeCrtl.irPara('cadastrar-turno');" class="waves-effect"><i class="material-icons">slow_motion_video</i>Cadastro de Turno</a></li>
+              <li><a href="#" ng-click="HomeCrtl.irParaTurnos();" class="waves-effect"><i class="material-icons">slow_motion_video</i>Cadastro de Turno</a></li>
               <li><div class="divider"></div></li>
-              <li><a href="#" ng-click="HomeCrtl.irPara('cadastrar-ocorrencia');" class="waves-effect"><i class="material-icons">add_to_queue</i>Cadastrar Ocorrência</a></li>
+              <li><a href="#" ng-click="HomeCrtl.irParaOcorrencias();" class="waves-effect"><i class="material-icons">add_to_queue</i>Cadastrar Ocorrência</a></li>
               <li><div class="divider"></div></li>
               <li><a href="#" ng-click="HomeCrtl.irPara('gerenciar-cameras');" class="waves-effect"><i class="material-icons">videocam</i>Situação da Câmera</a></li>
             </ul>
@@ -53,87 +53,57 @@
                 <h5 class="header blue-text text-darken-2 center-on-small-only"><span class="light">Bem-vindo,</span> <span ng-bind="HomeCrtl.nomeUsuario"></span> </h5>
               </div>
             </div>
-          </div>
-        </div>
-      </main>
-              
-      <!-- MODAL -->
-      <div id="fecharturnomodal" class="modal">
-        <div class="modal-content pb-0">
-          <div class="col s12">
-            <h5 class="center">Fechar Turno</h5>
-            <p>&nbsp;</p>
 
-              <div class="row">
-                <div class="input-field col s6 pr-5">
-                  <input id="usuario_login" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" class="validate">
-                  <label for="usuario_login">Data de início</label>
-                </div>  
-                <div class="input-field col s6 pl-5">
-                  <input id="usuario_senha" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" class="validate">
-                  <label for="usuario_senha">Data de término</label>
-                </div>
-                <div class="input-field col s6 pr-5">
-                  <input id="usuario_login" placeholder="Nome do Usuário" type="text" class="validate">
-                  <label for="usuario_login">Nome do Usuário</label>
-                </div>
-                <div class="input-field col s6 pl-5">
-                  <input id="usuario_senha" placeholder="Nome do cliente" type="text" class="validate">
-                  <label for="usuario_senha">Nome do Cliente</label>
-                </div>
-                <div class="input-field col s6 pr-5">
-                  <select class="usuario_tipo selectable">
-                    <option value="" disabled selected>Escolha</option>
-                    <optgroup label="RPW">
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                    </optgroup>
-                    <optgroup label="Cliente">
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                    </optgroup>
-                  </select>
-                  <label>Período</label>
-                </div>
-                <div class="input-field col s6 pl-5">
-                  <select class="usuario_tipo selectable">
-                    <option value="" disabled selected>Escolha</option>
-                    <optgroup label="RPW">
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                    </optgroup>
-                    <optgroup label="Cliente">
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                    </optgroup>
-                  </select>
-                  <label>Condição Climática</label>
-                </div>
-                <div class="input-field col s12">
-                  <select class="usuario_tipo selectable">
-                    <option value="" disabled selected>Escolha</option>
-                    <optgroup label="RPW">
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                    </optgroup>
-                    <optgroup label="Cliente">
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                    </optgroup>
-                  </select>
-                  <label>Tempo</label>
+            <br />
+            <br />
+
+            <div class="row">
+              <h5>
+                <span class="col light">
+                  <i class="material-icons" style="padding-right: 10px;">slow_motion_video</i>
+                  Meus turnos
+                </span>
+              </h5>
+              <div class="col s12">
+                <div class="card-panel">
+                  <center>
+                    <span class="texto_destaque">{{HomeCrtl.mensagemTurno}}</span>
+
+                    <table class="responsive-table striped" ng-show="HomeCrtl.turnos.length > 0">
+                      <thead>
+                        <tr>
+                            <th data-field="id">ID</th>
+                            <th data-field="id">Inicio</th>
+                            <th data-field="id">Usuário</th>
+                            <th data-field="id">Cliente</th>
+                            <th data-field="id">Status</th>
+                            <th data-field="id" class="center-on-small-only right-align">Operações</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-repeat="turno in HomeCrtl.turnos | filter:searchText">
+                          <td>{{turno.id}}</td>
+                          <td>{{turno.dataInicio}}</td>
+                          <td>{{turno.nomeUsuario}}</td>
+                          <td>{{turno.nomeCliente}}</td>
+                          <td>{{turno.status}}</td>
+                          <td class="right-align">
+                            <a href="#" ng-click="UsuarioCrtl.editarUsuario(usuario.id);"><i class="material-icons small blue-text">mode_edit</i></a>
+                            <a href="#" ng-click="UsuarioCrtl.removerUsuario(usuario.id, usuario.usuario);"><i class="material-icons small red-text">delete</i></a>
+                          </td>
+                        </tr>
+                        
+                      </tbody>
+                    </table>
+
+                  </center>
                 </div>
               </div>
           </div>
         </div>
-        <div class="modal-footer">
-            <div class="col s12">
-              <p><a class="btn waves-effect white green darken-1">Confirmar</a></p>
-              <p><a class="modal-action modal-close btn waves-effect white grey-text grey lighten-1 mb-10">Cancelar</a></p>
-            </div>
-        </div>
-      </div>
-      <!-- / MODAL -->
+      </main>
+              
+      
 
       <!-- Scripts -->
       <script type="text/javascript" src="js/materialize.js"></script>

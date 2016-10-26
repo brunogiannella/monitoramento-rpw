@@ -37,7 +37,7 @@
 			if(validarTurno(vm.turno)) {
 				var funcSucesso = function(data) {
 					alert("Turno aberto com sucesso");
-					UtilsService.irPara("listaTurnos");
+					UtilsService.irPara("home-funcionario");
 				};
 
 				TurnoService.iniciarTurno(vm.turno, funcSucesso);

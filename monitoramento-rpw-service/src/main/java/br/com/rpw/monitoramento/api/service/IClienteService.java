@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 import br.com.rpw.monitoramento.api.dto.ClienteDTO;
+import br.com.rpw.monitoramento.api.dto.TipoOcorrenciaDTO;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.TipoOcorrencia;
 import br.com.rpw.monitoramento.api.model.TipoOcorrenciaPersonalizada;
@@ -20,5 +21,6 @@ public interface IClienteService {
 	void desassociarTipoOcorrencia(Cliente cliente, TipoOcorrencia tipoOcorrencia);
 	void desassociarTipoOcorrenciaPersonalizada(Cliente cliente, TipoOcorrenciaPersonalizada tipoOcorrencia);
 	BigInteger consultarQuantidadeClientesAtivos();
+	List<TipoOcorrenciaDTO> consultarTiposOcorrencia(Cliente cliente);
 	
 }

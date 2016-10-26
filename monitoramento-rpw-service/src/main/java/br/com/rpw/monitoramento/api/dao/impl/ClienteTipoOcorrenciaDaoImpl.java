@@ -29,7 +29,7 @@ public class ClienteTipoOcorrenciaDaoImpl extends AbstractDao implements IClient
 	@Override
 	public List<ClienteTipoOcorrencia> listarTipoOcorrencias(Cliente cliente) {
 		Criteria criteria = getSession().createCriteria(ClienteTipoOcorrencia.class);
-		criteria.add(Restrictions.eq("cliente.id",cliente.getId()));
+		criteria.add(Restrictions.eq("cliente.id", cliente.getId()));
         return (List<ClienteTipoOcorrencia>) criteria.list();
 	}
 
