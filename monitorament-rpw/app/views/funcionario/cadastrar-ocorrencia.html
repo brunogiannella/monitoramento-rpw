@@ -25,21 +25,15 @@
           </ul>
 
           <ul class="right hide-on-small-only btn_sair">
-            <li><a id="fecharturno" href="#fecharturnomodal"><i class="material-icons right">exit_to_app</i>Fechar Turno</a></li>
+            <li><a href="#" ng-click="sair();"><i class="material-icons right">exit_to_app</i>Sair</a></li>
           </ul>
         </div>
 
             <ul id="slide-out" class="side-nav fixed rpw-menu">
               <li class="logo"><img src="img/logo_rpw.png" /></li>
-              <li><a href="funcionario.html" class="waves-effect"><i class="material-icons">home</i>Bem-vindo</a></li>
+              <li><a ng-click="CadastrarOcorrenciaCrtl.inicio();" class="waves-effect"><i class="material-icons">home</i>Início</a></li>
               <li><div class="divider"></div></li>
-              <li><a href="funcionario_cadastraturno.html" class="waves-effect"><i class="material-icons">slow_motion_video</i>Cadastro de Turno</a></li>
-              <li><div class="divider"></div></li>
-              <li class="active"><a href="funcionario_cadastraocorrencia.html" class="waves-effect"><i class="material-icons">add_to_queue</i>Cadastrar Ocorrência</a></li>
-              <li><div class="divider"></div></li>
-              <li><a href="funcionario_consultaocorrencia.html" class="waves-effect"><i class="material-icons">visibility</i>Consultar Ocorrência</a></li>
-              <li><div class="divider"></div></li>
-              <li><a href="funcionariosituacaocamera.html" class="waves-effect"><i class="material-icons">videocam</i>Situação da Câmera</a></li>
+              <li><a ng-click="CadastrarOcorrenciaCrtl.voltar();" class="waves-effect"><i class="material-icons">business</i>Voltar</a></li>
             </ul>
 
 
@@ -62,386 +56,26 @@
                     <p>Utilize o formulário para cadastrar a ocorrência</p>
 
                     <ul class="collapsible" data-collapsible="accordion">
-                      <li>
-                        <div class="collapsible-header blue darken-4  ">
-                          <i class="material-icons cyan-text text-lighten-2">add_circle_outline</i>
-                          <b class="white-text">Relação de equipamentos</b>
-                        </div>
-                        <div class="collapsible-body">
-                          <div class="row">
-                            <div class="input-field col s12 m2">
-                              <input id="relacao_data" placeholder="00/00/0000" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="validate">
-                              <label for="relacao_data">Data</label>
-                            </div>
-                            <div class="input-field col s12 m2">
-                              <input id="relacao_data" placeholder="00:00" type="text" onfocus="(this.type='time')" onblur="(this.type='text')" class="validate">
-                              <label for="relacao_data">Horário</label>
-                            </div>
-                            <div class="input-field col s12 m7">
-                              <input id="relacao_responsavel" placeholder="Equipamento" type="text" class="validate">
-                              <label for="relacao_responsavel">Responsável</label>
-                            </div>
-                            <div class="input-field col s12 m1">
-                              <a class="btn-floating"><i class="material-icons">add</i></a>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <!--  -->
-                      <li>
+                      
+                      <li ng-repeat="tipoOcorrencia in CadastrarOcorrenciaCrtl.tiposOcorrencia">
                         <div class="collapsible-header blue darken-4">
                           <i class="material-icons cyan-text text-lighten-2">add_circle_outline</i>
-                          <b class="white-text">Situação de câmeras</b>
-                        </div>
-                        <div class="collapsible-body">
-                          <div class="row">
-                            <div class="input-field col s12 m2">
-                              <input id="situacaocameras_data" placeholder="00/00/0000" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="validate">
-                              <label for="situacaocameras_data">Data</label>
-                            </div>
-                            <div class="input-field col s12 m2">
-                              <input id="situacaocameras_data" placeholder="00:00" type="text" onfocus="(this.type='time')" onblur="(this.type='text')" class="validate">
-                              <label for="situacaocameras_data">Horário</label>
-                            </div>
-                            <div class="input-field col s12 m7">
-                              <input id="situacaocameras_responsavel" placeholder="Equipamento" type="text" class="validate">
-                              <label for="situacaocameras_responsavel">Responsável</label>
-                            </div>
-                            <div class="input-field col s12 m1">
-                              <a class="btn-floating"><i class="material-icons">add</i></a>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <!--  -->
-                      <li>
-                        <div class="collapsible-header blue darken-4">
-                          <i class="material-icons cyan-text text-lighten-2">add_circle_outline</i>
-                          <b class="white-text">Relação do efetivo Embrase</b>
-                        </div>
-                        <div class="collapsible-body">
-                          <div class="row">
-                            <div class="input-field col s12 m2">
-                              <input id="relacaoefetivosembrase_data" placeholder="00/00/0000" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="validate">
-                              <label for="relacaoefetivosembrase_data">Data</label>
-                            </div>
-                            <div class="input-field col s12 m2">
-                              <input id="relacaoefetivosembrase_data" placeholder="00:00" type="text" onfocus="(this.type='time')" onblur="(this.type='text')" class="validate">
-                              <label for="relacaoefetivosembrase_data">Horário</label>
-                            </div>
-                            <div class="input-field col s12 m7">
-                              <input id="relacaoefetivosembrase_responsavel" placeholder="Equipamento" type="text" class="validate">
-                              <label for="relacaoefetivosembrase_responsavel">Responsável</label>
-                            </div>
-                            <div class="input-field col s12 m1">
-                              <a class="btn-floating"><i class="material-icons">add</i></a>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <!--  -->
-                      <li>
-                        <div class="collapsible-header blue darken-4">
-                          <i class="material-icons cyan-text text-lighten-2">add_circle_outline</i>
-                          <b class="white-text">Acesso à Sala de Monitoramento</b>
-                        </div>
-                        <div class="collapsible-body">
-                          <div class="row">
-                            <div class="input-field col s12 m2">
-                              <input id="salamonitoramento_data" placeholder="00/00/0000" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="validate">
-                              <label for="salamonitoramento_data">Data</label>
-                            </div>
-                            <div class="input-field col s12 m2">
-                              <input id="salamonitoramento_data" placeholder="00:00" type="text" onfocus="(this.type='time')" onblur="(this.type='text')" class="validate">
-                              <label for="salamonitoramento_data">Horário</label>
-                            </div>
-                            <div class="input-field col s12 m7">
-                              <input id="salamonitoramento_responsavel" placeholder="Equipamento" type="text" class="validate">
-                              <label for="salamonitoramento_responsavel">Responsável</label>
-                            </div>
-                            <div class="input-field col s12 m1">
-                              <a class="btn-floating"><i class="material-icons">add</i></a>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <!--  -->
-                      <li>
-                        <div class="collapsible-header blue darken-4">
-                          <i class="material-icons cyan-text text-lighten-2">add_circle_outline</i>
-                          <b class="white-text">Ronda Talude</b>
-                        </div>
-                        <div class="collapsible-body">
-                          <div class="row">
-                            <div class="input-field col s12 m2">
-                              <input id="rondatalue_data" placeholder="00/00/0000" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="validate">
-                              <label for="rondatalue_data">Data</label>
-                            </div>
-                            <div class="input-field col s12 m2">
-                              <input id="rondatalue_horarioinicial" placeholder="00:00" type="text" onfocus="(this.type='time')" onblur="(this.type='text')" class="validate">
-                              <label for="rondatalue_horarioinicial">Horário Inicial</label>
-                            </div>
-                            <div class="input-field col s12 m2">
-                              <input id="rondatalue_horariofinal" placeholder="00:00" type="text" onfocus="(this.type='time')" onblur="(this.type='text')" class="validate">
-                              <label for="rondatalue_horariofinal">Horário Final</label>
-                            </div>
-                            <div class="input-field col s12 m5">
-                              <input id="rondatalue_status" placeholder="Digite.." type="text" class="validate">
-                              <label for="rondatalue_status">Status</label>
-                            </div>
-                            <div class="input-field col s12 m1">
-                              <a class="btn-floating left"><i class="material-icons">add</i></a>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <!--  -->
-                      <li>
-                        <div class="collapsible-header blue darken-4">
-                          <i class="material-icons cyan-text text-lighten-2">add_circle_outline</i>
-                          <b class="white-text">Visitação de Câmeras Speed Dome</b>
-                        </div>
-                        <div class="collapsible-body">
-                          <div class="row">
-
-                            <div class="input-field col s12 m2">
-                              <select class="usuario_tipo selectable">
-                                <option value="" disabled selected>Escolha</option>
-                                  <option value="1">1</option>
-                                  <option value="2">2</option>
-                                  <option value="3">3</option>
-                                  <option value="4">4</option>
-                              </select>
-                              <label>Nº Visitação</label>
-                            </div>
-
-                            <div class="input-field col s12 m2">
-                              <input id="relacao_data" placeholder="00/00/0000" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="validate">
-                              <label for="relacao_data">Data</label>
-                            </div>
-                            <div class="input-field col s12 m2">
-                              <input id="relacao_data" placeholder="00:00" type="text" onfocus="(this.type='time')" onblur="(this.type='text')" class="validate">
-                              <label for="relacao_data">Horário</label>
-                            </div>
-                            <div class="input-field col s12 m5">
-                              <input id="usuario_senha" placeholder="Digite.." type="text" class="validate">
-                              <label for="usuario_senha">Situação</label>
-                            </div>
-                            <div class="input-field col s12 m1">
-                              <a class="btn-floating left"><i class="material-icons">add</i></a>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <!--  -->
-                      <li>
-                        <div class="collapsible-header blue darken-4">
-                          <i class="material-icons cyan-text text-lighten-2">add_circle_outline</i>
-                          <b class="white-text">Funcionários Embrase intervalo das refeições</b>
-                        </div>
-                        <div class="collapsible-body">
-                          <div class="row">
-
-                            <div class="input-field col s12 m3">
-                              <input id="intervalorefeicoes_efetivo" placeholder="Digite.." type="text" class="validate">
-                              <label for="intervalorefeicoes_efetivo">Efetivo</label>
-                            </div>
-                            <div class="input-field col s12 m1">
-                              <input id="intervalorefeicoes_senha" placeholder="01" type="text" class="validate">
-                              <label for="intervalorefeicoes_senha">Posto</label>
-                            </div>
-                            <div class="input-field col s12 m2">
-                              <input id="intervalorefeicoes_inicio" placeholder="00:00" type="text" onfocus="(this.type='time')" onblur="(this.type='text')" class="validate">
-                              <label for="intervalorefeicoes_inicio">Início</label>
-                            </div>
-                            <div class="input-field col s12 m2">
-                              <input id="intervalorefeicoes_fim" placeholder="01:00" type="text" onfocus="(this.type='time')" onblur="(this.type='text')" class="validate">
-                              <label for="intervalorefeicoes_fim">Fim</label>
-                            </div>
-                            <div class="input-field col s12 m3">
-                              <input id="intervalorefeicoes_senha" placeholder="Digite.." type="text" class="validate">
-                              <label for="intervalorefeicoes_senha">Rendição</label>
-                            </div>
-                            <div class="input-field col s12 m1">
-                              <a class="btn-floating left"><i class="material-icons">add</i></a>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <!--  -->
-                      <li>
-                        <div class="collapsible-header blue darken-4">
-                          <i class="material-icons cyan-text text-lighten-2">add_circle_outline</i>
-                          <b class="white-text">Chamada de postos</b>
+                          <b class="white-text">{{tipoOcorrencia.descricao}}</b>
                         </div>
                         <div class="collapsible-body">
 
                           <div class="row">
-                            <div class="input-field col s12 m2">
-                              <input id="chamadapostos_responsavel" placeholder="..." type="text" class="validate">
-                              <label for="chamadapostos_responsavel">Postos</label>
-                            </div>
-                            <div class="input-field col s12 m2">
-                              <input id="chamadapostos_responsavel" placeholder="..." type="text" class="validate">
-                              <label for="chamadapostos_responsavel">Efetivo</label>
-                            </div>
-                            <div class="input-field col s12 m2">
-                              <input id="chamadapostos_responsavel" placeholder="..." type="text" class="validate">
-                              <label for="chamadapostos_responsavel">07:28</label>
-                            </div>
-                            <div class="input-field col s12 m2">
-                              <input id="chamadapostos_responsavel" placeholder="..." type="text" class="validate">
-                              <label for="chamadapostos_responsavel">08:32</label>
-                            </div>
-                            <div class="input-field col s12 m2">
-                              <input id="chamadapostos_responsavel" placeholder="..." type="text" class="validate">
-                              <label for="chamadapostos_responsavel">09:28</label>
-                            </div>
-                            <div class="input-field col s12 m2">
-                              <input id="chamadapostos_responsavel" placeholder="..." type="text" class="validate">
-                              <label for="chamadapostos_responsavel">10:28</label>
-                            </div>
-                            <div class="input-field col s12 m2">
-                              <input id="chamadapostos_responsavel" placeholder="..." type="text" class="validate">
-                              <label for="chamadapostos_responsavel">11:25</label>
-                            </div>
-                            <div class="input-field col s12 m2">
-                              <input id="chamadapostos_responsavel" placeholder="..." type="text" class="validate">
-                              <label for="chamadapostos_responsavel">12:28</label>
-                            </div>
-                            <div class="input-field col s12 m2">
-                              <input id="chamadapostos_responsavel" placeholder="..." type="text" class="validate">
-                              <label for="chamadapostos_responsavel">13:21</label>
-                            </div>
-                            <div class="input-field col s12 m2">
-                              <input id="chamadapostos_responsavel" placeholder="..." type="text" class="validate">
-                              <label for="chamadapostos_responsavel">14:29</label>
-                            </div>
-                            <div class="input-field col s12 m2">
-                              <input id="chamadapostos_responsavel" placeholder="..." type="text" class="validate">
-                              <label for="chamadapostos_responsavel">15:26</label>
-                            </div>
-                            <div class="input-field col s12 m2">
-                              <input id="chamadapostos_responsavel" placeholder="..." type="text" class="validate">
-                              <label for="chamadapostos_responsavel">16:31</label>
-                            </div>
-                            <div class="input-field col s12 m2">
-                              <input id="chamadapostos_responsavel" placeholder="..." type="text" class="validate">
-                              <label for="chamadapostos_responsavel">17:4</label>
-                            </div>
+                            <div class="input-field col s12 m6 pr-5" ng-repeat="campo in tipoOcorrencia.campos">
 
-                            <div class="input-field col s12 m1 right">
-                              <a class="btn-floating"><i class="material-icons">add</i></a>
+                              <input id="chamadapostos_responsavel" type="text" ng-if="campo.tipoCampo == 'TEXTO'"/>
+                              <input id="chamadapostos_responsavel" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" ng-if="campo.tipoCampo == 'DATA'">
+                              <label class="active" for="chamadapostos_responsavel">{{campo.descricao}}</label>
                             </div>
                           </div>
 
                         </div>
                       </li>
-                      <!--  -->
-                      <li>
-                        <div class="collapsible-header blue darken-4  ">
-                          <i class="material-icons cyan-text text-lighten-2">add_circle_outline</i>
-                          <b class="white-text">Vistorias em residências</b>
-                        </div>
-                        <div class="collapsible-body">
-                          <div class="row">
-                            <div class="input-field col s12 m2">
-                              <input id="vistoriasrecidencias_data" placeholder="00/00/0000" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="validate">
-                              <label for="vistoriasrecidencias_data">Data</label>
-                            </div>
-                            <div class="input-field col s12 m2">
-                              <input id="vistoriasrecidencias_data" placeholder="00:00" type="text" onfocus="(this.type='time')" onblur="(this.type='text')" class="validate">
-                              <label for="vistoriasrecidencias_data">Horário</label>
-                            </div>
-                            <div class="input-field col s12 m7">
-                              <input id="vistoriasrecidencias_responsavel" placeholder="Equipamento" type="text" class="validate">
-                              <label for="vistoriasrecidencias_responsavel">Situação</label>
-                            </div>
-                            <div class="input-field col s12 m1">
-                              <a class="btn-floating"><i class="material-icons">add</i></a>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <!--  -->
-                      <li>
-                        <div class="collapsible-header blue darken-4  ">
-                          <i class="material-icons cyan-text text-lighten-2">add_circle_outline</i>
-                          <b class="white-text">Parada técnica</b>
-                        </div>
-                        <div class="collapsible-body">
-                          <div class="row">
-                            <div class="input-field col s12 m2">
-                              <input id="paradatecnica_data" placeholder="00/00/0000" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="validate">
-                              <label for="paradatecnica_data">Data</label>
-                            </div>
-                            <div class="input-field col s12 m2">
-                              <input id="paradatecnica_data" placeholder="00:00" type="text" onfocus="(this.type='time')" onblur="(this.type='text')" class="validate">
-                              <label for="paradatecnica_data">Horário</label>
-                            </div>
-                            <div class="input-field col s12 m7">
-                              <input id="paradatecnica_responsavel" placeholder="Equipamento" type="text" class="validate">
-                              <label for="paradatecnica_responsavel">Situação</label>
-                            </div>
-                            <div class="input-field col s12 m1">
-                              <a class="btn-floating"><i class="material-icons">add</i></a>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <!--  -->
-                      <li>
-                        <div class="collapsible-header blue darken-4  ">
-                          <i class="material-icons cyan-text text-lighten-2">add_circle_outline</i>
-                          <b class="white-text">Acompanhamento de Segurança</b>
-                        </div>
-                        <div class="collapsible-body">
-                          <div class="row">
-                            <div class="input-field col s12 m2">
-                              <input id="acompanhamentoseguranca_data" placeholder="00/00/0000" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="validate">
-                              <label for="acompanhamentoseguranca_data">Data</label>
-                            </div>
-                            <div class="input-field col s12 m2">
-                              <input id="acompanhamentoseguranca_data" placeholder="00:00" type="text" onfocus="(this.type='time')" onblur="(this.type='text')" class="validate">
-                              <label for="acompanhamentoseguranca_data">Horário</label>
-                            </div>
-                            <div class="input-field col s12 m7">
-                              <input id="acompanhamentoseguranca_responsavel" placeholder="Equipamento" type="text" class="validate">
-                              <label for="acompanhamentoseguranca_responsavel">Situação</label>
-                            </div>
-                            <div class="input-field col s12 m1">
-                              <a class="btn-floating"><i class="material-icons">add</i></a>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <!--  -->
-                      <li>
-                        <div class="collapsible-header blue darken-4  ">
-                          <i class="material-icons cyan-text text-lighten-2">add_circle_outline</i>
-                          <b class="white-text">Viaturas</b>
-                        </div>
-                        <div class="collapsible-body">
-                          <div class="row">
-                            <div class="input-field col s12 m2">
-                              <input id="viaturas_data" placeholder="00/00/0000" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="validate">
-                              <label for="viaturas_data">Data</label>
-                            </div>
-                            <div class="input-field col s12 m2">
-                              <input id="viaturas_data" placeholder="00:00" type="text" onfocus="(this.type='time')" onblur="(this.type='text')" class="validate">
-                              <label for="viaturas_data">Horário</label>
-                            </div>
-                            <div class="input-field col s12 m7">
-                              <input id="viaturas_responsavel" placeholder="Equipamento" type="text" class="validate">
-                              <label for="viaturas_responsavel">Situação</label>
-                            </div>
-                            <div class="input-field col s12 m1">
-                              <a class="btn-floating"><i class="material-icons">add</i></a>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <!--  -->
+                     
                     </ul>
 
                       <div class="input-field">
@@ -458,83 +92,7 @@
         </div>
       </main>
               
-      <!-- MODAL -->
-      <div id="fecharturnomodal" class="modal">
-        <div class="modal-content pb-0">
-          <div class="col s12">
-            <h5 class="center">Fechar Turno</h5>
-            <p>&nbsp;</p>
-
-              <div class="row">
-                <div class="input-field col s6 pr-5">
-                  <input id="usuario_login" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" class="validate">
-                  <label for="usuario_login">Data de início</label>
-                </div>  
-                <div class="input-field col s6 pl-5">
-                  <input id="usuario_senha" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" class="validate">
-                  <label for="usuario_senha">Data de término</label>
-                </div>
-                <div class="input-field col s6 pr-5">
-                  <input id="usuario_login" placeholder="Nome do Usuário" type="text" class="validate">
-                  <label for="usuario_login">Nome do Usuário</label>
-                </div>
-                <div class="input-field col s6 pl-5">
-                  <input id="usuario_senha" placeholder="Nome do cliente" type="text" class="validate">
-                  <label for="usuario_senha">Nome do Cliente</label>
-                </div>
-                <div class="input-field col s6 pr-5">
-                  <select class="usuario_tipo selectable">
-                    <option value="" disabled selected>Escolha</option>
-                    <optgroup label="RPW">
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                    </optgroup>
-                    <optgroup label="Cliente">
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                    </optgroup>
-                  </select>
-                  <label>Período</label>
-                </div>
-                <div class="input-field col s6 pl-5">
-                  <select class="usuario_tipo selectable">
-                    <option value="" disabled selected>Escolha</option>
-                    <optgroup label="RPW">
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                    </optgroup>
-                    <optgroup label="Cliente">
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                    </optgroup>
-                  </select>
-                  <label>Condição Climática</label>
-                </div>
-                <div class="input-field col s12">
-                  <select class="usuario_tipo selectable">
-                    <option value="" disabled selected>Escolha</option>
-                    <optgroup label="RPW">
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                    </optgroup>
-                    <optgroup label="Cliente">
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                    </optgroup>
-                  </select>
-                  <label>Tempo</label>
-                </div>
-              </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-            <div class="col s12">
-              <p><a class="btn waves-effect white green darken-1">Confirmar</a></p>
-              <p><a class="modal-action modal-close btn waves-effect white grey-text grey lighten-1 mb-10">Cancelar</a></p>
-            </div>
-        </div>
-      </div>
-      <!-- / MODAL -->
+      
 
       <!-- Scripts -->
       <script type="text/javascript" src="js/materialize.js"></script>
@@ -544,12 +102,13 @@
               accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
             });
             $('.selectable').material_select();
-            $('#fecharturno').leanModal();
             $('.btn_menu').sideNav({
                 menuWidth: 285, 
                 closeOnClick: false
               }
             );
+
+            $('.caret').remove();
           });
       </script>
       <!-- /Scripts -->

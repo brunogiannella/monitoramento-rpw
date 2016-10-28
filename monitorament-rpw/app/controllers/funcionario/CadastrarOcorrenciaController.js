@@ -9,7 +9,9 @@
 
 	function CadastrarOcorrenciaController($rootScope, $scope, ClienteService, UtilsService) {
 
-		
+		this.voltar = voltar;
+		this.inicio = inicio;
+		$scope.sair = UtilsService.logout;
 
 		function inicializar() {
 			UtilsService.ativarLoading();
@@ -21,6 +23,14 @@
 
 			ClienteService.consultarTiposOcorrenciaCliente(codigoCliente, funcSucesso);
 		};
+
+		function voltar() {
+			UtilsService.irPara("home-funcionario");
+		}
+
+		function inicio() {
+			UtilsService.irPara("home-funcionario");
+		}
 		
 		var vm = this;
 		inicializar();

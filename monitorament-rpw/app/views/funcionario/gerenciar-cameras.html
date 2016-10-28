@@ -25,21 +25,15 @@
           </ul>
 
           <ul class="right hide-on-small-only btn_sair">
-            <li><a id="fecharturno" href="#fecharturnomodal"><i class="material-icons right">exit_to_app</i>Fechar Turno</a></li>
+            <li><a href="#" ng-click="sair();"><i class="material-icons right">exit_to_app</i>Sair</a></li>
           </ul>
         </div>
 
             <ul id="slide-out" class="side-nav fixed rpw-menu">
               <li class="logo"><img src="img/logo_rpw.png" /></li>
-              <li><a href="cliente.html" class="waves-effect"><i class="material-icons">home</i>Bem-vindo</a></li>
+              <li><a ng-click="GerenciarCamerasCrtl.inicio();" class="waves-effect"><i class="material-icons">home</i>Início</a></li>
               <li><div class="divider"></div></li>
-              <li><a href="funcionariocadastraturno.html" class="waves-effect"><i class="material-icons">slow_motion_video</i>Cadastro de Turno</a></li>
-              <li><div class="divider"></div></li>
-              <li><a href="funcionariocadastraocorrencia.html" class="waves-effect"><i class="material-icons">add_to_queue</i>Cadastrar Ocorrência</a></li>
-              <li><div class="divider"></div></li>
-              <li><a href="funcionarioconsultaocorrencia.html" class="waves-effect"><i class="material-icons">visibility</i>Consultar Ocorrência</a></li>
-              <li><div class="divider"></div></li>
-              <li class="active"><a href="funcionariosituacaocamera.html" class="waves-effect"><i class="material-icons">videocam</i>Situação da Câmera</a></li>
+              <li><a ng-click="GerenciarCamerasCrtl.voltar();" class="waves-effect"><i class="material-icons">business</i>Voltar</a></li>
             </ul>
 
 
@@ -64,47 +58,17 @@
                     <div class="row">
                       <form>
                         <table class="responsive-table">
-                          <thead>
-                            <tr>
-                                <th data-field="id">Câmeras inativas</th>
-                                <th data-field="id">Turno</th>
-                                <th data-field="id">Data de Verificação</th>
-                                <th data-field="id" class="center">Ligada?</th>
-                            </tr>
-                          </thead>
                           <tbody>
 
                             <tr>
                               <td>
                                 <div class="input-field col s12">
-                                  <select class="usuario_tipo selectable">
+                                  <input id="cameraSelecionada" type="text" style="display:none;" ng-model="GerenciarCamerasCrtl.camera" />
+                                  <select onchange="alterarComboCamera();" class="cameraSelecionada_gerenciair selectable">
                                     <option value="" disabled selected>Selecione</option>
-                                    <optgroup label="RPW">
-                                      <option value="1">1</option>
-                                      <option value="2">2</option>
-                                    </optgroup>
-                                    <optgroup label="Cliente">
-                                      <option value="3">3</option>
-                                      <option value="4">4</option>
-                                    </optgroup>
+                                    <option ng-repeat="camera in GerenciarCamerasCrtl.camerasCliente" value="{{camera.id}}">{{camera.id}} - {{camera.descricaoCamera}}</option>
                                   </select>
                                   <label>Câmera</label>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="input-field col s12">
-                                  <select class="usuario_tipo selectable">
-                                    <option value="" disabled selected>Selecione</option>
-                                    <optgroup label="RPW">
-                                      <option value="1">1</option>
-                                      <option value="2">2</option>
-                                    </optgroup>
-                                    <optgroup label="Cliente">
-                                      <option value="3">3</option>
-                                      <option value="4">4</option>
-                                    </optgroup>
-                                  </select>
-                                  <label>Turno</label>
                                 </div>
                               </td>
                               <td>
@@ -116,7 +80,7 @@
                               <td class="center">
                                   <input type="checkbox" name="test5" id="test5" />
                                   <label name="test5" for="test5"></label>
-                                <label class="block center">Sim/Não</label>
+                                <label class="block center">Ligada?</label>
                               </td>
                             </tr>
 
@@ -143,79 +107,17 @@
                         <tr>
                           <td>
                             <div class="input-field col s12 no-mt">
-                              <select class="usuario_tipo selectable">
-                                <option value="" disabled selected>Selecione</option>
-                                <optgroup label="RPW">
-                                  <option value="1">1</option>
-                                  <option value="2">2</option>
-                                </optgroup>
-                                <optgroup label="Cliente">
-                                  <option value="3">3</option>
-                                  <option value="4">4</option>
-                                </optgroup>
-                              </select>
-                              <label>Câmera</label>
+                              <span>Camera 1</span>
                             </div>
                           </td>
                           <td>
                             <div class="input-field col s12 no-mt">
                               <input id="usuario_login" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" class="validate">
-                              <label for="usuario_login">Câmera #12</label>
+                              <label for="usuario_login">Data volta</label>
                             </div>
                           </td>
-                          <td class="center"><a id="excluir" class="waves-effect waves-light btn green darken-1" href="#!"><i class="material-icons">settings_backup_restore</i></a><br /><label>Reiniciar Câmera</label></td>
-                        </tr>
-
-                        <tr>
-                          <td>
-                            <div class="input-field col s12 no-mt">
-                              <select class="usuario_tipo selectable">
-                                <option value="" disabled selected>Selecione</option>
-                                <optgroup label="RPW">
-                                  <option value="1">1</option>
-                                  <option value="2">2</option>
-                                </optgroup>
-                                <optgroup label="Cliente">
-                                  <option value="3">3</option>
-                                  <option value="4">4</option>
-                                </optgroup>
-                              </select>
-                              <label>Câmera</label>
-                            </div>
+                          <td class="center"><a id="excluir" class="waves-effect waves-light btn green darken-1" href="#!"><i class="material-icons">settings_backup_restore</i></a>
                           </td>
-                          <td>
-                            <div class="input-field col s12 no-mt">
-                              <input id="usuario_login" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" class="validate">
-                              <label for="usuario_login">Câmera #12</label>
-                            </div>
-                          </td>
-                          <td class="center"><a id="excluir" class="waves-effect waves-light btn green darken-1" href="#!"><i class="material-icons">settings_backup_restore</i></a><br /><label>Reiniciar Câmera</label></td>
-                        </tr>
-
-                        <tr>
-                          <td>
-                            <div class="input-field col s12 no-mt">
-                              <select class="usuario_tipo selectable">
-                                <option value="" disabled selected>Selecione</option>
-                                <optgroup label="RPW">
-                                  <option value="1">1</option>
-                                  <option value="2">2</option>
-                                </optgroup>
-                                <optgroup label="Cliente">
-                                  <option value="3">3</option>
-                                  <option value="4">4</option>
-                                </optgroup>
-                              </select>
-                              <label>Câmera</label>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="input-field col s12 no-mt">
-                              <input id="usuario_login" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" class="validate">
-                              <label for="usuario_login">Câmera #12</label>
-                            </div>
-                          </td>
-                          <td class="center"><a id="excluir" class="waves-effect waves-light btn green darken-1" href="#!"><i class="material-icons">settings_backup_restore</i></a><br /><label>Reiniciar Câmera</label></td>
                         </tr>
 
                       </tbody>
@@ -229,97 +131,27 @@
         </div>
       </main>
               
-      <!-- MODAL -->
-      <div id="fecharturnomodal" class="modal">
-        <div class="modal-content pb-0">
-          <div class="col s12">
-            <h5 class="center">Fechar Turno</h5>
-            <p>&nbsp;</p>
-
-              <div class="row">
-                <div class="input-field col s6 pr-5">
-                  <input id="usuario_login" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" class="validate">
-                  <label for="usuario_login">Data de início</label>
-                </div>  
-                <div class="input-field col s6 pl-5">
-                  <input id="usuario_senha" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" class="validate">
-                  <label for="usuario_senha">Data de término</label>
-                </div>
-                <div class="input-field col s6 pr-5">
-                  <input id="usuario_login" placeholder="Nome do Usuário" type="text" class="validate">
-                  <label for="usuario_login">Nome do Usuário</label>
-                </div>
-                <div class="input-field col s6 pl-5">
-                  <input id="usuario_senha" placeholder="Nome do cliente" type="text" class="validate">
-                  <label for="usuario_senha">Nome do Cliente</label>
-                </div>
-                <div class="input-field col s6 pr-5">
-                  <select class="usuario_tipo selectable">
-                    <option value="" disabled selected>Escolha</option>
-                    <optgroup label="RPW">
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                    </optgroup>
-                    <optgroup label="Cliente">
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                    </optgroup>
-                  </select>
-                  <label>Período</label>
-                </div>
-                <div class="input-field col s6 pl-5">
-                  <select class="usuario_tipo selectable">
-                    <option value="" disabled selected>Escolha</option>
-                    <optgroup label="RPW">
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                    </optgroup>
-                    <optgroup label="Cliente">
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                    </optgroup>
-                  </select>
-                  <label>Condição Climática</label>
-                </div>
-                <div class="input-field col s12">
-                  <select class="usuario_tipo selectable">
-                    <option value="" disabled selected>Escolha</option>
-                    <optgroup label="RPW">
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                    </optgroup>
-                    <optgroup label="Cliente">
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                    </optgroup>
-                  </select>
-                  <label>Tempo</label>
-                </div>
-              </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-            <div class="col s12">
-              <p><a class="btn waves-effect white green darken-1">Confirmar</a></p>
-              <p><a class="modal-action modal-close btn waves-effect white grey-text grey lighten-1 mb-10">Cancelar</a></p>
-            </div>
-        </div>
-      </div>
-      <!-- / MODAL -->
+     
 
       <!-- Scripts -->
       <script type="text/javascript" src="js/materialize.js"></script>
       <script type="text/javascript">
         $(document).ready(function(){
             $('.selectable').material_select();
-            $('#fecharturno').leanModal();
             $('.btn_menu').sideNav({
                 menuWidth: 285, 
                 closeOnClick: false
               }
             );
             $('.collapsible').collapsible();
+            $('.caret').remove();
           });
+
+        function alterarComboCamera() {
+          var cameraSelecionada = $("div.cameraSelecionada_gerenciair > input.select-dropdown").val();
+          $("#cameraSelecionada").val(cameraSelecionada.split(" - ")[0]);
+          angular.element($("#cameraSelecionada")).triggerHandler('input')
+        }
       </script>
       <!-- /Scripts -->
     </body>

@@ -78,6 +78,12 @@
 			};
 
 			TurnoService.consultarPeriodos(funcSucessoPeriodos);
+
+			var funcSucessoClienteFuncionario = function(data) {
+				$rootScope.clienteFuncionario = data;
+			};
+
+			ClienteService.consultarCliente($rootScope.usuarioLogado.idCliente, funcSucessoClienteFuncionario);
 		}
 
 		function carregarDominiosAdmin() {
