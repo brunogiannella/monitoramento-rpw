@@ -41,6 +41,37 @@
 			});
 		};
 
+		function listarCamerasInativasCliente(idCliente, fncSucesso) {
+
+			var  data = {};
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'situacaocamera/cliente/'+idCliente,
+				method : 'GET',
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
+		       }
+		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
+				return false;
+			});
+		};
+
 		function cadastrarCamera(cameraDto, fncSucesso) {
 
 			$http({	
@@ -227,6 +258,7 @@
 
 		return {
 			inserirAvaliacaoCamera : inserirAvaliacaoCamera,
+			listarCamerasInativasCliente : listarCamerasInativasCliente,
 			listarTiposCamera : listarTiposCamera,
 			consultarCamera : consultarCamera,
 			cadastrarCamera : cadastrarCamera,

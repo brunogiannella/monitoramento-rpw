@@ -56,14 +56,14 @@
                     <p>Utilize o formulário para cadastrar o a situação</p>
 
                     <div class="row">
-                      <form>
+                      <form novalidate name="mainForm" ng-submit="GerenciarCamerasCrtl.inserirAvalicacaoDesligada();">
                         <table class="responsive-table">
                           <tbody>
 
                             <tr>
                               <td>
                                 <div class="input-field col s12">
-                                  <input id="cameraSelecionada" type="text" style="display:none;" ng-model="GerenciarCamerasCrtl.camera" />
+                                  <input id="cameraSelecionada" type="text" style="display:none;" ng-model="GerenciarCamerasCrtl.situacaoCameraDto.idCamera" />
                                   <select onchange="alterarComboCamera();" class="cameraSelecionada_gerenciair selectable">
                                     <option value="" disabled selected>Selecione</option>
                                     <option ng-repeat="camera in GerenciarCamerasCrtl.camerasCliente" value="{{camera.id}}">{{camera.id}} - {{camera.descricaoCamera}}</option>
@@ -73,14 +73,9 @@
                               </td>
                               <td>
                                 <div class="input-field col s12 pr-5">
-                                  <input id="usuario_login" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" class="validate">
+                                  <input id="usuario_login" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" ng-model="GerenciarCamerasCrtl.situacaoCameraDto.dataHora">
                                   <label for="usuario_login">Data de início</label>
                                 </div> 
-                              </td>
-                              <td class="center">
-                                  <input type="checkbox" name="test5" id="test5" />
-                                  <label name="test5" for="test5"></label>
-                                <label class="block center">Ligada?</label>
                               </td>
                             </tr>
 
@@ -104,19 +99,19 @@
                       </thead>
                       <tbody>
 
-                        <tr>
+                        <tr ng-repeat="cameraDesligada in camerasDesligadas">
                           <td>
                             <div class="input-field col s12 no-mt">
-                              <span>Camera 1</span>
+                              <span>{{cameraDesligada.descricaoCamera}}</span>
                             </div>
                           </td>
                           <td>
                             <div class="input-field col s12 no-mt">
-                              <input id="usuario_login" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" class="validate">
+                              <input ng-model="GerenciarCamerasCrtl.dataAvaliacaoLigada" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" class="validate">
                               <label for="usuario_login">Data volta</label>
                             </div>
                           </td>
-                          <td class="center"><a id="excluir" class="waves-effect waves-light btn green darken-1" href="#!"><i class="material-icons">settings_backup_restore</i></a>
+                          <td class="center"><a id="excluir" ng-click="GerenciarCamerasCrtl.reativarCamera(cameraDesligada.idSituacaoCamera);" class="waves-effect waves-light btn green darken-1" href="#!"><i class="material-icons">settings_backup_restore</i></a>
                           </td>
                         </tr>
 

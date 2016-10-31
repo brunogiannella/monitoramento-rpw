@@ -69,6 +69,9 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
     })
     .state('gerenciar-cameras', {
       url: '/gerenciar-cameras',
+      params: {
+        idTurno : null
+      },
       templateUrl: 'app/views/funcionario/gerenciar-cameras.html',
       controller: 'GerenciarCamerasController as GerenciarCamerasCrtl'
     })

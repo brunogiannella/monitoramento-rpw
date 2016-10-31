@@ -37,6 +37,7 @@
 		};
 
 		function tratarErrosHttp(response) {
+			desativarLoading();
 			alert("Ocorreu um problema durante a operação. Tente novamente por favor.");
 		}
 

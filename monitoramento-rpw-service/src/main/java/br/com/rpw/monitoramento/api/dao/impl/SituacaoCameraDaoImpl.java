@@ -27,6 +27,16 @@ public class SituacaoCameraDaoImpl extends AbstractDao implements ISituacaoCamer
 		criteria.add(Restrictions.eq("cliente.id",cliente.getId()));
         return (List<SituacaoCamera>) criteria.list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<SituacaoCamera> listarSituacaoCamerasEmAberto(Cliente cliente) {
+		Criteria criteria = getSession().createCriteria(SituacaoCamera.class);
+		criteria.add(Restrictions.eq("cliente.id",cliente.getId()));
+		criteria.add(Restrictions.eq("desligada", true));
+		criteria.add(Restrictions.eq("ligada", false));
+        return (List<SituacaoCamera>) criteria.list();
+	}
 
 	@Override
 	public void deleteSituacaoCamera(Long codigoSituacaoCamera) {

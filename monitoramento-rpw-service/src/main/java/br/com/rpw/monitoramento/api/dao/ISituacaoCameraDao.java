@@ -12,5 +12,6 @@ public interface ISituacaoCameraDao {
     void deleteSituacaoCamera(Long codigoSituacaoCamera);
     SituacaoCamera consultarSituacaoCamera(Long idSituacaoCamera);
     void atualizarSituacaoCamera(SituacaoCamera SituacaoCamera);
+	List<SituacaoCamera> listarSituacaoCamerasEmAberto(Cliente cliente);
 	
 }
