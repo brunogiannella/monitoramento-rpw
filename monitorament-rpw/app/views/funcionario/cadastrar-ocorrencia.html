@@ -50,36 +50,43 @@
                 </div>
               </div>
 
-              <div class="row">
+              <div class="row card-panel">
+                <div class="col s12 m12">
+
+                      <span style="padding-top: 40px;" class="text-bold col s5">Qual ocorrência aconteceu? </span>
+
+                      <div class="input-field col s4">
+                        <input id="tipoOcorrencia" type="text" style="display:none;" ng-model="CadastrarOcorrenciaCrtl.indexTipoOcorrenciaSelecionada" />
+                        <select onchange="alterarComboTipoOcorrencias();" class="select_tipoOcorrencia selectable">
+                          <option value="" disabled selected>Selecione</option>
+                          <option ng-repeat="tipoOcorrenciaAtual in CadastrarOcorrenciaCrtl.tiposOcorrencia" value="{{item.id}}">{{$index}} - {{tipoOcorrenciaAtual.descricao}}</option>
+                        </select>
+                      </div>
+
+                      <a id="ir" style="margin-top: 30px;margin-left: 60px;" ng-click="CadastrarOcorrenciaCrtl.consultarTipoOcorrencia();" class="waves-effect waves-light btn green darken-1 col s1" href="#!">IR</a>
+                </div>
+              </div>
+
+              <div class="row" ng-show="CadastrarOcorrenciaCrtl.tipoOcorrencia != null">
                 <div class="col s12">
                   <div class="card-panel">
-                    <p>Utilize o formulário para cadastrar a ocorrência</p>
+                    <p>Utilize o formulário para cadastrar a ocorrência {{CadastrarOcorrenciaCrtl.tipoOcorrencia.descricao}}</p>
 
-                    <ul class="collapsible" data-collapsible="accordion">
-                      
-                      <li ng-repeat="tipoOcorrencia in CadastrarOcorrenciaCrtl.tiposOcorrencia">
-                        <div class="collapsible-header blue darken-4">
-                          <i class="material-icons cyan-text text-lighten-2">add_circle_outline</i>
-                          <b class="white-text">{{tipoOcorrencia.descricao}}</b>
+                    <div class="row">
+                        <div class="input-field col s12 m6 pr-5" ng-repeat="campo in CadastrarOcorrenciaCrtl.tipoOcorrencia.campos">
+
+                          <input type="text" style="display:none;" class="campoValor" ng-model="CadastrarOcorrenciaCrtl.campos[$index].campo" ng-value="campo.descricao"/>
+
+                          <input ng-model="CadastrarOcorrenciaCrtl.campos[$index].valor" id="chamadapostos_responsavel" type="text" ng-if="campo.tipoCampo == 'TEXTO'" />
+                          
+                          <input ng-model="CadastrarOcorrenciaCrtl.campos[$index].valor" id="chamadapostos_responsavel" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text'); preencherCampoValor();" ng-if="campo.tipoCampo == 'DATA'">
+                          
+                          <label class="active" for="chamadapostos_responsavel">{{campo.descricao}}</label>
                         </div>
-                        <div class="collapsible-body">
-
-                          <div class="row">
-                            <div class="input-field col s12 m6 pr-5" ng-repeat="campo in tipoOcorrencia.campos">
-
-                              <input id="chamadapostos_responsavel" type="text" ng-if="campo.tipoCampo == 'TEXTO'"/>
-                              <input id="chamadapostos_responsavel" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" ng-if="campo.tipoCampo == 'DATA'">
-                              <label class="active" for="chamadapostos_responsavel">{{campo.descricao}}</label>
-                            </div>
-                          </div>
-
-                        </div>
-                      </li>
-                     
-                    </ul>
+                    </div>
 
                       <div class="input-field">
-                      <button class="btn-large blue darken-2 waves-effect waves-light col s12" type="submit" name="action">Salvar Ocorrências
+                      <button class="btn-large blue darken-2 waves-effect waves-light col s12" name="action" ng-click="CadastrarOcorrenciaCrtl.salvarOcorrencia();">Salvar Ocorrência
                         <i class="material-icons right">done_all</i>
                       </button>
                     </div>
@@ -110,6 +117,18 @@
 
             $('.caret').remove();
           });
+
+        function preencherCampoValor() {
+          $(".campoValor").each(function( index ) {
+            angular.element($(this)).triggerHandler('input')
+          });
+        }
+
+        function alterarComboTipoOcorrencias() {
+          var tipoOcorrenciaSelecionada = $("div.select_tipoOcorrencia li.selected span").get(0).innerHTML;
+          $("#tipoOcorrencia").val(tipoOcorrenciaSelecionada.split(" - ")[0]);
+          angular.element($("#tipoOcorrencia")).triggerHandler('input')
+        }
       </script>
       <!-- /Scripts -->
     </body>

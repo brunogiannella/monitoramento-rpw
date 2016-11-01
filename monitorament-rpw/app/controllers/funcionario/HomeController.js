@@ -5,9 +5,9 @@
 		.module('home.controller', [])
 		.controller('HomeController' , HomeController);
 
-	HomeController.$inject = ['$rootScope', 'UtilsService', 'TurnoService'];
+	HomeController.$inject = ['$rootScope', 'UtilsService', 'TurnoService', 'ClienteService'];
 
-	function HomeController($rootScope, UtilsService, TurnoService) {
+	function HomeController($rootScope, UtilsService, TurnoService, ClienteService) {
 		this.nomeUsuario = $rootScope.usuarioLogado.nomeUsuario;
 		this.irPara = UtilsService.irPara;
 		this.sair = UtilsService.logout;
@@ -59,7 +59,16 @@
 			var funcSucesso = function(data) {
 
 				if(data != null && data.length > 0) {
-					UtilsService.irPara("cadastrar-ocorrencia");
+
+					UtilsService.ativarLoading();
+					var codigoCliente = $rootScope.usuarioLogado.idCliente;
+
+					var funcSucesso = function(data) {
+						UtilsService.irPara("cadastrar-ocorrencia", {tiposOcorrencia:data});
+					};
+
+					ClienteService.consultarTiposOcorrenciaCliente(codigoCliente, funcSucesso);
+
 				} else {
 					alert("No momento seu usuário não possui um turno aberto. Para cadastrar ocorrências abra um novo turno.")
 				}
