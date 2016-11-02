@@ -5,9 +5,9 @@
 		.module('cadastrarOcorrenciaController.controller', [])
 		.controller('CadastrarOcorrenciaController' , CadastrarOcorrenciaController);
 
-	CadastrarOcorrenciaController.$inject = ['$rootScope', '$scope', '$stateParams', 'ClienteService', 'UtilsService', 'TurnoService'];
+	CadastrarOcorrenciaController.$inject = ['$rootScope', '$scope', '$stateParams', 'ClienteService', 'OcorrenciaService', 'UtilsService', 'TurnoService'];
 
-	function CadastrarOcorrenciaController($rootScope, $scope, $stateParams, ClienteService, UtilsService, TurnoService) {
+	function CadastrarOcorrenciaController($rootScope, $scope, $stateParams, ClienteService, OcorrenciaService, UtilsService, TurnoService) {
 
 		this.voltar = voltar;
 		this.inicio = inicio;
@@ -19,6 +19,9 @@
 
 		function inicializar() {
 			vm.tiposOcorrencia = $stateParams.tiposOcorrencia;
+
+			vm.ocorrencia = {};
+			vm.ocorrencia.campos = [];
 		};
 
 		function consultarTipoOcorrencia() {
@@ -34,13 +37,18 @@
 			var funcSucesso = function(data) {
 
 				if(data != null && data.length > 0) {
-					var ocorrencia = {};
-					ocorrencia.idTipoOcorrencia = vm.tipoOcorrencia.id;
-					ocorrencia.idCliente = $rootScope.clienteFuncionario.id;
-					ocorrencia.idTurno = data[0].id;
-					ocorrencia.campos = vm.campos;
+					vm.ocorrencia.idTipoOcorrencia = vm.tipoOcorrencia.id;
+					vm.ocorrencia.idCliente = $rootScope.clienteFuncionario.id;
+					vm.ocorrencia.idTurno = data[0].id;
+					vm.ocorrencia.codigoUsuario = $rootScope.usuarioLogado.idUsuario;
 
-					alert(ocorrencia);
+					var funcSucesso = function(data) {
+						alert("Ocorrência cadastrada com sucesso.");
+						UtilsService.desativarLoading();
+						UtilsService.irPara("home-funcionario");
+					};
+
+					OcorrenciaService.cadastrarOcorrencia(vm.ocorrencia, funcSucesso);
 				} else {
 					alert("No momento seu usuário não possui um turno aberto. Para cadastrar uma avaliação da câmera abra um novo turno.")
 				}

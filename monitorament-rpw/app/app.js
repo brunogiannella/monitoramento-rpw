@@ -37,7 +37,8 @@ var app = angular.module('app',['ui.router',
                   'tipoOcorrencia.service',
                   'usuario.service',
                   'camera.service',
-                  'equipamento.service']);
+                  'equipamento.service',
+                  'ocorrencia.service']);
  
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
 {

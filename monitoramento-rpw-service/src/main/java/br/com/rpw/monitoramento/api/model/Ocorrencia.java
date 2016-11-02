@@ -1,7 +1,9 @@
 package br.com.rpw.monitoramento.api.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "OCORRENCIA")
@@ -28,9 +32,21 @@ public class Ocorrencia implements Serializable {
 	private Turno turno;
 
 	@ManyToOne
+	@JoinColumn(name = "ID_USUARIO")
+	private Usuario usuario;
+
+	@ManyToOne
+	@JoinColumn(name = "ID_CLIENTE")
+	private Cliente cliente;
+
+	@ManyToOne
 	@JoinColumn(name = "ID_TIPO_OCORRENCIA")
 	private TipoOcorrencia tipoOcorrencia;
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "DATA_CADASTRO")
+	private Date dataCadastro;
+	
 	@JoinColumn(name = "VALORES")
 	private String valores;
 
@@ -66,4 +82,28 @@ public class Ocorrencia implements Serializable {
 		this.valores = valores;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+	
 }

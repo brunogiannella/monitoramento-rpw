@@ -75,11 +75,13 @@
                     <div class="row">
                         <div class="input-field col s12 m6 pr-5" ng-repeat="campo in CadastrarOcorrenciaCrtl.tipoOcorrencia.campos">
 
-                          <input type="text" style="display:none;" class="campoValor" ng-model="CadastrarOcorrenciaCrtl.campos[$index].campo" ng-value="campo.descricao"/>
+                          <input type="text" style="display:none;" class="campoValor" ng-model="CadastrarOcorrenciaCrtl.ocorrencia.campos[$index].descricao" ng-value="campo.descricao"/>
 
-                          <input ng-model="CadastrarOcorrenciaCrtl.campos[$index].valor" id="chamadapostos_responsavel" type="text" ng-if="campo.tipoCampo == 'TEXTO'" />
+                          <input type="text" style="display:none;" class="campoValor" ng-model="CadastrarOcorrenciaCrtl.ocorrencia.campos[$index].tipo" ng-value="campo.tipoCampo"/>
+
+                          <input ng-model="CadastrarOcorrenciaCrtl.ocorrencia.campos[$index].valor" id="chamadapostos_responsavel" type="text" ng-if="campo.tipoCampo == 'TEXTO'" />
                           
-                          <input ng-model="CadastrarOcorrenciaCrtl.campos[$index].valor" id="chamadapostos_responsavel" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text'); preencherCampoValor();" ng-if="campo.tipoCampo == 'DATA'">
+                          <input ng-model="CadastrarOcorrenciaCrtl.ocorrencia.campos[$index].valor" id="chamadapostos_responsavel" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text'); preencherCampoValor();" ng-if="campo.tipoCampo == 'DATA'">
                           
                           <label class="active" for="chamadapostos_responsavel">{{campo.descricao}}</label>
                         </div>
