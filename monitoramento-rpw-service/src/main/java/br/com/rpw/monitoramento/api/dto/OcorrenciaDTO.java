@@ -11,11 +11,22 @@ public class OcorrenciaDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = -6333813086923359967L;
 
+	private Long idOcorrencia;
 	private Long idTipoOcorrencia;
+	private String descTipoOcorrencia;
 	private Long idCliente;
 	private Long idTurno;
+	private String nomeUsuario;
 	private Long codigoUsuario;
 	private List<CampoCadastroOcorrenciaDTO> campos = new ArrayList<CampoCadastroOcorrenciaDTO>();
+
+	public Long getIdOcorrencia() {
+		return idOcorrencia;
+	}
+
+	public void setIdOcorrencia(Long idOcorrencia) {
+		this.idOcorrencia = idOcorrencia;
+	}
 
 	public Long getIdTipoOcorrencia() {
 		return idTipoOcorrencia;
@@ -55,6 +66,22 @@ public class OcorrenciaDTO implements Serializable {
 
 	public void setCampos(List<CampoCadastroOcorrenciaDTO> campos) {
 		this.campos = campos;
+	}
+
+	public String getDescTipoOcorrencia() {
+		return descTipoOcorrencia;
+	}
+
+	public void setDescTipoOcorrencia(String descTipoOcorrencia) {
+		this.descTipoOcorrencia = descTipoOcorrencia;
+	}
+
+	public String getNomeUsuario() {
+		return nomeUsuario;
+	}
+
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
 	}
 	
 }

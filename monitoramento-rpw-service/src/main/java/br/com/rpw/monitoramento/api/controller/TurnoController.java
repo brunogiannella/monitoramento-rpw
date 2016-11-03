@@ -92,6 +92,27 @@ public class TurnoController {
 		}
 	}
 	
+	@RequestMapping(value="/{id}/detalhe", method = RequestMethod.GET)
+	public RestObject consultarDetalheTurno(@PathVariable("id") Long idTurno, @RequestHeader(value="x-acess-token") String token) { 
+		try {
+			
+			if(TokenUtil.simpleValidToken(token)) {
+				TurnoDTO turno = turnoService.consultarTurnoDetalhado(idTurno);
+				
+				if(turno == null) {
+					return new RestObject(200, true, "O turno informado não existe.", null);
+				}
+								
+				return new RestObject(200, true, "Turno consultado com sucesso", turno);
+			} else {
+				return new RestObject(401, false, "Token inválido.", null);
+			}
+			
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
+		}
+	}
+	
 	@RequestMapping(value="/usuario/{id}", method = RequestMethod.GET)
 	public RestObject consultarTurnosAbertosUsuario(@PathVariable("id") Long idUsuario, @RequestHeader(value="x-acess-token") String token) { 
 		try {

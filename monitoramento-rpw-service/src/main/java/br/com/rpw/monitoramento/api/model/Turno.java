@@ -2,23 +2,21 @@ package br.com.rpw.monitoramento.api.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import br.com.rpw.monitoramento.api.constantes.CondicoesClimaticasEnum;
 import br.com.rpw.monitoramento.api.constantes.PeriodoEnum;
@@ -69,9 +67,12 @@ public class Turno implements Serializable {
 	@Column(name = "STATUS_TURNO", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private StatusTurnoEnum status;
+	
+	@Column(name = "OPERADORES")
+	private String operadores;
 
-	@OneToMany(mappedBy = "turno", targetEntity = Ocorrencia.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private Set<Ocorrencia> ocorrencias;
+	@Transient
+	private List<Ocorrencia> ocorrencias;
 
 	public Long getId() {
 		return id;
@@ -145,12 +146,20 @@ public class Turno implements Serializable {
 		this.status = status;
 	}
 
-	public Set<Ocorrencia> getOcorrencias() {
+	public List<Ocorrencia> getOcorrencias() {
 		return ocorrencias;
 	}
 
-	public void setOcorrencias(Set<Ocorrencia> ocorrencias) {
+	public void setOcorrencias(List<Ocorrencia> ocorrencias) {
 		this.ocorrencias = ocorrencias;
 	}
 
+	public String getOperadores() {
+		return operadores;
+	}
+
+	public void setOperadores(String operadores) {
+		this.operadores = operadores;
+	}
+	
 }

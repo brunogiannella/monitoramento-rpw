@@ -44,7 +44,9 @@ public class UsuarioService implements IUsuarioService {
 	
 	@Override
 	public void atualizarUsuario(CadastrarUsuarioRequestDTO cadastrarUsuarioRequestDto) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		Usuario usuarioPrincipal = consultarUsuario(cadastrarUsuarioRequestDto.getId());
 		Usuario usuario = converterCadastrarUsuarioRequestDTOemUsuario(cadastrarUsuarioRequestDto);
+		usuario.setSenha(usuarioPrincipal.getSenha());
 		usuario.setAtivo(true);
 		enderecoDaoImpl.atualizarEndereco(usuario.getEndereco());
 		telefoneDaoImpl.atualizarTelefone(usuario.getTelefone());

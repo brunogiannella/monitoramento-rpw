@@ -24,6 +24,7 @@
 			vm.turno.periodo = "";
 			vm.turno.condicaoClimatica = "";
 			vm.turno.tempo = "";
+			vm.turno.operadores = [];
 			vm.turno.idUsuario = $rootScope.usuarioLogado.idUsuario;
 			vm.turno.nomeUsuario = $rootScope.usuarioLogado.nomeUsuario;
 

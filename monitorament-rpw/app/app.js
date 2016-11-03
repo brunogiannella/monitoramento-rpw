@@ -3,6 +3,7 @@ var app = angular.module('app',['ui.router',
                   'home.controller',
                   'consultarOcorrenciasController.controller',
                   'cadastrarOcorrenciaController.controller',
+                  'consultarTurnosUsuario.controller',
                   'iniciarNovoTurnoController.controller',
                   'gerenciarCamerasController.controller',
                   'homeAdmin.controller',
@@ -62,6 +63,14 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       url: '/cadastrar-turno',
       templateUrl: 'app/views/funcionario/cadastrar-turno.html',
       controller: 'IniciarNovoTurnoController as IniciarNovoTurnoCrtl'
+    })
+    .state('consultar-turno', {
+      url: '/consultar-turno',
+      params: {
+        idTurno : null
+      },
+      templateUrl: 'app/views/funcionario/consultar-turno.html',
+      controller: 'ConsultarTurnosUsuarioController as ConsultarTurnosUsuarioCrtl'
     })
     .state('cadastrar-ocorrencia', {
       url: '/cadastrar-ocorrencia',

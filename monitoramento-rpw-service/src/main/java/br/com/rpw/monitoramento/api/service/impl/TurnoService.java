@@ -4,19 +4,28 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
 import br.com.rpw.monitoramento.api.constantes.CondicoesClimaticasEnum;
 import br.com.rpw.monitoramento.api.constantes.PeriodoEnum;
 import br.com.rpw.monitoramento.api.constantes.StatusTurnoEnum;
 import br.com.rpw.monitoramento.api.constantes.TempoEnum;
+import br.com.rpw.monitoramento.api.dao.impl.OcorrenciaDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.TurnoDaoImpl;
+import br.com.rpw.monitoramento.api.dto.CampoCadastroOcorrenciaDTO;
+import br.com.rpw.monitoramento.api.dto.OcorrenciaDTO;
 import br.com.rpw.monitoramento.api.dto.TurnoDTO;
 import br.com.rpw.monitoramento.api.model.Cliente;
+import br.com.rpw.monitoramento.api.model.Ocorrencia;
 import br.com.rpw.monitoramento.api.model.Turno;
 import br.com.rpw.monitoramento.api.model.Usuario;
 import br.com.rpw.monitoramento.api.service.ITurnoService;
@@ -27,6 +36,9 @@ public class TurnoService implements ITurnoService {
 
 	@Autowired
 	private TurnoDaoImpl turnoDaoImpl;
+	
+	@Autowired
+	private OcorrenciaDaoImpl ocorrenciaDaoImpl;
 
 	@Override
 	public Long iniciarTurno(TurnoDTO iniciarTurnoRequestDTO)
@@ -60,6 +72,15 @@ public class TurnoService implements ITurnoService {
 		Usuario usuario = new Usuario();
 		usuario.setId(idUsuario);
 		return turnoDaoImpl.listarTurnos(usuario, status);
+	}
+	
+	@Override
+	public TurnoDTO consultarTurnoDetalhado(Long idTurno) {
+		Turno turno = turnoDaoImpl.consultarTurno(idTurno);
+		turno.setOcorrencias(ocorrenciaDaoImpl.listarOcorrencias(turno));
+		TurnoDTO turnoDTO = converterTurnoEmTurnoDTO(turno);
+		
+		return turnoDTO;
 	}
 	
 	private Turno converterIniciarTurnoRequestDTOEmTurno(TurnoDTO iniciarTurnoRequestDTO) throws ParseException {
@@ -101,6 +122,12 @@ public class TurnoService implements ITurnoService {
 		turno.setTempo(tempoEnum);
 		turno.setStatus(StatusTurnoEnum.EM_ANDAMENTO);
 		
+		String operadores = "";
+		for(String operador : iniciarTurnoRequestDTO.getOperadores()) {
+			operadores = operadores + operador + ";";
+		}
+		turno.setOperadores(operadores);
+		
 		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		turno.setDataInicio(formato.parse(iniciarTurnoRequestDTO.getDataInicio().replace("T", " ")));
 		turno.setDataFim(formato.parse(iniciarTurnoRequestDTO.getDataFim().replace("T", " ")));
@@ -126,7 +153,32 @@ public class TurnoService implements ITurnoService {
 		turnoDTO.setNomeCliente(turno.getCliente().getNome());
 		turnoDTO.setNomeUsuario(turno.getUsuario().getNome());
 		
+		if(turno.getOperadores() != null) {
+			turnoDTO.setOperadores(new ArrayList<String>());
+			String[] operadores = turno.getOperadores().split(";");
+			for(String oper : operadores) {
+				turnoDTO.getOperadores().add(oper);
+			}
+		}
+		
+		if(turno.getOcorrencias() != null) {
+			for(Ocorrencia ocorrencia : turno.getOcorrencias()) {
+				OcorrenciaDTO ocorrenciaDto = new OcorrenciaDTO();
+				
+				ocorrenciaDto.setIdOcorrencia(ocorrencia.getId());
+				ocorrenciaDto.setNomeUsuario(ocorrencia.getUsuario().getNome());
+				ocorrenciaDto.setIdTipoOcorrencia(ocorrencia.getTipoOcorrencia().getId());
+				ocorrenciaDto.setDescTipoOcorrencia(ocorrencia.getTipoOcorrencia().getDescricao());
+				
+				Gson gson = new GsonBuilder().create();
+				List<CampoCadastroOcorrenciaDTO> campos = gson.fromJson(ocorrencia.getValores(), new TypeToken<ArrayList<CampoCadastroOcorrenciaDTO>>(){}.getType());
+				ocorrenciaDto.setCampos(campos);
+				
+				turnoDTO.getOcorrenciasDto().add(ocorrenciaDto);
+			}
+		}
+		
 		return turnoDTO;
 	}
-	
+
 }

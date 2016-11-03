@@ -1,5 +1,8 @@
 package br.com.rpw.monitoramento.api.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TurnoDTO {
 
 	private Long id;
@@ -13,6 +16,8 @@ public class TurnoDTO {
 	private String condicaoClimatica;
 	private String tempo;
 	private String status;
+	private List<String> operadores = new ArrayList<String>();
+	private List<OcorrenciaDTO> ocorrenciasDto = new ArrayList<OcorrenciaDTO>();
 
 	public String getDataInicio() {
 		return dataInicio;
@@ -100,6 +105,22 @@ public class TurnoDTO {
 
 	public void setNomeCliente(String nomeCliente) {
 		this.nomeCliente = nomeCliente;
+	}
+
+	public List<OcorrenciaDTO> getOcorrenciasDto() {
+		return ocorrenciasDto;
+	}
+
+	public void setOcorrenciasDto(List<OcorrenciaDTO> ocorrenciasDto) {
+		this.ocorrenciasDto = ocorrenciasDto;
+	}
+
+	public List<String> getOperadores() {
+		return operadores;
+	}
+
+	public void setOperadores(List<String> operadores) {
+		this.operadores = operadores;
 	}
 
 }

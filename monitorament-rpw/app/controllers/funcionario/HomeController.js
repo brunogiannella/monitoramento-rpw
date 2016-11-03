@@ -15,6 +15,7 @@
 		vm.irParaTurnos = turnos; 
 		vm.irParaOcorrencias = ocorrencias;
 		vm.gerenciarCameras = gerenciarCameras;
+		vm.consultarTurno = consultarTurno;
 
 		function inicializar() {
 			UtilsService.ativarLoading();
@@ -32,6 +33,10 @@
 			};
 
 			TurnoService.consultarTurnosUsuario(codigoUsuario, funcSucesso);
+		}
+
+		function consultarTurno(idTurno) {
+			UtilsService.irPara("consultar-turno", {idTurno:idTurno});
 		}
 
 		function turnos() {

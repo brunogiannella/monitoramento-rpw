@@ -5,49 +5,28 @@
 		.module('consultarTurnosUsuario.controller', [])
 		.controller('ConsultarTurnosUsuarioController' , ConsultarTurnosUsuarioController);
 
-	ConsultarTurnosUsuarioController.$inject = ['$rootScope', 'TurnoService', 'UtilsService'];
+	ConsultarTurnosUsuarioController.$inject = ['$rootScope', '$scope', '$stateParams', 'TurnoService', 'UtilsService'];
 
-	function ConsultarTurnosUsuarioController($rootScope, TurnoService, UtilsService) {
+	function ConsultarTurnosUsuarioController($rootScope, $scope, $stateParams, TurnoService, UtilsService) {
 
-		function consultarTurnosUsuario() {
-			var codigoUsuario = $rootScope.idUsuario;
+		var vm = this;
+		vm.codigoTurno = $stateParams.idTurno;	
+
+		function inicializar() {
+			UtilsService.ativarLoading();
 
 			var funcSucesso = function(data) {
-
-				if(data != null && data.length > 0) {
-					$scope.usuarioPossuiTurnosAbertos = true;
-					$scope.turnosUsuarioConsultado = data;
-				} else {
-					$scope.usuarioPossuiTurnosAbertos = false;
+				if(data != null) {
+					vm.turnoConsulta = data;
 				}
-				
+
+				UtilsService.desativarLoading();
 			};
 
-			TurnoService.consultarTurnosUsuario(codigoUsuario, funcSucesso);
-		};
-
-		function visualizarTurno(codigoTurno) {
-			UtilsService.irPara("abrirNovoTurno", {codigoTurno : codigoTurno});
-		};
-
-		function abrirNovoTurno(codigoTurno) {
-			UtilsService.irPara("abrirNovoTurno");
-		};
-
-		function fecharTurno(codigoTurno) {
-			
-			if (confirm('Deseja realmente finalizar este turno?')) {
-				var funcSucesso = function(data) {
-					consultarTurnosUsuario();
-				};
-
-				TurnoService.fecharTurno(codigoTurno, funcSucesso);
-			}
-
-		};
-
+			TurnoService.consultarDetalheTurno(vm.codigoTurno, funcSucesso);
+		}
 		
-		consultarTurnosUsuario();
+		inicializar();
 
 	}
 
