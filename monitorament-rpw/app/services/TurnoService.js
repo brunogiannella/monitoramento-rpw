@@ -152,6 +152,34 @@
 			});
 		};
 
+		function consultarUltimosTurnosCliente(idCliente, fncSucesso) {
+
+			var  data = {};
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'turno/cliente/'+idCliente+"/ultimos",
+				method : 'GET',
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		         return false;
+		       }
+		    ).catch(function() {
+				return false;
+			});
+		};
+
 		function consultarCondicoesClimaticas(fncSucesso) {
 
 			var  data = {};
@@ -244,7 +272,8 @@
 			consultarTurnosUsuario : consultarTurnosUsuario,
 			consultarCondicoesClimaticas : consultarCondicoesClimaticas,
 			consultarPeriodos : consultarPeriodos,
-			consultarTempo : consultarTempo
+			consultarTempo : consultarTempo,
+			consultarUltimosTurnosCliente : consultarUltimosTurnosCliente
 		}
 	}
 

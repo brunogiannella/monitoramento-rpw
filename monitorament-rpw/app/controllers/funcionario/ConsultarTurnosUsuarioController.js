@@ -10,6 +10,9 @@
 	function ConsultarTurnosUsuarioController($rootScope, $scope, $stateParams, TurnoService, UtilsService) {
 
 		var vm = this;
+		vm.voltar = voltar;
+		vm.inicio = inicio;
+		vm.removerOcorrencia = removerOcorrencia;
 		vm.codigoTurno = $stateParams.idTurno;	
 
 		function inicializar() {
@@ -24,6 +27,18 @@
 			};
 
 			TurnoService.consultarDetalheTurno(vm.codigoTurno, funcSucesso);
+		}
+
+		function removerOcorrencia(idOcorrencia, idTurno) {
+			UtilsService.irPara("remover-ocorrencia", {idOcorrencia: idOcorrencia, idTurno:idTurno});
+		}
+
+		function voltar() {
+			UtilsService.irPara("home-funcionario");
+		}
+
+		function inicio() {
+			UtilsService.irPara("home-funcionario");
 		}
 		
 		inicializar();

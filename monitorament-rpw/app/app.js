@@ -3,6 +3,7 @@ var app = angular.module('app',['ui.router',
                   'home.controller',
                   'consultarOcorrenciasController.controller',
                   'cadastrarOcorrenciaController.controller',
+                  'removerOcorrencia.controller',
                   'consultarTurnosUsuario.controller',
                   'iniciarNovoTurnoController.controller',
                   'gerenciarCamerasController.controller',
@@ -79,6 +80,15 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       },
       templateUrl: 'app/views/funcionario/cadastrar-ocorrencia.html',
       controller: 'CadastrarOcorrenciaController as CadastrarOcorrenciaCrtl'
+    })
+    .state('remover-ocorrencia', {
+      url: '/remover-ocorrencia',
+      params: {
+        idOcorrencia : null,
+        idTurno : null
+      },
+      templateUrl: 'app/views/funcionario/remover-ocorrencia.html',
+      controller: 'RemoverOcorrenciaController as RemoverOcorrenciaCrtl'
     })
     .state('gerenciar-cameras', {
       url: '/gerenciar-cameras',

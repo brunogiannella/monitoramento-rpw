@@ -24,12 +24,25 @@
 			var funcSucesso = function(data) {
 				if(data != null && data.length > 0) {
 					vm.turnos = data;
-					vm.turnosAnteriores == [];
-				} else {
-					vm.mensagemTurno = "No momento você não possui nenhum turno aberto."
-				}
 
-				UtilsService.desativarLoading();
+					var codigoCliente = $rootScope.clienteFuncionario.id;
+
+					var funcSucesso = function(data) {
+						if(data != null && data.length > 0) {
+							vm.turnosAnteriores = data;
+						} else {
+							vm.mensagemTurno = "No momento você não possui nenhum turno aberto."
+						}
+
+						UtilsService.desativarLoading();
+					};
+
+					TurnoService.consultarUltimosTurnosCliente(codigoCliente, funcSucesso);
+
+
+				} else {
+					vm.mensagemTurnosAnteriores = "Não existem turnos anteriores."
+				}
 			};
 
 			TurnoService.consultarTurnosUsuario(codigoUsuario, funcSucesso);

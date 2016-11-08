@@ -13,4 +13,6 @@ public interface IOcorrenciaService {
 	void cadastrarOcorrencia(OcorrenciaDTO ocorrenciaDto) throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException;
 	Ocorrencia consultarOcorrencia(Long idOcorrencia) throws NoSuchAlgorithmException, UnsupportedEncodingException;
 	List<Ocorrencia> consultarOcorrencias(Turno turno) throws NoSuchAlgorithmException, UnsupportedEncodingException;
+	void removerOcorrencia(Ocorrencia ocorrencia)
+			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException;
 }

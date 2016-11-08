@@ -17,5 +17,6 @@ public interface ITurnoDao {
     Turno consultarTurno(Long idTurno);
     void atualizarTurno(Turno Turno);
 	List<Turno> listarTurnos(Usuario usuario, StatusTurnoEnum status);
+	List<Turno> consultarTurnoAnterior(Cliente cliente);
 	
 }

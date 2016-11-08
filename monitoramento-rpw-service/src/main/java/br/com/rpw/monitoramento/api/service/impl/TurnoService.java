@@ -169,16 +169,29 @@ public class TurnoService implements ITurnoService {
 				ocorrenciaDto.setNomeUsuario(ocorrencia.getUsuario().getNome());
 				ocorrenciaDto.setIdTipoOcorrencia(ocorrencia.getTipoOcorrencia().getId());
 				ocorrenciaDto.setDescTipoOcorrencia(ocorrencia.getTipoOcorrencia().getDescricao());
+				ocorrenciaDto.setDataCadastro(formato.format(ocorrencia.getDataCadastro()));
 				
 				Gson gson = new GsonBuilder().create();
 				List<CampoCadastroOcorrenciaDTO> campos = gson.fromJson(ocorrencia.getValores(), new TypeToken<ArrayList<CampoCadastroOcorrenciaDTO>>(){}.getType());
 				ocorrenciaDto.setCampos(campos);
+				
+				if(campos != null) {
+					ocorrenciaDto.setResumoOcorrencia("");
+					for(CampoCadastroOcorrenciaDTO camposCadastro : campos) {
+						ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camposCadastro.getValor() + "; " );
+					}
+				}
 				
 				turnoDTO.getOcorrenciasDto().add(ocorrenciaDto);
 			}
 		}
 		
 		return turnoDTO;
+	}
+
+	@Override
+	public List<Turno> consultarTurnoAnterior(Cliente cliente) {
+		return turnoDaoImpl.consultarTurnoAnterior(cliente);
 	}
 
 }

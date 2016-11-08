@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.rpw.monitoramento.api.constantes.StatusTurnoEnum;
 import br.com.rpw.monitoramento.api.dto.TurnoDTO;
+import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.RestObject;
 import br.com.rpw.monitoramento.api.model.Turno;
 import br.com.rpw.monitoramento.api.model.Usuario;
@@ -104,6 +105,34 @@ public class TurnoController {
 				}
 								
 				return new RestObject(200, true, "Turno consultado com sucesso", turno);
+			} else {
+				return new RestObject(401, false, "Token inválido.", null);
+			}
+			
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
+		}
+	}
+	
+	@RequestMapping(value="/cliente/{id}/ultimos", method = RequestMethod.GET)
+	public RestObject consultarUltimosTurnosCliente(@PathVariable("id") Long idCliente, @RequestHeader(value="x-acess-token") String token) { 
+		try {
+			
+			if(TokenUtil.simpleValidToken(token)) {
+				Cliente cliente = new Cliente();
+				cliente.setId(idCliente);
+				List<Turno> turnos = turnoService.consultarTurnoAnterior(cliente);
+				
+				if(turnos == null) {
+					return new RestObject(200, true, "Não existem turnos anteriores.", null);
+				}
+				
+				List<TurnoDTO> turnosDto = new ArrayList<TurnoDTO>();
+				for(Turno turno : turnos) {
+					turnosDto.add(TurnoService.converterTurnoEmTurnoDTO(turno));
+				}
+				
+				return new RestObject(200, true, "Turnos consultados com sucesso", turnosDto);
 			} else {
 				return new RestObject(401, false, "Token inválido.", null);
 			}

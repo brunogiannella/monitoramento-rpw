@@ -36,7 +36,7 @@ public class OcorrenciaController {
 	}
 	
 	@RequestMapping(value="/{id}", method = RequestMethod.GET)
-	public RestObject consultarTurno(@PathVariable("id") Long idOcorrencia) { 
+	public RestObject consultarOcorrencia(@PathVariable("id") Long idOcorrencia) { 
 		try {
 			Ocorrencia ocorrencia = ocorrenciaService.consultarOcorrencia(idOcorrencia);
 			
@@ -47,6 +47,19 @@ public class OcorrenciaController {
 			return new RestObject(200, true, "Ocorrencia consultada com sucesso", ocorrencia);
 		} catch(Exception e) {
 			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
+		}
+	}
+	
+	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
+	public RestObject removerOcorrencia(@PathVariable("id") Long idOcorrencia) { 
+		try {
+			Ocorrencia ocorrencia = new Ocorrencia();
+			ocorrencia.setId(idOcorrencia);
+			ocorrenciaService.removerOcorrencia(ocorrencia);
+			
+			return new RestObject(200, true, "Ocorrencia removida com sucesso", null);
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro na remoção: " + e.getMessage(), null);
 		}
 	}
 	

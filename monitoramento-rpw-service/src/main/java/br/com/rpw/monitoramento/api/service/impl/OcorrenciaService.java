@@ -13,7 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import br.com.rpw.monitoramento.api.constantes.TipoCampoEnum;
 import br.com.rpw.monitoramento.api.dao.impl.OcorrenciaDaoImpl;
+import br.com.rpw.monitoramento.api.dto.CampoCadastroOcorrenciaDTO;
 import br.com.rpw.monitoramento.api.dto.OcorrenciaDTO;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.Ocorrencia;
@@ -33,6 +35,12 @@ public class OcorrenciaService implements IOcorrenciaService {
 	public void cadastrarOcorrencia(OcorrenciaDTO ocorrenciaDto)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException {
 		ocorrenciaDaoImpl.salvarOcorrencia(converterOcorrenciaDTOEmOcorrencia(ocorrenciaDto));
+	}
+	
+	@Override
+	public void removerOcorrencia(Ocorrencia ocorrencia)
+			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException {
+		ocorrenciaDaoImpl.deleteOcorrenciaById(ocorrencia.getId());
 	}
 
 	@Override
@@ -69,6 +77,16 @@ public class OcorrenciaService implements IOcorrenciaService {
 		TipoOcorrencia tipoOcorrencia = new TipoOcorrencia();
 		tipoOcorrencia.setId(ocorrenciaDto.getIdTipoOcorrencia());
 		ocorrencia.setTipoOcorrencia(tipoOcorrencia);
+		
+		if(ocorrenciaDto.getCampos() != null) {
+			for(CampoCadastroOcorrenciaDTO campo : ocorrenciaDto.getCampos()) {
+				if(TipoCampoEnum.DATA.getDescricao().equals(campo.getTipo())) {
+					if(campo.getValor() != null) {
+						campo.setValor(campo.getValor().replace("T", " "));
+					}
+				}
+			}
+		}
 		
 		Gson gson = new GsonBuilder().create();
 		String valoresJson = gson.toJson(ocorrenciaDto.getCampos());

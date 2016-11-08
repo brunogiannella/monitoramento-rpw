@@ -31,9 +31,9 @@
 
              <ul id="slide-out" class="side-nav fixed rpw-menu">
               <li class="logo"><img src="img/logo_rpw.png" /></li>
-              <li><a ng-click="IniciarNovoTurnoCrtl.inicio();" class="waves-effect"><i class="material-icons">home</i>Início</a></li>
+              <li><a ng-click="ConsultarTurnosUsuarioCrtl.inicio();" class="waves-effect"><i class="material-icons">home</i>Início</a></li>
               <li><div class="divider"></div></li>
-              <li><a ng-click="IniciarNovoTurnoCrtl.voltar();" class="waves-effect"><i class="material-icons">business</i>Voltar</a></li>
+              <li><a ng-click="ConsultarTurnosUsuarioCrtl.voltar();" class="waves-effect"><i class="material-icons">business</i>Voltar</a></li>
             </ul>
 
 
@@ -46,62 +46,103 @@
           <div class="container2">
             <div class="row no-m">
               <div class="col s12">
-                  <h5 class="header blue-text text-darken-2 center-on-small-only title"><i class="material-icons">slow_motion_video</i> <span class="light"> Cadastro de Turno</span></h5>
+                  <h5 class="header blue-text text-darken-2 center-on-small-only title"><i class="material-icons">slow_motion_video</i> <span class="light"> Consulta de Turno</span></h5>
 
-                  <form novalidate name="mainForm" ng-submit="IniciarNovoTurnoCrtl.iniciarNovoTurno();">
-                    <div class="card-panel">
-                      <p>Utilize o formulário para cadastrar o turno</p>
-                      <div class="row">
-                      <div class="input-field col s6 pr-5">
-                        <input id="usuario_login" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" ng-model="IniciarNovoTurnoCrtl.turno.dataInicio" onblur="(this.type='text')">
-                        <label for="usuario_login">Data de início</label>
-                      </div>  
-                      <div class="input-field col s6 pl-5">
-                        <input id="usuario_senha" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" ng-model="IniciarNovoTurnoCrtl.turno.dataFim" onblur="(this.type='text')">
-                        <label for="usuario_senha">Data de término</label>
+                  
+                  <div id="dadosTurno">
+                   <div class="row">
+                      <div class="col s12 m12" >
+                      <h5 class="header black-text text-darken-2 center-on-small-only title"><i class="material-icons">toc</i> <span class="light">Dados</span></h5>
+                      <div class="card-panel">
+                          <div class="row">
+                            <div class="col s12 m6" >
+                              <span class="bold">ID:</span>
+                              <span>{{ConsultarTurnosUsuarioCrtl.turnoConsulta.id}}</span>
+                            </div>
+
+                            <div class="col s12 m6" >
+                              <span class="bold">Usuário:</span> 
+                              <span>{{ConsultarTurnosUsuarioCrtl.turnoConsulta.nomeUsuario}}</span>
+                            </div>
+                            
+                          </div>
+
+                          <div class="row">
+                            <div class="col s12 m6" >
+                              <span class="bold">Cliente:</span> 
+                              <span>{{ConsultarTurnosUsuarioCrtl.turnoConsulta.nomeCliente}}</span>
+                            </div>
+
+                            <div class="col s12 m6" >
+                              <span class="bold">Data de inicio:</span> 
+                              <span>{{ConsultarTurnosUsuarioCrtl.turnoConsulta.dataInicio}}</span>
+                            </div>
+                            
+                          </div>
+
+                          <div class="row">
+                            <div class="col s12 m6" >
+                              <span class="bold">Data de término:</span> 
+                              <span>{{ConsultarTurnosUsuarioCrtl.turnoConsulta.dataFim}}</span>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col s12 m6" >
+                              <span class="bold">Status:</span> 
+                              <span>{{ConsultarTurnosUsuarioCrtl.turnoConsulta.status}}</span>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col s12 m12" >
+                              <span class="bold">Operadores:</span> 
+                              <span>{{ConsultarTurnosUsuarioCrtl.turnoConsulta.operadores}}</span>
+                            </div>
+                          </div>
+                          
                       </div>
-                      <div class="input-field col s6 pr-5">
-                        <input id="usuario_login" placeholder="Usuário" type="text" ng-model="IniciarNovoTurnoCrtl.turno.nomeUsuario">
-                        <label for="usuario_login">Nome do Usuário</label>
-                      </div>
-                      <div class="input-field col s6 pl-5">
-                        <input id="usuario_senha" placeholder="Cliente" type="text" ng-model="IniciarNovoTurnoCrtl.turno.nomeCliente">
-                        <label for="usuario_senha">Nome do Cliente</label>
-                      </div>
-                      <div class="input-field col s6 pr-5">
-                          <input id="periodo" type="text" style="display:none;" ng-model="IniciarNovoTurnoCrtl.turno.periodo" />
-                          <select onchange="alterarComboPeriodo();" class="usuario_periodo selectable">
-                            <option value="" disabled selected>Selecione</option>
-                            <option ng-repeat="item in IniciarNovoTurnoCrtl.periodos" value="{{item}}">{{item}}</option>
-                          </select>
-                          <label>Período</label>
-                      </div>
-                      <div class="input-field col s6 pl-5">
-                        <input id="condicaoClimatica" type="text" style="display:none;" ng-model="IniciarNovoTurnoCrtl.turno.condicaoClimatica" />
-                        <select onchange="alterarComboCondicoesClimaticas();" class="usuario_condicaoClimatica selectable">
-                          <option value="" disabled selected>Selecione</option>
-                          <option ng-repeat="item in IniciarNovoTurnoCrtl.condicoesClimaticas" value="{{item}}">{{item}}</option>
-                        </select>
-                        <label>Condição Climatica</label>
-                      </div>
-                      <div class="input-field col s12">
-                        <input id="tempo" type="text" style="display:none;" ng-model="IniciarNovoTurnoCrtl.turno.tempo" />
-                        <select onchange="alterarComboTempo();" class="usuario_tempo selectable">
-                          <option value="" disabled selected>Selecione</option>
-                          <option ng-repeat="item in IniciarNovoTurnoCrtl.tempo" value="{{item}}">{{item}}</option>
-                        </select>
-                        <label>Tempo</label>
                       </div>
                     </div>
-                  </div>
 
-                  <div class="input-field col s12">
-                    <button type="submit" class="btn-large blue darken-2 waves-effect waves-light col s12" ng-disabled="mainForm.$invalid">Confirmar
-                    </button>
-                  </div>
 
-                  </form>
+                    <div class="row">
+                      <div class="col s12 m12" >
+                      <h5 class="header black-text text-darken-2 center-on-small-only title"><i class="material-icons">toc</i> <span class="light">Ocorrências cadastradas</span></h5>
+                      <div class="card-panel">
+                      
+                        <div class="row">
+                          <label class="col s12 barraBuscaFont">Digite a sua pesquisa: <input style="color:black;" ng-model="searchTextOcorrencia"></label>
+                        </div>
 
+                        <table class="responsive-table striped" ng-show="ConsultarTurnosUsuarioCrtl.turnoConsulta.ocorrenciasDto.length > 0">
+                          <thead>
+                            <tr>
+                                <th data-field="id">Tipo de ocorrência</th>
+                                <th data-field="id">Data</th>
+                                <th data-field="id">Resumo</th>
+                                <th data-field="id" class="center-on-small-only right-align">Operações</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr ng-repeat="ocorrencia in ConsultarTurnosUsuarioCrtl.turnoConsulta.ocorrenciasDto | filter:searchTextOcorrencia">
+                              <td>{{ocorrencia.descTipoOcorrencia}}</td>
+                              <td>{{ocorrencia.dataCadastro}}</td>
+                              <td>{{ocorrencia.resumoOcorrencia}}</td>
+                              <td class="right-align">
+                                <a href="#" ng-click="ClienteCrtl.editarCamera(camera);"><i class="material-icons small blue-text">mode_edit</i></a>
+                                <a href="#" ng-click="ConsultarTurnosUsuarioCrtl.removerOcorrencia(ocorrencia.idOcorrencia, ConsultarTurnosUsuarioCrtl.turnoConsulta.id);"><i class="material-icons small red-text">delete</i></a>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                        <center><h6 ng-show="ConsultarTurnosUsuarioCrtl.turnoConsulta.ocorrenciasDto.length == 0">Nenhuma ocorrência cadastrada</h6></center>
+
+                      </div>
+
+                      </div>
+                    </div>
               </div>
             </div>
           </div>
@@ -123,24 +164,6 @@
             $('.collapsible').collapsible();
             $('.caret').remove();
           });
-
-        function alterarComboTempo() {
-          var tempoSelecionado = $("div.usuario_tempo > input.select-dropdown").val();
-          $("#tempo").val(tempoSelecionado);
-          angular.element($("#tempo")).triggerHandler('input')
-        }
-
-        function alterarComboPeriodo() {
-          var periodoSelecionado = $("div.usuario_periodo > input.select-dropdown").val();
-          $("#periodo").val(periodoSelecionado);
-          angular.element($("#periodo")).triggerHandler('input')
-        }
-
-        function alterarComboCondicoesClimaticas() {
-          var condicoesClimaticasSelecionado = $("div.usuario_condicaoClimatica > input.select-dropdown").val();
-          $("#condicaoClimatica").val(condicoesClimaticasSelecionado);
-          angular.element($("#condicaoClimatica")).triggerHandler('input')
-        }
       </script>
       <!-- /Scripts -->
     </body>

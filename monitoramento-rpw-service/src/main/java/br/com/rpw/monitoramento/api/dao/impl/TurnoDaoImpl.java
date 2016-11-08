@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +30,16 @@ public class TurnoDaoImpl extends AbstractDao implements ITurnoDao {
         return (List<Turno>) criteria.list();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Turno> consultarTurnoAnterior(Cliente cliente) {
+		Criteria criteria = getSession().createCriteria(Turno.class);
+		criteria.add(Restrictions.eq("cliente.id",cliente.getId()));
+		criteria.addOrder(Order.desc("id"));
+		criteria.setMaxResults(2);
+		return (List<Turno>) criteria.list();
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Turno> listarTurnos(Cliente cliente) {
