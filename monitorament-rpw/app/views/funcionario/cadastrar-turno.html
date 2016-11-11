@@ -84,13 +84,17 @@
                         </select>
                         <label>Condição Climatica</label>
                       </div>
-                      <div class="input-field col s12">
+                      <div class="input-field col s6">
                         <input id="tempo" type="text" style="display:none;" ng-model="IniciarNovoTurnoCrtl.turno.tempo" />
                         <select onchange="alterarComboTempo();" class="usuario_tempo selectable">
                           <option value="" disabled selected>Selecione</option>
                           <option ng-repeat="item in IniciarNovoTurnoCrtl.tempo" value="{{item}}">{{item}}</option>
                         </select>
                         <label>Tempo</label>
+                      </div>
+                      <div class="input-field col s6 pl-5">
+                        <input id="liderSeguranca" placeholder="Líder de segurança" type="text" ng-model="IniciarNovoTurnoCrtl.turno.liderSeguranca">
+                        <label for="usuario_senha">Líder de segurança</label>
                       </div>
                     </div>
                   </div>

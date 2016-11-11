@@ -86,6 +86,8 @@ public class TurnoService implements ITurnoService {
 	private Turno converterIniciarTurnoRequestDTOEmTurno(TurnoDTO iniciarTurnoRequestDTO) throws ParseException {
 		Turno turno = new Turno();
 		
+		turno.setLiderSeguranca(iniciarTurnoRequestDTO.getLiderSeguranca());
+		
 		Cliente cliente = new Cliente();
 		cliente.setId(iniciarTurnoRequestDTO.getIdCliente());
 		turno.setCliente(cliente);
@@ -152,6 +154,7 @@ public class TurnoService implements ITurnoService {
 		turnoDTO.setTempo(turno.getTempo().getDescricao());
 		turnoDTO.setNomeCliente(turno.getCliente().getNome());
 		turnoDTO.setNomeUsuario(turno.getUsuario().getNome());
+		turnoDTO.setLiderSeguranca(turno.getLiderSeguranca());
 		
 		if(turno.getOperadores() != null) {
 			turnoDTO.setOperadores(new ArrayList<String>());

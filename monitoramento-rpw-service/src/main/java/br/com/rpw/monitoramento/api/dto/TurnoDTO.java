@@ -11,6 +11,7 @@ public class TurnoDTO {
 	private String nomeUsuario;
 	private Long idUsuario;
 	private String nomeCliente;
+	private String liderSeguranca;
 	private Long idCliente;
 	private String periodo;
 	private String condicaoClimatica;
@@ -121,6 +122,14 @@ public class TurnoDTO {
 
 	public void setOperadores(List<String> operadores) {
 		this.operadores = operadores;
+	}
+
+	public String getLiderSeguranca() {
+		return liderSeguranca;
+	}
+
+	public void setLiderSeguranca(String liderSeguranca) {
+		this.liderSeguranca = liderSeguranca;
 	}
 
 }

@@ -47,6 +47,9 @@ public class Turno implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "ID_USUARIO")
 	private Usuario usuario;
+	
+	@Column(name = "NOME_LIDER_SEGURANCA")
+	private String liderSeguranca;
 
 	@ManyToOne
 	@JoinColumn(name = "ID_CLIENTE")
@@ -160,6 +163,14 @@ public class Turno implements Serializable {
 
 	public void setOperadores(String operadores) {
 		this.operadores = operadores;
+	}
+
+	public String getLiderSeguranca() {
+		return liderSeguranca;
+	}
+
+	public void setLiderSeguranca(String liderSeguranca) {
+		this.liderSeguranca = liderSeguranca;
 	}
 	
 }
