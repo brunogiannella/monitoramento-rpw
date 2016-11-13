@@ -16,13 +16,14 @@
 		vm.irParaOcorrencias = ocorrencias;
 		vm.gerenciarCameras = gerenciarCameras;
 		vm.consultarTurno = consultarTurno;
+		vm.finalizarTurno = finalizarTurno;
 
 		function inicializar() {
 			UtilsService.ativarLoading();
 			var codigoUsuario = $rootScope.usuarioLogado.idUsuario;
 
 			var funcSucesso = function(data) {
-				if(data != null && data.length > 0) {
+				if(data != null) {
 					vm.turnos = data;
 
 					var codigoCliente = $rootScope.clienteFuncionario.id;
@@ -31,25 +32,31 @@
 						if(data != null && data.length > 0) {
 							vm.turnosAnteriores = data;
 						} else {
-							vm.mensagemTurno = "No momento você não possui nenhum turno aberto."
+							vm.mensagemTurnosAnteriores = "Não existem turnos anteriores."
 						}
 
-						UtilsService.desativarLoading();
 					};
 
 					TurnoService.consultarUltimosTurnosCliente(codigoCliente, funcSucesso);
 
+					if(data.length == 0) {
+						vm.mensagemTurno = "No momento você não possui nenhum turno aberto.";
+					}
 
-				} else {
-					vm.mensagemTurnosAnteriores = "Não existem turnos anteriores."
 				}
+
+				UtilsService.desativarLoading();
 			};
 
 			TurnoService.consultarTurnosUsuario(codigoUsuario, funcSucesso);
 		}
 
-		function consultarTurno(idTurno) {
-			UtilsService.irPara("consultar-turno", {idTurno:idTurno});
+		function consultarTurno(idTurno, editar) {
+			UtilsService.irPara("consultar-turno", {idTurno:idTurno, editar:editar});
+		}
+
+		function finalizarTurno(idTurno, dataInicio) {
+			UtilsService.irPara("finalizar-turno", {idTurno:idTurno, dataInicio:dataInicio});
 		}
 
 		function turnos() {

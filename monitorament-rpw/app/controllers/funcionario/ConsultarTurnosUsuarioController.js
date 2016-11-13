@@ -14,6 +14,7 @@
 		vm.inicio = inicio;
 		vm.removerOcorrencia = removerOcorrencia;
 		vm.codigoTurno = $stateParams.idTurno;	
+		vm.permiteEdicao = $stateParams.editar;
 
 		function inicializar() {
 			UtilsService.ativarLoading();

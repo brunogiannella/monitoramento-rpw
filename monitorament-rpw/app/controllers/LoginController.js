@@ -5,9 +5,9 @@
 		.module('login.controller', [])
 		.controller('LoginController' , LoginController);
 
-	LoginController.$inject = ['$scope', '$rootScope', 'LoginService', 'UtilsService', 'UsuarioService', 'TipoOcorrenciaService', 'ClienteService', 'CameraService', 'EquipamentoService', 'IndicadoresService', 'TurnoService'];
+	LoginController.$inject = ['$scope', '$rootScope', 'LoginService', 'UtilsService', 'UsuarioService', 'TipoOcorrenciaService', 'ClienteService', 'CameraService', 'EquipamentoService', 'IndicadoresService', 'TurnoService', 'OcorrenciaService'];
 
-	function LoginController($scope, $rootScope, LoginService, UtilsService, UsuarioService, TipoOcorrenciaService, ClienteService, CameraService, EquipamentoService, IndicadoresService, TurnoService) {
+	function LoginController($scope, $rootScope, LoginService, UtilsService, UsuarioService, TipoOcorrenciaService, ClienteService, CameraService, EquipamentoService, IndicadoresService, TurnoService, OcorrenciaService) {
 
 		this.usuario = null;
 		this.senha = null;
@@ -78,6 +78,12 @@
 			};
 
 			TurnoService.consultarPeriodos(funcSucessoPeriodos);
+
+			var funcSucessoInformantesOcorrencias = function(data) {
+				$rootScope.dominios.informantesOcorrencias = data;
+			};
+
+			OcorrenciaService.consultarInformantesOcorrencias(funcSucessoInformantesOcorrencias);
 
 			var funcSucessoClienteFuncionario = function(data) {
 				$rootScope.clienteFuncionario = data;

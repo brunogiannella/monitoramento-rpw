@@ -39,12 +39,12 @@
 		};
 
 
-		function fecharTurno(idTurno, fncSucesso) {
+		function fecharTurno(turnoDto, fncSucesso) {
 
 			var  data = {};
 
 			$http({	
-				url : ConstantesService.URL.SERVIDOR + 'turno/'+idTurno+'/finalizar',
+				url : ConstantesService.URL.SERVIDOR + 'turno/finalizar',
 				method : 'POST',
 				data: turnoDto,
 				headers: {

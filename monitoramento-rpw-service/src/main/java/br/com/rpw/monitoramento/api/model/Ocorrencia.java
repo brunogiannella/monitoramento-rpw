@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import br.com.rpw.monitoramento.api.constantes.InformanteOcorrenciaEnum;
 
 @Entity
 @Table(name = "OCORRENCIA")
@@ -49,6 +53,10 @@ public class Ocorrencia implements Serializable {
 	
 	@JoinColumn(name = "VALORES")
 	private String valores;
+	
+	@Column(name = "INFORMANTE_OCORRENCIA")
+	@Enumerated(EnumType.STRING)
+	private InformanteOcorrenciaEnum informanteOcorrencia;
 
 	public Long getId() {
 		return id;
@@ -104,6 +112,14 @@ public class Ocorrencia implements Serializable {
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
+	}
+
+	public InformanteOcorrenciaEnum getInformanteOcorrencia() {
+		return informanteOcorrencia;
+	}
+
+	public void setInformanteOcorrencia(InformanteOcorrenciaEnum informanteOcorrencia) {
+		this.informanteOcorrencia = informanteOcorrencia;
 	}
 	
 }

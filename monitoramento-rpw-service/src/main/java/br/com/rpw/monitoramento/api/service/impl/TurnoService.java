@@ -15,10 +15,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import br.com.rpw.monitoramento.api.constantes.CondicoesClimaticasEnum;
 import br.com.rpw.monitoramento.api.constantes.PeriodoEnum;
 import br.com.rpw.monitoramento.api.constantes.StatusTurnoEnum;
-import br.com.rpw.monitoramento.api.constantes.TempoEnum;
 import br.com.rpw.monitoramento.api.dao.impl.OcorrenciaDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.TurnoDaoImpl;
 import br.com.rpw.monitoramento.api.dto.CampoCadastroOcorrenciaDTO;
@@ -49,10 +47,12 @@ public class TurnoService implements ITurnoService {
 	}
 
 	@Override
-	public boolean finalizarTurno(Long idTurno) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+	public boolean finalizarTurno(TurnoDTO turnoDTO) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 	
 		try {
-			Turno turno = turnoDaoImpl.consultarTurno(idTurno);
+			Turno turno = turnoDaoImpl.consultarTurno(turnoDTO.getId());
+			SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			turno.setDataFim(formato.parse(turnoDTO.getDataFim().replace("T", " ")));
 			turno.setStatus(StatusTurnoEnum.AGUARDANDO_VALIDACAO);
 			turnoDaoImpl.atualizarTurno(turno);
 			
@@ -96,14 +96,14 @@ public class TurnoService implements ITurnoService {
 		usuario.setId(iniciarTurnoRequestDTO.getIdUsuario());
 		turno.setUsuario(usuario);
 		
-		CondicoesClimaticasEnum condicoesClimaticasEnum = null;
-		for(CondicoesClimaticasEnum tipo : CondicoesClimaticasEnum.values()) {
-			if(tipo.getDescricao().equals(iniciarTurnoRequestDTO.getCondicaoClimatica())) {
-				condicoesClimaticasEnum = tipo;
-				break;
-			}
-		}
-		turno.setCondicaoClimatica(condicoesClimaticasEnum);
+//		CondicoesClimaticasEnum condicoesClimaticasEnum = null;
+//		for(CondicoesClimaticasEnum tipo : CondicoesClimaticasEnum.values()) {
+//			if(tipo.getDescricao().equals(iniciarTurnoRequestDTO.getCondicaoClimatica())) {
+//				condicoesClimaticasEnum = tipo;
+//				break;
+//			}
+//		}
+//		turno.setCondicaoClimatica(condicoesClimaticasEnum);
 		
 		PeriodoEnum periodoEnum = null;
 		for(PeriodoEnum tipo : PeriodoEnum.values()) {
@@ -114,14 +114,14 @@ public class TurnoService implements ITurnoService {
 		}
 		turno.setPeriodo(periodoEnum);
 		
-		TempoEnum tempoEnum = null;
-		for(TempoEnum tipo : TempoEnum.values()) {
-			if(tipo.getDescricao().equals(iniciarTurnoRequestDTO.getTempo())) {
-				tempoEnum = tipo;
-				break;
-			}
-		}
-		turno.setTempo(tempoEnum);
+//		TempoEnum tempoEnum = null;
+//		for(TempoEnum tipo : TempoEnum.values()) {
+//			if(tipo.getDescricao().equals(iniciarTurnoRequestDTO.getTempo())) {
+//				tempoEnum = tipo;
+//				break;
+//			}
+//		}
+//		turno.setTempo(tempoEnum);
 		turno.setStatus(StatusTurnoEnum.EM_ANDAMENTO);
 		
 		String operadores = "";
@@ -132,7 +132,10 @@ public class TurnoService implements ITurnoService {
 		
 		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		turno.setDataInicio(formato.parse(iniciarTurnoRequestDTO.getDataInicio().replace("T", " ")));
-		turno.setDataFim(formato.parse(iniciarTurnoRequestDTO.getDataFim().replace("T", " ")));
+		
+		if(iniciarTurnoRequestDTO.getDataFim() != null) {
+			turno.setDataFim(formato.parse(iniciarTurnoRequestDTO.getDataFim().replace("T", " ")));
+		}
 		
 		return turno;
 	}
@@ -143,15 +146,17 @@ public class TurnoService implements ITurnoService {
 		
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 		turnoDTO.setDataInicio(formato.format(turno.getDataInicio()));
-		turnoDTO.setDataFim(formato.format(turno.getDataFim()));
 		
+		if(turno.getDataFim() != null) {
+			turnoDTO.setDataFim(formato.format(turno.getDataFim()));
+		}
 		
-		turnoDTO.setCondicaoClimatica(turno.getCondicaoClimatica().getDescricao());
+		//turnoDTO.setCondicaoClimatica(turno.getCondicaoClimatica().getDescricao());
 		turnoDTO.setIdCliente(turno.getCliente().getId());
 		turnoDTO.setIdUsuario(turno.getUsuario().getId());
 		turnoDTO.setPeriodo(turno.getPeriodo().getDescricao());
 		turnoDTO.setStatus(turno.getStatus().getDescricao());
-		turnoDTO.setTempo(turno.getTempo().getDescricao());
+		//turnoDTO.setTempo(turno.getTempo().getDescricao());
 		turnoDTO.setNomeCliente(turno.getCliente().getNome());
 		turnoDTO.setNomeUsuario(turno.getUsuario().getNome());
 		turnoDTO.setLiderSeguranca(turno.getLiderSeguranca());

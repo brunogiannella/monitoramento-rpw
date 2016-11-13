@@ -19,6 +19,7 @@
 
 		function inicializar() {
 			vm.tiposOcorrencia = $stateParams.tiposOcorrencia;
+			vm.informantesOcorrencias = $rootScope.dominios.informantesOcorrencias;
 
 			vm.ocorrencia = {};
 			vm.ocorrencia.campos = [];
@@ -45,7 +46,7 @@
 					var funcSucesso = function(data) {
 						alert("Ocorrência cadastrada com sucesso.");
 						UtilsService.desativarLoading();
-						UtilsService.irPara("home-funcionario");
+						resetCadastro();
 					};
 
 					OcorrenciaService.cadastrarOcorrencia(vm.ocorrencia, funcSucesso);
@@ -65,6 +66,12 @@
 
 		function inicio() {
 			UtilsService.irPara("home-funcionario");
+		}
+
+		function resetCadastro() {
+			vm.tipoOcorrencia = null;
+			vm.ocorrencia = {};
+			vm.ocorrencia.campos = [];
 		}
 		
 		var vm = this;

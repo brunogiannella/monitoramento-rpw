@@ -20,6 +20,7 @@ public class OcorrenciaDTO implements Serializable {
 	private Long codigoUsuario;
 	private String dataCadastro;
 	private String resumoOcorrencia;
+	private String informanteOcorrencia;
 	private List<CampoCadastroOcorrenciaDTO> campos = new ArrayList<CampoCadastroOcorrenciaDTO>();
 
 	public Long getIdOcorrencia() {
@@ -100,6 +101,14 @@ public class OcorrenciaDTO implements Serializable {
 
 	public void setResumoOcorrencia(String resumoOcorrencia) {
 		this.resumoOcorrencia = resumoOcorrencia;
+	}
+
+	public String getInformanteOcorrencia() {
+		return informanteOcorrencia;
+	}
+
+	public void setInformanteOcorrencia(String informanteOcorrencia) {
+		this.informanteOcorrencia = informanteOcorrencia;
 	}
 	
 }

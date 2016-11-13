@@ -1,0 +1,121 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>RPW • Admin</title>
+        <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="css/admin.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body class="bgcliente">
+      <!-- MENU -->
+      <nav>
+
+        <div class="nav-wrapper">
+
+          <div class="logo-symbol hide-on-med-and-up">
+            <img src="img/logo_symbol.png" width="116" height="143">
+          </div>
+
+          <ul class="left hide-on-med-and-up2 btn_menu" data-activates="slide-out">
+            <li><a href="#!"><i class="material-icons">menu</i></a></li>
+          </ul>
+
+          <ul class="right hide-on-small-only btn_sair">
+            <li><a href="#" ng-click="sair();"><i class="material-icons right">exit_to_app</i>Sair</a></li>
+          </ul>
+        </div>
+
+             <ul id="slide-out" class="side-nav fixed rpw-menu">
+              <li class="logo"><img src="img/logo_rpw.png" /></li>
+              <li><a ng-click="FinalizarTurnoCrtl.inicio();" class="waves-effect"><i class="material-icons">home</i>Início</a></li>
+              <li><div class="divider"></div></li>
+              <li><a ng-click="FinalizarTurnoCrtl.voltar();" class="waves-effect"><i class="material-icons">business</i>Voltar</a></li>
+            </ul>
+
+
+
+      </nav>
+      <!-- /MENU -->
+
+      <main class="bg-transparent">
+        <div class="section">
+          <div class="container2">
+            <div class="row no-m">
+            <form novalidate name="mainForm" ng-submit="FinalizarTurnoCrtl.finalizarTurno();">
+              <div class="col s12">
+                  <h5 class="header blue-text text-darken-2 center-on-small-only title"><i class="material-icons">slow_motion_video</i> <span class="light"> Finalizar Turno</span></h5>
+                  
+                    <div class="card-panel">
+                      <p>Utilize o formulário para preencher os dados de término do turno {{FinalizarTurnoCrtl.idTurno}} que teve início em {{FinalizarTurnoCrtl.dataInicio}}</p>
+
+                      <div id="mensagensValidacaoDataFim" class="row mensagensValidacao" ng-show="mainForm.dataFim.$dirty && (mainForm.dataFim.$error.required)">
+                        <div class="col">
+                          <span ng-class="error" ng-show="mainForm.dataFim.$dirty && mainForm.dataFim.$error.required"><i class="tiny material-icons mr10">error</i>Data de término é obrigatório</span>
+                        </div>  
+                      </div>
+
+                      
+
+                      <div class="row">
+                        <div class="input-field col s6 pr-5">
+                          <input id="dataFim" name="dataFim" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" ng-model="FinalizarTurnoCrtl.turnoDto.dataFim" onblur="(this.type='text'); conveterDataTexto(this);" required>
+                          <label for="dataFim">Data de término</label>
+                        </div>  
+                      </div>
+
+                  
+
+              </div>
+
+              <div class="input-field col s12">
+                <button type="submit" class="btn-large blue darken-2 waves-effect waves-light col s12" ng-disabled="mainForm.$invalid">Confirmar
+                </button>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </main>        
+      
+
+      <!-- Scripts -->
+      <script type="text/javascript" src="js/materialize.js"></script>
+      <script type="text/javascript">
+        $(document).ready(function(){
+            $('.selectable').material_select();
+            $('#fecharturno').leanModal();
+            $('.btn_menu').sideNav({
+                menuWidth: 285, 
+                closeOnClick: false
+              }
+            );
+            $('.collapsible').collapsible();
+            $('.caret').remove();
+          });
+
+        function conveterDataTexto(input) {
+          var str = $(input).val();
+          var splitDataHora = str.split("T");
+          var data = splitDataHora[0];
+          var hora = splitDataHora[1];
+
+          var splitData = data.split("-");
+          var ano = splitData[0];
+          var mes = splitData[1];
+          var dia = splitData[2];
+
+          var splitHora = hora.split(":");
+          var hora = splitHora[0];
+          var minuto = splitHora[1];
+          
+          $(input).val(dia+"/"+mes+"/"+ano+" "+hora+":"+minuto);
+        }
+        
+      </script>
+      <!-- /Scripts -->
+    </body>
+  </html>

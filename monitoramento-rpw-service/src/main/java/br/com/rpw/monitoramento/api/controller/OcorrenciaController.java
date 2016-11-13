@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.rpw.monitoramento.api.constantes.InformanteOcorrenciaEnum;
 import br.com.rpw.monitoramento.api.dto.OcorrenciaDTO;
 import br.com.rpw.monitoramento.api.model.Ocorrencia;
 import br.com.rpw.monitoramento.api.model.RestObject;
 import br.com.rpw.monitoramento.api.model.Turno;
 import br.com.rpw.monitoramento.api.service.impl.OcorrenciaService;
+import br.com.rpw.monitoramento.api.util.TokenUtil;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -76,6 +78,21 @@ public class OcorrenciaController {
 			}
 			
 			return new RestObject(200, true, "Ocorrencias consultadas com sucesso", ocorrencias);
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
+		}
+	}
+	
+	@RequestMapping(value="/informantesOcorrencias", method = RequestMethod.GET)
+	public RestObject consultarInformantesOcorrencia(@RequestHeader(value="x-acess-token") String token) { 
+		try {
+			
+			if(TokenUtil.simpleValidToken(token)) {
+				return new RestObject(200, true, "Consulta realizada com sucesso", InformanteOcorrenciaEnum.values());
+			} else {
+				return new RestObject(401, false, "Token inválido.", null);
+			}
+			
 		} catch(Exception e) {
 			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
 		}

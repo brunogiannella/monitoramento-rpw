@@ -6,6 +6,7 @@ var app = angular.module('app',['ui.router',
                   'removerOcorrencia.controller',
                   'consultarTurnosUsuario.controller',
                   'iniciarNovoTurnoController.controller',
+                  'finalizarTurno.controller',
                   'gerenciarCamerasController.controller',
                   'homeAdmin.controller',
                   'usuario.controller',
@@ -68,10 +69,20 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
     .state('consultar-turno', {
       url: '/consultar-turno',
       params: {
-        idTurno : null
+        idTurno : null,
+        editar : null
       },
       templateUrl: 'app/views/funcionario/consultar-turno.html',
       controller: 'ConsultarTurnosUsuarioController as ConsultarTurnosUsuarioCrtl'
+    })
+    .state('finalizar-turno', {
+      url: '/finalizar-turno',
+      params: {
+        idTurno : null,
+        dataInicio : null
+      },
+      templateUrl: 'app/views/funcionario/finalizar-turno.html',
+      controller: 'FinalizarTurnoController as FinalizarTurnoCrtl'
     })
     .state('cadastrar-ocorrencia', {
       url: '/cadastrar-ocorrencia',

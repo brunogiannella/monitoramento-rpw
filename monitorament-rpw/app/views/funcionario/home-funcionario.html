@@ -88,8 +88,8 @@
                           <td>{{turno.nomeCliente}}</td>
                           <td>{{turno.status}}</td>
                           <td class="right-align">
-                            <a href="#" ng-click="HomeCrtl.consultarTurno(turno.id);"><i class="material-icons small blue-text">mode_edit</i></a>
-                            <a href="#" ng-click="UsuarioCrtl.removerUsuario(usuario.id, usuario.usuario);"><i class="material-icons green-text">video_library</i></a>
+                            <a href="#" ng-click="HomeCrtl.consultarTurno(turno.id, true);"><i class="material-icons small blue-text">mode_edit</i></a>
+                            <a href="#" ng-click="HomeCrtl.finalizarTurno(turno.id, turno.dataInicio);"><i class="material-icons green-text">video_library</i></a>
                           </td>
                         </tr>
                         
@@ -135,7 +135,7 @@
                           <td>{{turno.nomeCliente}}</td>
                           <td>{{turno.status}}</td>
                           <td class="right-align">
-                            <a href="#" ng-click="HomeCrtl.consultarTurno(turno.id);"><i class="material-icons small blue-text">mode_edit</i></a>
+                            <a href="#" ng-click="HomeCrtl.consultarTurno(turno.id, false);"><i class="material-icons small blue-text">search</i></a>
                           </td>
                         </tr>
                         

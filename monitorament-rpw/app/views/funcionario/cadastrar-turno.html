@@ -51,22 +51,49 @@
                   <form novalidate name="mainForm" ng-submit="IniciarNovoTurnoCrtl.iniciarNovoTurno();">
                     <div class="card-panel">
                       <p>Utilize o formulário para cadastrar o turno</p>
+
+                      <div id="mensagensValidacaoDataInicio" class="row mensagensValidacao" ng-show="mainForm.dataInicio.$dirty && (mainForm.dataInicio.$error.required)">
+                        <div class="col">
+                          <span ng-class="error" ng-show="mainForm.dataInicio.$dirty && mainForm.dataInicio.$error.required"><i class="tiny material-icons mr10">error</i>Data início é obrigatório</span>
+                        </div>  
+                      </div>
+
+                      <div id="mensagensValidacaoUsuarioTurno" class="row mensagensValidacao" ng-show="mainForm.usuarioTurno.$dirty && (mainForm.usuarioTurno.$error.required)">
+                        <div class="col">
+                          <span ng-class="error" ng-show="mainForm.usuarioTurno.$dirty && mainForm.usuarioTurno.$error.required"><i class="tiny material-icons mr10">error</i>Nome do usuário é obrigatório</span>
+                        </div>  
+                      </div>
+
+                      <div id="mensagensValidacaoClienteTurno" class="row mensagensValidacao" ng-show="mainForm.clienteTurno.$dirty && (mainForm.clienteTurno.$error.required)">
+                        <div class="col">
+                          <span ng-class="error" ng-show="mainForm.clienteTurno.$dirty && mainForm.clienteTurno.$error.required"><i class="tiny material-icons mr10">error</i>Nome do cliente é obrigatório</span>
+                        </div>  
+                      </div>
+
+                      <div id="mensagensValidacaoLiderSeguranca" class="row mensagensValidacao" ng-show="mainForm.liderSeguranca.$dirty && (mainForm.liderSeguranca.$error.required)">
+                        <div class="col">
+                          <span ng-class="error" ng-show="mainForm.liderSeguranca.$dirty && mainForm.liderSeguranca.$error.required"><i class="tiny material-icons mr10">error</i>Líder de segurança é obrigatório</span>
+                        </div>  
+                      </div>
+
+                      <div id="mensagensValidacaoOperador" class="row mensagensValidacao" ng-show="mainForm.operador1.$dirty && (mainForm.operador1.$error.required)">
+                        <div class="col">
+                          <span ng-class="error" ng-show="mainForm.operador1.$dirty && mainForm.operador1.$error.required"><i class="tiny material-icons mr10">error</i>É obrigatório informador pelo menos um operador</span>
+                        </div>  
+                      </div>
+
                       <div class="row">
                       <div class="input-field col s6 pr-5">
-                        <input id="usuario_login" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" ng-model="IniciarNovoTurnoCrtl.turno.dataInicio" onblur="(this.type='text')">
-                        <label for="usuario_login">Data de início</label>
+                        <input id="dataInicio" name="dataInicio" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" ng-model="IniciarNovoTurnoCrtl.turno.dataInicio" onblur="(this.type='text'); conveterDataTexto(this);" required>
+                        <label for="dataInicio">Data de início</label>
                       </div>  
-                      <div class="input-field col s6 pl-5">
-                        <input id="usuario_senha" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" ng-model="IniciarNovoTurnoCrtl.turno.dataFim" onblur="(this.type='text')">
-                        <label for="usuario_senha">Data de término</label>
-                      </div>
                       <div class="input-field col s6 pr-5">
-                        <input id="usuario_login" placeholder="Usuário" type="text" ng-model="IniciarNovoTurnoCrtl.turno.nomeUsuario">
-                        <label for="usuario_login">Nome do Usuário</label>
+                        <input id="usuarioTurno" name="usuarioTurno" placeholder="Usuário" type="text" ng-model="IniciarNovoTurnoCrtl.turno.nomeUsuario" required>
+                        <label for="usuarioTurno">Nome do Usuário</label>
                       </div>
                       <div class="input-field col s6 pl-5">
-                        <input id="usuario_senha" placeholder="Cliente" type="text" ng-model="IniciarNovoTurnoCrtl.turno.nomeCliente">
-                        <label for="usuario_senha">Nome do Cliente</label>
+                        <input id="clienteTurno" name="clienteTurno" placeholder="Cliente" type="text" ng-model="IniciarNovoTurnoCrtl.turno.nomeCliente" required>
+                        <label for="clienteTurno">Nome do Cliente</label>
                       </div>
                       <div class="input-field col s6 pr-5">
                           <input id="periodo" type="text" style="display:none;" ng-model="IniciarNovoTurnoCrtl.turno.periodo" />
@@ -75,26 +102,10 @@
                             <option ng-repeat="item in IniciarNovoTurnoCrtl.periodos" value="{{item}}">{{item}}</option>
                           </select>
                           <label>Período</label>
-                      </div>
+                      </div>                         
                       <div class="input-field col s6 pl-5">
-                        <input id="condicaoClimatica" type="text" style="display:none;" ng-model="IniciarNovoTurnoCrtl.turno.condicaoClimatica" />
-                        <select onchange="alterarComboCondicoesClimaticas();" class="usuario_condicaoClimatica selectable">
-                          <option value="" disabled selected>Selecione</option>
-                          <option ng-repeat="item in IniciarNovoTurnoCrtl.condicoesClimaticas" value="{{item}}">{{item}}</option>
-                        </select>
-                        <label>Condição Climatica</label>
-                      </div>
-                      <div class="input-field col s6">
-                        <input id="tempo" type="text" style="display:none;" ng-model="IniciarNovoTurnoCrtl.turno.tempo" />
-                        <select onchange="alterarComboTempo();" class="usuario_tempo selectable">
-                          <option value="" disabled selected>Selecione</option>
-                          <option ng-repeat="item in IniciarNovoTurnoCrtl.tempo" value="{{item}}">{{item}}</option>
-                        </select>
-                        <label>Tempo</label>
-                      </div>
-                      <div class="input-field col s6 pl-5">
-                        <input id="liderSeguranca" placeholder="Líder de segurança" type="text" ng-model="IniciarNovoTurnoCrtl.turno.liderSeguranca">
-                        <label for="usuario_senha">Líder de segurança</label>
+                        <input id="liderSeguranca" name="liderSeguranca" placeholder="Líder de segurança" type="text" ng-model="IniciarNovoTurnoCrtl.turno.liderSeguranca" required>
+                        <label for="liderSeguranca">Líder de segurança</label>
                       </div>
                     </div>
                   </div>
@@ -104,7 +115,7 @@
                       <div class="row">
                       
                         <div class="input-field col s12">
-                          <input id="operador1" placeholder="Operador" type="text" ng-model="IniciarNovoTurnoCrtl.turno.operadores[0]">
+                          <input id="operador1" name="operador1" placeholder="Operador" type="text" ng-model="IniciarNovoTurnoCrtl.turno.operadores[0]" required>
                           <label for="operador1">Nome do operador</label>
                         </div>
 
@@ -145,11 +156,6 @@
             $('.caret').remove();
           });
 
-        function alterarComboTempo() {
-          var tempoSelecionado = $("div.usuario_tempo > input.select-dropdown").val();
-          $("#tempo").val(tempoSelecionado);
-          angular.element($("#tempo")).triggerHandler('input')
-        }
 
         function alterarComboPeriodo() {
           var periodoSelecionado = $("div.usuario_periodo > input.select-dropdown").val();
@@ -157,10 +163,22 @@
           angular.element($("#periodo")).triggerHandler('input')
         }
 
-        function alterarComboCondicoesClimaticas() {
-          var condicoesClimaticasSelecionado = $("div.usuario_condicaoClimatica > input.select-dropdown").val();
-          $("#condicaoClimatica").val(condicoesClimaticasSelecionado);
-          angular.element($("#condicaoClimatica")).triggerHandler('input')
+        function conveterDataTexto(input) {
+          var str = $(input).val();
+          var splitDataHora = str.split("T");
+          var data = splitDataHora[0];
+          var hora = splitDataHora[1];
+
+          var splitData = data.split("-");
+          var ano = splitData[0];
+          var mes = splitData[1];
+          var dia = splitData[2];
+
+          var splitHora = hora.split(":");
+          var hora = splitHora[0];
+          var minuto = splitHora[1];
+          
+          $(input).val(dia+"/"+mes+"/"+ano+" "+hora+":"+minuto);
         }
       </script>
       <!-- /Scripts -->

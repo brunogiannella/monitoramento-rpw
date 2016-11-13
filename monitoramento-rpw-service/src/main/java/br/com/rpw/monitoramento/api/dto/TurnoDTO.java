@@ -14,8 +14,6 @@ public class TurnoDTO {
 	private String liderSeguranca;
 	private Long idCliente;
 	private String periodo;
-	private String condicaoClimatica;
-	private String tempo;
 	private String status;
 	private List<String> operadores = new ArrayList<String>();
 	private List<OcorrenciaDTO> ocorrenciasDto = new ArrayList<OcorrenciaDTO>();
@@ -58,22 +56,6 @@ public class TurnoDTO {
 
 	public void setPeriodo(String periodo) {
 		this.periodo = periodo;
-	}
-
-	public String getCondicaoClimatica() {
-		return condicaoClimatica;
-	}
-
-	public void setCondicaoClimatica(String condicaoClimatica) {
-		this.condicaoClimatica = condicaoClimatica;
-	}
-
-	public String getTempo() {
-		return tempo;
-	}
-
-	public void setTempo(String tempo) {
-		this.tempo = tempo;
 	}
 
 	public Long getId() {

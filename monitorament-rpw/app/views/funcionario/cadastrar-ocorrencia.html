@@ -85,6 +85,15 @@
                           
                           <label class="active" for="chamadapostos_responsavel">{{campo.descricao}}</label>
                         </div>
+
+                        <div class="input-field col s12 m6 pr-5">
+                          <input id="informanteOcorrencia" type="text" style="display:none;" ng-model="CadastrarOcorrenciaCrtl.ocorrencia.informanteOcorrencia" />
+                          <select onchange="alterarComboInformanteOcorrencia();" class="usuario_informanteOcorrencia selectable">
+                            <option value="" disabled selected>Selecione</option>
+                            <option ng-repeat="item in CadastrarOcorrenciaCrtl.informantesOcorrencias" value="{{item}}">{{item}}</option>
+                          </select>
+                          <label>Informante da ocorrêcia</label>
+                      </div>
                     </div>
 
                       <div class="input-field">
@@ -130,6 +139,12 @@
           var tipoOcorrenciaSelecionada = $("div.select_tipoOcorrencia li.selected span").get(0).innerHTML;
           $("#tipoOcorrencia").val(tipoOcorrenciaSelecionada.split(" - ")[0]);
           angular.element($("#tipoOcorrencia")).triggerHandler('input')
+        }
+
+        function alterarComboInformanteOcorrencia() {
+          var informanteOcorrenciaSelecionado = $("div.usuario_informanteOcorrencia > input.select-dropdown").val();
+          $("#informanteOcorrencia").val(informanteOcorrenciaSelecionado);
+          angular.element($("#informanteOcorrencia")).triggerHandler('input')
         }
       </script>
       <!-- /Scripts -->

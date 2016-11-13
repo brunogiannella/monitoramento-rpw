@@ -135,12 +135,44 @@
 			});
 		};
 
+		function consultarInformantesOcorrencias(fncSucesso) {
+
+			var  data = {};
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'ocorrencia/informantesOcorrencias',
+				method : 'GET',
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
+		       }
+		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
+				return false;
+			});
+		};
+
 
 		return {
 			cadastrarOcorrencia : cadastrarOcorrencia,
 			consultarOcorrencia : consultarOcorrencia,
 			removerOcorrencia : removerOcorrencia,
-			listarTiposOcorrencia : listarTiposOcorrencia
+			listarTiposOcorrencia : listarTiposOcorrencia,
+			consultarInformantesOcorrencias : consultarInformantesOcorrencias
 		}
 	}
 

@@ -56,10 +56,10 @@ public class TurnoController {
 		}
 	}
 	
-	@RequestMapping(value="/{id}/finalizar", method = RequestMethod.POST)
-	public RestObject fecharTurno(@PathVariable("id") Long idturno) { 
+	@RequestMapping(value="/finalizar", method = RequestMethod.POST)
+	public RestObject fecharTurno(@RequestBody TurnoDTO turnoDto) { 
 		try {
-			Boolean sucesso = turnoService.finalizarTurno(idturno);
+			Boolean sucesso = turnoService.finalizarTurno(turnoDto);
 			
 			if(!sucesso) {
 				return new RestObject(200, true, "Ocorreu um problema ao finalizar o turno", null);

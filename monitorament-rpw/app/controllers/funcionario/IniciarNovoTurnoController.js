@@ -18,7 +18,6 @@
 
 		function iniciliazarProcessoTurno() {
 			vm.turno.dataInicio = "";
-			vm.turno.dataFim = "";
 			vm.turno.nomeCliente = $rootScope.usuarioLogado.nomeCliente;
 			vm.turno.idCliente = $rootScope.usuarioLogado.idCliente;
 			vm.turno.periodo = "";

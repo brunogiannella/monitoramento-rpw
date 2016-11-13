@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import br.com.rpw.monitoramento.api.constantes.InformanteOcorrenciaEnum;
 import br.com.rpw.monitoramento.api.constantes.TipoCampoEnum;
 import br.com.rpw.monitoramento.api.dao.impl.OcorrenciaDaoImpl;
 import br.com.rpw.monitoramento.api.dto.CampoCadastroOcorrenciaDTO;
@@ -77,6 +78,15 @@ public class OcorrenciaService implements IOcorrenciaService {
 		TipoOcorrencia tipoOcorrencia = new TipoOcorrencia();
 		tipoOcorrencia.setId(ocorrenciaDto.getIdTipoOcorrencia());
 		ocorrencia.setTipoOcorrencia(tipoOcorrencia);
+		
+		InformanteOcorrenciaEnum informanteOcorrenciaEnum = null;
+		for(InformanteOcorrenciaEnum informante : InformanteOcorrenciaEnum.values()) {
+			if(informante.getDescricao().equals(ocorrenciaDto.getInformanteOcorrencia())) {
+				informanteOcorrenciaEnum = informante;
+				break;
+			}
+		}
+		ocorrencia.setInformanteOcorrencia(informanteOcorrenciaEnum);
 		
 		if(ocorrenciaDto.getCampos() != null) {
 			for(CampoCadastroOcorrenciaDTO campo : ocorrenciaDto.getCampos()) {

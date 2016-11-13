@@ -12,7 +12,7 @@ import br.com.rpw.monitoramento.api.model.Turno;
 
 public interface ITurnoService {
 	Long iniciarTurno(TurnoDTO iniciarTurnoRequestDTO) throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException;
-	boolean finalizarTurno(Long idTurno) throws NoSuchAlgorithmException, UnsupportedEncodingException;
+	boolean finalizarTurno(TurnoDTO turnoDTO) throws NoSuchAlgorithmException, UnsupportedEncodingException;
 	Turno consultarTurno(Long idTurno) throws NoSuchAlgorithmException, UnsupportedEncodingException;
 	List<Turno> consultarTurnos(Long idUsuario, StatusTurnoEnum emAndamento) throws NoSuchAlgorithmException, UnsupportedEncodingException;
 	TurnoDTO consultarTurnoDetalhado(Long idTurno);

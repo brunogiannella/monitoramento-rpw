@@ -18,10 +18,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
-import br.com.rpw.monitoramento.api.constantes.CondicoesClimaticasEnum;
 import br.com.rpw.monitoramento.api.constantes.PeriodoEnum;
 import br.com.rpw.monitoramento.api.constantes.StatusTurnoEnum;
-import br.com.rpw.monitoramento.api.constantes.TempoEnum;
 
 @Entity
 @Table(name = "TURNO")
@@ -59,13 +57,13 @@ public class Turno implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private PeriodoEnum periodo;
 
-	@Column(name = "CONDICAO_CLIMATICA", nullable = false)
-	@Enumerated(EnumType.STRING)
-	private CondicoesClimaticasEnum condicaoClimatica;
-
-	@Column(name = "TEMPO", nullable = false)
-	@Enumerated(EnumType.STRING)
-	private TempoEnum tempo;
+//	@Column(name = "CONDICAO_CLIMATICA", nullable = false)
+//	@Enumerated(EnumType.STRING)
+//	private CondicoesClimaticasEnum condicaoClimatica;
+//
+//	@Column(name = "TEMPO", nullable = false)
+//	@Enumerated(EnumType.STRING)
+//	private TempoEnum tempo;
 
 	@Column(name = "STATUS_TURNO", nullable = false)
 	@Enumerated(EnumType.STRING)
@@ -125,22 +123,6 @@ public class Turno implements Serializable {
 		this.periodo = periodo;
 	}
 
-	public CondicoesClimaticasEnum getCondicaoClimatica() {
-		return condicaoClimatica;
-	}
-
-	public void setCondicaoClimatica(CondicoesClimaticasEnum condicaoClimatica) {
-		this.condicaoClimatica = condicaoClimatica;
-	}
-
-	public TempoEnum getTempo() {
-		return tempo;
-	}
-
-	public void setTempo(TempoEnum tempo) {
-		this.tempo = tempo;
-	}
-
 	public StatusTurnoEnum getStatus() {
 		return status;
 	}
@@ -172,5 +154,5 @@ public class Turno implements Serializable {
 	public void setLiderSeguranca(String liderSeguranca) {
 		this.liderSeguranca = liderSeguranca;
 	}
-	
+
 }
