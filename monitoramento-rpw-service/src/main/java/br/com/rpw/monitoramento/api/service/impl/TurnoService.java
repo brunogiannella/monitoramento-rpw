@@ -5,7 +5,9 @@ import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ import br.com.rpw.monitoramento.api.constantes.StatusTurnoEnum;
 import br.com.rpw.monitoramento.api.dao.impl.OcorrenciaDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.TurnoDaoImpl;
 import br.com.rpw.monitoramento.api.dto.CampoCadastroOcorrenciaDTO;
+import br.com.rpw.monitoramento.api.dto.GrupoOcorrenciasDto;
 import br.com.rpw.monitoramento.api.dto.OcorrenciaDTO;
 import br.com.rpw.monitoramento.api.dto.TurnoDTO;
 import br.com.rpw.monitoramento.api.model.Cliente;
@@ -170,6 +173,9 @@ public class TurnoService implements ITurnoService {
 		}
 		
 		if(turno.getOcorrencias() != null) {
+			
+			Map<String, List<OcorrenciaDTO>> gruposOcorrencia = new HashMap<String, List<OcorrenciaDTO>>();
+			
 			for(Ocorrencia ocorrencia : turno.getOcorrencias()) {
 				OcorrenciaDTO ocorrenciaDto = new OcorrenciaDTO();
 				
@@ -190,7 +196,19 @@ public class TurnoService implements ITurnoService {
 					}
 				}
 				
-				turnoDTO.getOcorrenciasDto().add(ocorrenciaDto);
+				if(!gruposOcorrencia.containsKey(ocorrenciaDto.getDescTipoOcorrencia())) {
+					gruposOcorrencia.put(ocorrenciaDto.getDescTipoOcorrencia(), new ArrayList<OcorrenciaDTO>());
+				}
+				gruposOcorrencia.get(ocorrenciaDto.getDescTipoOcorrencia()).add(ocorrenciaDto);
+			}
+			
+			turnoDTO.setOcorrenciasDto(new ArrayList<GrupoOcorrenciasDto>());
+			for (String entry : gruposOcorrencia.keySet()) {
+				GrupoOcorrenciasDto grupoOcorrencia = new GrupoOcorrenciasDto();
+				grupoOcorrencia.setDescricao(entry);
+				grupoOcorrencia.setOcorrenciasDto(gruposOcorrencia.get(entry));
+				
+				turnoDTO.getOcorrenciasDto().add(grupoOcorrencia);
 			}
 		}
 		

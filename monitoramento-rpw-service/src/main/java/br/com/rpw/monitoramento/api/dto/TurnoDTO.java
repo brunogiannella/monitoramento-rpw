@@ -16,7 +16,7 @@ public class TurnoDTO {
 	private String periodo;
 	private String status;
 	private List<String> operadores = new ArrayList<String>();
-	private List<OcorrenciaDTO> ocorrenciasDto = new ArrayList<OcorrenciaDTO>();
+	private List<GrupoOcorrenciasDto> ocorrenciasDto = new ArrayList<GrupoOcorrenciasDto>();
 
 	public String getDataInicio() {
 		return dataInicio;
@@ -90,11 +90,11 @@ public class TurnoDTO {
 		this.nomeCliente = nomeCliente;
 	}
 
-	public List<OcorrenciaDTO> getOcorrenciasDto() {
+	public List<GrupoOcorrenciasDto> getOcorrenciasDto() {
 		return ocorrenciasDto;
 	}
 
-	public void setOcorrenciasDto(List<OcorrenciaDTO> ocorrenciasDto) {
+	public void setOcorrenciasDto(List<GrupoOcorrenciasDto> ocorrenciasDto) {
 		this.ocorrenciasDto = ocorrenciasDto;
 	}
 
