@@ -106,6 +106,50 @@
                 </div>
               </div>
 
+              <div class="row">
+                  <div class="col s12 m12" >
+                  <h5 class="header black-text text-darken-2 center-on-small-only title"><i class="material-icons">toc</i> <span class="light">Ocorrências cadastradas</span></h5>
+                  <div class="card-panel">
+
+                    <div class="row">
+                      <label class="col s12 barraBuscaFont">Digite a sua pesquisa: <input style="color:black;" ng-model="searchText"></label>
+                    </div>
+
+                    <div class="listaOcorrencia" ng-repeat="grupoOcorrencia in CadastrarOcorrenciaCrtl.turnoConsulta.ocorrenciasDto">
+
+                        <span class="texto_destaque">Tipo de ocorrência {{grupoOcorrencia.descricao}}</span>
+                        <br>
+
+                        <table class="responsive-table striped" ng-show="grupoOcorrencia.ocorrenciasDto.length > 0">
+                          <thead>
+                            <tr>
+                                <th data-field="id">Tipo de ocorrência</th>
+                                <th data-field="id">Data</th>
+                                <th data-field="id">Resumo</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr ng-repeat="ocorrencia in grupoOcorrencia.ocorrenciasDto | filter:searchText">
+                              <td>{{ocorrencia.descTipoOcorrencia}}</td>
+                              <td>{{ocorrencia.dataCadastro}}</td>
+                              <td>{{ocorrencia.resumoOcorrencia}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                        <br>
+                        <br>
+                    </div>
+                  
+                    <center>
+                      <h6 ng-show="CadastrarOcorrenciaCrtl.turnoConsulta.ocorrenciasDto.length == 0">Nenhuma ocorrência cadastrada</h6>
+                    </center>
+
+                  </div>
+
+                  </div>
+                </div>
+
           </div>
         </div>
       </main>

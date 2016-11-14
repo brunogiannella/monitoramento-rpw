@@ -12,6 +12,7 @@
 		var vm = this;
 		vm.voltar = voltar;
 		vm.inicio = inicio;
+		vm.sair = UtilsService.logout;
 		vm.removerOcorrencia = removerOcorrencia;
 		vm.codigoTurno = $stateParams.idTurno;	
 		vm.permiteEdicao = $stateParams.editar;

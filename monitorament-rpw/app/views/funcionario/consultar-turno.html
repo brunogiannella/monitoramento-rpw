@@ -25,7 +25,7 @@
           </ul>
 
           <ul class="right hide-on-small-only btn_sair">
-            <li><a href="#" ng-click="sair();"><i class="material-icons right">exit_to_app</i>Sair</a></li>
+            <li><a href="#" ng-click="ConsultarTurnosUsuarioCrtl.sair();"><i class="material-icons right">exit_to_app</i>Sair</a></li>
           </ul>
         </div>
 
@@ -117,34 +117,45 @@
                       <div class="col s12 m12" >
                       <h5 class="header black-text text-darken-2 center-on-small-only title"><i class="material-icons">toc</i> <span class="light">Ocorrências cadastradas</span></h5>
                       <div class="card-panel">
-                      
+
                         <div class="row">
-                          <label class="col s12 barraBuscaFont">Digite a sua pesquisa: <input style="color:black;" ng-model="searchTextOcorrencia"></label>
+                          <label class="col s12 barraBuscaFont">Digite a sua pesquisa: <input style="color:black;" ng-model="searchText"></label>
                         </div>
 
-                        <table class="responsive-table striped" ng-show="ConsultarTurnosUsuarioCrtl.turnoConsulta.ocorrenciasDto.length > 0">
-                          <thead>
-                            <tr>
-                                <th data-field="id">Tipo de ocorrência</th>
-                                <th data-field="id">Data</th>
-                                <th data-field="id">Resumo</th>
-                                <th data-field="id" class="center-on-small-only right-align">Operações</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr ng-repeat="ocorrencia in ConsultarTurnosUsuarioCrtl.turnoConsulta.ocorrenciasDto | filter:searchTextOcorrencia">
-                              <td>{{ocorrencia.descTipoOcorrencia}}</td>
-                              <td>{{ocorrencia.dataCadastro}}</td>
-                              <td>{{ocorrencia.resumoOcorrencia}}</td>
-                              <td class="right-align">
-                                <a href="#" ng-click="ClienteCrtl.editarCamera(camera);" ng-if="ConsultarTurnosUsuarioCrtl.permiteEdicao"><i class="material-icons small blue-text">mode_edit</i></a>
-                                <a href="#" ng-click="ConsultarTurnosUsuarioCrtl.removerOcorrencia(ocorrencia.idOcorrencia, ConsultarTurnosUsuarioCrtl.turnoConsulta.id);" ng-if="ConsultarTurnosUsuarioCrtl.permiteEdicao"><i class="material-icons small red-text">delete</i></a>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                        <div class="listaOcorrencia" ng-repeat="grupoOcorrencia in ConsultarTurnosUsuarioCrtl.turnoConsulta.ocorrenciasDto">
 
-                        <center><h6 ng-show="ConsultarTurnosUsuarioCrtl.turnoConsulta.ocorrenciasDto.length == 0">Nenhuma ocorrência cadastrada</h6></center>
+                            <span class="texto_destaque">Tipo de ocorrência {{grupoOcorrencia.descricao}}</span>
+                            <br>
+
+                            <table class="responsive-table striped" ng-show="grupoOcorrencia.ocorrenciasDto.length > 0">
+                              <thead>
+                                <tr>
+                                    <th data-field="id">Tipo de ocorrência</th>
+                                    <th data-field="id">Data</th>
+                                    <th data-field="id">Resumo</th>
+                                    <th data-field="id" class="center-on-small-only right-align">Operações</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr ng-repeat="ocorrencia in grupoOcorrencia.ocorrenciasDto | filter:searchText">
+                                  <td>{{ocorrencia.descTipoOcorrencia}}</td>
+                                  <td>{{ocorrencia.dataCadastro}}</td>
+                                  <td>{{ocorrencia.resumoOcorrencia}}</td>
+                                  <td class="right-align">
+                                    <a href="#" ng-click="ClienteCrtl.editarCamera(camera);" ng-if="ConsultarTurnosUsuarioCrtl.permiteEdicao"><i class="material-icons small blue-text">mode_edit</i></a>
+                                    <a href="#" ng-click="ConsultarTurnosUsuarioCrtl.removerOcorrencia(ocorrencia.idOcorrencia, ConsultarTurnosUsuarioCrtl.turnoConsulta.id);" ng-if="ConsultarTurnosUsuarioCrtl.permiteEdicao"><i class="material-icons small red-text">delete</i></a>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+
+                            <br>
+                            <br>
+                        </div>
+                      
+                        <center>
+                          <h6 ng-show="ConsultarTurnosUsuarioCrtl.turnoConsulta.ocorrenciasDto.length == 0">Nenhuma ocorrência cadastrada</h6>
+                        </center>
 
                       </div>
 

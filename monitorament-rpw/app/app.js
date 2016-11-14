@@ -87,7 +87,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
     .state('cadastrar-ocorrencia', {
       url: '/cadastrar-ocorrencia',
       params: {
-        tiposOcorrencia : null
+        tiposOcorrencia : null,
+        codigoTurno : null
       },
       templateUrl: 'app/views/funcionario/cadastrar-ocorrencia.html',
       controller: 'CadastrarOcorrenciaController as CadastrarOcorrenciaCrtl'

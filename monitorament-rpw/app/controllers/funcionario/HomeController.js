@@ -5,9 +5,9 @@
 		.module('home.controller', [])
 		.controller('HomeController' , HomeController);
 
-	HomeController.$inject = ['$rootScope', 'UtilsService', 'TurnoService', 'ClienteService'];
+	HomeController.$inject = ['$rootScope', '$scope', 'UtilsService', 'TurnoService', 'ClienteService'];
 
-	function HomeController($rootScope, UtilsService, TurnoService, ClienteService) {
+	function HomeController($rootScope, $scope, UtilsService, TurnoService, ClienteService) {
 		this.nomeUsuario = $rootScope.usuarioLogado.nomeUsuario;
 		this.irPara = UtilsService.irPara;
 		this.sair = UtilsService.logout;
@@ -87,9 +87,9 @@
 
 					UtilsService.ativarLoading();
 					var codigoCliente = $rootScope.usuarioLogado.idCliente;
-
+					$scope.codigoTurno = data[0].id;
 					var funcSucesso = function(data) {
-						UtilsService.irPara("cadastrar-ocorrencia", {tiposOcorrencia:data});
+						UtilsService.irPara("cadastrar-ocorrencia", {tiposOcorrencia:data, codigoTurno:$scope.codigoTurno});
 					};
 
 					ClienteService.consultarTiposOcorrenciaCliente(codigoCliente, funcSucesso);

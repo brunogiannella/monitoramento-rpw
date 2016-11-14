@@ -9,15 +9,29 @@
 
 	function CadastrarOcorrenciaController($rootScope, $scope, $stateParams, ClienteService, OcorrenciaService, UtilsService, TurnoService) {
 
-		this.voltar = voltar;
-		this.inicio = inicio;
-		this.consultarTipoOcorrencia = consultarTipoOcorrencia;
-		this.salvarOcorrencia = salvarOcorrencia;
-		this.campos = null;
-		this.indexTipoOcorrenciaSelecionada = null;
+		var vm = this;
+		vm.voltar = voltar;
+		vm.inicio = inicio;
+		vm.consultarTipoOcorrencia = consultarTipoOcorrencia;
+		vm.salvarOcorrencia = salvarOcorrencia;
+		vm.campos = null;
+		vm.indexTipoOcorrenciaSelecionada = null;
 		$scope.sair = UtilsService.logout;
 
 		function inicializar() {
+
+			UtilsService.ativarLoading();
+
+			var funcSucesso = function(data) {
+				if(data != null) {
+					vm.turnoConsulta = data;
+				}
+
+				UtilsService.desativarLoading();
+			};
+
+			TurnoService.consultarDetalheTurno($stateParams.codigoTurno, funcSucesso);
+
 			vm.tiposOcorrencia = $stateParams.tiposOcorrencia;
 			vm.informantesOcorrencias = $rootScope.dominios.informantesOcorrencias;
 
@@ -69,6 +83,7 @@
 		}
 
 		function resetCadastro() {
+			inicializar();
 			vm.tipoOcorrencia = null;
 			vm.ocorrencia = {};
 			vm.ocorrencia.campos = [];

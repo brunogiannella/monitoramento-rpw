@@ -10,6 +10,7 @@
 	function FinalizarTurnoController($rootScope, $scope, $stateParams, TurnoService, UtilsService) {
 
 		var vm = this;
+		vm.sair = UtilsService.logout;
 		vm.voltar = voltar;
 		vm.inicio = inicio;
 		vm.finalizarTurno = finalizarTurno;
