@@ -10,5 +10,6 @@ public interface IChatDao {
     void salvarChat(Chat chat);
     List<Chat> listarChatsUsuario(Usuario usuario);
     void removerChat(Usuario usuarioSolicitante, Chat chat) throws Exception;
+	Chat consultarChat(Long idChat);
 	
 }

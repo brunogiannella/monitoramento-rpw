@@ -41,6 +41,7 @@ var app = angular.module('app',['ui.router',
                   'usuario.service',
                   'camera.service',
                   'equipamento.service',
+                  'chat.service',
                   'ocorrencia.service']);
  
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider)

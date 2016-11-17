@@ -7,7 +7,9 @@ public class ChatDTO {
 
 	private Long id;
 	private Long codigoUsuarioFrom;
+	private String nomeUsuarioFrom;
 	private Long codigoUsuarioTo;
+	private String nomeUsuarioTo;
 	private String dataAbertura;
 	private String assunto;
 	private List<MensagemChatDTO> mensagens = new ArrayList<MensagemChatDTO>();
@@ -60,4 +62,20 @@ public class ChatDTO {
 		this.mensagens = mensagens;
 	}
 
+	public String getNomeUsuarioFrom() {
+		return nomeUsuarioFrom;
+	}
+
+	public void setNomeUsuarioFrom(String nomeUsuarioFrom) {
+		this.nomeUsuarioFrom = nomeUsuarioFrom;
+	}
+
+	public String getNomeUsuarioTo() {
+		return nomeUsuarioTo;
+	}
+
+	public void setNomeUsuarioTo(String nomeUsuarioTo) {
+		this.nomeUsuarioTo = nomeUsuarioTo;
+	}
+	
 }
