@@ -1,5 +1,7 @@
 package br.com.rpw.monitoramento.api.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.rpw.monitoramento.api.constantes.TipoUsuarioEnum;
 import br.com.rpw.monitoramento.api.dto.CadastrarUsuarioRequestDTO;
 import br.com.rpw.monitoramento.api.model.RestObject;
+import br.com.rpw.monitoramento.api.model.Usuario;
 import br.com.rpw.monitoramento.api.service.impl.UsuarioService;
 import br.com.rpw.monitoramento.api.util.TokenUtil;
 
@@ -66,6 +69,25 @@ public class UsuarioController {
 	public RestObject consultarUsuario(@PathVariable Long id, @RequestHeader(value="x-acess-token") String token) { 
 		try {
 			return new RestObject(200, true, "Consulta realizada com sucesso", usuarioService.consultarUsuario(id));
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro na consulta de usuários: " + e.getMessage(), null);
+		}
+	}
+	
+	@RequestMapping(value="/tipo/{tipo}", method = RequestMethod.GET)
+	public RestObject consultarUsuario(@PathVariable String tipo, @RequestHeader(value="x-acess-token") String token) { 
+		try {
+			
+			List<Usuario> usuarios = null;
+			if(TipoUsuarioEnum.ADMINISTRADOR.getDescricao().equals(tipo)) {
+				usuarios = usuarioService.consultarUsuariosAdministradores();
+			} else if(TipoUsuarioEnum.FUNCIONARIO.getDescricao().equals(tipo)) {
+				usuarios = usuarioService.consultarUsuariosFuncionarios();
+			} else if(TipoUsuarioEnum.SUPERVISOR.getDescricao().equals(tipo)) {
+				usuarios = usuarioService.consultarUsuariosSupervisores();
+			}
+			
+			return new RestObject(200, true, "Consulta realizada com sucesso", usuarios);
 		} catch(Exception e) {
 			return new RestObject(500, false, "Ocorreu um erro na consulta de usuários: " + e.getMessage(), null);
 		}

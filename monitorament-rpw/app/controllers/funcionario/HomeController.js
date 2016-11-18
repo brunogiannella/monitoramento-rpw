@@ -14,6 +14,7 @@
 		var vm = this;
 		vm.irParaTurnos = turnos; 
 		vm.irParaOcorrencias = ocorrencias;
+		vm.irParaMensagens = mensagens;
 		vm.gerenciarCameras = gerenciarCameras;
 		vm.consultarTurno = consultarTurno;
 		vm.finalizarTurno = finalizarTurno;
@@ -75,6 +76,10 @@
 			};
 
 			TurnoService.consultarTurnosUsuario(codigoUsuario, funcSucesso);
+		};
+
+		function mensagens() {
+			UtilsService.irPara("chats");
 		};
 
 		function ocorrencias() {

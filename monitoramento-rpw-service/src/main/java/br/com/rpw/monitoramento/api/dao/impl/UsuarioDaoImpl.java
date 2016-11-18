@@ -8,6 +8,7 @@ import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
+import br.com.rpw.monitoramento.api.constantes.TipoUsuarioEnum;
 import br.com.rpw.monitoramento.api.dao.AbstractDao;
 import br.com.rpw.monitoramento.api.dao.IUsuarioDao;
 import br.com.rpw.monitoramento.api.model.Usuario;
@@ -20,6 +21,7 @@ public class UsuarioDaoImpl extends AbstractDao implements IUsuarioDao {
         persist(usuario);
     }
  
+    @Override
     @SuppressWarnings("unchecked")
     public List<Usuario> listarUsuarios() {
         Criteria criteria = getSession().createCriteria(Usuario.class);
@@ -27,6 +29,16 @@ public class UsuarioDaoImpl extends AbstractDao implements IUsuarioDao {
         return (List<Usuario>) criteria.list();
     }
  
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Usuario> listarUsuarios(TipoUsuarioEnum tipoUsuario) {
+        Criteria criteria = getSession().createCriteria(Usuario.class);
+        criteria.add(Restrictions.eq("ativo",true));
+        criteria.add(Restrictions.eq("tipoUsuario", tipoUsuario));
+        return (List<Usuario>) criteria.list();
+    }
+    
+    @Override
     public void deleteEmployeeById(Long codigoUsuario) {
     	Usuario usuario = consultarUsuario(codigoUsuario);
     	usuario.setAtivo(false);

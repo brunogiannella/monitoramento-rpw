@@ -30,6 +30,8 @@ var app = angular.module('app',['ui.router',
                   'cadastrarTipoOcorrenciaController.controller',
                   'desassociarTipoOcorrencia.controller',
                   'desassociarTipoOcorrenciaPersonalizada.controller',
+                  'chat.controller',
+                  'novoChat.controller',
 
 							    'constantes.service',
 							    'utils.service',
@@ -288,7 +290,17 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       url: '/cadastrar-tipo-ocorrencias',
       templateUrl: 'app/views/admin/cadastrar-tipo-ocorrencias.html',
       controller: 'CadastrarTipoOcorrenciaController as CadastrarTipoOcorrenciaCrtl'
+    })
+    .state('chats', {
+      url: '/chats',
+      templateUrl: 'app/views/generico/chat.html',
+      controller: 'ChatController as ChatCrtl'
+    }).state('novo-chat', {
+      url: '/novo-chat',
+      templateUrl: 'app/views/generico/novo-chat.html',
+      controller: 'NovoChatController as NovoChatCrtl'
     });
+
 
 	    // Utilizando o HTML5 History API
 	 $locationProvider.html5Mode(true);

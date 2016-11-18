@@ -43,6 +43,21 @@ public class UsuarioService implements IUsuarioService {
 	}
 	
 	@Override
+	public List<Usuario> consultarUsuariosAdministradores() throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		return usuarioDaoImpl.listarUsuarios(TipoUsuarioEnum.ADMINISTRADOR);
+	}
+	
+	@Override
+	public List<Usuario> consultarUsuariosSupervisores() throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		return usuarioDaoImpl.listarUsuarios(TipoUsuarioEnum.SUPERVISOR);
+	}
+	
+	@Override
+	public List<Usuario> consultarUsuariosFuncionarios() throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		return usuarioDaoImpl.listarUsuarios(TipoUsuarioEnum.FUNCIONARIO);
+	}
+	
+	@Override
 	public void atualizarUsuario(CadastrarUsuarioRequestDTO cadastrarUsuarioRequestDto) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		Usuario usuarioPrincipal = consultarUsuario(cadastrarUsuarioRequestDto.getId());
 		Usuario usuario = converterCadastrarUsuarioRequestDTOemUsuario(cadastrarUsuarioRequestDto);

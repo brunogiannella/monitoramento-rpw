@@ -16,4 +16,7 @@ public interface IUsuarioService {
 	void atualizarUsuario(CadastrarUsuarioRequestDTO cadastrarUsuarioRequestDto)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException;
 	BigInteger consultarQuantidadeUsuariosAtivos();
+	List<Usuario> consultarUsuariosAdministradores() throws NoSuchAlgorithmException, UnsupportedEncodingException;
+	List<Usuario> consultarUsuariosSupervisores() throws NoSuchAlgorithmException, UnsupportedEncodingException;
+	List<Usuario> consultarUsuariosFuncionarios() throws NoSuchAlgorithmException, UnsupportedEncodingException;
 }

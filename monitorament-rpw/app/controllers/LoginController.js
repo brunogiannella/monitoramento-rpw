@@ -90,6 +90,13 @@
 			};
 
 			ClienteService.consultarCliente($rootScope.usuarioLogado.idCliente, funcSucessoClienteFuncionario);
+		
+			var funcSucessoToMensagens = function(data) {
+				$rootScope.dominios.toMensagens = data;
+			};
+
+			UsuarioService.consultarUsuariosTipoUsuario($rootScope.usuarioLogado.tipoUsuario, funcSucessoToMensagens);
+
 		}
 
 		function carregarDominiosAdmin() {
@@ -165,6 +172,12 @@
 			};
 
 			IndicadoresService.consultarQuantidadeTiposOcorrenciaPersonalizadas(funcSucessoQuantidadeTiposOcorrenciaPersonalizadas);
+		
+			var funcSucessoToMensagens = function(data) {
+				$rootScope.dominios.toMensagens = data;
+			};
+
+			UsuarioService.consultarUsuariosTipoUsuario($rootScope.usuarioLogado.tipoUsuario, funcSucessoToMensagens);
 		}
 
 	}

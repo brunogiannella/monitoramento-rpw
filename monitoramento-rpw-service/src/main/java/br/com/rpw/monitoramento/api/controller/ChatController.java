@@ -24,7 +24,7 @@ public class ChatController {
 	private ChatService chatService;
 	
 	@RequestMapping(value="", method = RequestMethod.POST)
-	public RestObject abrirNovoChat(@RequestBody ChatDTO chatDTO) { 
+	public RestObject abrirNovoChat(@RequestBody ChatDTO chatDTO, @RequestHeader(value="x-acess-token") String token) { 
 		try {
 			chatService.abrirChat(chatDTO);
 			return new RestObject(200, true, "Cadastro realizado com sucesso", "");

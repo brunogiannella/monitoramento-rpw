@@ -1,0 +1,112 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>RPW • Admin</title>
+        <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="css/admin.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+      <!-- MENU -->
+      <nav>
+
+        <div class="nav-wrapper">
+
+          <div class="logo-symbol hide-on-med-and-up">
+            <img src="img/logo_symbol.png" width="116" height="143">
+          </div>
+
+          <ul class="left hide-on-med-and-up2 btn_menu" data-activates="slide-out">
+            <li><a href="#!"><i class="material-icons">menu</i></a></li>
+          </ul>
+
+          <ul class="right hide-on-small-only btn_sair">
+            <li><a href="#" ng-click="sair();"><i class="material-icons right">exit_to_app</i>Sair</a></li>
+          </ul>
+        </div>
+
+        <ul id="slide-out" class="side-nav fixed rpw-menu">
+          <li class="logo"><img src="img/logo_rpw.png" /></li>
+          <li><a ng-click="NovoChatCrtl.inicio();" class="waves-effect"><i class="material-icons">home</i>Início</a></li>
+          <li><div class="divider"></div></li>
+          <li><a ng-click="NovoChatCrtl.voltar();" class="waves-effect"><i class="material-icons">business</i>Voltar</a></li>
+        </ul>
+
+
+
+      </nav>
+      <!-- /MENU -->
+
+    <main>
+      <div class="section no-p">
+        <div class="container2">
+          <div class="row no-m">
+            <div class="col">
+              <h5 class="header blue-text text-darken-2 center-on-small-only title"><i class="material-icons">person_add</i> <span class="light"> Novo Chat</span></h5>
+
+            </div>
+          </div>
+          <form novalidate name="mainForm" ng-submit="NovoChatCrtl.abrirChat();">
+            <div class="row">
+              <div class="col s12 m12 ">
+                <div class="card-panel">
+                  <p>Utilize o formulário para informar os dados do chat.</p>
+
+                  <div class="row">
+                    <div class="input-field col s6 pr-5">
+                      <input ng-model="NovoChatCrtl.chatDto.assunto" id="mensagem_assunto" name="mensagem_assunto" placeholder="Assunto" type="text">
+                      <label for="mensagem_assunto">Assunto</label>
+                    </div>
+                    
+                    <div class="input-field col s12 m6">
+                      <input id="usuario_to" type="text" style="display:none;" ng-model="NovoChatCrtl.chatDto.codigoUsuarioTo" />
+                      <select onchange="alterarComboUsuarioTo();" class="usuario_to selectable">
+                        <option value="" disabled selected>Selecione</option>
+                        <option ng-repeat="item in NovoChatCrtl.listaUsuariosTo" value="{{item}}">{{item.id}} - {{item.nome}}</option>
+                      </select>
+                      <label>Para:</label>
+                    </div>
+
+                  <div class="input-field col s12">
+                    <button type="submit" class="btn-large blue darken-2 waves-effect waves-light col s12" ng-disabled="mainForm.$invalid">Confirmar
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+
+      <!-- Scripts -->
+      <script type="text/javascript" src="js/materialize.js"></script>
+      <script type="text/javascript">
+        $(document).ready(function(){
+            $('.selectable').material_select();
+            $('.btn_menu').sideNav({
+                menuWidth: 285, 
+                closeOnClick: false
+              }
+            );
+
+
+            $('.collapsible').collapsible();
+            $('.caret').remove();
+          });
+
+        function alterarComboUsuarioTo() {
+          var usuarioSelecionado = $("div.usuario_to li.selected span").get(0).innerHTML;
+          $("#usuario_to").val(usuarioSelecionado.split(" - ")[0]);
+          angular.element($("#usuario_to")).triggerHandler('input');
+        }
+
+      </script>
+      <!-- /Scripts -->
+    </body>
+  </html>
