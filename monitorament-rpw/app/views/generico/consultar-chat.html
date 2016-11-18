@@ -29,9 +29,11 @@
           </ul>
         </div>
             <ul id="slide-out" class="side-nav fixed rpw-menu">
-              <li class="logo"><img src="img/logo_rpw.png" /></li>
-              <li><a ng-click="ChatCrtl.voltar();" class="waves-effect"><i class="material-icons">home</i>Início</a></li>
-            </ul>
+          <li class="logo"><img src="img/logo_rpw.png" /></li>
+          <li><a ng-click="ConsultarChatCrtl.inicio();" class="waves-effect"><i class="material-icons">home</i>Início</a></li>
+          <li><div class="divider"></div></li>
+          <li><a ng-click="ConsultarChatCrtl.voltar();" class="waves-effect"><i class="material-icons">business</i>Voltar</a></li>
+        </ul>
       </nav>
       <!-- /MENU -->
 
@@ -49,48 +51,30 @@
           <div id="dadosCliente">
 
             <center>
-              <span class="texto_destaque" ng-show="ChatCrtl.chatsUsuario.length == 0">Você não possui chats abertos no momento.</span>
+              <span class="texto_destaque" ng-show="ConsultarChatCrtl.mensagensChat.mensagens.length == 0">Esse chat ainda não tem nenhuma mensagem!</span>
             </center>
 
-            <div class="row" ng-show="ChatCrtl.chatsUsuario.length > 0">
-              <label class="col s12 barraBuscaFont">Digite a sua pesquisa: <input style="color:black;" ng-model="searchText"></label>
-            </div>
-
-             <div class="row" ng-show="ChatCrtl.chatsUsuario.length > 0">
-                <div class="col s12 m12" >
-                  <table class="responsive-table striped">
-                    <thead>
-                      <tr>
-                          <th data-field="id">De</th>
-                          <th data-field="id">Para</th>
-                          <th data-field="id">Assunto</th>
-                          <th data-field="id">Data</th>
-                          <th data-field="id" class="center-on-small-only right-align">Operações</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr ng-repeat="chat in ChatCrtl.chatsUsuario | filter:searchText">
-                        <td>{{chat.nomeUsuarioFrom}}</td>
-                        <td>{{chat.nomeUsuarioTo}}</td>
-                        <td>{{chat.assunto}}</td>
-                        <td>{{chat.dataAbertura}}</td>
-                        <td class="right-align">
-                          <a href="#" ng-click="ChatCrtl.consultarChat(chat.id);"><i class="material-icons small blue-text">video_library</i></a>
-                          <a href="#" ng-click="ChatCrtl.removerChat(chat.id, chat.codigoUsuarioFrom);"><i class="material-icons small red-text">delete</i></a>
-                        </td>
-                      </tr>
-                      
-                    </tbody>
-                  </table>
-                </div>
+            <div ng-repeat="mensagem in ConsultarChatCrtl.mensagensChat.mensagens" ng-show="ConsultarChatCrtl.mensagensChat.mensagens.length > 0">
+              
+              <div class="row">
+                <span class="texto_destaque">{{mensagem.dataEnvio}} - {{mensagem.nomeUsuarioFrom}}</span>
               </div>
-
-              <br />
-              <br />
 
               <div class="row">
-                <button class="btn-large blue darken-2 waves-effect waves-light col s12" ng-click="ChatCrtl.novoChat();" name="action">NOVO CHAT</button>
+                {{mensagem.mensagem}}
               </div>
+
+            </div>
+
+            <br />
+            <br />
+
+            <label class="col s12 barraBuscaFont">Digite a mensagem: <input style="color:black;" ng-model="ConsultarChatCrtl.mensagemDto.mensagem"></label>
+
+            <div class="input-field col s12">
+              <a ng-click="ConsultarChatCrtl.enviarMensagem();" class="btn-large blue darken-2 waves-effect waves-light col s12">Enviar
+              </a>
+            </div>
           </div>
 
         </div>

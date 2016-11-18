@@ -112,7 +112,7 @@ public class ChatService implements IChatService {
 		mensagemChat.setUsuarioFrom(new Usuario());
 		mensagemChat.getUsuarioFrom().setId(mensagemDto.getCodigoUsuarioFrom());
 		mensagemChat.setChat(new Chat());
-		mensagemChat.getChat().setId(mensagemDto.getId());
+		mensagemChat.getChat().setId(mensagemDto.getIdChat());
 		
 		return mensagemChat;
 	}

@@ -13,7 +13,8 @@
 		vm.sair = UtilsService.logout;
 		vm.voltar = voltar;
 		vm.inicio = inicio;
-		vm.novoChat = novoChat;		
+		vm.novoChat = novoChat;
+		vm.consultarChat = consultarChat;
 
 		function inicializar() {
 			var codigoUsuario = $rootScope.usuarioLogado.idUsuario;
@@ -33,6 +34,10 @@
 
 		function novoChat() {
 			UtilsService.irPara('novo-chat');
+		}
+
+		function consultarChat(idChat) {
+			UtilsService.irPara('consultar-chat', {idChat:idChat});
 		}
 
 		function voltar() {
