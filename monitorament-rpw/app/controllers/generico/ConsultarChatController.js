@@ -10,7 +10,7 @@
 	function ConsultarChatController($rootScope, $scope, $stateParams, ChatService, UtilsService) {
 
 		var vm = this;
-		vm.sair = UtilsService.logout;
+		$scope.sair = UtilsService.logout;
 		vm.voltar = voltar;
 		vm.inicio = inicio;	
 		vm.enviarMensagem = enviarMensagem
@@ -26,7 +26,7 @@
 				}
 			};
 
-			ChatService.consultarChat($stateParams.idChat, funcSucesso);
+			ChatService.consultarChat($stateParams.idChat, $rootScope.usuarioLogado.idUsuario, funcSucesso);
 		}
 
 		function enviarMensagem() {

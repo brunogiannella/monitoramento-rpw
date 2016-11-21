@@ -80,9 +80,9 @@ public class UsuarioController {
 			
 			List<Usuario> usuarios = null;
 			if(TipoUsuarioEnum.ADMINISTRADOR.getDescricao().equals(tipo)) {
-				usuarios = usuarioService.consultarUsuariosAdministradores();
-			} else if(TipoUsuarioEnum.FUNCIONARIO.getDescricao().equals(tipo)) {
 				usuarios = usuarioService.consultarUsuariosFuncionarios();
+			} else if(TipoUsuarioEnum.FUNCIONARIO.getDescricao().equals(tipo)) {
+				usuarios = usuarioService.consultarUsuariosAdministradores();
 			} else if(TipoUsuarioEnum.SUPERVISOR.getDescricao().equals(tipo)) {
 				usuarios = usuarioService.consultarUsuariosSupervisores();
 			}

@@ -54,10 +54,10 @@ public class ChatController {
 		}
 	}
 	
-	@RequestMapping(value="/{id}", method = RequestMethod.GET)
-	public RestObject consultarChat(@PathVariable Long id, @RequestHeader(value="x-acess-token") String token) { 
+	@RequestMapping(value="/{id}/usuario/{idUsuario}", method = RequestMethod.GET)
+	public RestObject consultarChat(@PathVariable Long id, @PathVariable Long idUsuario, @RequestHeader(value="x-acess-token") String token) { 
 		try {
-			return new RestObject(200, true, "Consulta realizada com sucesso", chatService.consultarChat(id));
+			return new RestObject(200, true, "Consulta realizada com sucesso", chatService.consultarChat(id, idUsuario));
 		} catch(Exception e) {
 			return new RestObject(500, false, "Ocorreu um erro na consulta do chat: " + e.getMessage(), null);
 		}

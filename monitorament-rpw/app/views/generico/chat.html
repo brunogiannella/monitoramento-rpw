@@ -70,9 +70,9 @@
                     </thead>
                     <tbody>
                       <tr ng-repeat="chat in ChatCrtl.chatsUsuario | filter:searchText">
-                        <td>{{chat.nomeUsuarioFrom}}</td>
-                        <td>{{chat.nomeUsuarioTo}}</td>
-                        <td>{{chat.assunto}}</td>
+                        <td ng-class="{'bold':chat.naoLida}">{{chat.nomeUsuarioFrom}}</td>
+                        <td ng-class="{'bold':chat.naoLida}">{{chat.nomeUsuarioTo}}</td>
+                        <td ng-class="{'bold':chat.naoLida}">{{chat.assunto}}</td>
                         <td>{{chat.dataAbertura}}</td>
                         <td class="right-align">
                           <a href="#" ng-click="ChatCrtl.consultarChat(chat.id);"><i class="material-icons small blue-text">video_library</i></a>

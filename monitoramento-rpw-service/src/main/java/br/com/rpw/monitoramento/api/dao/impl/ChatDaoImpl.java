@@ -3,6 +3,7 @@ package br.com.rpw.monitoramento.api.dao.impl;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +25,7 @@ public class ChatDaoImpl extends AbstractDao implements IChatDao{
 	public List<Chat> listarChatsUsuario(Usuario usuario) {
 		Criteria criteria = getSession().createCriteria(Chat.class);
 		criteria.add(Restrictions.or(Restrictions.eq("usuarioTo.id", usuario.getId()), Restrictions.eq("usuarioFrom.id", usuario.getId())));
+		criteria.addOrder(Order.desc("dataUltimaMensagem"));
         return (List<Chat>) criteria.list();
 	}
 	
@@ -52,6 +54,9 @@ public class ChatDaoImpl extends AbstractDao implements IChatDao{
 		}
 	}
 
-	
+	@Override
+	public void atualizarChat(Chat chat) {
+		getSession().update(chat);
+	}
 	
 }

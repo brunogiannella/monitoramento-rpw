@@ -82,6 +82,12 @@
                           <input ng-model="CadastrarOcorrenciaCrtl.ocorrencia.campos[$index].valor" id="chamadapostos_responsavel" type="text" ng-if="campo.tipoCampo == 'TEXTO'" />
                           
                           <input ng-model="CadastrarOcorrenciaCrtl.ocorrencia.campos[$index].valor" id="chamadapostos_responsavel" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text'); preencherCampoValor();" ng-if="campo.tipoCampo == 'DATA'">
+
+                            <input id="cameraSelecionada" type="text" style="display:none;" ng-model="CadastrarOcorrenciaCrtl.ocorrencia.campos[$index].valor" ng-if="campo.tipoCampo == 'EQUIPAMENTOS'"/>
+                            <select onload="$('.selectableEquip').material_select();$('.caret').remove();" onchange="alterarComboCamera();" class="cameraSelecionada_gerenciair selectableEquip" ng-if="campo.tipoCampo == 'EQUIPAMENTOS'">
+                              <option value="" disabled selected>Selecione</option>
+                              <option ng-repeat="camera in CadastrarOcorrenciaCrtl.camerasCliente" value="{{camera.id}}">{{camera.id}} - {{camera.descricaoCamera}}</option>
+                            </select>
                           
                           <label class="active" for="chamadapostos_responsavel">{{campo.descricao}}</label>
                         </div>
@@ -124,14 +130,12 @@
                           <thead>
                             <tr>
                                 <th data-field="id">Tipo de ocorrência</th>
-                                <th data-field="id">Data</th>
                                 <th data-field="id">Resumo</th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr ng-repeat="ocorrencia in grupoOcorrencia.ocorrenciasDto | filter:searchText">
                               <td>{{ocorrencia.descTipoOcorrencia}}</td>
-                              <td>{{ocorrencia.dataCadastro}}</td>
                               <td>{{ocorrencia.resumoOcorrencia}}</td>
                             </tr>
                           </tbody>
@@ -160,9 +164,6 @@
       <script type="text/javascript" src="js/materialize.js"></script>
       <script type="text/javascript">
         $(document).ready(function(){
-            $('.collapsible').collapsible({
-              accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-            });
             $('.selectable').material_select();
             $('.btn_menu').sideNav({
                 menuWidth: 285, 
@@ -189,6 +190,12 @@
           var informanteOcorrenciaSelecionado = $("div.usuario_informanteOcorrencia > input.select-dropdown").val();
           $("#informanteOcorrencia").val(informanteOcorrenciaSelecionado);
           angular.element($("#informanteOcorrencia")).triggerHandler('input')
+        }
+
+        function alterarComboCamera() {
+          var cameraSelecionada = $("div.cameraSelecionada_gerenciair > input.select-dropdown").val();
+          $("#cameraSelecionada").val(cameraSelecionada.split(" - ")[0]);
+          angular.element($("#cameraSelecionada")).triggerHandler('input')
         }
       </script>
       <!-- /Scripts -->

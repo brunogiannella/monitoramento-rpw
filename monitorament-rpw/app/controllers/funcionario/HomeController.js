@@ -29,6 +29,10 @@
 
 					var codigoCliente = $rootScope.clienteFuncionario.id;
 
+					if(codigoCliente == null) {
+						alert("Seu usuário não está associado a nenhum cliente. Favor solicitar inclusão.");
+					}
+
 					var funcSucesso = function(data) {
 						if(data != null && data.length > 0) {
 							vm.turnosAnteriores = data;

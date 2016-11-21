@@ -27,6 +27,10 @@
 		this.tiposOcorrencia = function() {
 			UtilsService.irPara('tipos-ocorrencia');
 		}
+
+		this.mensagens = function() {
+			UtilsService.irPara("chats");
+		};
 	}
 
 })();

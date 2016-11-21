@@ -1,5 +1,6 @@
 package br.com.rpw.monitoramento.api.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,13 +38,34 @@ public class ChatService implements IChatService {
 	public void enviarMensagem(MensagemChatDTO mensagemChatDto) {
 		MensagemChat mensagemChat = converterMensagemDTOEmMensagem(mensagemChatDto);
 		mensagemChatDaoImpl.salvarMensagemChat(mensagemChat);
+		
+		Chat chat = chatDaoImpl.consultarChat(mensagemChatDto.getIdChat());
+		if(chat.getUsuarioFrom().getId().equals(mensagemChatDto.getCodigoUsuarioFrom())) {
+			chat.setLidaUsuarioFrom(true);
+			chat.setLidaUsuarioTo(false);
+		} else if(chat.getUsuarioTo().getId().equals(mensagemChatDto.getCodigoUsuarioFrom())) {
+			chat.setLidaUsuarioTo(true);
+			chat.setLidaUsuarioFrom(false);
+		}
+		
+		chat.setDataUltimaMensagem(new Date());
+		
+		chatDaoImpl.atualizarChat(chat);
 	}
 
 	@Override
-	public ChatDTO consultarChat(Long idChat) {
+	public ChatDTO consultarChat(Long idChat, Long idUsuario) {
 		Chat chat = chatDaoImpl.consultarChat(idChat);
+		
+		if(chat.getUsuarioFrom().getId().equals(idUsuario)) {
+			chat.setLidaUsuarioFrom(true);
+		} else if(chat.getUsuarioTo().getId().equals(idUsuario)) {
+			chat.setLidaUsuarioTo(true);
+		}
+		chatDaoImpl.atualizarChat(chat);
+		
 		chat.setMensagens(mensagemChatDaoImpl.listarMensagensChat(chat));
-		return converterChatEmChatDTO(chat, true);
+		return converterChatEmChatDTO(chat, null, true);
 	}
 
 	@Override
@@ -52,13 +74,13 @@ public class ChatService implements IChatService {
 		
 		List<ChatDTO> chatsDto = new ArrayList<ChatDTO>();
 		for(Chat chatAtual : chats) {
-			chatsDto.add(converterChatEmChatDTO(chatAtual, false));
+			chatsDto.add(converterChatEmChatDTO(chatAtual, usuario, false));
 		}
 		
 		return chatsDto;
 	}
 
-	private ChatDTO converterChatEmChatDTO(Chat chat, boolean completo) {
+	private ChatDTO converterChatEmChatDTO(Chat chat, Usuario usuario, boolean completo) {
 		ChatDTO chatDto = new ChatDTO();
 		
 		chatDto.setAssunto(chat.getAssunto());
@@ -68,6 +90,25 @@ public class ChatService implements IChatService {
 		chatDto.setNomeUsuarioTo(chat.getUsuarioTo().getNome());
 		chatDto.setDataAbertura("");
 		chatDto.setId(chat.getId());
+		
+		if(chat.getDataUltimaMensagem() != null) {
+			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+			chatDto.setDataAbertura(formato.format(chat.getDataUltimaMensagem()));
+		}
+		
+		if(usuario != null) {
+			if(!chat.getLidaUsuarioFrom()) {
+				if(usuario.getId().equals(chat.getUsuarioFrom().getId())) {
+					chatDto.setNaoLida(true);
+				}
+			}
+			
+			if(!chat.getLidaUsuarioTo()) {
+				if(usuario.getId().equals(chat.getUsuarioTo().getId())) {
+					chatDto.setNaoLida(true);
+				}
+			}
+		}
 		
 		if(completo) {
 			if(chat.getMensagens() != null) {
@@ -96,7 +137,7 @@ public class ChatService implements IChatService {
 		chat.getUsuarioFrom().setId(chatDto.getCodigoUsuarioFrom());
 		chat.setUsuarioTo(new Usuario());
 		chat.getUsuarioTo().setId(chatDto.getCodigoUsuarioTo());
-		
+			
 		return chat;
 	}
 	

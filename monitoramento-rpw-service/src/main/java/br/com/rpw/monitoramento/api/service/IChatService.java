@@ -10,7 +10,7 @@ public interface IChatService {
 
 	void abrirChat(ChatDTO chatDto);
 	void enviarMensagem(MensagemChatDTO mensagemChatDto);
-	ChatDTO consultarChat(Long idChat);
-	List<ChatDTO> consultarChatsUsuario(Usuario usuario);	
+	List<ChatDTO> consultarChatsUsuario(Usuario usuario);
+	ChatDTO consultarChat(Long idChat, Long idUsuario);	
 	
 }

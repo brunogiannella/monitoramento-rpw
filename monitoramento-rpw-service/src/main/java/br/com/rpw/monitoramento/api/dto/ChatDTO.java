@@ -12,6 +12,7 @@ public class ChatDTO {
 	private String nomeUsuarioTo;
 	private String dataAbertura;
 	private String assunto;
+	private boolean naoLida;
 	private List<MensagemChatDTO> mensagens = new ArrayList<MensagemChatDTO>();
 
 	public Long getId() {
@@ -76,6 +77,14 @@ public class ChatDTO {
 
 	public void setNomeUsuarioTo(String nomeUsuarioTo) {
 		this.nomeUsuarioTo = nomeUsuarioTo;
+	}
+
+	public boolean isNaoLida() {
+		return naoLida;
+	}
+
+	public void setNaoLida(boolean naoLida) {
+		this.naoLida = naoLida;
 	}
 	
 }

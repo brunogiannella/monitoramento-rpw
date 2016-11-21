@@ -9,6 +9,7 @@
 
 	function GerenciarCamerasController($rootScope, $scope, $stateParams, ClienteService, CameraService, UtilsService) {
 
+		this.sair = UtilsService.logout;
 		this.voltar = voltar;
 		this.inicio = inicio;
 		this.inserirAvalicacaoDesligada = inserirAvalicacaoDesligada;

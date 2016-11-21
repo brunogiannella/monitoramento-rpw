@@ -23,25 +23,35 @@ public class Chat {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "ID_USUARIO_FROM")
 	private Usuario usuarioFrom;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "ID_USUARIO_TO")
 	private Usuario usuarioTo;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "DATA_ABERTURA")
 	private Date dataAbertura;
-	
+
 	@Column(name = "ASSUNTO", nullable = false)
 	private String assunto;
-	
+
+	@Column(name = "LIDA_USUARIO_FROM")
+	private Boolean lidaUsuarioFrom = false;
+
+	@Column(name = "LIDA_USUARIO_TO")
+	private Boolean lidaUsuarioTo = false;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "DATA_ULTIMA_MENSAGEM")
+	private Date dataUltimaMensagem;
+
 	@Column(name = "ATIVO")
 	private Boolean ativo = true;
-	
+
 	@Transient
 	private List<MensagemChat> mensagens = new ArrayList<MensagemChat>();
 
@@ -100,5 +110,29 @@ public class Chat {
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
 	}
-	
+
+	public Boolean getLidaUsuarioFrom() {
+		return lidaUsuarioFrom;
+	}
+
+	public void setLidaUsuarioFrom(Boolean lidaUsuarioFrom) {
+		this.lidaUsuarioFrom = lidaUsuarioFrom;
+	}
+
+	public Boolean getLidaUsuarioTo() {
+		return lidaUsuarioTo;
+	}
+
+	public void setLidaUsuarioTo(Boolean lidaUsuarioTo) {
+		this.lidaUsuarioTo = lidaUsuarioTo;
+	}
+
+	public Date getDataUltimaMensagem() {
+		return dataUltimaMensagem;
+	}
+
+	public void setDataUltimaMensagem(Date dataUltimaMensagem) {
+		this.dataUltimaMensagem = dataUltimaMensagem;
+	}
+
 }

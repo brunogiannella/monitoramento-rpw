@@ -102,12 +102,12 @@
 			});
 		};
 
-		function consultarChat(idChat, fncSucesso) {
+		function consultarChat(idChat, idUsuario, fncSucesso) {
 
 			var  data = {};
 
 			$http({	
-				url : ConstantesService.URL.SERVIDOR + 'chat/' + idChat,
+				url : ConstantesService.URL.SERVIDOR + 'chat/' + idChat + '/usuario/' + idUsuario,
 				method : 'GET',
 				headers: {
 					'x-acess-token': UtilsService.getToken()

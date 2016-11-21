@@ -16,6 +16,7 @@
 		vm.salvarOcorrencia = salvarOcorrencia;
 		vm.campos = null;
 		vm.indexTipoOcorrenciaSelecionada = null;
+		vm.camerasCliente = $rootScope.clienteFuncionario.cameras;
 		$scope.sair = UtilsService.logout;
 
 		function inicializar() {

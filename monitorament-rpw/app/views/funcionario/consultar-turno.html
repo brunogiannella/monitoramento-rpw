@@ -131,7 +131,6 @@
                               <thead>
                                 <tr>
                                     <th data-field="id">Tipo de ocorrência</th>
-                                    <th data-field="id">Data</th>
                                     <th data-field="id">Resumo</th>
                                     <th data-field="id" class="center-on-small-only right-align">Operações</th>
                                 </tr>
@@ -139,7 +138,6 @@
                               <tbody>
                                 <tr ng-repeat="ocorrencia in grupoOcorrencia.ocorrenciasDto | filter:searchText">
                                   <td>{{ocorrencia.descTipoOcorrencia}}</td>
-                                  <td>{{ocorrencia.dataCadastro}}</td>
                                   <td>{{ocorrencia.resumoOcorrencia}}</td>
                                   <td class="right-align">
                                     <a href="#" ng-click="ClienteCrtl.editarCamera(camera);" ng-if="ConsultarTurnosUsuarioCrtl.permiteEdicao"><i class="material-icons small blue-text">mode_edit</i></a>

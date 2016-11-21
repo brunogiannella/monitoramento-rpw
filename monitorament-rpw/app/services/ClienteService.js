@@ -74,6 +74,10 @@
 
 		function consultarCliente(id, fncSucesso) {
 
+			if(id == null) {
+				alert("Seu usuário não está associado a nenhum cliente. Favor solicitar inclusão.");
+			}
+
 			var  data = {};
 
 			$http({	
