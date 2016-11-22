@@ -12,5 +12,6 @@ public interface IChatDao {
     void removerChat(Usuario usuarioSolicitante, Chat chat) throws Exception;
 	Chat consultarChat(Long idChat);
 	void atualizarChat(Chat chat);
+	Integer consultarQuantidadeNovasMensagensUsuario(Usuario usuario);
 	
 }

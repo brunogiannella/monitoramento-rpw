@@ -62,5 +62,17 @@ public class ChatController {
 			return new RestObject(500, false, "Ocorreu um erro na consulta do chat: " + e.getMessage(), null);
 		}
 	}
+
+	@RequestMapping(value="/usuario/{idUsuario}/quantidadeMensagens", method = RequestMethod.GET)
+	public RestObject consultarQuantidadeNovasMensagensUsuario(@PathVariable Long idUsuario, @RequestHeader(value="x-acess-token") String token) { 
+		try {
+			Usuario usuario = new Usuario();
+			usuario.setId(idUsuario);
+			
+			return new RestObject(200, true, "Consulta realizada com sucesso", chatService.consultarQuantidadeNovasMensagensUsuario(usuario));
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro na consulta do chat: " + e.getMessage(), null);
+		}
+	}
 	
 }

@@ -5,32 +5,46 @@
 		.module('homeAdmin.controller', [])
 		.controller('HomeAdminController' , HomeAdminController);
 
-	HomeAdminController.$inject = ['$rootScope', '$location', 'UtilsService'];
+	HomeAdminController.$inject = ['$rootScope', '$location', 'UtilsService', 'ChatService'];
 
-	function HomeAdminController($rootScope, $location, UtilsService) {
-		this.nomeUsuario = $rootScope.usuarioLogado.nomeUsuario;
-		this.quantidadeClientes = $rootScope.indicadores.quantidadeClientes;
-		this.quantidadeUsuarios = $rootScope.indicadores.quantidadeUsuarios;
-		this.quantidadeTiposOcorrencia = $rootScope.indicadores.quantidadeTiposOcorrencia;
-		this.quantidadeTiposOcorrenciaPersonalizadas = $rootScope.indicadores.quantidadeTiposOcorrenciaPersonalizadas;
-		this.irPara = UtilsService.irPara;
-		this.sair = UtilsService.logout;
+	function HomeAdminController($rootScope, $location, UtilsService, ChatService) {
+		var vm = this;
+		vm.nomeUsuario = $rootScope.usuarioLogado.nomeUsuario;
+		vm.quantidadeClientes = $rootScope.indicadores.quantidadeClientes;
+		vm.quantidadeUsuarios = $rootScope.indicadores.quantidadeUsuarios;
+		vm.quantidadeTiposOcorrencia = $rootScope.indicadores.quantidadeTiposOcorrencia;
+		vm.quantidadeTiposOcorrenciaPersonalizadas = $rootScope.indicadores.quantidadeTiposOcorrenciaPersonalizadas;
+		vm.irPara = UtilsService.irPara;
+		vm.sair = UtilsService.logout;
+		vm.quantidadeMensagensNaoLidas = "";
 		
-		this.clientes = function() {
+		function inicializar() {
+			var codigoUsuario = $rootScope.usuarioLogado.idUsuario;
+
+			var funcSucessoQuantidadeMensagensNaoLidas = function(data) {
+				vm.quantidadeMensagensNaoLidas = data;
+			};
+
+			ChatService.consultarQuantidadeNovasMensagensUsuario(codigoUsuario, funcSucessoQuantidadeMensagensNaoLidas);
+		}
+
+		vm.clientes = function() {
 			UtilsService.irPara('clientes');
 		};
 
-		this.usuarios = function() {
+		vm.usuarios = function() {
 			UtilsService.irPara('usuarios');
 		}
 
-		this.tiposOcorrencia = function() {
+		vm.tiposOcorrencia = function() {
 			UtilsService.irPara('tipos-ocorrencia');
 		}
 
-		this.mensagens = function() {
+		vm.mensagens = function() {
 			UtilsService.irPara("chats");
 		};
+
+		inicializar();
 	}
 
 })();

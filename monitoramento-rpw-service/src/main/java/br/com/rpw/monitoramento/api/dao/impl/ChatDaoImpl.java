@@ -30,6 +30,13 @@ public class ChatDaoImpl extends AbstractDao implements IChatDao{
 	}
 	
 	@Override
+	public Integer consultarQuantidadeNovasMensagensUsuario(Usuario usuario) {
+		Criteria criteria = getSession().createCriteria(Chat.class);
+		criteria.add(Restrictions.or(Restrictions.and(Restrictions.eq("usuarioTo.id", usuario.getId()), Restrictions.eq("lidaUsuarioTo", false)), Restrictions.and(Restrictions.eq("usuarioFrom.id", usuario.getId()), Restrictions.eq("lidaUsuarioFrom", false))));
+        return criteria.list().size();
+	}
+	
+	@Override
 	public Chat consultarChat(Long idChat) {
 		Criteria criteria = getSession().createCriteria(Chat.class);
 		criteria.add(Restrictions.eq("id", idChat));

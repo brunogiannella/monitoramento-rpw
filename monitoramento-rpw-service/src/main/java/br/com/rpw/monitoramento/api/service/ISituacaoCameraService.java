@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import br.com.rpw.monitoramento.api.dto.SituacaoCameraDTO;
+import br.com.rpw.monitoramento.api.model.Camera;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.SituacaoCamera;
 
@@ -14,4 +15,5 @@ public interface ISituacaoCameraService {
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException;
 	
 	List<SituacaoCameraDTO> consultarSituacoesCameraAberto(Cliente cliente);
+	Integer consultarSituacaoCamera(Cliente cliente, Camera camera);
 }

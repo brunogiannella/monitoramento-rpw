@@ -12,5 +12,6 @@ public interface IChatService {
 	void enviarMensagem(MensagemChatDTO mensagemChatDto);
 	List<ChatDTO> consultarChatsUsuario(Usuario usuario);
 	ChatDTO consultarChat(Long idChat, Long idUsuario);	
+	Integer consultarQuantidadeNovasMensagensUsuario(Usuario usuario);
 	
 }

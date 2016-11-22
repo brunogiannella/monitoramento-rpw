@@ -133,11 +133,43 @@
 			});
 		};
 
+		function consultarQuantidadeNovasMensagensUsuario(idUsuario, fncSucesso) {
+
+			var  data = {};
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'chat/usuario/' + idUsuario + '/quantidadeMensagens',
+				method : 'GET',
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
+		       }
+		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
+				return false;
+			});
+		};
+
 		return {
 			iniciarNovoChat : iniciarNovoChat,
 			listarChatsUsuario : listarChatsUsuario,
 			enviarMensagem : enviarMensagem,
-			consultarChat : consultarChat
+			consultarChat : consultarChat,
+			consultarQuantidadeNovasMensagensUsuario : consultarQuantidadeNovasMensagensUsuario
 		}
 	}
 

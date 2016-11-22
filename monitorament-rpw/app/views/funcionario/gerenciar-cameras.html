@@ -73,7 +73,7 @@
                               </td>
                               <td>
                                 <div class="input-field col s12 pr-5">
-                                  <input id="usuario_login" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" ng-model="GerenciarCamerasCrtl.situacaoCameraDto.dataHora">
+                                  <input id="usuario_login" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text');conveterDataTexto(this);" ng-model="GerenciarCamerasCrtl.situacaoCameraDto.dataHora">
                                   <label for="usuario_login">Data de início</label>
                                 </div> 
                               </td>
@@ -107,7 +107,7 @@
                           </td>
                           <td>
                             <div class="input-field col s12 no-mt">
-                              <input ng-model="GerenciarCamerasCrtl.dataAvaliacaoLigada" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" class="validate">
+                              <input ng-model="GerenciarCamerasCrtl.dataAvaliacaoLigada" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text'); conveterDataTexto(this);" class="validate">
                               <label for="usuario_login">Data volta</label>
                             </div>
                           </td>
@@ -146,6 +146,24 @@
           var cameraSelecionada = $("div.cameraSelecionada_gerenciair > input.select-dropdown").val();
           $("#cameraSelecionada").val(cameraSelecionada.split(" - ")[0]);
           angular.element($("#cameraSelecionada")).triggerHandler('input')
+        }
+
+        function conveterDataTexto(input) {
+          var str = $(input).val();
+          var splitDataHora = str.split("T");
+          var data = splitDataHora[0];
+          var hora = splitDataHora[1];
+
+          var splitData = data.split("-");
+          var ano = splitData[0];
+          var mes = splitData[1];
+          var dia = splitData[2];
+
+          var splitHora = hora.split(":");
+          var hora = splitHora[0];
+          var minuto = splitHora[1];
+          
+          $(input).val(dia+"/"+mes+"/"+ano+" "+hora+":"+minuto);
         }
       </script>
       <!-- /Scripts -->

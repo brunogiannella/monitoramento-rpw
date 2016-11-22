@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.rpw.monitoramento.api.dto.SituacaoCameraDTO;
+import br.com.rpw.monitoramento.api.model.Camera;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.RestObject;
 import br.com.rpw.monitoramento.api.model.SituacaoCamera;
@@ -26,6 +27,21 @@ public class SituacaoCameraController {
 	@RequestMapping(value="", method = RequestMethod.POST)
 	public RestObject inserirAvaliacaoCamera(@RequestBody SituacaoCameraDTO situacaoCameraDTO) { 
 		try {
+			
+			if(situacaoCameraDTO.getIdSituacaoCamera() == null) {
+				Cliente cliente = new Cliente();
+				cliente.setId(situacaoCameraDTO.getIdCliente());
+				
+				Camera camera = new Camera();
+				camera.setId(situacaoCameraDTO.getIdCamera());
+				
+				Integer quantidadeRegistros = situacaoCameraService.consultarSituacaoCamera(cliente, camera);
+				
+				if(quantidadeRegistros > 0) {
+					return new RestObject(200, false, "A câmera já está inativa, por favor primeiro reative a mesma.", null);
+				}
+			}
+			
 			SituacaoCamera situacaoCamera = situacaoCameraService.inserirAvaliacao(situacaoCameraDTO);			
 			if(situacaoCamera.getId() == null) {
 				return new RestObject(200, true, "Ocorreu um problema ao cadastrar a situação da camera", null);

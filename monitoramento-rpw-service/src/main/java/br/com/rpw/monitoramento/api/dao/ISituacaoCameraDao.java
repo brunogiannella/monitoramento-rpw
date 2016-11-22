@@ -2,6 +2,7 @@ package br.com.rpw.monitoramento.api.dao;
 
 import java.util.List;
 
+import br.com.rpw.monitoramento.api.model.Camera;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.SituacaoCamera;
 
@@ -13,5 +14,6 @@ public interface ISituacaoCameraDao {
     SituacaoCamera consultarSituacaoCamera(Long idSituacaoCamera);
     void atualizarSituacaoCamera(SituacaoCamera SituacaoCamera);
 	List<SituacaoCamera> listarSituacaoCamerasEmAberto(Cliente cliente);
+	Integer consultarSituacaoCamera(Cliente cliente, Camera camera);
 	
 }

@@ -26,7 +26,8 @@
 		       	  if(response.data.sucess) {
 		       	  	fncSucesso(response.data.data);
 		       	  } else {
-		       	  	UtilsService.tratarErrosHttp(response);
+		       	  	alert(response.data.message);
+		       	  	UtilsService.desativarLoading();
 		       	  	return false;
 		       	  }
 

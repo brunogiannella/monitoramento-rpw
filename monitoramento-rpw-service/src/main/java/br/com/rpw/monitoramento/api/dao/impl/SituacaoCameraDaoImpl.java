@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.rpw.monitoramento.api.dao.AbstractDao;
 import br.com.rpw.monitoramento.api.dao.ISituacaoCameraDao;
+import br.com.rpw.monitoramento.api.model.Camera;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.SituacaoCamera;
 
@@ -50,6 +51,16 @@ public class SituacaoCameraDaoImpl extends AbstractDao implements ISituacaoCamer
 		Criteria criteria = getSession().createCriteria(SituacaoCamera.class);
         criteria.add(Restrictions.eq("id",idSituacaoCamera));
         return (SituacaoCamera) criteria.uniqueResult();
+	}
+	
+	@Override
+	public Integer consultarSituacaoCamera(Cliente cliente, Camera camera) {
+		Criteria criteria = getSession().createCriteria(SituacaoCamera.class);
+		criteria.add(Restrictions.eq("cliente.id",cliente.getId()));
+		criteria.add(Restrictions.eq("camera.id",camera.getId()));
+		criteria.add(Restrictions.eq("desligada", true));
+		criteria.add(Restrictions.eq("ligada", false));
+        return criteria.list().size();
 	}
 
 	@Override

@@ -10,7 +10,7 @@
 	function ChatController($rootScope, $scope, $stateParams, ChatService, UtilsService) {
 
 		var vm = this;
-		vm.sair = UtilsService.logout;
+		$scope.sair = UtilsService.logout;
 		vm.voltar = voltar;
 		vm.inicio = inicio;
 		vm.novoChat = novoChat;

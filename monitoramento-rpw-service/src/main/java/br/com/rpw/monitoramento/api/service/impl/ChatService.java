@@ -166,9 +166,16 @@ public class ChatService implements IChatService {
 		mensagemChatDto.setCodigoUsuarioFrom(mensagem.getUsuarioFrom().getId());
 		mensagemChatDto.setIdChat(mensagem.getChat().getId());
 		mensagemChatDto.setNomeUsuarioFrom(mensagem.getUsuarioFrom().getNome());
-		mensagemChatDto.setDataEnvio("");
+		
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		mensagemChatDto.setDataEnvio(formato.format(mensagem.getDataEnvio()));
 		
 		return mensagemChatDto;
+	}
+
+	@Override
+	public Integer consultarQuantidadeNovasMensagensUsuario(Usuario usuario) {
+		return chatDaoImpl.consultarQuantidadeNovasMensagensUsuario(usuario);
 	}
 	
 }

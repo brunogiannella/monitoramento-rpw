@@ -91,4 +91,9 @@ public class SituacaoCameraService implements ISituacaoCameraService {
 		return situacaoCamera;
 	}
 
+	@Override
+	public Integer consultarSituacaoCamera(Cliente cliente, Camera camera) {
+		return this.situacaoCameraDaoImpl.consultarSituacaoCamera(cliente, camera);
+	}
+
 }

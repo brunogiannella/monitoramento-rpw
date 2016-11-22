@@ -5,9 +5,9 @@
 		.module('home.controller', [])
 		.controller('HomeController' , HomeController);
 
-	HomeController.$inject = ['$rootScope', '$scope', 'UtilsService', 'TurnoService', 'ClienteService'];
+	HomeController.$inject = ['$rootScope', '$scope', 'UtilsService', 'TurnoService', 'ClienteService', 'ChatService'];
 
-	function HomeController($rootScope, $scope, UtilsService, TurnoService, ClienteService) {
+	function HomeController($rootScope, $scope, UtilsService, TurnoService, ClienteService, ChatService) {
 		this.nomeUsuario = $rootScope.usuarioLogado.nomeUsuario;
 		this.irPara = UtilsService.irPara;
 		this.sair = UtilsService.logout;
@@ -18,10 +18,18 @@
 		vm.gerenciarCameras = gerenciarCameras;
 		vm.consultarTurno = consultarTurno;
 		vm.finalizarTurno = finalizarTurno;
+		vm.quantidadeMensagensNaoLidas = $rootScope.quantidadesMensagensNaoLidas;
 
 		function inicializar() {
 			UtilsService.ativarLoading();
 			var codigoUsuario = $rootScope.usuarioLogado.idUsuario;
+
+			var funcSucessoQuantidadeMensagensNaoLidas = function(data) {
+				vm.quantidadeMensagensNaoLidas = data;
+			};
+
+			ChatService.consultarQuantidadeNovasMensagensUsuario(codigoUsuario, funcSucessoQuantidadeMensagensNaoLidas);
+
 
 			var funcSucesso = function(data) {
 				if(data != null) {
