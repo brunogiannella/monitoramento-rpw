@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.rpw.monitoramento.api.dto.ChatDTO;
 import br.com.rpw.monitoramento.api.dto.MensagemChatDTO;
+import br.com.rpw.monitoramento.api.model.Chat;
 import br.com.rpw.monitoramento.api.model.RestObject;
 import br.com.rpw.monitoramento.api.model.Usuario;
 import br.com.rpw.monitoramento.api.service.impl.ChatService;
@@ -58,6 +59,24 @@ public class ChatController {
 	public RestObject consultarChat(@PathVariable Long id, @PathVariable Long idUsuario, @RequestHeader(value="x-acess-token") String token) { 
 		try {
 			return new RestObject(200, true, "Consulta realizada com sucesso", chatService.consultarChat(id, idUsuario));
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro na consulta do chat: " + e.getMessage(), null);
+		}
+	}
+	
+	@RequestMapping(value="/{id}/usuario/{idUsuario}", method = RequestMethod.DELETE)
+	public RestObject removerChat(@PathVariable Long id, @PathVariable Long idUsuario, @RequestHeader(value="x-acess-token") String token) { 
+		try {
+			
+			Usuario usuario = new Usuario();
+			usuario.setId(idUsuario);
+			
+			Chat chat = new Chat();
+			chat.setId(id);
+			
+			chatService.removerChat(usuario, chat);
+			
+			return new RestObject(200, true, "Consulta realizada com sucesso", null);
 		} catch(Exception e) {
 			return new RestObject(500, false, "Ocorreu um erro na consulta do chat: " + e.getMessage(), null);
 		}

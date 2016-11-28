@@ -33,6 +33,7 @@ var app = angular.module('app',['ui.router',
                   'chat.controller',
                   'novoChat.controller',
                   'consultarChat.controller',
+                  'removerChat.controller',
 
 							    'constantes.service',
 							    'utils.service',
@@ -307,6 +308,13 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       },
       templateUrl: 'app/views/generico/consultar-chat.html',
       controller: 'ConsultarChatController as ConsultarChatCrtl'
+    }).state('remover-chat', {
+      url: '/remover-chat',
+      params: {
+        chat : null
+      },
+      templateUrl: 'app/views/generico/remover-chat.html',
+      controller: 'RemoverChatController as RemoverChatCrtl'
     });
 
 

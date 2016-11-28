@@ -7,6 +7,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
+import br.com.rpw.monitoramento.api.constantes.TipoUsuarioEnum;
 import br.com.rpw.monitoramento.api.dao.AbstractDao;
 import br.com.rpw.monitoramento.api.dao.IChatDao;
 import br.com.rpw.monitoramento.api.model.Chat;
@@ -24,8 +25,9 @@ public class ChatDaoImpl extends AbstractDao implements IChatDao{
 	@Override
 	public List<Chat> listarChatsUsuario(Usuario usuario) {
 		Criteria criteria = getSession().createCriteria(Chat.class);
+		criteria.add(Restrictions.eq("ativo", true));
 		criteria.add(Restrictions.or(Restrictions.eq("usuarioTo.id", usuario.getId()), Restrictions.eq("usuarioFrom.id", usuario.getId())));
-		criteria.addOrder(Order.desc("dataUltimaMensagem"));
+		criteria.addOrder(Order.asc("dataUltimaMensagem"));
         return (List<Chat>) criteria.list();
 	}
 	
@@ -50,9 +52,12 @@ public class ChatDaoImpl extends AbstractDao implements IChatDao{
 		Chat chatConsultado = (Chat) criteria.uniqueResult();
 		
 		if(chatConsultado != null) {
-			if(chatConsultado.getUsuarioFrom().getId().equals(usuarioSolicitante.getId())) {
+			if(chatConsultado.getUsuarioFrom().getId().equals(usuarioSolicitante.getId()) || 
+					(usuarioSolicitante.getTipoUsuario().getDescricao().equals(TipoUsuarioEnum.ADMINISTRADOR.getDescricao()))) {
+				
 				chatConsultado.setAtivo(false);
 				getSession().update(chatConsultado);
+				
 			} else {
 				throw new Exception("O usuário informado não é o mesmo que abriu o chat!");
 			}

@@ -133,6 +133,37 @@
 			});
 		};
 
+		function removerChat(idChat, idUsuario, fncSucesso) {
+
+			var  data = {};
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'chat/' + idChat + '/usuario/' + idUsuario,
+				method : 'DELETE',
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	UtilsService.tratarErrosHttp(response);
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		       		UtilsService.tratarErrosHttp(response);
+		         	return false;
+		       }
+		    ).catch(function() {
+		    	UtilsService.tratarErrosHttp(null);
+				return false;
+			});
+		};
+
 		function consultarQuantidadeNovasMensagensUsuario(idUsuario, fncSucesso) {
 
 			var  data = {};
@@ -169,7 +200,8 @@
 			listarChatsUsuario : listarChatsUsuario,
 			enviarMensagem : enviarMensagem,
 			consultarChat : consultarChat,
-			consultarQuantidadeNovasMensagensUsuario : consultarQuantidadeNovasMensagensUsuario
+			consultarQuantidadeNovasMensagensUsuario : consultarQuantidadeNovasMensagensUsuario,
+			removerChat : removerChat
 		}
 	}
 

@@ -3,6 +3,7 @@ package br.com.rpw.monitoramento.api.dao.impl;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +25,8 @@ public class MensagemChatDaoImpl extends AbstractDao implements IMensagemChatDao
 	public List<MensagemChat> listarMensagensChat(Chat chat) {
 		Criteria criteria = getSession().createCriteria(MensagemChat.class);
 		criteria.add(Restrictions.eq("chat.id", chat.getId()));
+		criteria.addOrder(Order.asc("dataEnvio"));
+		criteria.setMaxResults(20);
         return (List<MensagemChat>) criteria.list();
 	}
 

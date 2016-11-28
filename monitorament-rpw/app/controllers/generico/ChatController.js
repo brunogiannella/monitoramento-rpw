@@ -15,6 +15,7 @@
 		vm.inicio = inicio;
 		vm.novoChat = novoChat;
 		vm.consultarChat = consultarChat;
+		vm.removerChat = removerChat;
 
 		function inicializar() {
 			var codigoUsuario = $rootScope.usuarioLogado.idUsuario;
@@ -38,6 +39,10 @@
 
 		function consultarChat(idChat) {
 			UtilsService.irPara('consultar-chat', {idChat:idChat});
+		}
+
+		function removerChat(chat) {
+			UtilsService.irPara('remover-chat', {chat:chat});
 		}
 
 		function voltar() {

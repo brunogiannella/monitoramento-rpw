@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.rpw.monitoramento.api.dao.impl.ChatDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.MensagemChatDaoImpl;
+import br.com.rpw.monitoramento.api.dao.impl.UsuarioDaoImpl;
 import br.com.rpw.monitoramento.api.dto.ChatDTO;
 import br.com.rpw.monitoramento.api.dto.MensagemChatDTO;
 import br.com.rpw.monitoramento.api.model.Chat;
@@ -26,12 +27,21 @@ public class ChatService implements IChatService {
 	private ChatDaoImpl chatDaoImpl;
 	
 	@Autowired
+	private UsuarioDaoImpl usuarioDaoImpl;
+	
+	@Autowired
 	private MensagemChatDaoImpl mensagemChatDaoImpl;
 	
 	@Override
 	public void abrirChat(ChatDTO chatDto) {
 		Chat chat = converterChatDTOEmChat(chatDto);
 		chatDaoImpl.salvarChat(chat);
+	}
+	
+	@Override
+	public void removerChat(Usuario usuario, Chat chat) throws Exception {
+		usuario = usuarioDaoImpl.consultarUsuario(usuario.getId());
+		chatDaoImpl.removerChat(usuario, chat);
 	}
 
 	@Override

@@ -1,0 +1,110 @@
+        <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <title>RPW • Admin</title>
+            <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+            <link type="text/css" rel="stylesheet" href="css/admin.css" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        </head>
+
+        <body>
+          <!-- MENU -->
+          <nav>
+
+            <div class="nav-wrapper">
+
+              <div class="logo-symbol hide-on-med-and-up">
+                <img src="img/logo_symbol.png" width="116" height="143">
+              </div>
+
+              <ul class="left hide-on-med-and-up2 btn_menu" data-activates="slide-out">
+                <li><a href="#!"><i class="material-icons">menu</i></a></li>
+              </ul>
+
+              <ul class="right hide-on-small-only btn_sair">
+                <li><a ng-click="sair();"><i class="material-icons right">exit_to_app</i>Sair</a></li>
+              </ul>
+            </div>
+
+            <ul id="slide-out" class="side-nav fixed rpw-menu">
+              <li class="logo"><img src="img/logo_rpw.png" /></li>
+
+              <li><a ng-click="RemoverChatCrtl.inicio();" class="waves-effect"><i class="material-icons">home</i>Início</a></li>
+              <li><div class="divider"></div></li>
+              <li><a ng-click="RemoverChatCrtl.voltar();" class="waves-effect"><i class="material-icons">business</i>Voltar</a></li>
+            </ul>
+
+
+
+          </nav>
+          <!-- /MENU -->
+
+        <main>
+          <div class="section no-p">
+            <div class="container2">
+              <div class="row no-m">
+                <div class="col">
+                  <h5 class="header blue-text text-darken-2 center-on-small-only title"><i class="material-icons">business</i> <span class="light"> Remover chat</span></h5>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col s12 m12 ">
+                  <div class="card-panel">
+
+                    <!--  -->
+
+                    <div class="container_passos mt-20">
+                      
+                        <div class="row setup-content" id="step-3">
+                          <div class="col-xs-12">
+
+							              <div class="input-field col s12 m12">
+                              <span class="text-bold">Você deseja mesmo remover o chat selecionado?</label>
+                            </div>
+							
+                            <div class="input-field col s12 m3">
+              							   <button  class="btn-large red darken-2 waves-effect waves-light col s12" ng-click="RemoverChatCrtl.removerChat();" name="action">SIM</button>
+              						  </div>
+                            <div class="input-field col s12 m3">
+                               <button  class="btn-large grey darken-2 waves-effect waves-light col s12" ng-click="RemoverChatCrtl.voltar();" name="action">NÃO</button>
+                            </div>
+
+                          </div>
+                        </div>
+                        
+                    </div>
+
+
+                      <!--  -->
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </main>
+
+          <!-- Scripts -->
+          <script type="text/javascript" src="js/materialize.js"></script>
+          <script type="text/javascript">
+            $(document).ready(function () {
+
+              $('.selectable').material_select();
+              $('.btn_menu').sideNav({
+                  menuWidth: 285, 
+                  closeOnClick: false
+                }
+              );
+              $('.collapsible').collapsible();
+              $('.caret').remove();
+
+            });
+          </script>
+          <!-- /Scripts -->
+        </body>
+      </html>
