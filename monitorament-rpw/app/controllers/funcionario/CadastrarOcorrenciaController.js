@@ -19,6 +19,11 @@
 		vm.camerasCliente = $rootScope.clienteFuncionario.cameras;
 		$scope.sair = UtilsService.logout;
 
+		$scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
+		    $('.selectableEquip').material_select();
+		    $('.caret').remove();
+		});
+
 		function inicializar() {
 
 			UtilsService.ativarLoading();

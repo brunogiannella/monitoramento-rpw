@@ -5,9 +5,9 @@
 		.module('login.controller', [])
 		.controller('LoginController' , LoginController);
 
-	LoginController.$inject = ['$scope', '$rootScope', 'LoginService', 'UtilsService', 'UsuarioService', 'TipoOcorrenciaService', 'ClienteService', 'CameraService', 'EquipamentoService', 'IndicadoresService', 'TurnoService', 'OcorrenciaService', 'ChatService'];
+	LoginController.$inject = ['$scope', '$rootScope', 'LoginService', 'UtilsService', 'UsuarioService', 'TipoOcorrenciaService', 'ClienteService', 'CameraService', 'IndicadoresService', 'TurnoService', 'OcorrenciaService', 'ChatService'];
 
-	function LoginController($scope, $rootScope, LoginService, UtilsService, UsuarioService, TipoOcorrenciaService, ClienteService, CameraService, EquipamentoService, IndicadoresService, TurnoService, OcorrenciaService, ChatService) {
+	function LoginController($scope, $rootScope, LoginService, UtilsService, UsuarioService, TipoOcorrenciaService, ClienteService, CameraService, IndicadoresService, TurnoService, OcorrenciaService, ChatService) {
 
 		this.usuario = null;
 		this.senha = null;
@@ -142,12 +142,6 @@
 			};
 
 			CameraService.listarTiposCamera(funcSucessoTiposCamera);
-
-			var funcSucessoTiposEquipamento = function(data) {
-				$rootScope.dominios.tipoEquipamentosConsulta = data;
-			};
-
-			EquipamentoService.consultarTiposEquipamento(funcSucessoTiposEquipamento);
 
 			var funcSucessoQuantidadeClientes = function(data) {
 				$rootScope.indicadores.quantidadeClientes = data;

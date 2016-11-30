@@ -15,13 +15,10 @@
 		vm.voltar = voltar;
 		vm.consultarCliente = consultarCliente;
 		vm.cadastrarCamera = cadastrarCamera;
-		vm.cadastrarEquipamento = cadastrarEquipamento;
 		vm.associarOcorrencia = associarOcorrencia;
 		vm.associarOcorrenciaPersonalizada = associarOcorrenciaPersonalizada;
 		vm.removerCliente = removerCliente;
 		vm.editarCliente = editarCliente;
-		vm.editarEquipamento = editarEquipamento;
-		vm.removerEquipamento = removerEquipamento;
 		vm.editarCamera = editarCamera;
 		vm.removerCamera = removerCamera;
 		vm.desassociarOcorrencia = desassociarOcorrencia;
@@ -55,10 +52,6 @@
 
 		function cadastrarCamera(id, nome) {
 			UtilsService.irPara('cadastrar-camera', {idCliente:id, nomeCliente:nome});
-		}
-
-		function cadastrarEquipamento(id, nome) {
-			UtilsService.irPara('cadastrar-equipamento', {idCliente:id, nomeCliente:nome});
 		}
 
 		function associarOcorrencia(id, nome) {
@@ -104,17 +97,6 @@
 			UtilsService.irPara('editar-cliente', {cliente:clienteEdicao});
 		}
 
-		function editarEquipamento(data) {
-			var equipamentoEdicao = {};
-			equipamentoEdicao.id = data.id;
-			equipamentoEdicao.numero = data.numero;
-			equipamentoEdicao.descricao = data.descricao;
-			equipamentoEdicao.localizacao = data.localizacao;
-			equipamentoEdicao.idCliente = data.idCliente;
-			equipamentoEdicao.tipoEquipamento = data.tipoEquipamento;
-			UtilsService.irPara('editar-equipamento', {equipamento:equipamentoEdicao});
-		}
-
 		function editarCamera(data) {
 			var cameraEdicao = {};
 			cameraEdicao.id = data.id;
@@ -124,10 +106,6 @@
 			cameraEdicao.idCliente = data.idCliente;
 			cameraEdicao.tipoCamera = data.tipoCamera;
 			UtilsService.irPara('editar-camera', {camera:cameraEdicao});
-		}
-
-		function removerEquipamento(idCliente, idEquipamento, nomeEquipamento) {
-			UtilsService.irPara('remover-equipamento', {idCliente:idCliente, idEquipamento:idEquipamento, nomeEquipamento:nomeEquipamento});
 		}
 
 		function removerCamera(idCliente, idCamera, nomeCamera) {

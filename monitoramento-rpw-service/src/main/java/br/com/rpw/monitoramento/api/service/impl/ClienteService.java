@@ -15,12 +15,10 @@ import br.com.rpw.monitoramento.api.dao.impl.ClienteDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.ClienteTipoOcorrenciaDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.ClienteTipoOcorrenciaPersonalizadaDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.EnderecoDaoImpl;
-import br.com.rpw.monitoramento.api.dao.impl.EquipamentoDaoImpl;
 import br.com.rpw.monitoramento.api.dto.CameraDTO;
 import br.com.rpw.monitoramento.api.dto.CampoOcorrenciaDTO;
 import br.com.rpw.monitoramento.api.dto.ClienteDTO;
 import br.com.rpw.monitoramento.api.dto.EnderecoDTO;
-import br.com.rpw.monitoramento.api.dto.EquipamentoDTO;
 import br.com.rpw.monitoramento.api.dto.TipoOcorrenciaDTO;
 import br.com.rpw.monitoramento.api.model.Camera;
 import br.com.rpw.monitoramento.api.model.CampoOcorrencia;
@@ -28,7 +26,6 @@ import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.ClienteTipoOcorrencia;
 import br.com.rpw.monitoramento.api.model.ClienteTipoOcorrenciaPersonalizada;
 import br.com.rpw.monitoramento.api.model.Endereco;
-import br.com.rpw.monitoramento.api.model.Equipamento;
 import br.com.rpw.monitoramento.api.model.TipoOcorrencia;
 import br.com.rpw.monitoramento.api.model.TipoOcorrenciaPersonalizada;
 import br.com.rpw.monitoramento.api.service.IClienteService;
@@ -42,9 +39,6 @@ public class ClienteService implements IClienteService {
 	
 	@Autowired
 	private CameraDaoImpl cameraDaoImpl;
-	
-	@Autowired
-	private EquipamentoDaoImpl equipamentoDaoImpl;
 	
 	@Autowired
 	private EnderecoDaoImpl enderecoDaoImpl;
@@ -147,10 +141,8 @@ public class ClienteService implements IClienteService {
 		Cliente cliente = new Cliente();
 		cliente.setId(id);
 		List<Camera> camerasCliente = cameraDaoImpl.listarCameras(cliente);
-		List<Equipamento> equipamentosCliente = equipamentoDaoImpl.listarEquipamentos(cliente);
 		cliente = clienteDaoImpl.consultarCliente(id);
 		cliente.setCameras(camerasCliente);
-		cliente.setEquipamento(equipamentosCliente);
 		
 		List<ClienteTipoOcorrencia> tipoOcorrencia = clienteTipoOcorrenciaDaoImpl.listarTipoOcorrencias(cliente);
 		if(tipoOcorrencia != null) {
@@ -229,24 +221,6 @@ public class ClienteService implements IClienteService {
 				cameraDto.setTipoCamera(camera.getTipoCamera().getDescricao());
 				
 				clienteDto.getCameras().add(cameraDto);
-			}
-		}
-		
-		clienteDto.setEquipamentos(new ArrayList<EquipamentoDTO>());
-		if(cliente.getEquipamento() != null) {
-			for(Equipamento equipamento : cliente.getEquipamento()) {
-				EquipamentoDTO equipamentoDTO = new EquipamentoDTO();
-				equipamentoDTO.setId(equipamento.getId());
-				equipamentoDTO.setDescricao(equipamento.getDescricao());
-				equipamentoDTO.setIdCliente(equipamento.getCliente().getId());
-				equipamentoDTO.setLocalizacao(equipamento.getLocalizacao());
-				equipamentoDTO.setNumero(equipamento.getNumero());
-				
-				if(equipamento.getTipoEquipamento() != null) {
-					equipamentoDTO.setTipoEquipamento(equipamento.getTipoEquipamento().getDescricao());
-				}
-				
-				clienteDto.getEquipamentos().add(equipamentoDTO);
 			}
 		}
 		

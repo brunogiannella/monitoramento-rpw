@@ -3,10 +3,15 @@ package br.com.rpw.monitoramento.api.constantes;
 public enum TipoCameraEnum {
 	
 	FIXA("FIXA"),
-	DOME("DOME"),
+	DOME("SPEED DOME"),
 	CFTV("CFTV"),
 	PP("PP"),
-	CA("CA");
+	CA("CA"),
+	ALARME("ALARME"),
+	INFORMATICA("INFORMÁTICA"),
+	CONTROLE_DE_ACESSO("CONTROLE DE ACESSO"),
+	PERIMETRAL("PERIMETRAL DE ACESSO"),
+	OUTROS("OUTROS");
 
 	public String descricao;
 	

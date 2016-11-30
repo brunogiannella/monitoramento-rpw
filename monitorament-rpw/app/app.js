@@ -20,9 +20,6 @@ var app = angular.module('app',['ui.router',
                   'cadastrarCamera.controller',
                   'editarCamera.controller',
                   'removerCamera.controller',
-                  'cadastrarEquipamento.controller',
-                  'editarEquipamento.controller',
-                  'removerEquipamento.controller',
                   'associarTipoOcorrencia.controller',
                   'associarTipoOcorrenciaPersonalizada.controller',
                   'tipoOcorrencia.controller',
@@ -44,9 +41,10 @@ var app = angular.module('app',['ui.router',
                   'tipoOcorrencia.service',
                   'usuario.service',
                   'camera.service',
-                  'equipamento.service',
                   'chat.service',
-                  'ocorrencia.service']);
+                  'ocorrencia.service',
+
+                  'onFinishRender-diretiva']);
  
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
 {
@@ -208,33 +206,6 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       },
       templateUrl: 'app/views/admin/cadastrar-camera.html',
       controller: 'EditarCameraController as CadastrarCameraCrtl'
-    })
-    .state('cadastrar-equipamento', {
-      url: '/cadastrar-equipamento',
-      params: {
-        idCliente : null,
-        nomeCliente : null
-      },
-      templateUrl: 'app/views/admin/cadastrar-equipamento.html',
-      controller: 'CadastrarEquipamentoController as CadastrarEquipamentoCrtl'
-    })
-    .state('editar-equipamento', {
-      url: '/editar-equipamento',
-      params: {
-        equipamento : null
-      },
-      templateUrl: 'app/views/admin/cadastrar-equipamento.html',
-      controller: 'EditarEquipamentoController as CadastrarEquipamentoCrtl'
-    })
-    .state('remover-equipamento', {
-      url: '/remover-equipamento',
-      params: {
-        idCliente : null,
-        idEquipamento : null,
-        nomeEquipamento : null
-      },
-      templateUrl: 'app/views/admin/remover-equipamento.html',
-      controller: 'RemoverEquipamentoController as RemoverEquipamentoCrtl'
     })
     .state('associar-tipo-ocorrencia', {
       url: '/associar-tipo-ocorrencia',

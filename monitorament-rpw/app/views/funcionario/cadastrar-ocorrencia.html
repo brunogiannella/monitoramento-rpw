@@ -73,7 +73,7 @@
                     <p>Utilize o formulário para cadastrar a ocorrência {{CadastrarOcorrenciaCrtl.tipoOcorrencia.descricao}}</p>
 
                     <div class="row">
-                        <div class="input-field col s12 m6 pr-5" ng-repeat="campo in CadastrarOcorrenciaCrtl.tipoOcorrencia.campos">
+                        <div class="input-field col s12 m6 pr-5" ng-repeat="campo in CadastrarOcorrenciaCrtl.tipoOcorrencia.campos" on-finish-render="ngRepeatFinished">
 
                           <input type="text" style="display:none;" class="campoValor" ng-model="CadastrarOcorrenciaCrtl.ocorrencia.campos[$index].descricao" ng-value="campo.descricao"/>
 
@@ -84,7 +84,7 @@
                           <input ng-model="CadastrarOcorrenciaCrtl.ocorrencia.campos[$index].valor" id="chamadapostos_responsavel" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text'); preencherCampoValor();" ng-if="campo.tipoCampo == 'DATA'">
 
                             <input id="cameraSelecionada" type="text" style="display:none;" ng-model="CadastrarOcorrenciaCrtl.ocorrencia.campos[$index].valor" ng-if="campo.tipoCampo == 'EQUIPAMENTOS'"/>
-                            <select onload="$('.selectableEquip').material_select();$('.caret').remove();" onchange="alterarComboCamera();" class="cameraSelecionada_gerenciair selectableEquip" ng-if="campo.tipoCampo == 'EQUIPAMENTOS'">
+                            <select onchange="alterarComboCamera();" class="cameraSelecionada_gerenciair selectableEquip" ng-if="campo.tipoCampo == 'EQUIPAMENTOS'">
                               <option value="" disabled selected>Selecione</option>
                               <option ng-repeat="camera in CadastrarOcorrenciaCrtl.camerasCliente" value="{{camera.id}}">{{camera.id}} - {{camera.descricaoCamera}}</option>
                             </select>
@@ -172,6 +172,7 @@
             );
 
             $('.caret').remove();
+
           });
 
         function preencherCampoValor() {

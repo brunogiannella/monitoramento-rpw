@@ -13,7 +13,6 @@ public class ClienteDTO {
 	private List<String> emailsRelatorioMensal = new ArrayList<String>();
 	private EnderecoDTO endereco = new EnderecoDTO();
 	private List<CameraDTO> cameras;
-	private List<EquipamentoDTO> equipamentos;
 	private List<TipoOcorrenciaDTO> tiposOcorrencia;
 	private List<TipoOcorrenciaDTO> tiposOcorrenciaPersonalizada;
 
@@ -87,14 +86,6 @@ public class ClienteDTO {
 
 	public void setTiposOcorrencia(List<TipoOcorrenciaDTO> tiposOcorrencia) {
 		this.tiposOcorrencia = tiposOcorrencia;
-	}
-
-	public List<EquipamentoDTO> getEquipamentos() {
-		return equipamentos;
-	}
-
-	public void setEquipamentos(List<EquipamentoDTO> equipamentos) {
-		this.equipamentos = equipamentos;
 	}
 
 	public List<TipoOcorrenciaDTO> getTiposOcorrenciaPersonalizada() {

@@ -52,9 +52,6 @@ public class Cliente implements Serializable {
 	private List<Camera> cameras;
 	
 	@Transient
-	private List<Equipamento> equipamento;
-	
-	@Transient
 	private List<TipoOcorrencia> tipoOcorrencias;
 	
 	@Transient
@@ -138,14 +135,6 @@ public class Cliente implements Serializable {
 
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
-	}
-
-	public List<Equipamento> getEquipamento() {
-		return equipamento;
-	}
-
-	public void setEquipamento(List<Equipamento> equipamento) {
-		this.equipamento = equipamento;
 	}
 
 	public List<TipoOcorrenciaPersonalizada> getTipoOcorrenciasPersonalizada() {
