@@ -9,6 +9,8 @@ var app = angular.module('app',['ui.router',
                   'finalizarTurno.controller',
                   'gerenciarCamerasController.controller',
                   'homeAdmin.controller',
+                  'turnosPendentes.controller',
+                  'aprovarTurno.controller',
                   'usuario.controller',
                   'removerUsuario.controller',
                   'editarUsuario.controller',
@@ -73,7 +75,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       url: '/consultar-turno',
       params: {
         idTurno : null,
-        editar : null
+        editar : null,
+        consumidor : null
       },
       templateUrl: 'app/views/funcionario/consultar-turno.html',
       controller: 'ConsultarTurnosUsuarioController as ConsultarTurnosUsuarioCrtl'
@@ -122,6 +125,19 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       url: '/home-admin',
       templateUrl: 'app/views/admin/home-admin.html',
       controller: 'HomeAdminController as HomeCrtl'
+    })
+    .state('turnos-pendentes', {
+      url: '/turnos-pendentes',
+      templateUrl: 'app/views/admin/turnos-pendentes.html',
+      controller: 'TurnosPendentesController as TurnosPendentesCrtl'
+    })
+    .state('aprovar-turno', {
+      url: '/aprovar-turno',
+       params: {
+        idTurno : null
+      },
+      templateUrl: 'app/views/admin/aprovar-turno.html',
+      controller: 'AprovarTurnoController as AprovarTurnoCrtl'
     })
     .state('usuarios', {
       url: '/usuarios',

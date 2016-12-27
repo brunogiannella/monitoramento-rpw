@@ -149,6 +149,12 @@
 
 			IndicadoresService.consultarQuantidadeClientes(funcSucessoQuantidadeClientes);
 
+			var funcSucessoQuantidadeTurnosPendentes = function(data) {
+				$rootScope.indicadores.quantidadeTurnosPendentes = data;
+			};
+
+			IndicadoresService.consultarQuantidadeTurnosPendentes(funcSucessoQuantidadeTurnosPendentes);
+
 			var funcSucessoQuantidadeUsuarios = function(data) {
 				$rootScope.indicadores.quantidadeUsuarios = data;
 			};

@@ -1,5 +1,6 @@
 package br.com.rpw.monitoramento.api.dao.impl;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -82,9 +83,18 @@ public class TurnoDaoImpl extends AbstractDao implements ITurnoDao {
         criteria.add(Restrictions.eq("id",idTurno));
         return (Turno) criteria.uniqueResult();
 	}
+	
+	@Override
+	public BigInteger consultarQuantidadeTurnosPendentes() {
+		Query query = getSession().createSQLQuery("SELECT count(*) from TURNO where STATUS_TURNO LIKE 'EM_ANDAMENTO' OR STATUS_TURNO LIKE 'AGUARDANDO_VALIDACAO' OR STATUS_TURNO LIKE 'APROVADO'");
+        BigInteger quantidadeClientes = (BigInteger) query.uniqueResult();
+        
+        return quantidadeClientes;
+	}
 
 	@Override
 	public void atualizarTurno(Turno Turno) {
 		getSession().update(Turno);
 	}
+
 }

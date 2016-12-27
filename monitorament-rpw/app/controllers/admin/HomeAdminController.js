@@ -44,6 +44,10 @@
 			UtilsService.irPara("chats");
 		};
 
+		vm.turnosPendentes = function() {
+			UtilsService.irPara("turnos-pendentes");
+		};
+
 		inicializar();
 	}
 

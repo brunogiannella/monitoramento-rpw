@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.rpw.monitoramento.api.model.RestObject;
 import br.com.rpw.monitoramento.api.service.impl.ClienteService;
 import br.com.rpw.monitoramento.api.service.impl.TipoOcorrenciaService;
+import br.com.rpw.monitoramento.api.service.impl.TurnoService;
 import br.com.rpw.monitoramento.api.service.impl.UsuarioService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -24,6 +25,9 @@ public class IndicadoresController {
 	
 	@Autowired
 	private TipoOcorrenciaService tipoOcorrenciaService;
+	
+	@Autowired
+	private TurnoService turnoService;
 	
 	@RequestMapping(value="/quantidadeClientes", method = RequestMethod.GET)
 	public RestObject consultaIndicadoresClientes() { 
@@ -56,6 +60,15 @@ public class IndicadoresController {
 	public RestObject consultaIndicadoresTiposOcorrenciaPersonalizada() { 
 		try {
 			return new RestObject(200, true, "Consulta realizada com sucesso", tipoOcorrenciaService.consultarQuantidadeTipoOcorrenciasPersonalizadasAtivas());
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
+		}
+	}
+	
+	@RequestMapping(value="/quantidadeTurnosPendentes", method = RequestMethod.GET)
+	public RestObject consultaIndicadoresTurnosPendentes() { 
+		try {
+			return new RestObject(200, true, "Consulta realizada com sucesso", turnoService.consultarQuantidadeTurnosPendentes());
 		} catch(Exception e) {
 			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
 		}

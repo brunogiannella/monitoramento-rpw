@@ -1,5 +1,6 @@
 package br.com.rpw.monitoramento.api.dao;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import br.com.rpw.monitoramento.api.constantes.StatusTurnoEnum;
@@ -18,5 +19,6 @@ public interface ITurnoDao {
     void atualizarTurno(Turno Turno);
 	List<Turno> listarTurnos(Usuario usuario, StatusTurnoEnum status);
 	List<Turno> consultarTurnoAnterior(Cliente cliente);
+	BigInteger consultarQuantidadeTurnosPendentes();
 	
 }

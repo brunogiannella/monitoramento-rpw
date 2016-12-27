@@ -38,7 +38,11 @@
               <li><a href="#" ng-click="HomeCrtl.irPara('clientes');" class="waves-effect"><i class="material-icons">business</i>Clientes</a></li>
               <li><div class="divider"></div></li>
               <li><a href="#" ng-click="HomeCrtl.irPara('tipos-ocorrencia');" class="waves-effect"><i class="material-icons">note_add</i>Tipos de ocorrência</a></li>
+              <li><div class="divider"></div></li>
+              <li><a href="#" ng-click="HomeCrtl.irPara('turnos-pendentes');" class="waves-effect"><i class="material-icons">note_add</i>Turnos pendentes</a></li>
+              <li><div class="divider"></div></li>
               <li><a href="#" ng-click="HomeCrtl.irPara('chats');" class="waves-effect"><i class="material-icons">videocam</i>Mensagens</a></li>
+              <li><div class="divider"></div></li>
             </ul>
 
 
@@ -124,6 +128,22 @@
             </div>
 
           </div>
+
+
+          <div class="row">
+
+            <div class="col s3">
+              <div class="card-panel">
+                <center>
+                  <a href="" ng-click="HomeCrtl.turnosPendentes();"><i class="material-icons blue-text large">perm_scan_wifi</i></a>
+                  <br>
+                  <span class="texto_destaque">{{indicadores.quantidadeTurnosPendentes}} Turnos pendentes</span>
+                </center>
+              </div>
+            </div>
+
+          </div>
+
 
           
         </div>

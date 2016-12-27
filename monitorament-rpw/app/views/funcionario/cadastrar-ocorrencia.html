@@ -89,7 +89,8 @@
                               <option ng-repeat="camera in CadastrarOcorrenciaCrtl.camerasCliente" value="{{camera.id}}">{{camera.id}} - {{camera.descricaoCamera}}</option>
                             </select>
                           
-                          <label class="active" for="chamadapostos_responsavel">{{campo.descricao}}</label>
+                          <label ng-if="campo.tipoCampo == 'EQUIPAMENTOS'">{{campo.descricao}}</label>
+                          <label class="active" for="chamadapostos_responsavel" ng-if="campo.tipoCampo != 'EQUIPAMENTOS'">{{campo.descricao}}</label>
                         </div>
 
                         <div class="input-field col s12 m6 pr-5">

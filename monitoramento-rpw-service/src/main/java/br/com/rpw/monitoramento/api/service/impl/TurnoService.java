@@ -19,12 +19,14 @@ import com.google.gson.reflect.TypeToken;
 
 import br.com.rpw.monitoramento.api.constantes.PeriodoEnum;
 import br.com.rpw.monitoramento.api.constantes.StatusTurnoEnum;
+import br.com.rpw.monitoramento.api.dao.impl.CameraDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.OcorrenciaDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.TurnoDaoImpl;
 import br.com.rpw.monitoramento.api.dto.CampoCadastroOcorrenciaDTO;
 import br.com.rpw.monitoramento.api.dto.GrupoOcorrenciasDto;
 import br.com.rpw.monitoramento.api.dto.OcorrenciaDTO;
 import br.com.rpw.monitoramento.api.dto.TurnoDTO;
+import br.com.rpw.monitoramento.api.model.Camera;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.Ocorrencia;
 import br.com.rpw.monitoramento.api.model.Turno;
@@ -40,6 +42,9 @@ public class TurnoService implements ITurnoService {
 	
 	@Autowired
 	private OcorrenciaDaoImpl ocorrenciaDaoImpl;
+	
+	@Autowired
+	private CameraDaoImpl cameraDaoImpl;
 
 	@Override
 	public Long iniciarTurno(TurnoDTO iniciarTurnoRequestDTO)
@@ -143,7 +148,7 @@ public class TurnoService implements ITurnoService {
 		return turno;
 	}
 
-	public static TurnoDTO converterTurnoEmTurnoDTO(Turno turno) {
+	public TurnoDTO converterTurnoEmTurnoDTO(Turno turno) {
 		TurnoDTO turnoDTO = new TurnoDTO();
 		turnoDTO.setId(turno.getId());
 		
@@ -192,7 +197,13 @@ public class TurnoService implements ITurnoService {
 				if(campos != null) {
 					ocorrenciaDto.setResumoOcorrencia("");
 					for(CampoCadastroOcorrenciaDTO camposCadastro : campos) {
-						ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camposCadastro.getValor() + "; " );
+						if(camposCadastro.getTipo().equals("EQUIPAMENTOS")) {
+							Camera camera = cameraDaoImpl.consultarCamera(Long.parseLong(camposCadastro.getValor()));
+							ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camera.getDescricaoCamera() + "; ");
+						} else {
+							ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camposCadastro.getValor() + "; " );
+						}
+						
 					}
 				}
 				
@@ -218,6 +229,38 @@ public class TurnoService implements ITurnoService {
 	@Override
 	public List<Turno> consultarTurnoAnterior(Cliente cliente) {
 		return turnoDaoImpl.consultarTurnoAnterior(cliente);
+	}
+
+	@Override
+	public List<Turno> consultarTurnosPendentes() {
+		List<Turno> turnosAndamento = this.turnoDaoImpl.consultarTurno(StatusTurnoEnum.EM_ANDAMENTO);
+		List<Turno> turnosAguardandoAprovacao = this.turnoDaoImpl.consultarTurno(StatusTurnoEnum.AGUARDANDO_VALIDACAO);
+		List<Turno> turnosAprovado = this.turnoDaoImpl.consultarTurno(StatusTurnoEnum.APROVADO);
+		
+		List<Turno> turnosPendentes = new ArrayList<Turno>();
+		turnosPendentes.addAll(turnosAguardandoAprovacao);
+		turnosPendentes.addAll(turnosAndamento);
+		turnosPendentes.addAll(turnosAprovado);
+		
+		return turnosPendentes;
+	}
+
+	@Override
+	public Object consultarQuantidadeTurnosPendentes() {
+		return turnoDaoImpl.consultarQuantidadeTurnosPendentes();
+	}
+
+	@Override
+	public Boolean aprovarTurno(Long idturno) {
+		Turno turno = turnoDaoImpl.consultarTurno(idturno);
+		
+		if(turno != null) {
+			turno.setStatus(StatusTurnoEnum.APROVADO);
+			turnoDaoImpl.atualizarTurno(turno);
+			return true;
+		}
+		
+		return false;
 	}
 
 }

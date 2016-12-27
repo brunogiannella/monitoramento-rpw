@@ -9,7 +9,9 @@
 
 	function VisualizarTurnoController($rootScope, $stateParams, TurnoService, UtilsService) {
 
-		this.codigoTurno = $stateParams.codigoTurno;
+		var vm = this;
+		vm.codigoTurno = $stateParams.codigoTurno;
+		vm.consumidor = $stateParams.consumidor;
 
 		function visualizarTurno(codigoTurno) {
 
@@ -22,7 +24,12 @@
 		};
 
 		function voltar() {
-			UtilsService.irPara("listaTurnos");
+			if(vm.consumidor == 'admin') {
+				UtilsService.irPara("turnos-pendentes");
+			} else {
+				UtilsService.irPara("listaTurnos");
+			}
+			
 		}
 
 		function fecharTurno(codigoTurno) {
@@ -37,7 +44,7 @@
 
 		};
 
-		visualizarTurno(this.codigoTurno);
+		visualizarTurno(vm.codigoTurno);
 
 	}
 

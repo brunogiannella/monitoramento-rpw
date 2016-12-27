@@ -17,4 +17,7 @@ public interface ITurnoService {
 	List<Turno> consultarTurnos(Long idUsuario, StatusTurnoEnum emAndamento) throws NoSuchAlgorithmException, UnsupportedEncodingException;
 	TurnoDTO consultarTurnoDetalhado(Long idTurno);
 	List<Turno> consultarTurnoAnterior(Cliente cliente);
+	List<Turno> consultarTurnosPendentes();
+	Object consultarQuantidadeTurnosPendentes();
+	Boolean aprovarTurno(Long idturno);
 }

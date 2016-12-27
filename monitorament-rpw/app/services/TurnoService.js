@@ -264,6 +264,63 @@
 			});
 		};
 
+		function consultarTurnosPendentes(fncSucesso) {
+
+			var  data = {};
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'turno/pendentes',
+				method : 'GET',
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		         return false;
+		       }
+		    ).catch(function() {
+				return false;
+			});
+		};
+
+		function aprovarTurno(idTurno, fncSucesso) {
+
+			var  data = {};
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'turno/'+idTurno+'/aprovar',
+				method : 'PUT',
+				data: {},
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		         return false;
+		       }
+		    ).catch(function() {
+				return false;
+			});
+		};
+
 		return {
 			iniciarTurno : iniciarTurno,
 			fecharTurno : fecharTurno,
@@ -273,7 +330,9 @@
 			consultarCondicoesClimaticas : consultarCondicoesClimaticas,
 			consultarPeriodos : consultarPeriodos,
 			consultarTempo : consultarTempo,
-			consultarUltimosTurnosCliente : consultarUltimosTurnosCliente
+			consultarUltimosTurnosCliente : consultarUltimosTurnosCliente,
+			consultarTurnosPendentes : consultarTurnosPendentes,
+			aprovarTurno : aprovarTurno
 		}
 	}
 

@@ -16,6 +16,7 @@
 		vm.removerOcorrencia = removerOcorrencia;
 		vm.codigoTurno = $stateParams.idTurno;	
 		vm.permiteEdicao = $stateParams.editar;
+		vm.consumidor = $stateParams.consumidor;
 
 		function inicializar() {
 			UtilsService.ativarLoading();
@@ -36,7 +37,12 @@
 		}
 
 		function voltar() {
-			UtilsService.irPara("home-funcionario");
+			if(vm.consumidor == 'admin') {
+				UtilsService.irPara("turnos-pendentes");
+			} else {
+				UtilsService.irPara("home-funcionario");
+			}
+			
 		}
 
 		function inicio() {

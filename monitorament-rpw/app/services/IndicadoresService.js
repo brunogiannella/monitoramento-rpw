@@ -31,6 +31,25 @@
 				});
 		};
 
+		function consultarQuantidadeTurnosPendentes(fncSucesso) {
+			$http.get(
+				ConstantesService.URL.SERVIDOR + 'indicador/quantidadeTurnosPendentes').then(
+			       function(response){
+			       		if(response.data.sucess) {
+				       	  	fncSucesso(response.data.data);
+				       	} else {
+				       	  	return false;
+				       	}
+			       }, 
+			       function(response){
+			       }
+			    )
+			  	.finally(function() {
+				})
+				.catch(function() {
+				});
+		};
+
 		function consultarQuantidadeUsuarios(fncSucesso) {
 			$http.get(
 				ConstantesService.URL.SERVIDOR + 'indicador/quantidadeUsuarios').then(
@@ -92,7 +111,8 @@
 			consultarQuantidadeClientes : consultarQuantidadeClientes,
 			consultarQuantidadeUsuarios : consultarQuantidadeUsuarios,
 			consultarQuantidadeTiposOcorrencias : consultarQuantidadeTiposOcorrencias,
-			consultarQuantidadeTiposOcorrenciaPersonalizadas : consultarQuantidadeTiposOcorrenciaPersonalizadas
+			consultarQuantidadeTiposOcorrenciaPersonalizadas : consultarQuantidadeTiposOcorrenciaPersonalizadas,
+			consultarQuantidadeTurnosPendentes : consultarQuantidadeTurnosPendentes
 		}
 	}
 
