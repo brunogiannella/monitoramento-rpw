@@ -17,6 +17,11 @@
 		proxy-target-class="true" />
 
 
+	<bean class="org.springframework.web.servlet.view.XmlViewResolver">
+        <property name="location" value="classpath:jasperContext.xml" />
+        <property name="order" value="0" />
+    </bean>
+    
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="${jdbc.driverClassName}" />
