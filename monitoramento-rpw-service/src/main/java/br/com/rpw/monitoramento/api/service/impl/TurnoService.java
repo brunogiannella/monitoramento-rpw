@@ -1,6 +1,7 @@
 package br.com.rpw.monitoramento.api.service.impl;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,15 +22,16 @@ import br.com.rpw.monitoramento.api.constantes.PeriodoEnum;
 import br.com.rpw.monitoramento.api.constantes.StatusTurnoEnum;
 import br.com.rpw.monitoramento.api.dao.impl.CameraDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.OcorrenciaDaoImpl;
+import br.com.rpw.monitoramento.api.dao.impl.SituacaoCameraDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.TurnoDaoImpl;
 import br.com.rpw.monitoramento.api.dto.CampoCadastroOcorrenciaDTO;
-import br.com.rpw.monitoramento.api.dto.CampoOcorrenciaDTO;
 import br.com.rpw.monitoramento.api.dto.GrupoOcorrenciasDto;
 import br.com.rpw.monitoramento.api.dto.OcorrenciaDTO;
 import br.com.rpw.monitoramento.api.dto.TurnoDTO;
 import br.com.rpw.monitoramento.api.model.Camera;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.Ocorrencia;
+import br.com.rpw.monitoramento.api.model.SituacaoCamera;
 import br.com.rpw.monitoramento.api.model.Turno;
 import br.com.rpw.monitoramento.api.model.Usuario;
 import br.com.rpw.monitoramento.api.service.ITurnoService;
@@ -46,6 +48,9 @@ public class TurnoService implements ITurnoService {
 	
 	@Autowired
 	private CameraDaoImpl cameraDaoImpl;
+	
+	@Autowired
+	private SituacaoCameraDaoImpl situacaoCameraDaoImpl;
 
 	@Override
 	public Long iniciarTurno(TurnoDTO iniciarTurnoRequestDTO)
@@ -223,6 +228,9 @@ public class TurnoService implements ITurnoService {
 				turnoDTO.getOcorrenciasDto().add(grupoOcorrencia);
 			}
 		}
+		
+		List<SituacaoCamera> situacoesCameraTurno = situacaoCameraDaoImpl.consultarSituacaoCameraTurno(turno);
+		Map<Long, BigDecimal> mapHorasDesligadas = new HashMap<Long, BigDecimal>();
 		
 		return turnoDTO;
 	}

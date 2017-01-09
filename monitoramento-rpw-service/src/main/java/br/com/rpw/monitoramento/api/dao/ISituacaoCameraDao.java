@@ -5,6 +5,7 @@ import java.util.List;
 import br.com.rpw.monitoramento.api.model.Camera;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.SituacaoCamera;
+import br.com.rpw.monitoramento.api.model.Turno;
 
 public interface ISituacaoCameraDao {
 
@@ -15,5 +16,6 @@ public interface ISituacaoCameraDao {
     void atualizarSituacaoCamera(SituacaoCamera SituacaoCamera);
 	List<SituacaoCamera> listarSituacaoCamerasEmAberto(Cliente cliente);
 	Integer consultarSituacaoCamera(Cliente cliente, Camera camera);
+	List<SituacaoCamera> consultarSituacaoCameraTurno(Turno turno);
 	
 }

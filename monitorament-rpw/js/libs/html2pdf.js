@@ -6,7 +6,7 @@
  * http://opensource.org/licenses/mit-license
  */
 
-function html2pdf (html,pdf,callback) {
+html2pdf = function(html,pdf,callback) {
 	var canvas = pdf.canvas;
 	if (!canvas) {
 		alert('jsPDF canvas plugin not installed');
@@ -67,7 +67,7 @@ function html2pdf (html,pdf,callback) {
 		var iframe = document.createElement('iframe');
 		//iframe.style.width = canvas.width;
 		//iframe.src = "";
-		//iframe.document.domain =
+		//iframe.document.domain = 
 		document.body.appendChild(iframe);
 		var doc;
 		doc = iframe.contentDocument;

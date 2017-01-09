@@ -12,6 +12,7 @@ import br.com.rpw.monitoramento.api.dao.ISituacaoCameraDao;
 import br.com.rpw.monitoramento.api.model.Camera;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.SituacaoCamera;
+import br.com.rpw.monitoramento.api.model.Turno;
 
 @Component
 public class SituacaoCameraDaoImpl extends AbstractDao implements ISituacaoCameraDao {
@@ -61,6 +62,14 @@ public class SituacaoCameraDaoImpl extends AbstractDao implements ISituacaoCamer
 		criteria.add(Restrictions.eq("desligada", true));
 		criteria.add(Restrictions.eq("ligada", false));
         return criteria.list().size();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<SituacaoCamera> consultarSituacaoCameraTurno(Turno turno) {
+		Criteria criteria = getSession().createCriteria(SituacaoCamera.class);
+		criteria.add(Restrictions.eq("turno.id",turno.getId()));
+        return criteria.list();
 	}
 
 	@Override

@@ -57,6 +57,11 @@ public class SituacaoCameraService implements ISituacaoCameraService {
 		
 		return listaDto;
 	}
+	
+	@Override
+	public List<SituacaoCamera> consultarSituacoesCameraTurno(Turno turno) {
+		return situacaoCameraDaoImpl.consultarSituacaoCameraTurno(turno);		
+	}
 
 	private SituacaoCameraDTO converterSituacaoCameraEmSituacaoCameraDTO(SituacaoCamera situacaoCamera) {
 		SituacaoCameraDTO situacaoCameraDto = new SituacaoCameraDTO();

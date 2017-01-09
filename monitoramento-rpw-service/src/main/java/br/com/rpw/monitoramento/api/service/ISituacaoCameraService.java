@@ -9,6 +9,7 @@ import br.com.rpw.monitoramento.api.dto.SituacaoCameraDTO;
 import br.com.rpw.monitoramento.api.model.Camera;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.SituacaoCamera;
+import br.com.rpw.monitoramento.api.model.Turno;
 
 public interface ISituacaoCameraService {
 	SituacaoCamera inserirAvaliacao(SituacaoCameraDTO situacaoCameraDTO)
@@ -16,4 +17,6 @@ public interface ISituacaoCameraService {
 	
 	List<SituacaoCameraDTO> consultarSituacoesCameraAberto(Cliente cliente);
 	Integer consultarSituacaoCamera(Cliente cliente, Camera camera);
+
+	List<SituacaoCamera> consultarSituacoesCameraTurno(Turno turno);
 }
