@@ -38,7 +38,7 @@
 		}
 
 		function visualizarRelatorio(id) {
-			UtilsService.irPara('home-administrador');
+			UtilsService.irPara('imprimir-relatorio', {idTurno: id});
 		}
 
 		function consultarTurnosPendentes() {

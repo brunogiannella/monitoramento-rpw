@@ -23,6 +23,7 @@ import br.com.rpw.monitoramento.api.dao.impl.CameraDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.OcorrenciaDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.TurnoDaoImpl;
 import br.com.rpw.monitoramento.api.dto.CampoCadastroOcorrenciaDTO;
+import br.com.rpw.monitoramento.api.dto.CampoOcorrenciaDTO;
 import br.com.rpw.monitoramento.api.dto.GrupoOcorrenciasDto;
 import br.com.rpw.monitoramento.api.dto.OcorrenciaDTO;
 import br.com.rpw.monitoramento.api.dto.TurnoDTO;
@@ -218,7 +219,7 @@ public class TurnoService implements ITurnoService {
 				GrupoOcorrenciasDto grupoOcorrencia = new GrupoOcorrenciasDto();
 				grupoOcorrencia.setDescricao(entry);
 				grupoOcorrencia.setOcorrenciasDto(gruposOcorrencia.get(entry));
-				
+								
 				turnoDTO.getOcorrenciasDto().add(grupoOcorrencia);
 			}
 		}

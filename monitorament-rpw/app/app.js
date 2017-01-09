@@ -33,6 +33,7 @@ var app = angular.module('app',['ui.router',
                   'novoChat.controller',
                   'consultarChat.controller',
                   'removerChat.controller',
+                  'imprimirRelatorio.controller',
 
 							    'constantes.service',
 							    'utils.service',
@@ -302,6 +303,13 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       },
       templateUrl: 'app/views/generico/remover-chat.html',
       controller: 'RemoverChatController as RemoverChatCrtl'
+    }).state('imprimir-relatorio', {
+      url: '/imprimir-relatorio',
+      params: {
+        idTurno : null
+      },
+      templateUrl: 'app/views/admin/imprimir-relatorio.html',
+      controller: 'ImprimirRelatorioController as ImprimirRelatorioCrtl'
     });
 
 

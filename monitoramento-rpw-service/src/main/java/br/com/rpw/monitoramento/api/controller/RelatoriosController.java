@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.rpw.monitoramento.api.dto.TurnoDTO;
 import br.com.rpw.monitoramento.api.model.LogEntry;
 import br.com.rpw.monitoramento.api.service.impl.EmailService;
+import br.com.rpw.monitoramento.api.service.impl.TurnoService;
 import br.com.rpw.monitoramento.api.service.impl.UsuarioService;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -28,22 +30,20 @@ public class RelatoriosController {
 	private static final String JASPER_REPORT_LOGS_KEY = "logsReport";
 	
 	@Autowired
-	private EmailService emailService;
+	private TurnoService turnoService;
 	
 	@RequestMapping(value="/relatorios/{idCliente}/{idTurno}")
-	public ModelAndView consultaIndicadores(@PathVariable Long idCliente, @PathVariable Long idTurno) { 
+	public ModelAndView consultarRelatorio(@PathVariable Long idTurno) { 
+		
+		TurnoDTO turnoDto = turnoService.consultarTurnoDetalhado(idTurno);
+		
 		JRDataSource dataSource = new JRBeanCollectionDataSource(prepareEntries());
 
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		parameterMap.put("datasource", dataSource);
 		parameterMap.put("logTable", dataSource);
 
-		try {
-			emailService.enviarEmail("bruno.giannellam@gmail.com", "Envio Java", "Envio Java");
-		} catch (EmailException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		return new ModelAndView(JASPER_REPORT_LOGS_KEY, parameterMap);
 	}
 	
