@@ -72,6 +72,29 @@
         <br>
         <br>
 
+        <div>
+          <table>
+            <tr style="background: #4F81BD; border: solid #4F81BD 1.0pt;">
+              <td class="textBold" colspan="2">Imagem das Câmeras.</td>
+            </tr>
+            <tr>
+              <td width="70%" class="textBold">Câmera</td>
+              <td width="30%" class="textBold">Tempo fora (em horas)</td>
+            </tr>
+            <tr  ng-repeat="imagem in ImprimirRelatorioCrtl.turnoConsulta.imagemCameraDto" ng-show="ImprimirRelatorioCrtl.turnoConsulta.imagemCameraDto.length > 0">
+              <td>{{imagem.descricaoCamera}}</td>
+              <td>{{imagem.horasFora}}</td>
+            </tr>
+
+            <tr  ng-repeat="imagem in ImprimirRelatorioCrtl.turnoConsulta.imagemCameraDto" ng-show="ImprimirRelatorioCrtl.turnoConsulta.imagemCameraDto.length == 0">
+              <td colspan="2">Nenhuma câmera ficou fora durante o turno.</td>
+            </tr>
+          </table>
+
+          <br>
+          <br>
+        </div>
+
         <div ng-repeat="grupoOcorrencia in ImprimirRelatorioCrtl.turnoConsulta.ocorrenciasDto">
           <table>
             <tr style="background: #4F81BD; border: solid #4F81BD 1.0pt;">

@@ -17,6 +17,7 @@ public class TurnoDTO {
 	private String status;
 	private List<String> operadores = new ArrayList<String>();
 	private List<GrupoOcorrenciasDto> ocorrenciasDto = new ArrayList<GrupoOcorrenciasDto>();
+	private List<ImagemCameraDTO> imagemCameraDto = new ArrayList<ImagemCameraDTO>();
 
 	public String getDataInicio() {
 		return dataInicio;
@@ -112,6 +113,14 @@ public class TurnoDTO {
 
 	public void setLiderSeguranca(String liderSeguranca) {
 		this.liderSeguranca = liderSeguranca;
+	}
+
+	public List<ImagemCameraDTO> getImagemCameraDto() {
+		return imagemCameraDto;
+	}
+
+	public void setImagemCameraDto(List<ImagemCameraDTO> imagemCameraDto) {
+		this.imagemCameraDto = imagemCameraDto;
 	}
 
 }
