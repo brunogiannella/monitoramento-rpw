@@ -214,4 +214,31 @@ public class TurnoController {
 			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
 		}
 	}
+	
+	@RequestMapping(value="/clientes/{idCliente}/ultimos/10", method = RequestMethod.GET)
+	public RestObject consultarDezUltimosTurnosCliente(@PathVariable("idCliente") Long idUsuario, @RequestHeader(value="x-acess-token") String token) { 
+		try {
+			if(TokenUtil.simpleValidToken(token)) {
+				Cliente cliente = new Cliente();
+				cliente.setId(idUsuario);
+				List<Turno> ultimosDezTurnos = turnoService.listarUltimosDezTurnosCliente(cliente);
+				
+				if(ultimosDezTurnos == null) {
+					return new RestObject(200, true, "Nenhum turno encontrado para o cliente.", null);
+				}
+				
+				List<TurnoDTO> turnosDto = new ArrayList<TurnoDTO>();
+				for(Turno turno : ultimosDezTurnos) {
+					turnosDto.add(turnoService.converterTurnoEmTurnoDTO(turno));
+				}
+				
+				return new RestObject(200, true, "Turnos consultados com sucesso", turnosDto);
+			} else {
+				return new RestObject(401, false, "Token inválido.", null);
+			}
+			
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
+		}
+	}
 }

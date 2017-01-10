@@ -51,6 +51,16 @@ public class TurnoDaoImpl extends AbstractDao implements ITurnoDao {
 	
 	@SuppressWarnings("unchecked")
 	@Override
+	public List<Turno> listarUltimosDezTurnosCliente(Cliente cliente) {
+		Criteria criteria = getSession().createCriteria(Turno.class);
+		criteria.add(Restrictions.eq("cliente.id",cliente.getId()));
+		criteria.addOrder(Order.desc("id"));
+		criteria.setMaxResults(10);
+        return (List<Turno>) criteria.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
 	public List<Turno> listarTurnos(Usuario usuario, StatusTurnoEnum status) {
 		Criteria criteria = getSession().createCriteria(Turno.class);
 		criteria.add(Restrictions.eq("usuario.id",usuario.getId()));

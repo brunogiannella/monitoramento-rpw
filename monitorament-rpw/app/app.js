@@ -16,6 +16,7 @@ var app = angular.module('app',['ui.router',
                   'editarUsuario.controller',
                   'cadastroUsuarioController.controller',
                   'cliente.controller',
+                  'consultarTurnosCliente.controller',
                   'removerCliente.controller',
                   'editarCliente.controller',
                   'cadastroClienteController.controller',
@@ -174,6 +175,15 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       },
       templateUrl: 'app/views/admin/clientes.html',
       controller: 'ClienteController as ClienteCrtl'
+    })
+    .state('consultar-turnos-cliente', {
+      url: '/consultar-turnos-cliente',
+      params: {
+        idCliente : null,
+        nomeCliente : null
+      },
+      templateUrl: 'app/views/admin/consultar-turnos-cliente.html',
+      controller: 'ConsultarTurnosClienteController as ConsultarTurnosClienteCrtl'
     })
     .state('remover-cliente', {
       url: '/remover-cliente',

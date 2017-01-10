@@ -18,6 +18,7 @@
 		vm.associarOcorrencia = associarOcorrencia;
 		vm.associarOcorrenciaPersonalizada = associarOcorrenciaPersonalizada;
 		vm.removerCliente = removerCliente;
+		vm.consultarTurnos = consultarTurnos;
 		vm.editarCliente = editarCliente;
 		vm.editarCamera = editarCamera;
 		vm.removerCamera = removerCamera;
@@ -72,6 +73,10 @@
 
 		function removerCliente(idCliente, nomeCliente) {
 			UtilsService.irPara('remover-cliente', {idCliente:idCliente, nomeCliente:nomeCliente});
+		}
+
+		function consultarTurnos(idCliente, nomeCliente) {
+			UtilsService.irPara('consultar-turnos-cliente', {idCliente:idCliente, nomeCliente:nomeCliente});
 		}
 
 		function editarCliente(data) {

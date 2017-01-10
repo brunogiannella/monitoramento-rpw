@@ -91,6 +91,11 @@ public class TurnoService implements ITurnoService {
 	}
 	
 	@Override
+	public List<Turno> listarUltimosDezTurnosCliente(Cliente cliente) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		return turnoDaoImpl.listarUltimosDezTurnosCliente(cliente);
+	}
+	
+	@Override
 	public TurnoDTO consultarTurnoDetalhado(Long idTurno) {
 		Turno turno = turnoDaoImpl.consultarTurno(idTurno);
 		turno.setOcorrencias(ocorrenciaDaoImpl.listarOcorrencias(turno));

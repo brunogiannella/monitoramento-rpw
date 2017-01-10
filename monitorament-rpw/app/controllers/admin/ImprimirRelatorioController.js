@@ -27,8 +27,13 @@
 			TurnoService.consultarDetalheTurno(vm.idTurno, funcSucesso);
 		};
 
+		function voltar() {
+			UtilsService.irPara('home-administrador');
+		}
+
 		
 		var vm = this;
+		vm.voltar = voltar;
 		inicializar();
 
 	}
