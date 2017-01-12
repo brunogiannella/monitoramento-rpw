@@ -59,6 +59,11 @@ public class OcorrenciaService implements IOcorrenciaService {
 		return ocorrenciaDaoImpl.listarOcorrencias(turno);
 	}
 	
+	@Override
+	public List<Ocorrencia> listarOcorrencias(Cliente cliente, String mes, String ano) throws ParseException {
+		return ocorrenciaDaoImpl.listarOcorrencias(cliente, mes, ano);
+	}
+	
 	private Ocorrencia converterOcorrenciaDTOEmOcorrencia(OcorrenciaDTO ocorrenciaDto) {
 		Ocorrencia ocorrencia = new Ocorrencia();
 		ocorrencia.setDataCadastro(new Date());

@@ -1,9 +1,13 @@
 package br.com.rpw.monitoramento.api.dao.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
@@ -37,6 +41,43 @@ public class SituacaoCameraDaoImpl extends AbstractDao implements ISituacaoCamer
 		criteria.add(Restrictions.eq("cliente.id",cliente.getId()));
 		criteria.add(Restrictions.eq("desligada", true));
 		criteria.add(Restrictions.eq("ligada", false));
+        return (List<SituacaoCamera>) criteria.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<SituacaoCamera> listarSituacaoCamerasMensal(Cliente cliente, String mes, String ano) throws ParseException {
+		Criteria criteria = getSession().createCriteria(SituacaoCamera.class);
+		criteria.add(Restrictions.eq("cliente.id",cliente.getId()));
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	    String myDate = "01/"+mes+"/"+ano;
+	    Date minDate = formatter.parse(myDate);
+	    Date maxDate = null;
+	    
+	    if(mes.equals("12")) {
+	    	String myDateEnd = "01/01/"+String.valueOf((Integer.parseInt(ano) + 1));
+		    maxDate = formatter.parse(myDateEnd);
+	    } else {
+	    	
+	    	String mesSeguinte = "";
+	    	
+	    	if(Integer.parseInt(mes) >= 10) {
+	    		mesSeguinte = String.valueOf((Integer.parseInt(mes) + 1));
+	    	} else {
+	    		mesSeguinte = "0" + String.valueOf((Integer.parseInt(mes) + 1));
+	    	}
+	    	
+	    	String myDateEnd = "01/"+mesSeguinte+"/"+ano;
+		    maxDate = formatter.parse(myDateEnd);
+	    }
+		
+	    Conjunction and = Restrictions.conjunction();
+	    and.add( Restrictions.ge("dataHoraDesligada", minDate) );
+	    and.add( Restrictions.lt("dataHoraDesligada", maxDate) ); 
+	    
+	    criteria.add(and);
+		
         return (List<SituacaoCamera>) criteria.list();
 	}
 

@@ -1,7 +1,9 @@
 package br.com.rpw.monitoramento.api.dao;
 
+import java.text.ParseException;
 import java.util.List;
 
+import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.Ocorrencia;
 import br.com.rpw.monitoramento.api.model.Turno;
 
@@ -12,5 +14,6 @@ public interface IOcorrenciaDao {
     void deleteOcorrenciaById(Long codigoOcorrencia);
     Ocorrencia consultarOcorrencia(Ocorrencia ocorrencia);
     void atualizarOcorrencia(Ocorrencia ocorrencia);
+	List<Ocorrencia> listarOcorrencias(Cliente cliente, String mes, String ano) throws ParseException;
 	
 }

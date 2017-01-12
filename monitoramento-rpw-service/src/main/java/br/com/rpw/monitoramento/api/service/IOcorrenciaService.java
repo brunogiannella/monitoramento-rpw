@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import br.com.rpw.monitoramento.api.dto.OcorrenciaDTO;
+import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.Ocorrencia;
 import br.com.rpw.monitoramento.api.model.Turno;
 
@@ -15,4 +16,5 @@ public interface IOcorrenciaService {
 	List<Ocorrencia> consultarOcorrencias(Turno turno) throws NoSuchAlgorithmException, UnsupportedEncodingException;
 	void removerOcorrencia(Ocorrencia ocorrencia)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException;
+	List<Ocorrencia> listarOcorrencias(Cliente cliente, String mes, String ano) throws ParseException;
 }
