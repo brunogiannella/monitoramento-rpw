@@ -211,8 +211,14 @@ public class TurnoService implements ITurnoService {
 					ocorrenciaDto.setResumoOcorrencia("");
 					for(CampoCadastroOcorrenciaDTO camposCadastro : campos) {
 						if(camposCadastro.getTipo().equals("EQUIPAMENTOS")) {
-							Camera camera = cameraDaoImpl.consultarCamera(Long.parseLong(camposCadastro.getValor()));
-							ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camera.getDescricaoCamera() + "; ");
+							if(camposCadastro.getValor() != null) {
+								Camera camera = cameraDaoImpl.consultarCamera(Long.parseLong(camposCadastro.getValor()));
+								ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camera.getDescricaoCamera() + "; ");
+							} else {
+								ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": Não informado; ");
+							}
+							
+							
 						} else {
 							ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camposCadastro.getValor() + "; " );
 						}
