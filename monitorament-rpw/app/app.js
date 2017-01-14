@@ -35,6 +35,7 @@ var app = angular.module('app',['ui.router',
                   'consultarChat.controller',
                   'removerChat.controller',
                   'imprimirRelatorio.controller',
+                  'consultarRelatorioMensal.controller',
 
 							    'constantes.service',
 							    'utils.service',
@@ -47,6 +48,7 @@ var app = angular.module('app',['ui.router',
                   'camera.service',
                   'chat.service',
                   'ocorrencia.service',
+                  'relatorio.service',
 
                   'onFinishRender-diretiva']);
  
@@ -320,6 +322,14 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       },
       templateUrl: 'app/views/admin/imprimir-relatorio.html',
       controller: 'ImprimirRelatorioController as ImprimirRelatorioCrtl'
+    }).state('relatorio-mensal', {
+      url: '/relatorio-mensal',
+      params: {
+        idCliente : null,
+        nomeCliente : null
+      },
+      templateUrl: 'app/views/admin/relatorio-mensal.html',
+      controller: 'ConsultarRelatorioMensalController as ConsultarRelatorioMensalCrtl'
     });
 
 

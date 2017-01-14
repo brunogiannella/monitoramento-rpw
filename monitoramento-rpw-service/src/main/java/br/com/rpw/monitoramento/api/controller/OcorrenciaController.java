@@ -28,7 +28,7 @@ public class OcorrenciaController {
 	private OcorrenciaService ocorrenciaService;
 	
 	@RequestMapping(value="", method = RequestMethod.POST)
-	public RestObject iniciarTurno(@RequestBody OcorrenciaDTO ocorrenciaDTO, @RequestHeader(value="x-acess-token") String token) { 
+	public RestObject cadastrarOcorrencia(@RequestBody OcorrenciaDTO ocorrenciaDTO, @RequestHeader(value="x-acess-token") String token) { 
 		try {
 			ocorrenciaService.cadastrarOcorrencia(ocorrenciaDTO);
 			return new RestObject(200, true, "Ocorrencia cadastrado com sucesso", null);

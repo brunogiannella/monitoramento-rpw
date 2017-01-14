@@ -24,6 +24,7 @@
 		vm.removerCamera = removerCamera;
 		vm.desassociarOcorrencia = desassociarOcorrencia;
 		vm.desassociarOcorrenciaPersonalizada = desassociarOcorrenciaPersonalizada;
+		vm.gerarRelatorioMensal = gerarRelatorioMensal;
 
 		function inicializar() {
 			$scope.sair = UtilsService.logout;
@@ -77,6 +78,10 @@
 
 		function consultarTurnos(idCliente, nomeCliente) {
 			UtilsService.irPara('consultar-turnos-cliente', {idCliente:idCliente, nomeCliente:nomeCliente});
+		}
+
+		function gerarRelatorioMensal(idCliente, nomeCliente) {
+			UtilsService.irPara('relatorio-mensal', {idCliente:idCliente, nomeCliente:nomeCliente});
 		}
 
 		function editarCliente(data) {

@@ -51,7 +51,7 @@ public class Ocorrencia implements Serializable {
 	@Column(name = "DATA_CADASTRO")
 	private Date dataCadastro;
 	
-	@JoinColumn(name = "VALORES")
+	@Column(name = "VALORES", length = 600)
 	private String valores;
 	
 	@Column(name = "INFORMANTE_OCORRENCIA")
