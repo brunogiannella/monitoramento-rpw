@@ -58,6 +58,7 @@ public class TipoOcorrenciaService implements ITipoOcorrenciaService {
 			}
 			
 			campo.setOrdem(indice);
+			campo.setPorcentagemColuna(camposDto.getPorcentagemColuna());
 			campo.setTipoOcorrencia(tipoOcorrencia);
 			
 			campoOcorrenciaDaoImpl.salvarCampoOcorrencia(campo);

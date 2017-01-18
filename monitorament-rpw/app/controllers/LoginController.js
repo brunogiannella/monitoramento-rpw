@@ -13,18 +13,6 @@
 		this.senha = null;
 		this.realizarLogin = realizarLogin;
 
-		if($rootScope.usuarioLogado != null) {
-			if($rootScope.usuarioLogado.tipoUsuario == "ADMINISTRADOR") {
-				UtilsService.irPara('home-administrador');
-			} else if($rootScope.usuarioLogado.tipoUsuario == "SUPERVIDOR") {
-				UtilsService.irPara('home-supervisor');
-			} else if($rootScope.usuarioLogado.tipoUsuario == "FUNCIONARIO") {
-				UtilsService.irPara('home-funcionario');
-			} else if($rootScope.usuarioLogado.tipoUsuario == "CLIENTE") {
-				UtilsService.irPara('home-cliente');
-			}
-		}
-
 		function realizarLogin() {
 			UtilsService.ativarLoading();
 			$scope.erro = false;
@@ -45,6 +33,7 @@
 						carregarDominiosFuncionario();
 					} else if($rootScope.usuarioLogado.tipoUsuario == "CLIENTE") {
 						UtilsService.irPara('home-cliente');
+						carregarDominiosCliente();
 					}
 				} else {
 					$scope.erro = true;
@@ -96,6 +85,39 @@
 			};
 
 			UsuarioService.consultarUsuariosTipoUsuario($rootScope.usuarioLogado.tipoUsuario, funcSucessoToMensagens);
+
+		}
+
+		function carregarDominiosCliente() {
+			$rootScope.dominios = {};
+			$rootScope.indicadores = {};
+
+			var d = new Date();
+			var mesRetorno = d.getMonth();
+			var mesAtual = mesRetorno + 1;
+			var anoAtual = d.getFullYear();
+
+			$rootScope.dominios.descricaoMesAtual = UtilsService.getMonth(mesAtual);
+			$rootScope.dominios.mesAtual = mesAtual;
+			$rootScope.dominios.anoAtual = anoAtual;
+
+			var funcSucessoClienteFuncionario = function(data) {
+				$rootScope.cliente = data;
+			};
+
+			ClienteService.consultarCliente($rootScope.usuarioLogado.idCliente, funcSucessoClienteFuncionario);
+
+			var funcSucessoQuantidadeTurnosClientesMes = function(data) {
+				$rootScope.indicadores.quantidadeTurnos = data;
+			};
+
+			IndicadoresService.consultaIndicadoresTurnosClientesMes($rootScope.usuarioLogado.idCliente, mesAtual, anoAtual, funcSucessoQuantidadeTurnosClientesMes);
+
+			var funcSucessoQuantidadeOcorrenciasClientesMes = function(data) {
+				$rootScope.indicadores.quantidadeOcorrencias = data;
+			};
+
+			IndicadoresService.consultaIndicadoresOcorrenciasClientesMes($rootScope.usuarioLogado.idCliente, mesAtual, anoAtual, funcSucessoQuantidadeOcorrenciasClientesMes);
 
 		}
 

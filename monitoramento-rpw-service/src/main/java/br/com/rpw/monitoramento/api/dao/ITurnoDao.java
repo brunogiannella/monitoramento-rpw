@@ -21,5 +21,6 @@ public interface ITurnoDao {
 	List<Turno> consultarTurnoAnterior(Cliente cliente);
 	BigInteger consultarQuantidadeTurnosPendentes();
 	List<Turno> listarUltimosDezTurnosCliente(Cliente cliente);
+	BigInteger consultarQuantidadeTurnosClienteData(Cliente cliente, Integer mes, Integer ano);
 	
 }

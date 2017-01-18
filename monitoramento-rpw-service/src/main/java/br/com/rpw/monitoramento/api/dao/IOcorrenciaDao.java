@@ -1,5 +1,6 @@
 package br.com.rpw.monitoramento.api.dao;
 
+import java.math.BigInteger;
 import java.text.ParseException;
 import java.util.List;
 
@@ -15,5 +16,6 @@ public interface IOcorrenciaDao {
     Ocorrencia consultarOcorrencia(Ocorrencia ocorrencia);
     void atualizarOcorrencia(Ocorrencia ocorrencia);
 	List<Ocorrencia> listarOcorrencias(Cliente cliente, String mes, String ano) throws ParseException;
+	BigInteger consultarQuantidadeOcorrenciasClienteData(Cliente cliente, Integer mes, Integer ano);
 	
 }

@@ -69,16 +69,23 @@
                         </div>  
                       </div>
 
+                       <div id="mensagensValidacaoCamposTamanho" class="row mensagensValidacao" ng-show="mainForm.porcentagemColuna[0].$dirty && (mainForm.porcentagemColuna[0].$error.required)">
+                        <div class="col">
+                          <span ng-class="error" ng-show="mainForm.porcentagemColuna[0].$dirty && mainForm.porcentagemColuna[0].$error.required"><i class="tiny material-icons mr10">error</i>É obrigatório o preenchimento o campo tamanho./span>
+                        </div>  
+                      </div>
+
+
                       <div class="row">
                         <div class="input-field col s12 pr-5">
-                          <input id="descricao" name="descricao" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.descricao" type="text" required>
+                          <input id="descricao" name="descricao" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.descricao" type="text">
                           <label for="descricao">Descrição da ocorrência</label>
                         </div>
                       </div>
 
                       <!--  -->
                       <div class="row no-m">
-                        <div class="input-field col s12 m6">
+                        <div class="input-field col s12 m4">
                           <input id="descricaoCampo[0]" name="descricaoCampo[0]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[0].descricao" type="text" required>
                           <label for="descricaoCampo[0]">campo</label>
                         </div>
@@ -92,11 +99,16 @@
                           </select>
                           <label>Tipo do campo</label>
                         </div>
+
+                        <div class="input-field col s12 m3">
+                          <input id="porcentagemColuna[0]" name="porcentagemColuna[0]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[0].porcentagemColuna" type="text">
+                          <label for="porcentagemColuna[0]">tamanho (%)</label>
+                        </div>
                         <!--  -->
 
                         <!--  -->
-                      <div class="row no-m">
-                        <div class="input-field col s12 m6">
+                        <div class="row no-m">
+                        <div class="input-field col s12 m4">
                           <input id="descricaoCampo[1]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[1].descricao" type="text" class="validate">
                           <label for="descricaoCampo[1]">campo</label>
                         </div>
@@ -110,11 +122,16 @@
                           </select>
                           <label>Tipo do campo</label>
                         </div>
+
+                        <div class="input-field col s12 m3">
+                          <input id="porcentagemColuna[1]" name="porcentagemColuna[1]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[1].porcentagemColuna" type="text">
+                          <label for="porcentagemColuna[1]">tamanho (%)</label>
+                        </div>
                         <!--  -->
 
                         <!--  -->
                       <div class="row no-m">
-                        <div class="input-field col s12 m6">
+                        <div class="input-field col s12 m4">
                           <input id="descricaoCampo[2]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[2].descricao" type="text" class="validate">
                           <label for="descricaoCampo[2]">campo</label>
                         </div>
@@ -128,11 +145,16 @@
                           </select>
                           <label>Tipo do campo</label>
                         </div>
+
+                        <div class="input-field col s12 m3">
+                          <input id="porcentagemColuna[2]" name="porcentagemColuna[2]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[2].porcentagemColuna" type="text">
+                          <label for="porcentagemColuna[2]">tamanho (%)</label>
+                        </div>
                         <!--  -->
 
                         <!--  -->
                       <div class="row no-m">
-                        <div class="input-field col s12 m6">
+                        <div class="input-field col s12 m4">
                           <input id="descricaoCampo[3]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[3].descricao" type="text" class="validate">
                           <label for="descricaoCampo[3]">campo</label>
                         </div>
@@ -146,11 +168,16 @@
                           </select>
                           <label>Tipo do campo</label>
                         </div>
+
+                        <div class="input-field col s12 m3">
+                          <input id="porcentagemColuna[3]" name="porcentagemColuna[3]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[3].porcentagemColuna" type="text">
+                          <label for="porcentagemColuna[3]">tamanho (%)</label>
+                        </div>
                         <!--  -->
 
                         <!--  -->
                       <div class="row no-m">
-                        <div class="input-field col s12 m6">
+                        <div class="input-field col s12 m4">
                           <input id="descricaoCampo[4]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[4].descricao" type="text" class="validate">
                           <label for="descricaoCampo[4]">campo</label>
                         </div>
@@ -164,11 +191,16 @@
                           </select>
                           <label>Tipo do campo</label>
                         </div>
+
+                        <div class="input-field col s12 m3">
+                          <input id="porcentagemColuna[4]" name="porcentagemColuna[4]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[4].porcentagemColuna" type="text">
+                          <label for="porcentagemColuna[4]">tamanho (%)</label>
+                        </div>
                         <!--  -->
 
                         <!--  -->
                       <div class="row no-m">
-                        <div class="input-field col s12 m6">
+                        <div class="input-field col s12 m4">
                           <input id="descricaoCampo[5]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[5].descricao" type="text" class="validate">
                           <label for="descricaoCampo[5]">campo</label>
                         </div>
@@ -181,6 +213,11 @@
                             
                           </select>
                           <label>Tipo do campo</label>
+                        </div>
+
+                        <div class="input-field col s12 m3">
+                          <input id="porcentagemColuna[5]" name="porcentagemColuna[5]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[5].porcentagemColuna" type="text">
+                          <label for="porcentagemColuna[5]">tamanho (%)</label>
                         </div>
                         <!--  -->
                       

@@ -101,6 +101,14 @@ public class TurnoDaoImpl extends AbstractDao implements ITurnoDao {
         
         return quantidadeClientes;
 	}
+	
+	@Override
+	public BigInteger consultarQuantidadeTurnosClienteData(Cliente cliente, Integer mes, Integer ano) {
+		Query query = getSession().createSQLQuery("SELECT count(*) from TURNO where ID_CLIENTE = " + cliente.getId() + " AND MONTH(DATA_INICIO) = " + mes + " AND YEAR(DATA_INICIO) = " + ano + ";");
+        BigInteger quantidadeClientes = (BigInteger) query.uniqueResult();
+        
+        return quantidadeClientes;
+	}
 
 	@Override
 	public void atualizarTurno(Turno Turno) {

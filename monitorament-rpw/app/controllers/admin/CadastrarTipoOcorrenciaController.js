@@ -34,6 +34,17 @@
 		};
 
 		function validarTipoOcorrencia(tipoOcorrenciaDto) {
+
+			var total = 0;
+			for(var i = 0; i < tipoOcorrenciaDto.campos.length; i++) {
+				total = total + parseInt(tipoOcorrenciaDto.campos[i].porcentagemColuna);
+			}
+
+			if(total != 100) {
+				alert("A some das colunas tamanho (%) devem obrigatóriamente ser igual a 100.");
+				return false;
+			}
+
 			return true;
 		};
 

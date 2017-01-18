@@ -41,6 +41,9 @@ public class CampoOcorrencia implements Serializable {
 	
 	@Column(name = "ORDEM", nullable = false)
 	private Integer ordem;
+	
+	@Column(name = "TAMANHO_COLUNA", nullable = false)
+	private Integer porcentagemColuna;
 
 	public Long getId() {
 		return id;
@@ -82,4 +85,12 @@ public class CampoOcorrencia implements Serializable {
 		this.ordem = ordem;
 	}
 
+	public Integer getPorcentagemColuna() {
+		return porcentagemColuna;
+	}
+
+	public void setPorcentagemColuna(Integer porcentagemColuna) {
+		this.porcentagemColuna = porcentagemColuna;
+	}
+	
 }

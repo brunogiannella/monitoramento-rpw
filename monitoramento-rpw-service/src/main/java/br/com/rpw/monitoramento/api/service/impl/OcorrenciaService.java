@@ -1,6 +1,7 @@
 package br.com.rpw.monitoramento.api.service.impl;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.util.Date;
@@ -108,6 +109,11 @@ public class OcorrenciaService implements IOcorrenciaService {
 		ocorrencia.setValores(valoresJson);
 		
 		return ocorrencia;
+	}
+
+	@Override
+	public BigInteger consultarQuantidadeOcorrenciasClienteData(Cliente cliente, Integer mes, Integer ano) {
+		return ocorrenciaDaoImpl.consultarQuantidadeOcorrenciasClienteData(cliente, mes, ano);
 	}
 
 }

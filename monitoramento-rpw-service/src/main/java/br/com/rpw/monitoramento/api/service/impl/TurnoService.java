@@ -1,6 +1,7 @@
 package br.com.rpw.monitoramento.api.service.impl;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -308,6 +309,11 @@ public class TurnoService implements ITurnoService {
 	@Override
 	public Object consultarQuantidadeTurnosPendentes() {
 		return turnoDaoImpl.consultarQuantidadeTurnosPendentes();
+	}
+	
+	@Override
+	public BigInteger consultarQuantidadeTurnosClienteData(Cliente cliente, Integer mes, Integer ano) {
+		return turnoDaoImpl.consultarQuantidadeTurnosClienteData(cliente, mes, ano);
 	}
 
 	@Override

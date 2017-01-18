@@ -93,10 +93,10 @@
                                         <td>{{turno.dataFim}}</td>
                                         <td>{{turno.status}}</td>
                                         <td class="right-align">
-                                          <a href="#" ng-click="ConsultarTurnosClienteCrtl.visualizarTurno(turno.id);"><i class="material-icons small red-text">mode_edit</i></a>
+                                          <a href="#" ng-click="ConsultarTurnosClienteCrtl.visualizarTurno(turno.id);" ng-hide="ConsultarTurnosClienteCrtl.consumidor == 'cliente'"><i class="material-icons small red-text">mode_edit</i></a>
                                           <a href="#" ng-click="ConsultarTurnosClienteCrtl.visualizarRelatorio(turno.id);"><i class="material-icons small blue-text" ng-if="turno.status == 'APROVADO'">print</i></a>
-                                          <a href="#" ng-click="ConsultarTurnosClienteCrtl.aprovar(turno.id);" ng-if="turno.status == 'AGUARDANDO_VALIDACAO'""><i class="material-icons small green-text">done</i></a>
-                                          <a href="#" ng-click="ConsultarTurnosClienteCrtl.enviar(turno.id);" ng-if="turno.status == 'APROVADO'"><i class="material-icons small black-text">email</i></a>
+                                          <a href="#" ng-click="ConsultarTurnosClienteCrtl.aprovar(turno.id);" ng-if="turno.status == 'AGUARDANDO_VALIDACAO'" ng-hide="ConsultarTurnosClienteCrtl.consumidor == 'cliente'""><i class="material-icons small green-text">done</i></a>
+                                          <a href="#" ng-click="ConsultarTurnosClienteCrtl.enviar(turno.id);" ng-if="turno.status == 'APROVADO'" ng-hide="ConsultarTurnosClienteCrtl.consumidor == 'cliente'"><i class="material-icons small black-text">email</i></a>
                                         </td>
                                       </tr>
                                       

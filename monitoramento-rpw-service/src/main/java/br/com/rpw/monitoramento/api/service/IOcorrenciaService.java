@@ -1,6 +1,7 @@
 package br.com.rpw.monitoramento.api.service;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.util.List;
@@ -17,4 +18,5 @@ public interface IOcorrenciaService {
 	void removerOcorrencia(Ocorrencia ocorrencia)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException;
 	List<Ocorrencia> listarOcorrencias(Cliente cliente, String mes, String ano) throws ParseException;
+	BigInteger consultarQuantidadeOcorrenciasClienteData(Cliente cliente, Integer mes, Integer ano);
 }

@@ -1,5 +1,6 @@
 package br.com.rpw.monitoramento.api.dao.impl;
 
+import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -84,6 +85,14 @@ public class OcorrenciaDaoImpl extends AbstractDao implements IOcorrenciaDao {
         return (Ocorrencia) criteria.uniqueResult();
 	}
 
+	@Override
+	public BigInteger consultarQuantidadeOcorrenciasClienteData(Cliente cliente, Integer mes, Integer ano) {
+		Query query = getSession().createSQLQuery("SELECT count(*) from OCORRENCIA where ID_CLIENTE = " + cliente.getId() + " AND MONTH(DATA_CADASTRO) = " + mes + " AND YEAR(DATA_CADASTRO) = " + ano + ";");
+        BigInteger quantidadeClientes = (BigInteger) query.uniqueResult();
+        
+        return quantidadeClientes;
+	}
+	
 	@Override
 	public void atualizarOcorrencia(Ocorrencia ocorrencia) {
 		getSession().update(ocorrencia);

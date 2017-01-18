@@ -12,14 +12,24 @@
 		function inicializar() {
 			vm.nomeCliente = $stateParams.nomeCliente;
 			vm.idCliente = $stateParams.idCliente;
+			vm.consumidor = $stateParams.consumidor;
 		};
 
 		function inicio() {
-			UtilsService.irPara('home-administrador');
+			if(vm.consumidor == "cliente") {
+				UtilsService.irPara('home-cliente');
+			} else {
+				UtilsService.irPara('home-administrador');
+			}	
 		}
 
 		function voltar() {
-			UtilsService.irPara("clientes", {idCliente:$stateParams.idCliente});
+			if(vm.consumidor == "cliente") {
+				UtilsService.irPara('home-cliente');
+			} else {
+				UtilsService.irPara("clientes", {idCliente:$stateParams.idCliente});
+			}
+
 		};
 
 		function visualizarRelatorio(id) {

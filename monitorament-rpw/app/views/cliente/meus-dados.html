@@ -1,0 +1,181 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>RPW • Admin</title>
+        <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="css/admin.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+      <!-- MENU -->
+      <nav>
+
+        <div class="nav-wrapper">
+
+          <div class="logo-symbol hide-on-med-and-up">
+            <img src="img/logo_symbol.png" width="116" height="143">
+          </div>
+
+          <ul class="left hide-on-med-and-up2 btn_menu" data-activates="slide-out">
+            <li><a href="#!"><i class="material-icons">menu</i></a></li>
+          </ul>
+
+          <ul class="right hide-on-small-only btn_sair">
+            <li><a href="#" ng-click="MeusDadosCrtl.sair();"><i class="material-icons right">exit_to_app</i>Sair</a></li>
+          </ul>
+        </div>
+            <ul id="slide-out" class="side-nav fixed rpw-menu">
+              <li class="logo"><img src="img/logo_rpw.png" /></li>
+              <li><a ng-click="MeusDadosCrtl.voltar();" class="waves-effect"><i class="material-icons">home</i>Início</a></li>
+            </ul>
+      </nav>
+      <!-- /MENU -->
+
+    <main>
+      <div class="section">
+        <div class="container2">
+           <div class="row no-m">
+                <div class="col">
+                  <h5 class="header blue-text text-darken-2 center-on-small-only title"><i class="material-icons">note_add</i> <span class="light"> Meus dados</span></h5>
+                </div>
+              </div>
+
+          <div id="dadosCliente">
+             <div class="row">
+                <div class="col s12 m12" >
+                <h5 class="header black-text text-darken-2 center-on-small-only title"><i class="material-icons">toc</i> <span class="light">Dados cadastrais</span></h5>
+                <div class="card-panel">
+                    <div class="row">
+                      <div class="col s12 m6" >
+                        <span class="bold">ID:</span>
+                        <span>{{MeusDadosCrtl.meuCliente.id}}</span>
+                      </div>
+
+                      <div class="col s12 m6" >
+                        <span class="bold">Nome:</span> 
+                        <span>{{MeusDadosCrtl.meuCliente.nome}}</span>
+                      </div>
+                      
+                    </div>
+
+                    <div class="row">
+                      <div class="col s12 m6" >
+                        <span class="bold">Email automático:</span> 
+                        <span>{{MeusDadosCrtl.meuCliente.emailAutomatico}}</span>
+                      </div>
+
+                      <div class="col s12 m6" >
+                        <span class="bold">Email responsável:</span> 
+                        <span>{{MeusDadosCrtl.meuCliente.emailResposavel}}</span>
+                      </div>
+                      
+                    </div>
+
+                    <div class="row">
+                      <div class="col s12 m12" >
+                        <span class="bold">Emails relatório diário:</span> 
+                        <span>{{MeusDadosCrtl.meuCliente.emailsRelatorioDiario}}</span>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col s12 m12" >
+                        <span class="bold">Emails relatório mensal:</span> 
+                        <span>{{MeusDadosCrtl.meuCliente.emailsRelatorioMensal}}</span>
+                      </div>
+                    </div>
+                </div>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <div class="col s12 m12" >
+                <h5 class="header black-text text-darken-2 center-on-small-only title"><i class="material-icons">toc</i> <span class="light">Equipamentos cadastrados</span></h5>
+                <div class="card-panel">
+                
+                  <div class="row">
+                    <label class="col s12 barraBuscaFont">Digite a sua pesquisa: <input style="color:black;" ng-model="searchTextCamera"></label>
+                  </div>
+
+                  <table class="responsive-table striped" ng-show="MeusDadosCrtl.meuCliente.cameras.length > 0">
+                    <thead>
+                      <tr>
+                          <th data-field="id">Descrição</th>
+                          <th data-field="id">Local</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="camera in MeusDadosCrtl.meuCliente.cameras | filter:searchTextCamera">
+                        <td>{{camera.descricaoCamera}}</td>
+                        <td>{{camera.localizacaoCamera}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <center><h6 ng-show="MeusDadosCrtl.meuCliente.cameras.length == 0">Nenhum equipamento cadastrado</h6></center>
+
+                </div>
+
+                </div>
+              </div>
+             
+
+              <div class="row">
+                <div class="col s12 m12" >
+                <h5 class="header black-text text-darken-2 center-on-small-only title"><i class="material-icons">toc</i> <span class="light">Ocorrências associadas</span></h5>
+                <div class="card-panel">
+                  <table class="responsive-table striped" ng-show="MeusDadosCrtl.meuCliente.tiposOcorrencia.length > 0">
+                    <thead>
+                      <tr>
+                          <th data-field="id">Descrição ocorrência</th>
+                          <th data-field="id">Quantidade de campos</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr  ng-repeat="ocorrencia in MeusDadosCrtl.meuCliente.tiposOcorrencia">
+                        <td>{{ocorrencia.descricao}}</td>
+                         <td>{{ocorrencia.quantidadeCampos}}</td>
+                      </tr>
+                      <tr  ng-repeat="ocorrencia in MeusDadosCrtl.meuCliente.tiposOcorrenciaPersonalizada">
+                        <td>{{ocorrencia.descricao}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <center><h6 ng-show="MeusDadosCrtl.meuCliente.tiposOcorrencia.length == 0">Nenhuma ocorrência associada</h6></center>
+
+                </div>
+
+                </div>
+              </div>              
+
+          </div>
+
+        </div>
+      </div>
+    </main>
+
+      <!-- Scripts -->
+      <script type="text/javascript" src="js/materialize.js"></script>
+      <script type="text/javascript">
+        $(document).ready(function(){
+            $('.selectable').material_select();
+            $('.btn_menu').sideNav({
+                menuWidth: 285, 
+                closeOnClick: false
+              }
+            );
+
+            $('.caret').remove();
+            $('.collapsible').collapsible();
+          });
+
+      </script>
+      <!-- /Scripts -->
+    </body>
+  </html>

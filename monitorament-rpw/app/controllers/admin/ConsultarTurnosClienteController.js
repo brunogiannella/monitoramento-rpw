@@ -12,6 +12,7 @@
 		function inicializar() {
 			vm.nomeCliente = $stateParams.nomeCliente;
 			vm.idCliente = $stateParams.idCliente;
+			vm.consumidor = $stateParams.consumidor;
 
 			var funcSucesso = function(data) {
 				if(data != null && data.length > 0) {
@@ -23,11 +24,19 @@
 		};
 
 		function inicio() {
-			UtilsService.irPara('home-administrador');
+			if(vm.consumidor == "cliente") {
+				UtilsService.irPara('home-cliente');
+			} else {
+				UtilsService.irPara('home-administrador');
+			}	
 		}
 
 		function voltar() {
-			UtilsService.irPara("clientes", {idCliente:$stateParams.idCliente});
+			if(vm.consumidor == "cliente") {
+				UtilsService.irPara('home-cliente');
+			} else {
+				UtilsService.irPara("clientes", {idCliente:$stateParams.idCliente});
+			}
 		};
 
 		function visualizarTurno(id) {

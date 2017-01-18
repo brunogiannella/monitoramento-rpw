@@ -8,10 +8,11 @@ public class CampoCadastroOcorrenciaDTO implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -2449055076078815780L;
-	
+
 	private String descricao;
 	private String valor;
 	private String tipo;
+	private String tamanho;
 
 	public String getDescricao() {
 		return descricao;
@@ -35,6 +36,14 @@ public class CampoCadastroOcorrenciaDTO implements Serializable {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public String getTamanho() {
+		return tamanho;
+	}
+
+	public void setTamanho(String tamanho) {
+		this.tamanho = tamanho;
 	}
 
 }

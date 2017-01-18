@@ -36,6 +36,8 @@ var app = angular.module('app',['ui.router',
                   'removerChat.controller',
                   'imprimirRelatorio.controller',
                   'consultarRelatorioMensal.controller',
+                  'homeCliente.controller',
+                  'meusDados.controller',
 
 							    'constantes.service',
 							    'utils.service',
@@ -182,7 +184,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       url: '/consultar-turnos-cliente',
       params: {
         idCliente : null,
-        nomeCliente : null
+        nomeCliente : null,
+        consumidor : null
       },
       templateUrl: 'app/views/admin/consultar-turnos-cliente.html',
       controller: 'ConsultarTurnosClienteController as ConsultarTurnosClienteCrtl'
@@ -326,10 +329,19 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       url: '/relatorio-mensal',
       params: {
         idCliente : null,
-        nomeCliente : null
+        nomeCliente : null,
+        consumidor : null
       },
       templateUrl: 'app/views/admin/relatorio-mensal.html',
       controller: 'ConsultarRelatorioMensalController as ConsultarRelatorioMensalCrtl'
+    }).state('home-cliente', {
+      url: '/home-cliente',
+      templateUrl: 'app/views/cliente/home-cliente.html',
+      controller: 'HomeClienteController as HomeCrtl'
+    }).state('meus-dados', {
+      url: '/meus-dados',
+      templateUrl: 'app/views/cliente/meus-dados.html',
+      controller: 'MeusDadosController as MeusDadosCrtl'
     });
 
 

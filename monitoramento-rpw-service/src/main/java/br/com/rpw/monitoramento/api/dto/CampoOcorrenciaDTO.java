@@ -6,6 +6,7 @@ public class CampoOcorrenciaDTO {
 	private String descricao;
 	private String tipoCampo;
 	private Integer ordem;
+	private Integer porcentagemColuna;
 
 	public Long getId() {
 		return id;
@@ -37,6 +38,14 @@ public class CampoOcorrenciaDTO {
 
 	public void setOrdem(Integer ordem) {
 		this.ordem = ordem;
+	}
+
+	public Integer getPorcentagemColuna() {
+		return porcentagemColuna;
+	}
+
+	public void setPorcentagemColuna(Integer porcentagemColuna) {
+		this.porcentagemColuna = porcentagemColuna;
 	}
 
 }
