@@ -177,6 +177,12 @@
 
 			IndicadoresService.consultarQuantidadeTurnosPendentes(funcSucessoQuantidadeTurnosPendentes);
 
+			var funcSucessoQuantidadeTurnosAndamento = function(data) {
+				$rootScope.indicadores.quantidadeTurnosAndamento = data;
+			};
+
+			IndicadoresService.consultarQuantidadeTurnosAndamento(funcSucessoQuantidadeTurnosAndamento);
+
 			var funcSucessoQuantidadeUsuarios = function(data) {
 				$rootScope.indicadores.quantidadeUsuarios = data;
 			};

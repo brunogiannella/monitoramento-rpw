@@ -292,6 +292,34 @@
 			});
 		};
 
+		function consultarTurnosAndamento(fncSucesso) {
+
+			var  data = {};
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'turno/andamento',
+				method : 'GET',
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		         return false;
+		       }
+		    ).catch(function() {
+				return false;
+			});
+		};
+
 		function consultarUltimosDezTurnos(idCliente, fncSucesso) {
 
 			var  data = {};
@@ -360,6 +388,7 @@
 			consultarTempo : consultarTempo,
 			consultarUltimosTurnosCliente : consultarUltimosTurnosCliente,
 			consultarTurnosPendentes : consultarTurnosPendentes,
+			consultarTurnosAndamento : consultarTurnosAndamento,
 			consultarUltimosDezTurnos : consultarUltimosDezTurnos,
 			aprovarTurno : aprovarTurno
 		}

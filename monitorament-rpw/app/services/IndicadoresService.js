@@ -50,6 +50,25 @@
 				});
 		};
 
+		function consultarQuantidadeTurnosAndamento(fncSucesso) {
+			$http.get(
+				ConstantesService.URL.SERVIDOR + 'indicador/quantidadeTurnosAndamento').then(
+			       function(response){
+			       		if(response.data.sucess) {
+				       	  	fncSucesso(response.data.data);
+				       	} else {
+				       	  	return false;
+				       	}
+			       }, 
+			       function(response){
+			       }
+			    )
+			  	.finally(function() {
+				})
+				.catch(function() {
+				});
+		};
+
 		function consultarQuantidadeUsuarios(fncSucesso) {
 			$http.get(
 				ConstantesService.URL.SERVIDOR + 'indicador/quantidadeUsuarios').then(
@@ -151,6 +170,7 @@
 			consultarQuantidadeTiposOcorrencias : consultarQuantidadeTiposOcorrencias,
 			consultarQuantidadeTiposOcorrenciaPersonalizadas : consultarQuantidadeTiposOcorrenciaPersonalizadas,
 			consultarQuantidadeTurnosPendentes : consultarQuantidadeTurnosPendentes,
+			consultarQuantidadeTurnosAndamento : consultarQuantidadeTurnosAndamento,
 			consultaIndicadoresTurnosClientesMes : consultaIndicadoresTurnosClientesMes,
 			consultaIndicadoresOcorrenciasClientesMes : consultaIndicadoresOcorrenciasClientesMes
 		}

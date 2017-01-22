@@ -48,6 +48,10 @@
 			UtilsService.irPara("turnos-pendentes");
 		};
 
+		vm.turnosAndamento = function() {
+			UtilsService.irPara("turnos-andamento");
+		};
+
 		inicializar();
 	}
 

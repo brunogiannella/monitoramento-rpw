@@ -21,6 +21,7 @@ public class TurnoDaoImpl extends AbstractDao implements ITurnoDao {
 
 	@Override
 	public void salvarTurno(Turno turno) {
+		turno.setEnviado(false);
 		persist(turno);
 	}
 
@@ -81,9 +82,14 @@ public class TurnoDaoImpl extends AbstractDao implements ITurnoDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Turno> consultarTurno(StatusTurnoEnum status) {
+	public List<Turno> consultarTurno(StatusTurnoEnum status, Boolean enviado) {
 		Criteria criteria = getSession().createCriteria(Turno.class);
         criteria.add(Restrictions.eq("status",status));
+        
+        if(enviado != null) {
+        	criteria.add(Restrictions.eq("enviado",enviado));
+        }
+        
         return (List<Turno>) criteria.list();
 	}
 
@@ -96,7 +102,15 @@ public class TurnoDaoImpl extends AbstractDao implements ITurnoDao {
 	
 	@Override
 	public BigInteger consultarQuantidadeTurnosPendentes() {
-		Query query = getSession().createSQLQuery("SELECT count(*) from TURNO where STATUS_TURNO LIKE 'EM_ANDAMENTO' OR STATUS_TURNO LIKE 'AGUARDANDO_VALIDACAO' OR STATUS_TURNO LIKE 'APROVADO'");
+		Query query = getSession().createSQLQuery("SELECT count(*) from TURNO where STATUS_TURNO LIKE 'AGUARDANDO_VALIDACAO' OR (STATUS_TURNO LIKE 'APROVADO' && ENVIADO = FALSE)");
+        BigInteger quantidadeClientes = (BigInteger) query.uniqueResult();
+        
+        return quantidadeClientes;
+	}
+	
+	@Override
+	public BigInteger consultarQuantidadeTurnosAndamento() {
+		Query query = getSession().createSQLQuery("SELECT count(*) from TURNO where STATUS_TURNO LIKE 'EM_ANDAMENTO'");
         BigInteger quantidadeClientes = (BigInteger) query.uniqueResult();
         
         return quantidadeClientes;

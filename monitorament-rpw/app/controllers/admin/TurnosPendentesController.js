@@ -14,6 +14,7 @@
 		vm.visualizarTurno = visualizarTurno;
 		vm.aprovar = aprovar;
 		vm.enviar = enviar;
+		vm.tipoConsulta = "pendentes";
 		vm.visualizarRelatorio = visualizarRelatorio;
 
 		function inicializar() {

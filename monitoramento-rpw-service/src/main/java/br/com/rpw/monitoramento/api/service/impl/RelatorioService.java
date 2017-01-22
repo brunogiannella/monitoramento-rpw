@@ -75,7 +75,7 @@ public class RelatorioService implements IRelatorioService {
 	
 	private List<GrupoOcorrenciasDto> converterOcorrenciasEmGrupoOcorrencias(List<Ocorrencia> ocorrencias) {
 		Map<String, List<OcorrenciaDTO>> gruposOcorrencia = new HashMap<String, List<OcorrenciaDTO>>();
-		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
 		if(ocorrencias != null) {
 			for(Ocorrencia ocorrencia : ocorrencias) {
@@ -127,7 +127,7 @@ public class RelatorioService implements IRelatorioService {
 		List<SituacaoCamera> situacoesCameraTurno = situacoesCamera;
 		Map<Long, Integer> mapHorasDesligadas = new HashMap<Long, Integer>();
 		
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 	    Date maxDate = null;
 	    
 	    if(mes.equals("12")) {

@@ -38,7 +38,7 @@ public class SituacaoCameraService implements ISituacaoCameraService {
 			situacaoCamera = situacaoCameraDaoImpl.consultarSituacaoCamera(situacaoCameraDTO.getIdSituacaoCamera());
 			situacaoCamera.setLigada(true);
 			situacaoCamera.setDesligada(true);
-			SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+			SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			situacaoCamera.setDataHoraLigada(formato.parse(situacaoCameraDTO.getDataHora().replace("T", " ")));
 			situacaoCameraDaoImpl.atualizarSituacaoCamera(situacaoCamera);
 		}
@@ -88,7 +88,7 @@ public class SituacaoCameraService implements ISituacaoCameraService {
 		turno.setId(situacaoCameraDTO.getIdTurno());
 		situacaoCamera.setTurno(turno);
 		
-		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		situacaoCamera.setLigada(false);
 		situacaoCamera.setDesligada(true);
 		situacaoCamera.setDataHoraDesligada(formato.parse(situacaoCameraDTO.getDataHora().replace("T", " ")));

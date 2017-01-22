@@ -80,6 +80,15 @@ public class IndicadoresController {
 		}
 	}
 	
+	@RequestMapping(value="/quantidadeTurnosAndamento", method = RequestMethod.GET)
+	public RestObject consultaIndicadoresTurnosAndamento() { 
+		try {
+			return new RestObject(200, true, "Consulta realizada com sucesso", turnoService.consultarQuantidadeTurnosAndamento());
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
+		}
+	}
+	
 	@RequestMapping(value="/quantidadeTurnosClienteMes/cliente/{idCliente}/{mes}/{ano}", method = RequestMethod.GET)
 	public RestObject consultaIndicadoresTurnosClientesMes(@PathVariable("idCliente") Long idCliente, @PathVariable("mes") Integer mes, @PathVariable("ano") Integer ano) { 
 		try {

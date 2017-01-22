@@ -71,6 +71,9 @@ public class Turno implements Serializable {
 	
 	@Column(name = "OPERADORES")
 	private String operadores;
+	
+	@Column(name = "ENVIADO", nullable = false)
+	private Boolean enviado;
 
 	@Transient
 	private List<Ocorrencia> ocorrencias;
@@ -153,6 +156,14 @@ public class Turno implements Serializable {
 
 	public void setLiderSeguranca(String liderSeguranca) {
 		this.liderSeguranca = liderSeguranca;
+	}
+
+	public Boolean getEnviado() {
+		return enviado;
+	}
+
+	public void setEnviado(Boolean enviado) {
+		this.enviado = enviado;
 	}
 
 }

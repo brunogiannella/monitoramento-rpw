@@ -128,6 +128,7 @@ public class ClienteService implements IClienteService {
 				campoDto.setId(campo.getId());
 				campoDto.setTipoCampo(campo.getTipoCampo().getDescricao());
 				campoDto.setDescricao(campo.getDescricao());
+				campoDto.setPorcentagemColuna(campo.getPorcentagemColuna());
 				
 				tipoOcorrenciaDto.getCampos().add(campoDto);
 			}

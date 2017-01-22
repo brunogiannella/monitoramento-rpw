@@ -102,7 +102,7 @@ public class ChatService implements IChatService {
 		chatDto.setId(chat.getId());
 		
 		if(chat.getDataUltimaMensagem() != null) {
-			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 			chatDto.setDataAbertura(formato.format(chat.getDataUltimaMensagem()));
 		}
 		
@@ -177,7 +177,7 @@ public class ChatService implements IChatService {
 		mensagemChatDto.setIdChat(mensagem.getChat().getId());
 		mensagemChatDto.setNomeUsuarioFrom(mensagem.getUsuarioFrom().getNome());
 		
-		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		mensagemChatDto.setDataEnvio(formato.format(mensagem.getDataEnvio()));
 		
 		return mensagemChatDto;

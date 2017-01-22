@@ -166,7 +166,7 @@ public class TurnoService implements ITurnoService {
 		TurnoDTO turnoDTO = new TurnoDTO();
 		turnoDTO.setId(turno.getId());
 		
-		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		turnoDTO.setDataInicio(formato.format(turno.getDataInicio()));
 		
 		if(turno.getDataFim() != null) {
@@ -294,21 +294,30 @@ public class TurnoService implements ITurnoService {
 
 	@Override
 	public List<Turno> consultarTurnosPendentes() {
-		List<Turno> turnosAndamento = this.turnoDaoImpl.consultarTurno(StatusTurnoEnum.EM_ANDAMENTO);
-		List<Turno> turnosAguardandoAprovacao = this.turnoDaoImpl.consultarTurno(StatusTurnoEnum.AGUARDANDO_VALIDACAO);
-		List<Turno> turnosAprovado = this.turnoDaoImpl.consultarTurno(StatusTurnoEnum.APROVADO);
+		List<Turno> turnosAguardandoAprovacao = this.turnoDaoImpl.consultarTurno(StatusTurnoEnum.AGUARDANDO_VALIDACAO, false);
+		List<Turno> turnosAprovado = this.turnoDaoImpl.consultarTurno(StatusTurnoEnum.APROVADO, false);
 		
 		List<Turno> turnosPendentes = new ArrayList<Turno>();
 		turnosPendentes.addAll(turnosAguardandoAprovacao);
-		turnosPendentes.addAll(turnosAndamento);
 		turnosPendentes.addAll(turnosAprovado);
 		
 		return turnosPendentes;
+	}
+	
+	@Override
+	public List<Turno> consultarTurnosAndamento() {
+		List<Turno> turnosAndamento = this.turnoDaoImpl.consultarTurno(StatusTurnoEnum.EM_ANDAMENTO, false);		
+		return turnosAndamento;
 	}
 
 	@Override
 	public Object consultarQuantidadeTurnosPendentes() {
 		return turnoDaoImpl.consultarQuantidadeTurnosPendentes();
+	}
+	
+	@Override
+	public Object consultarQuantidadeTurnosAndamento() {
+		return turnoDaoImpl.consultarQuantidadeTurnosAndamento();
 	}
 	
 	@Override

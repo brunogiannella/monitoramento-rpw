@@ -14,7 +14,7 @@ public interface ITurnoDao {
     List<Turno> listarTurnos();
     List<Turno> listarTurnos(Cliente cliente);
     void deleteTurno(Long codigoTurno);
-    List<Turno> consultarTurno(StatusTurnoEnum status);
+    List<Turno> consultarTurno(StatusTurnoEnum status, Boolean enviado);
     Turno consultarTurno(Long idTurno);
     void atualizarTurno(Turno Turno);
 	List<Turno> listarTurnos(Usuario usuario, StatusTurnoEnum status);
@@ -22,5 +22,6 @@ public interface ITurnoDao {
 	BigInteger consultarQuantidadeTurnosPendentes();
 	List<Turno> listarUltimosDezTurnosCliente(Cliente cliente);
 	BigInteger consultarQuantidadeTurnosClienteData(Cliente cliente, Integer mes, Integer ano);
+	BigInteger consultarQuantidadeTurnosAndamento();
 	
 }
