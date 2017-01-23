@@ -1,11 +1,9 @@
 package br.com.rpw.monitoramento.api.dto;
 
-import java.util.List;
-
-public class AssociarTipoOcorrenciaDTO {
+public class DesassociarTipoOcorrenciaDTO {
 
 	private Long idCliente;
-	private List<Long> idTipoOcorrencia;
+	private Long idTipoOcorrencia;
 
 	public Long getIdCliente() {
 		return idCliente;
@@ -15,11 +13,11 @@ public class AssociarTipoOcorrenciaDTO {
 		this.idCliente = idCliente;
 	}
 
-	public List<Long> getIdTipoOcorrencia() {
+	public Long getIdTipoOcorrencia() {
 		return idTipoOcorrencia;
 	}
 
-	public void setIdTipoOcorrencia(List<Long> idTipoOcorrencia) {
+	public void setIdTipoOcorrencia(Long idTipoOcorrencia) {
 		this.idTipoOcorrencia = idTipoOcorrencia;
 	}
 

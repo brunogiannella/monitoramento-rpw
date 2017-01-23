@@ -12,8 +12,9 @@
 		
 
 		function inicializar() {
-			$scope.tipoOcorrenciasConsulta = $rootScope.dominios.tipoOcorrenciasConsulta;
+			vm.tipoOcorrenciasConsulta = $rootScope.dominios.tipoOcorrenciasConsulta;
 			vm.associarTipoOcorrencia = {};
+			vm.associarTipoOcorrencia.idTipoOcorrencia = [];
 			vm.associarTipoOcorrencia.idCliente = $stateParams.idCliente;
 			vm.nomeCliente = $stateParams.nomeCliente;
 			vm.idCliente = $stateParams.idCliente;
@@ -33,6 +34,18 @@
 		};
 
 		function validarAssociacao(equipamentoDto) {
+
+			for(var i = 0; i < vm.tipoOcorrenciasConsulta.length; i++) {
+				if(vm.tipoOcorrenciasConsulta[i].selected == true) {
+					vm.associarTipoOcorrencia.idTipoOcorrencia[vm.associarTipoOcorrencia.idTipoOcorrencia.length] = vm.tipoOcorrenciasConsulta[i].id;
+				}
+			}
+
+			if(vm.associarTipoOcorrencia.idTipoOcorrencia.length == 0) {
+				alert("Selecione pelo menos um tipo de ocorrência");
+				return false;
+			}
+
 			return true;
 		};
 

@@ -16,11 +16,11 @@ public interface IClienteService {
 	ClienteDTO consultarCliente(Long id);
 	void removerCliente(Long id);
 	void atualizarCliente(ClienteDTO cadastrarClienteRequestDTO);
-	void associarTipoOcorrencia(Cliente cliente, TipoOcorrencia tipoOcorrencia);
-	void associarTipoOcorrenciaPersonalizada(Cliente cliente, TipoOcorrenciaPersonalizada tipoOcorrencia);
 	void desassociarTipoOcorrencia(Cliente cliente, TipoOcorrencia tipoOcorrencia);
-	void desassociarTipoOcorrenciaPersonalizada(Cliente cliente, TipoOcorrenciaPersonalizada tipoOcorrencia);
 	BigInteger consultarQuantidadeClientesAtivos();
 	List<TipoOcorrenciaDTO> consultarTiposOcorrencia(Cliente cliente);
+	void associarTipoOcorrencia(Cliente cliente, List<TipoOcorrencia> tiposOcorrencia);
+	void associarTipoOcorrenciaPersonalizada(Cliente cliente, List<TipoOcorrenciaPersonalizada> tiposOcorrencia);
+	void desassociarTipoOcorrenciaPersonalizada(Cliente cliente, TipoOcorrenciaPersonalizada tipoOcorrencia);
 	
 }

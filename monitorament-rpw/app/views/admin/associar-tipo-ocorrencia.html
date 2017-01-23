@@ -66,6 +66,7 @@
                               <span class="text-bold">{{AssociarTipoOcorrenciaCrtl.nomeCliente}}</label>
                             </div>
 							
+                            <!--
                             <div class="input-field col s12 m6">
                               <input id="tipoOcorrencia" type="text" style="display:none;" ng-model="AssociarTipoOcorrenciaCrtl.associarTipoOcorrencia.idTipoOcorrencia" />
                               <select onchange="alterarComboTipoOcorrencia();" class="tipoocorrencia_cliente selectable">
@@ -74,7 +75,18 @@
                               </select>
                               <label>Tipo ocorrência</label>
                             </div>
+                            <!-->
+                            
+                          </div>
 
+                          <div class="row" ng-repeat="item in AssociarTipoOcorrenciaCrtl.tipoOcorrenciasConsulta">
+                            <div class="input-field col s12 m1">
+                                <input type="checkbox" ng-model="AssociarTipoOcorrenciaCrtl.tipoOcorrenciasConsulta[$index].selected" ng-value="{{item.id}}" style="position: initial !important; opacity: 100 !important; margin-left: 50px;margin-top: 15px; " />
+                            </div>
+
+                            <div class="input-field col s12 m11">
+                                <label>{{item.descricao}}</label>
+                            </div>
                           </div>
 
                           <div class="input-field col s12 m6">
@@ -95,30 +107,6 @@
           </div>
         </main>
 
-          <!-- Scripts -->
-          <script type="text/javascript" src="js/materialize.js"></script>
-          <script type="text/javascript">
-            $(document).ready(function () {
 
-              $('.selectable').material_select();
-              $('.btn_menu').sideNav({
-                  menuWidth: 285, 
-                  closeOnClick: false
-                }
-              );
-              $('.collapsible').collapsible();
-              $('.caret').remove();
-
-            });
-
-
-            function alterarComboTipoOcorrencia() {
-              var tipoOcorrenciaSelecionada = $("div.tipoocorrencia_cliente li.selected span").get(0).innerHTML;
-              $("#tipoOcorrencia").val(tipoOcorrenciaSelecionada.split(" - ")[0]);
-              angular.element($("#tipoOcorrencia")).triggerHandler('input')
-            }
-
-          </script>
-          <!-- /Scripts -->
         </body>
       </html>

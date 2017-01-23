@@ -1,5 +1,8 @@
 package br.com.rpw.monitoramento.api.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.rpw.monitoramento.api.dto.AssociarTipoOcorrenciaDTO;
 import br.com.rpw.monitoramento.api.dto.ClienteDTO;
+import br.com.rpw.monitoramento.api.dto.DesassociarTipoOcorrenciaDTO;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.RestObject;
 import br.com.rpw.monitoramento.api.model.TipoOcorrencia;
@@ -69,10 +73,17 @@ public class ClienteController {
 			Cliente cliente = new Cliente();
 			cliente.setId(associarTipoOcorrenciaDTO.getIdCliente());
 			
-			TipoOcorrencia tipoOcorrencia = new TipoOcorrencia();
-			tipoOcorrencia.setId(associarTipoOcorrenciaDTO.getIdTipoOcorrencia());
+			List<TipoOcorrencia> tiposOcorrencia = new ArrayList<TipoOcorrencia>();
 			
-			clienteService.associarTipoOcorrencia(cliente, tipoOcorrencia);
+			for(Long idTipoOcorrencia : associarTipoOcorrenciaDTO.getIdTipoOcorrencia()) {
+				TipoOcorrencia tipoOcorrencia = new TipoOcorrencia();
+				tipoOcorrencia.setId(idTipoOcorrencia);
+				
+				tiposOcorrencia.add(tipoOcorrencia);
+			}
+			
+			clienteService.associarTipoOcorrencia(cliente, tiposOcorrencia);
+			
 			return new RestObject(200, true, "Tipo de ocorrência associada com sucesso", null);
 		} catch(Exception e) {
 			return new RestObject(500, false, "Ocorreu um erro ao associar tipo de ocorrência: " + e.getMessage(), null);
@@ -80,7 +91,7 @@ public class ClienteController {
 	}
 	
 	@RequestMapping(value="/desassociar-tipo-ocorrencia", method = RequestMethod.POST)
-	public RestObject desassociarTipoOcorrencia(@RequestBody AssociarTipoOcorrenciaDTO associarTipoOcorrenciaDTO, @RequestHeader(value="x-acess-token") String token) { 
+	public RestObject desassociarTipoOcorrencia(@RequestBody DesassociarTipoOcorrenciaDTO associarTipoOcorrenciaDTO, @RequestHeader(value="x-acess-token") String token) { 
 		try {
 			Cliente cliente = new Cliente();
 			cliente.setId(associarTipoOcorrenciaDTO.getIdCliente());
@@ -101,10 +112,16 @@ public class ClienteController {
 			Cliente cliente = new Cliente();
 			cliente.setId(associarTipoOcorrenciaDTO.getIdCliente());
 			
-			TipoOcorrenciaPersonalizada tipoOcorrencia = new TipoOcorrenciaPersonalizada();
-			tipoOcorrencia.setId(associarTipoOcorrenciaDTO.getIdTipoOcorrencia());
+			List<TipoOcorrenciaPersonalizada> tiposOcorrencia = new ArrayList<TipoOcorrenciaPersonalizada>();
 			
-			clienteService.associarTipoOcorrenciaPersonalizada(cliente, tipoOcorrencia);
+			for(Long idTipoOcorrencia : associarTipoOcorrenciaDTO.getIdTipoOcorrencia()) {
+				TipoOcorrenciaPersonalizada tipoOcorrencia = new TipoOcorrenciaPersonalizada();
+				tipoOcorrencia.setId(idTipoOcorrencia);
+				
+				tiposOcorrencia.add(tipoOcorrencia);
+			}
+			
+			clienteService.associarTipoOcorrenciaPersonalizada(cliente, tiposOcorrencia);
 			return new RestObject(200, true, "Tipo de ocorrência personalizada associada com sucesso", null);
 		} catch(Exception e) {
 			return new RestObject(500, false, "Ocorreu um erro ao associar tipo de ocorrência personalizada: " + e.getMessage(), null);
@@ -112,7 +129,7 @@ public class ClienteController {
 	}
 	
 	@RequestMapping(value="/desassociar-tipo-ocorrencia/personalizada", method = RequestMethod.POST)
-	public RestObject desassociarTipoOcorrenciaPersonalizada(@RequestBody AssociarTipoOcorrenciaDTO associarTipoOcorrenciaDTO, @RequestHeader(value="x-acess-token") String token) { 
+	public RestObject desassociarTipoOcorrenciaPersonalizada(@RequestBody DesassociarTipoOcorrenciaDTO associarTipoOcorrenciaDTO, @RequestHeader(value="x-acess-token") String token) { 
 		try {
 			Cliente cliente = new Cliente();
 			cliente.setId(associarTipoOcorrenciaDTO.getIdCliente());

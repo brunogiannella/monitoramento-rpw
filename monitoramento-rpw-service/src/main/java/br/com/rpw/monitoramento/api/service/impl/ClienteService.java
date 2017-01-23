@@ -79,8 +79,10 @@ public class ClienteService implements IClienteService {
 	}
 	
 	@Override
-	public void associarTipoOcorrencia(Cliente cliente, TipoOcorrencia tipoOcorrencia) {
-		clienteTipoOcorrenciaDaoImpl.salvarClienteTipoOcorrencia(tipoOcorrencia, cliente);
+	public void associarTipoOcorrencia(Cliente cliente, List<TipoOcorrencia> tiposOcorrencia) {
+		for(TipoOcorrencia tipo : tiposOcorrencia) {
+			clienteTipoOcorrenciaDaoImpl.salvarClienteTipoOcorrencia(tipo, cliente);
+		}
 	}
 	
 	@Override
@@ -89,8 +91,10 @@ public class ClienteService implements IClienteService {
 	}
 	
 	@Override
-	public void associarTipoOcorrenciaPersonalizada(Cliente cliente, TipoOcorrenciaPersonalizada tipoOcorrencia) {
-		clienteTipoOcorrenciaPersonalizadaDaoImpl.salvarClienteTipoOcorrenciaPersonalizada(tipoOcorrencia, cliente);
+	public void associarTipoOcorrenciaPersonalizada(Cliente cliente, List<TipoOcorrenciaPersonalizada> tiposOcorrencia) {
+		for(TipoOcorrenciaPersonalizada tipo : tiposOcorrencia) {
+			clienteTipoOcorrenciaPersonalizadaDaoImpl.salvarClienteTipoOcorrenciaPersonalizada(tipo, cliente);
+		}
 	}
 	
 	@Override
