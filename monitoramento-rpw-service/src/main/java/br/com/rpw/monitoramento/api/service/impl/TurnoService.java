@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,7 @@ import br.com.rpw.monitoramento.api.dao.impl.OcorrenciaDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.SituacaoCameraDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.TurnoDaoImpl;
 import br.com.rpw.monitoramento.api.dto.CampoCadastroOcorrenciaDTO;
+import br.com.rpw.monitoramento.api.dto.DetalheInoperanciaCameraDTO;
 import br.com.rpw.monitoramento.api.dto.GrupoOcorrenciasDto;
 import br.com.rpw.monitoramento.api.dto.ImagemCameraDTO;
 import br.com.rpw.monitoramento.api.dto.OcorrenciaDTO;
@@ -243,20 +245,39 @@ public class TurnoService implements ITurnoService {
 			}
 		}
 		
+		List<DetalheInoperanciaCameraDTO> detalhesInoperanciaCamera = new ArrayList<DetalheInoperanciaCameraDTO>();
 		List<SituacaoCamera> situacoesCameraTurno = situacaoCameraDaoImpl.consultarSituacaoCameraTurno(turno);
 		Map<Long, Integer> mapHorasDesligadas = new HashMap<Long, Integer>();
 		
 		for(SituacaoCamera situacao : situacoesCameraTurno) {
+			
+			DetalheInoperanciaCameraDTO detalheInoperancia = new DetalheInoperanciaCameraDTO();
+			detalheInoperancia.setDescricaoCamera(situacao.getCamera().getDescricaoCamera());
+			
 			Integer minutos = 0;
 			if(situacao.getDataHoraLigada() == null) {
 				DateTime dataInicial = new DateTime(situacao.getDataHoraDesligada());
 				DateTime dataFinal = new DateTime(turno.getDataFim());
 				minutos = minutos + Minutes.minutesBetween(dataInicial, dataFinal).getMinutes();
+				
+				detalheInoperancia.setInicio(formato.format(situacao.getDataHoraDesligada()));
+				
+				if(turno.getDataFim() == null) {
+					detalheInoperancia.setFim(formato.format(new Date()));
+				} else {
+					detalheInoperancia.setFim(formato.format(turno.getDataFim()));
+				}
+				
 			} else {
 				DateTime dataInicial = new DateTime(situacao.getDataHoraDesligada());
 				DateTime dataFinal = new DateTime(situacao.getDataHoraLigada());
 				minutos = minutos + Minutes.minutesBetween(dataInicial, dataFinal).getMinutes();
+				
+				detalheInoperancia.setInicio(formato.format(situacao.getDataHoraDesligada()));
+				detalheInoperancia.setFim(formato.format(situacao.getDataHoraLigada()));
 			}
+			
+			detalhesInoperanciaCamera.add(detalheInoperancia);
 			
 			if(mapHorasDesligadas.containsKey(situacao.getCamera().getId())) {
 				mapHorasDesligadas.put(situacao.getCamera().getId(), mapHorasDesligadas.get(situacao.getCamera().getId()) + minutos);
@@ -264,6 +285,8 @@ public class TurnoService implements ITurnoService {
 				mapHorasDesligadas.put(situacao.getCamera().getId(), minutos);
 			}
 		}
+		
+		turnoDTO.setDetalhesInoperanciaCamera(detalhesInoperanciaCamera);
 		
 		List<ImagemCameraDTO> imagensCamera = new ArrayList<ImagemCameraDTO>();
 		for (Long codCamera  : mapHorasDesligadas.keySet()) {
@@ -336,6 +359,11 @@ public class TurnoService implements ITurnoService {
 		}
 		
 		return false;
+	}
+
+	@Override
+	public List<Turno> consultarTurnosAndamentoCliente(Long idCliente) {
+		return this.turnoDaoImpl.consultarTurnosCliente(StatusTurnoEnum.EM_ANDAMENTO, idCliente);
 	}
 
 }

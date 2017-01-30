@@ -25,4 +25,5 @@ public interface ITurnoService {
 	BigInteger consultarQuantidadeTurnosClienteData(Cliente cliente, Integer mes, Integer ano);
 	List<Turno> consultarTurnosAndamento();
 	Object consultarQuantidadeTurnosAndamento();
+	List<Turno> consultarTurnosAndamentoCliente(Long idCliente);
 }

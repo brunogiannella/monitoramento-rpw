@@ -129,4 +129,13 @@ public class TurnoDaoImpl extends AbstractDao implements ITurnoDao {
 		getSession().update(Turno);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Turno> consultarTurnosCliente(StatusTurnoEnum status, Long idCliente) {
+		Criteria criteria = getSession().createCriteria(Turno.class);
+        criteria.add(Restrictions.eq("status",status));
+        criteria.add(Restrictions.eq("cliente.id",idCliente));
+        return (List<Turno>) criteria.list();
+	}
+
 }

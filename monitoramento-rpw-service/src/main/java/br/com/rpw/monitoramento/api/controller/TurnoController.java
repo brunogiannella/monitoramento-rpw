@@ -240,6 +240,31 @@ public class TurnoController {
 		}
 	}
 	
+	@RequestMapping(value="/andamento/cliente/{idCliente}", method = RequestMethod.GET)
+	public RestObject consultarTurnosAndamentoCliente(@PathVariable("idCliente") Long idCliente, @RequestHeader(value="x-acess-token") String token) { 
+		try {
+			if(TokenUtil.simpleValidToken(token)) {
+				List<Turno> turnosPendentes = turnoService.consultarTurnosAndamentoCliente(idCliente);
+				
+				if(turnosPendentes == null) {
+					return new RestObject(200, true, "Nenhum turno em andamento no momento.", null);
+				}
+				
+				List<TurnoDTO> turnosDto = new ArrayList<TurnoDTO>();
+				for(Turno turno : turnosPendentes) {
+					turnosDto.add(turnoService.converterTurnoEmTurnoDTO(turno));
+				}
+				
+				return new RestObject(200, true, "Turnos consultados com sucesso", turnosDto);
+			} else {
+				return new RestObject(401, false, "Token inválido.", null);
+			}
+			
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
+		}
+	}
+	
 	@RequestMapping(value="/clientes/{idCliente}/ultimos/10", method = RequestMethod.GET)
 	public RestObject consultarDezUltimosTurnosCliente(@PathVariable("idCliente") Long idUsuario, @RequestHeader(value="x-acess-token") String token) { 
 		try {

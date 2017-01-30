@@ -18,6 +18,7 @@ public class TurnoDTO {
 	private List<String> operadores = new ArrayList<String>();
 	private List<GrupoOcorrenciasDto> ocorrenciasDto = new ArrayList<GrupoOcorrenciasDto>();
 	private List<ImagemCameraDTO> imagemCameraDto = new ArrayList<ImagemCameraDTO>();
+	List<DetalheInoperanciaCameraDTO> detalhesInoperanciaCamera = new ArrayList<DetalheInoperanciaCameraDTO>();
 
 	public String getDataInicio() {
 		return dataInicio;
@@ -123,4 +124,12 @@ public class TurnoDTO {
 		this.imagemCameraDto = imagemCameraDto;
 	}
 
+	public List<DetalheInoperanciaCameraDTO> getDetalhesInoperanciaCamera() {
+		return detalhesInoperanciaCamera;
+	}
+
+	public void setDetalhesInoperanciaCamera(List<DetalheInoperanciaCameraDTO> detalhesInoperanciaCamera) {
+		this.detalhesInoperanciaCamera = detalhesInoperanciaCamera;
+	}
+	
 }
