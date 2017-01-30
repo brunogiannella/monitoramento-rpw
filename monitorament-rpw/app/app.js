@@ -191,7 +191,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       params: {
         idCliente : null,
         nomeCliente : null,
-        consumidor : null
+        consumidor : null,
+        tipoConsulta : null
       },
       templateUrl: 'app/views/admin/consultar-turnos-cliente.html',
       controller: 'ConsultarTurnosClienteController as ConsultarTurnosClienteCrtl'
@@ -327,7 +328,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
     }).state('imprimir-relatorio', {
       url: '/imprimir-relatorio',
       params: {
-        idTurno : null
+        idTurno : null,
+        consumidor : null
       },
       templateUrl: 'app/views/admin/imprimir-relatorio.html',
       controller: 'ImprimirRelatorioController as ImprimirRelatorioCrtl'

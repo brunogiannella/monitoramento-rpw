@@ -35,13 +35,19 @@
 				if(data != null) {
 					vm.turnos = data;
 
-					var codigoCliente = $rootScope.clienteFuncionario.id;
+					var codigoCliente = null;
+					if(data[0] != null) {
+						codigoCliente = data[0].idCliente;
+					} else {
+						codigoCliente = $rootScope.clienteFuncionario.id;
+					}
+					
 
 					if(codigoCliente == null) {
 						alert("Seu usuário não está associado a nenhum cliente. Favor solicitar inclusão.");
 					}
 
-					var funcSucesso = function(data) {
+					var funcSucessoUltimos = function(data) {
 						if(data != null && data.length > 0) {
 							vm.turnosAnteriores = data;
 						} else {
@@ -50,7 +56,7 @@
 
 					};
 
-					TurnoService.consultarUltimosTurnosCliente(codigoCliente, funcSucesso);
+					TurnoService.consultarUltimosTurnosCliente(codigoCliente, funcSucessoUltimos);
 
 					if(data.length == 0) {
 						vm.mensagemTurno = "No momento você não possui nenhum turno aberto.";

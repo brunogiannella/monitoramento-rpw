@@ -13,6 +13,7 @@
 
 		function inicializar() {
 			vm.idTurno = $stateParams.idTurno;
+			vm.consumidor = $stateParams.consumidor;
 
 			UtilsService.ativarLoading();
 
@@ -28,7 +29,12 @@
 		};
 
 		function voltar() {
-			UtilsService.irPara('home-administrador');
+			if(vm.consumidor == "admin") {
+				UtilsService.irPara('home-administrador');
+			} else {
+				UtilsService.irPara('home-cliente');
+			}
+			
 		}
 
 		

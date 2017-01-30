@@ -50,6 +50,12 @@
 		function carregarDominiosFuncionario() {
 			$rootScope.dominios = {};
 
+			var funcSucessoClienteFuncionario = function(data) {
+				$rootScope.clienteFuncionario = data;
+			};
+
+			ClienteService.consultarCliente($rootScope.usuarioLogado.idCliente, funcSucessoClienteFuncionario);
+
 			var funcSucessoCondicoesClimaticas = function(data) {
 				$rootScope.dominios.condicoesClimaticas = data;
 			};
@@ -73,12 +79,6 @@
 			};
 
 			OcorrenciaService.consultarInformantesOcorrencias(funcSucessoInformantesOcorrencias);
-
-			var funcSucessoClienteFuncionario = function(data) {
-				$rootScope.clienteFuncionario = data;
-			};
-
-			ClienteService.consultarCliente($rootScope.usuarioLogado.idCliente, funcSucessoClienteFuncionario);
 		
 			var funcSucessoToMensagens = function(data) {
 				$rootScope.dominios.toMensagens = data;

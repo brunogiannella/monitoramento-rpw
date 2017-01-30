@@ -320,6 +320,34 @@
 			});
 		};
 
+		function consultarTurnosAndamentoCliente(idCliente, fncSucesso) {
+
+			var  data = {};
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'turno/andamento/cliente/' + idCliente,
+				method : 'GET',
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		         return false;
+		       }
+		    ).catch(function() {
+				return false;
+			});
+		};
+
 		function consultarUltimosDezTurnos(idCliente, fncSucesso) {
 
 			var  data = {};
@@ -389,6 +417,7 @@
 			consultarUltimosTurnosCliente : consultarUltimosTurnosCliente,
 			consultarTurnosPendentes : consultarTurnosPendentes,
 			consultarTurnosAndamento : consultarTurnosAndamento,
+			consultarTurnosAndamentoCliente : consultarTurnosAndamentoCliente,
 			consultarUltimosDezTurnos : consultarUltimosDezTurnos,
 			aprovarTurno : aprovarTurno
 		}

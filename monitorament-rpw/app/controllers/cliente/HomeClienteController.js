@@ -22,8 +22,12 @@
 			UtilsService.irPara('meus-dados');
 		};
 
+		vm.turnosAndamento = function() {
+			UtilsService.irPara('consultar-turnos-cliente', {idCliente:$rootScope.usuarioLogado.idCliente, nomeCliente:$rootScope.cliente.nome, consumidor:'cliente', tipoConsulta:'em_andamento'});
+		};
+
 		vm.relatorioDiario = function() {
-			UtilsService.irPara('consultar-turnos-cliente', {idCliente:$rootScope.usuarioLogado.idCliente, nomeCliente:$rootScope.cliente.nome, consumidor:'cliente'});
+			UtilsService.irPara('consultar-turnos-cliente', {idCliente:$rootScope.usuarioLogado.idCliente, nomeCliente:$rootScope.cliente.nome, consumidor:'cliente', tipoConsulta:'ultimos10'});
 		}
 
 		vm.relatorioMensal = function() {

@@ -13,6 +13,7 @@
 			vm.nomeCliente = $stateParams.nomeCliente;
 			vm.idCliente = $stateParams.idCliente;
 			vm.consumidor = $stateParams.consumidor;
+			vm.tipoConsulta = $stateParams.tipoConsulta;
 
 			var funcSucesso = function(data) {
 				if(data != null && data.length > 0) {
@@ -20,7 +21,12 @@
 				}
 			};
 
-			TurnoService.consultarUltimosDezTurnos(vm.idCliente, funcSucesso);
+			if(vm.tipoConsulta == "ultimos10") {
+				TurnoService.consultarUltimosDezTurnos(vm.idCliente, funcSucesso);
+			} else if(vm.tipoConsulta == "em_andamento") {
+				TurnoService.consultarTurnosAndamentoCliente(vm.idCliente, funcSucesso);
+			}
+			
 		};
 
 		function inicio() {
@@ -52,7 +58,7 @@
 		}
 
 		function visualizarRelatorio(id) {
-			UtilsService.irPara('imprimir-relatorio', {idTurno: id});
+			UtilsService.irPara('imprimir-relatorio', {idTurno: id, consumidor:'cliente'});
 		}
 
 

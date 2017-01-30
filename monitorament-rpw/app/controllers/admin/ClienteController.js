@@ -77,11 +77,11 @@
 		}
 
 		function consultarTurnos(idCliente, nomeCliente) {
-			UtilsService.irPara('consultar-turnos-cliente', {idCliente:idCliente, nomeCliente:nomeCliente});
+			UtilsService.irPara('consultar-turnos-cliente', {idCliente:idCliente, nomeCliente:nomeCliente, tipoConsulta:'ultimos10'});
 		}
 
 		function gerarRelatorioMensal(idCliente, nomeCliente) {
-			UtilsService.irPara('relatorio-mensal', {idCliente:idCliente, nomeCliente:nomeCliente});
+			UtilsService.irPara('relatorio-mensal', {idCliente:idCliente, nomeCliente:nomeCliente,});
 		}
 
 		function editarCliente(data) {
