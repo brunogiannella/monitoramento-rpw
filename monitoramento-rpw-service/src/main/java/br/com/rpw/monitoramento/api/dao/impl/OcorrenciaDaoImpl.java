@@ -16,6 +16,7 @@ import br.com.rpw.monitoramento.api.dao.AbstractDao;
 import br.com.rpw.monitoramento.api.dao.IOcorrenciaDao;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.Ocorrencia;
+import br.com.rpw.monitoramento.api.model.TipoOcorrencia;
 import br.com.rpw.monitoramento.api.model.Turno;
 
 @Component
@@ -88,6 +89,14 @@ public class OcorrenciaDaoImpl extends AbstractDao implements IOcorrenciaDao {
 	@Override
 	public BigInteger consultarQuantidadeOcorrenciasClienteData(Cliente cliente, Integer mes, Integer ano) {
 		Query query = getSession().createSQLQuery("SELECT count(*) from OCORRENCIA where ID_CLIENTE = " + cliente.getId() + " AND MONTH(DATA_CADASTRO) = " + mes + " AND YEAR(DATA_CADASTRO) = " + ano + ";");
+        BigInteger quantidadeClientes = (BigInteger) query.uniqueResult();
+        
+        return quantidadeClientes;
+	}
+	
+	@Override
+	public BigInteger consultarQuantidadeOcorrenciasClienteTipoOcorrencia(Cliente cliente, TipoOcorrencia tipo) {
+		Query query = getSession().createSQLQuery("SELECT count(*) from OCORRENCIA where ID_CLIENTE = " + cliente.getId() + " AND ID_TIPO_OCORRENCIA = " + tipo.getId() + ";");
         BigInteger quantidadeClientes = (BigInteger) query.uniqueResult();
         
         return quantidadeClientes;

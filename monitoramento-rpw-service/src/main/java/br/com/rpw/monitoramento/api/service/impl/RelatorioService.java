@@ -3,6 +3,8 @@ package br.com.rpw.monitoramento.api.service.impl;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -22,16 +24,20 @@ import br.com.rpw.monitoramento.api.dao.impl.CameraDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.ClienteDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.OcorrenciaDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.SituacaoCameraDaoImpl;
+import br.com.rpw.monitoramento.api.dao.impl.TipoOcorrenciaDaoImpl;
 import br.com.rpw.monitoramento.api.dto.CampoCadastroOcorrenciaDTO;
 import br.com.rpw.monitoramento.api.dto.ClienteDTO;
+import br.com.rpw.monitoramento.api.dto.DetalheInoperanciaCameraDTO;
 import br.com.rpw.monitoramento.api.dto.GrupoOcorrenciasDto;
 import br.com.rpw.monitoramento.api.dto.ImagemCameraDTO;
 import br.com.rpw.monitoramento.api.dto.OcorrenciaDTO;
+import br.com.rpw.monitoramento.api.dto.QuantidadeOcorrencias;
 import br.com.rpw.monitoramento.api.model.Camera;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.Ocorrencia;
 import br.com.rpw.monitoramento.api.model.RelatorioMensal;
 import br.com.rpw.monitoramento.api.model.SituacaoCamera;
+import br.com.rpw.monitoramento.api.model.TipoOcorrencia;
 import br.com.rpw.monitoramento.api.service.IRelatorioService;
 
 @Service
@@ -49,6 +55,9 @@ public class RelatorioService implements IRelatorioService {
 	
 	@Autowired
 	private CameraDaoImpl cameraDaoImpl;
+	
+	@Autowired
+	private TipoOcorrenciaDaoImpl tipoOcorrenciaDaoImpl;
 
 	@Override
 	public RelatorioMensal consultarRelatorioMensal(Cliente cliente, String mes, String ano) throws ParseException {
@@ -59,10 +68,31 @@ public class RelatorioService implements IRelatorioService {
 		Cliente clienteMes = clienteDaoImpl.consultarCliente(cliente.getId());
 		List<Ocorrencia> ocorrenciasMensalCliente = ocorrenciaDaoImpl.listarOcorrencias(cliente, mes, ano);
 		List<SituacaoCamera> imagensCameraMensal = situacaoCameraDaoImpl.listarSituacaoCamerasMensal(clienteMes, mes, ano);
+		List<DetalheInoperanciaCameraDTO> detalhesInoperanciaCamera = new ArrayList<DetalheInoperanciaCameraDTO>();
+		List<TipoOcorrencia> tiposOcorrenciaCliente = tipoOcorrenciaDaoImpl.listarTipoOcorrencias(clienteMes);
+		List<QuantidadeOcorrencias> quantidadeOcorrencias = new ArrayList<QuantidadeOcorrencias>();
+		
+		if(tiposOcorrenciaCliente != null) {
+			for(TipoOcorrencia tipoOcorrencia : tiposOcorrenciaCliente) {
+				QuantidadeOcorrencias quantidadeOcorrencia = new QuantidadeOcorrencias();
+				quantidadeOcorrencia.setDescricaoTipoOcorrencia(tipoOcorrencia.getDescricao());
+				quantidadeOcorrencia.setQuantidadeOcorrencias(ocorrenciaDaoImpl.consultarQuantidadeOcorrenciasClienteTipoOcorrencia(clienteMes, tipoOcorrencia).intValue());
+				quantidadeOcorrencias.add(quantidadeOcorrencia);
+			}
+		}
+
+		Collections.sort(quantidadeOcorrencias, new Comparator<QuantidadeOcorrencias>() {
+            @Override
+            public int compare(QuantidadeOcorrencias primeiro, QuantidadeOcorrencias segundo) {
+                return primeiro.getQuantidadeOcorrencias() < segundo.getQuantidadeOcorrencias() ? -1 : (primeiro.getQuantidadeOcorrencias() > segundo.getQuantidadeOcorrencias()) ? 1 : 0;
+            }
+        });
 		
 		relatorioMensal.setGrupoOcorrencias(converterOcorrenciasEmGrupoOcorrencias(ocorrenciasMensalCliente));
 		relatorioMensal.setCliente(converterClienteEmClienteDTO(clienteMes));
-		relatorioMensal.setImagemCamera(converterSituacaoCameraEmImagemCamera(imagensCameraMensal, mes, ano));
+		relatorioMensal.setImagemCamera(converterSituacaoCameraEmImagemCamera(imagensCameraMensal, detalhesInoperanciaCamera, mes, ano));
+		relatorioMensal.setDetalhesInoperanciaCamera(detalhesInoperanciaCamera);
+		relatorioMensal.setQuantidadeOcorrencias(quantidadeOcorrencias);
 		return relatorioMensal;
 	}
 	
@@ -123,7 +153,7 @@ public class RelatorioService implements IRelatorioService {
 		return gruposOcorrenciaList;
 	}
 	
-	private List<ImagemCameraDTO> converterSituacaoCameraEmImagemCamera(List<SituacaoCamera> situacoesCamera, String mes, String ano) throws ParseException {
+	private List<ImagemCameraDTO> converterSituacaoCameraEmImagemCamera(List<SituacaoCamera> situacoesCamera, List<DetalheInoperanciaCameraDTO> detalhesInoperanciaCamera, String mes, String ano) throws ParseException {
 		List<SituacaoCamera> situacoesCameraTurno = situacoesCamera;
 		Map<Long, Integer> mapHorasDesligadas = new HashMap<Long, Integer>();
 		
@@ -148,22 +178,40 @@ public class RelatorioService implements IRelatorioService {
 	    }
 		
 		for(SituacaoCamera situacao : situacoesCameraTurno) {
+			
+			DetalheInoperanciaCameraDTO detalheInoperancia = new DetalheInoperanciaCameraDTO();
+			detalheInoperancia.setDescricaoCamera(situacao.getCamera().getDescricaoCamera());
+			
 			Integer minutos = 0;
 			if(situacao.getDataHoraLigada() == null) {
 				DateTime dataInicial = new DateTime(situacao.getDataHoraDesligada());
 				DateTime dataFinal = new DateTime(maxDate);
 				minutos = minutos + Minutes.minutesBetween(dataInicial, dataFinal).getMinutes();
+				
+				detalheInoperancia.setInicio(formatter.format(situacao.getDataHoraDesligada()));
+				
+				if(maxDate == null) {
+					detalheInoperancia.setFim(formatter.format(new Date()));
+				} else {
+					detalheInoperancia.setFim(formatter.format(maxDate));
+				}
 			} else {
 				DateTime dataInicial = new DateTime(situacao.getDataHoraDesligada());
 				DateTime dataFinal = new DateTime(situacao.getDataHoraLigada());
 				minutos = minutos + Minutes.minutesBetween(dataInicial, dataFinal).getMinutes();
+				
+				detalheInoperancia.setInicio(formatter.format(situacao.getDataHoraDesligada()));
+				detalheInoperancia.setFim(formatter.format(situacao.getDataHoraLigada()));
 			}
+			
+			detalhesInoperanciaCamera.add(detalheInoperancia);
 			
 			if(mapHorasDesligadas.containsKey(situacao.getCamera().getId())) {
 				mapHorasDesligadas.put(situacao.getCamera().getId(), mapHorasDesligadas.get(situacao.getCamera().getId()) + minutos);
 			} else {
 				mapHorasDesligadas.put(situacao.getCamera().getId(), minutos);
 			}
+						
 		}
 		
 		List<ImagemCameraDTO> imagensCamera = new ArrayList<ImagemCameraDTO>();
