@@ -7,11 +7,13 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
+import br.com.rpw.monitoramento.api.constantes.InformanteOcorrenciaEnum;
 import br.com.rpw.monitoramento.api.dao.AbstractDao;
 import br.com.rpw.monitoramento.api.dao.IOcorrenciaDao;
 import br.com.rpw.monitoramento.api.model.Cliente;
@@ -85,18 +87,63 @@ public class OcorrenciaDaoImpl extends AbstractDao implements IOcorrenciaDao {
         criteria.add(Restrictions.eq("id",ocorrencia.getId()));
         return (Ocorrencia) criteria.uniqueResult();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Ocorrencia> consultarOcorrencia(Cliente cliente, TipoOcorrencia tipo, Integer mes, Integer ano) throws ParseException {
+		Criteria criteria = getSession().createCriteria(Ocorrencia.class);
+		criteria.add(Restrictions.eq("cliente.id",cliente.getId()));
+		criteria.add(Restrictions.eq("tipoOcorrencia.id",tipo.getId()));
+		
+	    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	    String myDate = "01/"+mes+"/"+ano;
+	    Date minDate = formatter.parse(myDate);
+	    Date maxDate = null;
+	    
+	    if(mes.equals("12")) {
+	    	String myDateEnd = "01/01/"+String.valueOf((ano + 1));
+		    maxDate = formatter.parse(myDateEnd);
+	    } else {
+	    	
+	    	String mesSeguinte = "";
+	    	
+	    	if(mes >= 10) {
+	    		mesSeguinte = String.valueOf((mes + 1));
+	    	} else {
+	    		mesSeguinte = "0" + String.valueOf((mes + 1));
+	    	}
+	    	
+	    	String myDateEnd = "01/"+mesSeguinte+"/"+ano;
+		    maxDate = formatter.parse(myDateEnd);
+	    }
+		
+	    Conjunction and = Restrictions.conjunction();
+	    and.add( Restrictions.ge("dataCadastro", minDate) );
+	    and.add( Restrictions.lt("dataCadastro", maxDate) ); 
+	    
+	    criteria.add(and);
+		
+        return (List<Ocorrencia>) criteria.list();
+	}
 
 	@Override
 	public BigInteger consultarQuantidadeOcorrenciasClienteData(Cliente cliente, Integer mes, Integer ano) {
 		Query query = getSession().createSQLQuery("SELECT count(*) from OCORRENCIA where ID_CLIENTE = " + cliente.getId() + " AND MONTH(DATA_CADASTRO) = " + mes + " AND YEAR(DATA_CADASTRO) = " + ano + ";");
+        BigInteger quantidadeClientes = (BigInteger) query.uniqueResult();
+        return quantidadeClientes;
+	}
+	
+	@Override
+	public BigInteger consultarQuantidadeOcorrenciasClienteTipoOcorrencia(Cliente cliente, TipoOcorrencia tipo, Integer mes, Integer ano) {
+		Query query = getSession().createSQLQuery("SELECT count(*) from OCORRENCIA where ID_CLIENTE = " + cliente.getId() + " AND ID_TIPO_OCORRENCIA = " + tipo.getId() + " AND MONTH(DATA_CADASTRO) = " + mes + " AND YEAR(DATA_CADASTRO) = " + ano + ";");
         BigInteger quantidadeClientes = (BigInteger) query.uniqueResult();
         
         return quantidadeClientes;
 	}
 	
 	@Override
-	public BigInteger consultarQuantidadeOcorrenciasClienteTipoOcorrencia(Cliente cliente, TipoOcorrencia tipo) {
-		Query query = getSession().createSQLQuery("SELECT count(*) from OCORRENCIA where ID_CLIENTE = " + cliente.getId() + " AND ID_TIPO_OCORRENCIA = " + tipo.getId() + ";");
+	public BigInteger consultarQuantidadeOcorrenciasClienteTipoOcorrencia(Cliente cliente, TipoOcorrencia tipo, Integer dia, Integer mes, Integer ano, InformanteOcorrenciaEnum informante) {
+		Query query = getSession().createSQLQuery("SELECT count(*) from OCORRENCIA where ID_CLIENTE = " + cliente.getId() + " AND ID_TIPO_OCORRENCIA = " + tipo.getId() + " AND INFORMANTE_OCORRENCIA LIKE '" + informante.getDescricao() + "' AND DAY(DATA_CADASTRO) = " + dia + " AND MONTH(DATA_CADASTRO) = " + mes + " AND YEAR(DATA_CADASTRO) = " + ano + ";");
         BigInteger quantidadeClientes = (BigInteger) query.uniqueResult();
         
         return quantidadeClientes;

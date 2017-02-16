@@ -81,7 +81,7 @@
 		}
 
 		function gerarRelatorioMensal(idCliente, nomeCliente) {
-			UtilsService.irPara('relatorio-mensal', {idCliente:idCliente, nomeCliente:nomeCliente,});
+			UtilsService.irPara('relatorio-mensal', {idCliente:idCliente, nomeCliente:nomeCliente, consumidor:'admin'});
 		}
 
 		function editarCliente(data) {

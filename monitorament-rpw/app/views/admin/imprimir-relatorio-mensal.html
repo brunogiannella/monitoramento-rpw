@@ -1,0 +1,203 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>RPW • Admin</title>
+        <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="css/admin.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <style>
+          table {
+              font-family: arial, sans-serif;
+              width: 90%;
+          }
+
+          td, th {
+              text-align: left;
+              padding: 2px;
+          }
+
+          tr:nth-child(even) {
+              background-color: #F5F5F5;
+          }
+
+          .textBold {
+            font-weight: bold;
+          }
+        </style>
+    </head>
+
+    <body>
+
+      <main>
+
+      <a href="#" ng-click="ImprimirRelatorioMensalCrtl.voltar()""><i class="material-icons small red-text">replay</i></a>
+      <a href="#" onclick="imprimirRelatorio();"><i class="material-icons small blue-text">print</i></a>
+
+      <div id="relatorio" style="width: 612px; font-size: 10px;">
+        <img src="img/logo_rpw.png" width="66" height="73" style="margin-bottom: 15px">
+        <span style="padding-left: 30px; font-size: 20px;font-weight: bold;color: darkblue;"> Relatório consolidado de ocorrências </span>
+        <br />
+        <br />
+
+        <table>
+          <tr style="background: #4F81BD; border: solid #4F81BD 1.0pt;">
+            <td class="textBold" colspan="4">Dados do relatório.</td>
+          </tr>
+          <tr>
+            <td class="textBold" width="20%">Cliente:</td>
+            <td>{{ImprimirRelatorioMensalCrtl.relatorio.cliente.nome}}</td>
+          </tr>
+          <tr>
+            <td class="textBold">Data:</td>
+            <td>{{ImprimirRelatorioMensalCrtl.relatorio.mes}}/{{ImprimirRelatorioMensalCrtl.relatorio.ano}}</td>
+          </tr>
+        </table>
+
+        <br>
+        <br>
+
+        <div>
+          <table>
+            <tr style="background: #4F81BD; border: solid #4F81BD 1.0pt;">
+              <td class="textBold" colspan="2">Imagem das Câmeras (Horas de inoperância).</td>
+            </tr>
+            <tr>
+              <td width="70%" class="textBold">Câmera</td>
+              <td width="30%" class="textBold">Tempo fora (em horas)</td>
+            </tr>
+            <tr  ng-repeat="imagem in ImprimirRelatorioMensalCrtl.relatorio.imagemCamera" ng-show="ImprimirRelatorioMensalCrtl.relatorio.imagemCamera.length > 0">
+              <td>{{imagem.descricaoCamera}}</td>
+              <td>{{imagem.horasFora}}</td>
+            </tr>
+
+            <tr  ng-show="ImprimirRelatorioMensalCrtl.relatorio.imagemCamera.length == 0">
+              <td colspan="2">Nenhuma câmera ficou fora durante o turno.</td>
+            </tr>
+          </table>
+
+          <br>
+          <br>
+        </div>
+
+        <div>
+          <table>
+            <tr style="background: #4F81BD; border: solid #4F81BD 1.0pt;">
+              <td class="textBold" colspan="3">Detalhe inoperância das câmeras (Detalhe da inoperância).</td>
+            </tr>
+            <tr>
+              <td width="40%" class="textBold">Câmera</td>
+              <td width="30%" class="textBold">Início</td>
+              <td width="30%" class="textBold">Término</td>
+            </tr>
+            <tr  ng-repeat="detalhe in ImprimirRelatorioMensalCrtl.relatorio.detalhesInoperanciaCamera" ng-show="ImprimirRelatorioMensalCrtl.relatorio.detalhesInoperanciaCamera.length > 0">
+              <td>{{detalhe.descricaoCamera}}</td>
+              <td>{{detalhe.inicio}}</td>
+              <td>{{detalhe.fim}}</td>
+            </tr>
+
+            <tr ng-show="ImprimirRelatorioMensalCrtl.relatorio.detalhesInoperanciaCamera.length == 0">
+              <td colspan="3">Nenhuma câmera ficou fora durante o turno.</td>
+            </tr>
+          </table>
+
+          <br>
+          <br>
+        </div>
+
+        <div>
+          <table>
+            <tr style="background: #4F81BD; border: solid #4F81BD 1.0pt;">
+              <td class="textBold" colspan="2">Total de ocorrências no mês.</td>
+            </tr>
+            <tr>
+              <td width="70%" class="textBold">Tipo ocorrência</td>
+              <td width="30%" class="textBold">Quantidade</td>
+            </tr>
+            <tr  ng-repeat="quantidadeMes in ImprimirRelatorioMensalCrtl.relatorio.quantidadeOcorrencias" ng-show="ImprimirRelatorioMensalCrtl.relatorio.quantidadeOcorrencias.length > 0">
+              <td>{{quantidadeMes.descricaoTipoOcorrencia}}</td>
+              <td>{{quantidadeMes.quantidadeOcorrencias}}</td>
+            </tr>
+
+            <tr  ng-show="ImprimirRelatorioMensalCrtl.relatorio.quantidadeOcorrencias.length == 0">
+              <td colspan="2">Não houveram ocorrências durante o mês.</td>
+            </tr>
+          </table>
+
+          <br>
+          <br>
+        </div>
+
+        <div ng-repeat="grupoOcorrencia in ImprimirRelatorioMensalCrtl.relatorio.grupoOcorrencias">
+          <table>
+            <tr style="background: #4F81BD; border: solid #4F81BD 1.0pt;">
+              <td class="textBold" colspan="30">{{grupoOcorrencia.descricao}}</td>
+            </tr>
+            <tr>
+              <td class="textBold" ng-repeat="campo in grupoOcorrencia.ocorrenciasDto[0].campos">{{campo.descricao}}</td>
+            </tr>
+            <tr  ng-repeat="campo in grupoOcorrencia.ocorrenciasDto">
+              <td width="{{campo.tamanho}}%" ng-repeat="campo in grupoOcorrencia.ocorrenciasDto[0].campos">{{campo.valor}}</td>
+            </tr>
+          </table>
+
+          <br>
+          <br>
+        </div>
+
+      </div>
+      </main>        
+      
+
+      <!-- Scripts -->
+      <script type="text/javascript" src="js/materialize.js"></script>
+      <script type="text/javascript">
+        $(document).ready(function(){
+            $('.selectable').material_select();
+            $('#fecharturno').leanModal();
+            $('.btn_menu').sideNav({
+                menuWidth: 285, 
+                closeOnClick: false
+              }
+            );
+            $('.collapsible').collapsible();
+            $('.caret').remove();
+
+            $(".ng-scope").css("margin-left", "0px");
+
+          });
+
+        function imprimirRelatorio() {
+          var pdf = new jsPDF('p', 'pt', 'letter');
+          var canvas = pdf.canvas;
+          canvas.height = 72 * 11;
+          canvas.width=72 * 8.5;;
+          // var width = 400;
+          html2pdf($("#relatorio"), pdf, function(pdf) {
+            var string = pdf.output('datauristring');
+            var x = window.open();
+            x.document.open();
+            x.document.location=string;
+              }
+          );
+        }
+
+        function generatePdf() {              
+          var pdf = new jsPDF('p', 'pt', 'letter');
+          var canvas = pdf.canvas;
+          canvas.height = 72 * 11;
+          canvas.width=72 * 8.5;;
+          // var width = 400;
+          html2pdf($("#relatorio"), pdf, function(pdf) {
+            var binary = doc.output();
+            return binary ? btoa(binary) : "";
+          });
+        }
+
+      </script>
+      <!-- /Scripts -->
+    </body>
+  </html>

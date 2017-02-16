@@ -143,7 +143,7 @@
             }
 
             function alterarComboAnoSelecionado() {
-              var anoSelecionado = $("div.relatorio_mes li.selected span").get(0).innerHTML;
+              var anoSelecionado = $("div.relatorio_ano li.selected span").get(0).innerHTML;
               $("#relatorio_ano").val(anoSelecionado.split(" - ")[0]);
               angular.element($("#relatorio_ano")).triggerHandler('input')
             }

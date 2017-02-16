@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.text.ParseException;
 import java.util.List;
 
+import br.com.rpw.monitoramento.api.constantes.InformanteOcorrenciaEnum;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.Ocorrencia;
 import br.com.rpw.monitoramento.api.model.TipoOcorrencia;
@@ -18,6 +19,10 @@ public interface IOcorrenciaDao {
     void atualizarOcorrencia(Ocorrencia ocorrencia);
 	List<Ocorrencia> listarOcorrencias(Cliente cliente, String mes, String ano) throws ParseException;
 	BigInteger consultarQuantidadeOcorrenciasClienteData(Cliente cliente, Integer mes, Integer ano);
-	BigInteger consultarQuantidadeOcorrenciasClienteTipoOcorrencia(Cliente cliente, TipoOcorrencia tipo);
+	BigInteger consultarQuantidadeOcorrenciasClienteTipoOcorrencia(Cliente cliente, TipoOcorrencia tipo, Integer mes,
+			Integer ano);
+	BigInteger consultarQuantidadeOcorrenciasClienteTipoOcorrencia(Cliente cliente, TipoOcorrencia tipo, Integer dia,
+			Integer mes, Integer ano, InformanteOcorrenciaEnum informante);
+	List<Ocorrencia> consultarOcorrencia(Cliente cliente, TipoOcorrencia tipo, Integer mes, Integer ano) throws ParseException;
 	
 }

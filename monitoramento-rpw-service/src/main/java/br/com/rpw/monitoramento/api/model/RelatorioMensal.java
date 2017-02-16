@@ -9,6 +9,7 @@ import br.com.rpw.monitoramento.api.dto.DetalheInoperanciaCameraDTO;
 import br.com.rpw.monitoramento.api.dto.GrupoOcorrenciasDto;
 import br.com.rpw.monitoramento.api.dto.ImagemCameraDTO;
 import br.com.rpw.monitoramento.api.dto.QuantidadeOcorrencias;
+import br.com.rpw.monitoramento.api.dto.QuantidadeOcorrenciasMesDetalhado;
 
 public class RelatorioMensal implements Serializable {
 
@@ -21,6 +22,8 @@ public class RelatorioMensal implements Serializable {
 	private List<ImagemCameraDTO> imagemCamera;
 	private List<QuantidadeOcorrencias> quantidadeOcorrencias;
 	private List<DetalheInoperanciaCameraDTO> detalhesInoperanciaCamera = new ArrayList<DetalheInoperanciaCameraDTO>();
+	List<QuantidadeOcorrenciasMesDetalhado> quantidadesOcorrenciasMesDetalhadoSeguranca;
+	List<QuantidadeOcorrenciasMesDetalhado> quantidadesOcorrenciasMesDetalhadoMonitoramento;
 	private ClienteDTO cliente;
 	private String ano;
 	private String mes;
@@ -79,6 +82,24 @@ public class RelatorioMensal implements Serializable {
 
 	public void setDetalhesInoperanciaCamera(List<DetalheInoperanciaCameraDTO> detalhesInoperanciaCamera) {
 		this.detalhesInoperanciaCamera = detalhesInoperanciaCamera;
+	}
+
+	public List<QuantidadeOcorrenciasMesDetalhado> getQuantidadesOcorrenciasMesDetalhadoSeguranca() {
+		return quantidadesOcorrenciasMesDetalhadoSeguranca;
+	}
+
+	public void setQuantidadesOcorrenciasMesDetalhadoSeguranca(
+			List<QuantidadeOcorrenciasMesDetalhado> quantidadesOcorrenciasMesDetalhadoSeguranca) {
+		this.quantidadesOcorrenciasMesDetalhadoSeguranca = quantidadesOcorrenciasMesDetalhadoSeguranca;
+	}
+
+	public List<QuantidadeOcorrenciasMesDetalhado> getQuantidadesOcorrenciasMesDetalhadoMonitoramento() {
+		return quantidadesOcorrenciasMesDetalhadoMonitoramento;
+	}
+
+	public void setQuantidadesOcorrenciasMesDetalhadoMonitoramento(
+			List<QuantidadeOcorrenciasMesDetalhado> quantidadesOcorrenciasMesDetalhadoMonitoramento) {
+		this.quantidadesOcorrenciasMesDetalhadoMonitoramento = quantidadesOcorrenciasMesDetalhadoMonitoramento;
 	}
 
 }

@@ -3,6 +3,7 @@ package br.com.rpw.monitoramento.api.service.impl;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -20,11 +21,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import br.com.rpw.monitoramento.api.constantes.InformanteOcorrenciaEnum;
 import br.com.rpw.monitoramento.api.dao.impl.CameraDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.ClienteDaoImpl;
+import br.com.rpw.monitoramento.api.dao.impl.ClienteTipoOcorrenciaDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.OcorrenciaDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.SituacaoCameraDaoImpl;
-import br.com.rpw.monitoramento.api.dao.impl.TipoOcorrenciaDaoImpl;
 import br.com.rpw.monitoramento.api.dto.CampoCadastroOcorrenciaDTO;
 import br.com.rpw.monitoramento.api.dto.ClienteDTO;
 import br.com.rpw.monitoramento.api.dto.DetalheInoperanciaCameraDTO;
@@ -32,12 +34,13 @@ import br.com.rpw.monitoramento.api.dto.GrupoOcorrenciasDto;
 import br.com.rpw.monitoramento.api.dto.ImagemCameraDTO;
 import br.com.rpw.monitoramento.api.dto.OcorrenciaDTO;
 import br.com.rpw.monitoramento.api.dto.QuantidadeOcorrencias;
+import br.com.rpw.monitoramento.api.dto.QuantidadeOcorrenciasMesDetalhado;
 import br.com.rpw.monitoramento.api.model.Camera;
 import br.com.rpw.monitoramento.api.model.Cliente;
+import br.com.rpw.monitoramento.api.model.ClienteTipoOcorrencia;
 import br.com.rpw.monitoramento.api.model.Ocorrencia;
 import br.com.rpw.monitoramento.api.model.RelatorioMensal;
 import br.com.rpw.monitoramento.api.model.SituacaoCamera;
-import br.com.rpw.monitoramento.api.model.TipoOcorrencia;
 import br.com.rpw.monitoramento.api.service.IRelatorioService;
 
 @Service
@@ -57,7 +60,7 @@ public class RelatorioService implements IRelatorioService {
 	private CameraDaoImpl cameraDaoImpl;
 	
 	@Autowired
-	private TipoOcorrenciaDaoImpl tipoOcorrenciaDaoImpl;
+	private ClienteTipoOcorrenciaDaoImpl clienteTipoOcorrenciaDaoImpl;
 
 	@Override
 	public RelatorioMensal consultarRelatorioMensal(Cliente cliente, String mes, String ano) throws ParseException {
@@ -69,22 +72,67 @@ public class RelatorioService implements IRelatorioService {
 		List<Ocorrencia> ocorrenciasMensalCliente = ocorrenciaDaoImpl.listarOcorrencias(cliente, mes, ano);
 		List<SituacaoCamera> imagensCameraMensal = situacaoCameraDaoImpl.listarSituacaoCamerasMensal(clienteMes, mes, ano);
 		List<DetalheInoperanciaCameraDTO> detalhesInoperanciaCamera = new ArrayList<DetalheInoperanciaCameraDTO>();
-		List<TipoOcorrencia> tiposOcorrenciaCliente = tipoOcorrenciaDaoImpl.listarTipoOcorrencias(clienteMes);
+		List<ClienteTipoOcorrencia> tiposOcorrenciaCliente = clienteTipoOcorrenciaDaoImpl.listarTipoOcorrencias(clienteMes);
 		List<QuantidadeOcorrencias> quantidadeOcorrencias = new ArrayList<QuantidadeOcorrencias>();
+		List<QuantidadeOcorrenciasMesDetalhado> quantidadesOcorrenciasMesDetalhadoMonitoramento = new ArrayList<QuantidadeOcorrenciasMesDetalhado>();
+		List<QuantidadeOcorrenciasMesDetalhado> quantidadesOcorrenciasMesDetalhadoSeguranca = new ArrayList<QuantidadeOcorrenciasMesDetalhado>();
 		
 		if(tiposOcorrenciaCliente != null) {
-			for(TipoOcorrencia tipoOcorrencia : tiposOcorrenciaCliente) {
+			for(ClienteTipoOcorrencia tipoOcorrencia : tiposOcorrenciaCliente) {
 				QuantidadeOcorrencias quantidadeOcorrencia = new QuantidadeOcorrencias();
-				quantidadeOcorrencia.setDescricaoTipoOcorrencia(tipoOcorrencia.getDescricao());
-				quantidadeOcorrencia.setQuantidadeOcorrencias(ocorrenciaDaoImpl.consultarQuantidadeOcorrenciasClienteTipoOcorrencia(clienteMes, tipoOcorrencia).intValue());
+				quantidadeOcorrencia.setDescricaoTipoOcorrencia(tipoOcorrencia.getTipoOcorrencia().getDescricao());
+				quantidadeOcorrencia.setQuantidadeOcorrencias(ocorrenciaDaoImpl.consultarQuantidadeOcorrenciasClienteTipoOcorrencia(clienteMes, tipoOcorrencia.getTipoOcorrencia(), Integer.parseInt(mes), Integer.parseInt(ano)).intValue());
 				quantidadeOcorrencias.add(quantidadeOcorrencia);
+				
+				QuantidadeOcorrenciasMesDetalhado quantidadeOcorrenciasMesDetalhadoMonitoramento = new QuantidadeOcorrenciasMesDetalhado();
+				quantidadeOcorrenciasMesDetalhadoMonitoramento.setDescricaoTipoOcorrencia(tipoOcorrencia.getTipoOcorrencia().getDescricao());
+				
+				QuantidadeOcorrenciasMesDetalhado quantidadeOcorrenciasMesDetalhadoSeguranca = new QuantidadeOcorrenciasMesDetalhado();
+				quantidadeOcorrenciasMesDetalhadoSeguranca.setDescricaoTipoOcorrencia(tipoOcorrencia.getTipoOcorrencia().getDescricao());
+				
+				List<Ocorrencia> ocorrenciasPeriodo = ocorrenciaDaoImpl.consultarOcorrencia(clienteMes, tipoOcorrencia.getTipoOcorrencia(), Integer.parseInt(mes), Integer.parseInt(ano));
+				Map<Integer, Integer> quantidadesSeguranca = new HashMap<Integer, Integer>();
+				Map<Integer, Integer> quantidadesMonitoramento = new HashMap<Integer, Integer>();
+				
+				for(Ocorrencia ocorrencia : ocorrenciasPeriodo) {
+					Calendar cal = Calendar.getInstance();
+					cal.setTime(ocorrencia.getDataCadastro());
+					int day = cal.get(Calendar.DAY_OF_MONTH);
+
+					if(InformanteOcorrenciaEnum.SEGURANCA.equals(ocorrencia.getInformanteOcorrencia())) {
+						if(quantidadesSeguranca.containsKey(day)) {
+							quantidadesSeguranca.put(day, quantidadesSeguranca.get(day));
+						} else {
+							quantidadesSeguranca.put(day, 1);
+						}
+					} else {
+						if(quantidadesMonitoramento.containsKey(day)) {
+							quantidadesMonitoramento.put(day, quantidadesMonitoramento.get(day));
+						} else {
+							quantidadesMonitoramento.put(day, 1);
+						}
+					}
+					
+				}
+				
+				for(int i = 0; i <= 31; i++) {
+					quantidadeOcorrenciasMesDetalhadoMonitoramento.getQuantidadeOcorrenciasDia().add(quantidadesMonitoramento.get(i));
+				}
+				
+				for(int i = 0; i <= 31; i++) {
+					quantidadeOcorrenciasMesDetalhadoSeguranca.getQuantidadeOcorrenciasDia().add(quantidadesSeguranca.get(i));
+				}
+				
+				quantidadesOcorrenciasMesDetalhadoMonitoramento.add(quantidadeOcorrenciasMesDetalhadoMonitoramento);
+				quantidadesOcorrenciasMesDetalhadoSeguranca.add(quantidadeOcorrenciasMesDetalhadoSeguranca);
+
 			}
 		}
 
 		Collections.sort(quantidadeOcorrencias, new Comparator<QuantidadeOcorrencias>() {
             @Override
             public int compare(QuantidadeOcorrencias primeiro, QuantidadeOcorrencias segundo) {
-                return primeiro.getQuantidadeOcorrencias() < segundo.getQuantidadeOcorrencias() ? -1 : (primeiro.getQuantidadeOcorrencias() > segundo.getQuantidadeOcorrencias()) ? 1 : 0;
+                return primeiro.getQuantidadeOcorrencias() > segundo.getQuantidadeOcorrencias() ? -1 : (primeiro.getQuantidadeOcorrencias() < segundo.getQuantidadeOcorrencias()) ? 1 : 0;
             }
         });
 		
@@ -93,6 +141,8 @@ public class RelatorioService implements IRelatorioService {
 		relatorioMensal.setImagemCamera(converterSituacaoCameraEmImagemCamera(imagensCameraMensal, detalhesInoperanciaCamera, mes, ano));
 		relatorioMensal.setDetalhesInoperanciaCamera(detalhesInoperanciaCamera);
 		relatorioMensal.setQuantidadeOcorrencias(quantidadeOcorrencias);
+		relatorioMensal.setQuantidadesOcorrenciasMesDetalhadoMonitoramento(quantidadesOcorrenciasMesDetalhadoMonitoramento);
+		relatorioMensal.setQuantidadesOcorrenciasMesDetalhadoSeguranca(quantidadesOcorrenciasMesDetalhadoSeguranca);
 		return relatorioMensal;
 	}
 	
@@ -125,8 +175,12 @@ public class RelatorioService implements IRelatorioService {
 					ocorrenciaDto.setResumoOcorrencia("");
 					for(CampoCadastroOcorrenciaDTO camposCadastro : campos) {
 						if(camposCadastro.getTipo().equals("EQUIPAMENTOS")) {
-							Camera camera = cameraDaoImpl.consultarCamera(Long.parseLong(camposCadastro.getValor()));
-							ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camera.getDescricaoCamera() + "; ");
+							if(camposCadastro.getValor() != null) {
+								Camera camera = cameraDaoImpl.consultarCamera(Long.parseLong(camposCadastro.getValor()));
+								ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camera.getDescricaoCamera() + "; ");
+							} else {
+								ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": Não informado; ");
+							}
 						} else {
 							ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camposCadastro.getValor() + "; " );
 						}

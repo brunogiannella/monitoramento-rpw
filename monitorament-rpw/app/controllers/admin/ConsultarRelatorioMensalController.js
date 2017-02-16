@@ -5,14 +5,16 @@
 		.module('consultarRelatorioMensal.controller', [])
 		.controller('ConsultarRelatorioMensalController' , ConsultarRelatorioMensalController);
 
-	ConsultarRelatorioMensalController.$inject = ['$rootScope', '$scope', '$stateParams', 'TurnoService', 'UtilsService'];
+	ConsultarRelatorioMensalController.$inject = ['$rootScope', '$scope', '$stateParams', 'RelatorioService', 'UtilsService'];
 
-	function ConsultarRelatorioMensalController($rootScope, $scope, $stateParams, TurnoService, UtilsService) {
+	function ConsultarRelatorioMensalController($rootScope, $scope, $stateParams, RelatorioService, UtilsService) {
 
 		function inicializar() {
 			vm.nomeCliente = $stateParams.nomeCliente;
 			vm.idCliente = $stateParams.idCliente;
 			vm.consumidor = $stateParams.consumidor;
+			vm.anoSelecionado = "";
+			vm.mesSelecionado = "";
 		};
 
 		function inicio() {
@@ -32,8 +34,16 @@
 
 		};
 
-		function visualizarRelatorio(id) {
-			UtilsService.irPara('imprimir-relatorio', {idTurno: id});
+		function visualizarRelatorio() {
+			var funcSucesso = function(data) {
+				if(data != null) {
+					UtilsService.irPara('imprimir-relatorio-mensal', {relatorio: data, consumidor: 'admin'});
+				} else {
+					alert("Ocorreu um problema ao gerar o relatório mensal.");
+				}
+			};
+
+			RelatorioService.consultarRelatorioMensal(vm.mesSelecionado, vm.anoSelecionado, vm.idCliente, funcSucesso);
 		}
 
 		var vm = this;
