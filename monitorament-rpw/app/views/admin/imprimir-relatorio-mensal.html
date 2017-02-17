@@ -131,6 +131,172 @@
           <br>
         </div>
 
+        <div>
+          <table>
+            <tr style="background: #4F81BD; border: solid #4F81BD 1.0pt;">
+              <td class="textBold" colspan="32">Total de ocorrências identificadas pelo monitoramento.</td>
+            </tr>
+            <tr>
+              <td width="28.7%" class="textBold">Tipo ocorrência</td>
+              <td width="2.3%" class="textBold">1</td>
+              <td width="2.3%" class="textBold">2</td>
+              <td width="2.3%" class="textBold">3</td>
+              <td width="2.3%" class="textBold">4</td>
+              <td width="2.3%" class="textBold">5</td>
+              <td width="2.3%" class="textBold">6</td>
+              <td width="2.3%" class="textBold">7</td>
+              <td width="2.3%" class="textBold">8</td>
+              <td width="2.3%" class="textBold">9</td>
+              <td width="2.3%" class="textBold">10</td>
+              <td width="2.3%" class="textBold">11</td>
+              <td width="2.3%" class="textBold">12</td>
+              <td width="2.3%" class="textBold">13</td>
+              <td width="2.3%" class="textBold">14</td>
+              <td width="2.3%" class="textBold">15</td>
+              <td width="2.3%" class="textBold">16</td>
+              <td width="2.3%" class="textBold">17</td>
+              <td width="2.3%" class="textBold">18</td>
+              <td width="2.3%" class="textBold">19</td>
+              <td width="2.3%" class="textBold">20</td>
+              <td width="2.3%" class="textBold">21</td>
+              <td width="2.3%" class="textBold">22</td>
+              <td width="2.3%" class="textBold">23</td>
+              <td width="2.3%" class="textBold">24</td>
+              <td width="2.3%" class="textBold">25</td>
+              <td width="2.3%" class="textBold">26</td>
+              <td width="2.3%" class="textBold">27</td>
+              <td width="2.3%" class="textBold">28</td>
+              <td width="2.3%" class="textBold">29</td>
+              <td width="2.3%" class="textBold">30</td>
+              <td width="2.3%" class="textBold">31</td>
+            </tr>
+            <tr  ng-repeat="quantidadeMesMonitoramento in ImprimirRelatorioMensalCrtl.relatorio.quantidadesOcorrenciasMesDetalhadoMonitoramento" ng-show="ImprimirRelatorioMensalCrtl.relatorio.quantidadesOcorrenciasMesDetalhadoMonitoramento.length > 0">
+              <td>{{quantidadeMesMonitoramento.descricaoTipoOcorrencia}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[1] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[1]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[2] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[2]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[3] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[3]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[4] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[4]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[5] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[5]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[6] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[6]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[7] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[7]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[8] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[8]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[9] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[9]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[10] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[10]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[11] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[11]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[12] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[12]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[13] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[13]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[14] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[14]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[15] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[15]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[16] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[16]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[17] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[17]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[18] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[18]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[19] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[19]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[20] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[20]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[21] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[21]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[22] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[22]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[23] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[23]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[24] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[24]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[25] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[25]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[26] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[26]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[27] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[27]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[28] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[28]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[29] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[29]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[30] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[30]}}</td>
+              <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[31] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[31]}}</td>
+            </tr>
+
+            <tr  ng-show="ImprimirRelatorioMensalCrtl.relatorio.quantidadeOcorrencias.length == 0">
+              <td colspan="2">Não houveram ocorrências durante o mês.</td>
+            </tr>
+          </table>
+
+          <br>
+          <br>
+        </div>
+
+        <div>
+          <table>
+            <tr style="background: #4F81BD; border: solid #4F81BD 1.0pt;">
+              <td class="textBold" colspan="32">Total de ocorrências identificadas pela segurança.</td>
+            </tr>
+            <tr>
+              <td width="28.7%" class="textBold">Tipo ocorrência</td>
+              <td width="2.3%" class="textBold">1</td>
+              <td width="2.3%" class="textBold">2</td>
+              <td width="2.3%" class="textBold">3</td>
+              <td width="2.3%" class="textBold">4</td>
+              <td width="2.3%" class="textBold">5</td>
+              <td width="2.3%" class="textBold">6</td>
+              <td width="2.3%" class="textBold">7</td>
+              <td width="2.3%" class="textBold">8</td>
+              <td width="2.3%" class="textBold">9</td>
+              <td width="2.3%" class="textBold">10</td>
+              <td width="2.3%" class="textBold">11</td>
+              <td width="2.3%" class="textBold">12</td>
+              <td width="2.3%" class="textBold">13</td>
+              <td width="2.3%" class="textBold">14</td>
+              <td width="2.3%" class="textBold">15</td>
+              <td width="2.3%" class="textBold">16</td>
+              <td width="2.3%" class="textBold">17</td>
+              <td width="2.3%" class="textBold">18</td>
+              <td width="2.3%" class="textBold">19</td>
+              <td width="2.3%" class="textBold">20</td>
+              <td width="2.3%" class="textBold">21</td>
+              <td width="2.3%" class="textBold">22</td>
+              <td width="2.3%" class="textBold">23</td>
+              <td width="2.3%" class="textBold">24</td>
+              <td width="2.3%" class="textBold">25</td>
+              <td width="2.3%" class="textBold">26</td>
+              <td width="2.3%" class="textBold">27</td>
+              <td width="2.3%" class="textBold">28</td>
+              <td width="2.3%" class="textBold">29</td>
+              <td width="2.3%" class="textBold">30</td>
+              <td width="2.3%" class="textBold">31</td>
+            </tr>
+            <tr  ng-repeat="quantidadeMesSeguranca in ImprimirRelatorioMensalCrtl.relatorio.quantidadesOcorrenciasMesDetalhadoSeguranca" ng-show="ImprimirRelatorioMensalCrtl.relatorio.quantidadesOcorrenciasMesDetalhadoSeguranca.length > 0">
+              <td>{{quantidadeMesSeguranca.descricaoTipoOcorrencia}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[1] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[1]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[2] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[2]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[3] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[3]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[4] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[4]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[5] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[5]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[6] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[6]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[7] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[7]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[8] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[8]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[9] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[9]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[10] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[10]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[11] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[11]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[12] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[12]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[13] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[13]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[14] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[14]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[15] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[15]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[16] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[16]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[17] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[17]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[18] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[18]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[19] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[19]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[20] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[20]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[21] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[21]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[22] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[22]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[23] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[23]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[24] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[24]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[25] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[25]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[26] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[26]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[27] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[27]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[28] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[28]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[29] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[29]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[30] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[30]}}</td>
+              <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[31] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[31]}}</td>
+            </tr>
+
+            <tr  ng-show="ImprimirRelatorioMensalCrtl.relatorio.quantidadeOcorrencias.length == 0">
+              <td colspan="2">Não houveram ocorrências durante o mês.</td>
+            </tr>
+          </table>
+
+          <br>
+          <br>
+        </div>
+
         <div ng-repeat="grupoOcorrencia in ImprimirRelatorioMensalCrtl.relatorio.grupoOcorrencias">
           <table>
             <tr style="background: #4F81BD; border: solid #4F81BD 1.0pt;">

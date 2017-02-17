@@ -101,13 +101,13 @@ public class RelatorioService implements IRelatorioService {
 
 					if(InformanteOcorrenciaEnum.SEGURANCA.equals(ocorrencia.getInformanteOcorrencia())) {
 						if(quantidadesSeguranca.containsKey(day)) {
-							quantidadesSeguranca.put(day, quantidadesSeguranca.get(day));
+							quantidadesSeguranca.put(day, quantidadesSeguranca.get(day) + 1);
 						} else {
 							quantidadesSeguranca.put(day, 1);
 						}
 					} else {
 						if(quantidadesMonitoramento.containsKey(day)) {
-							quantidadesMonitoramento.put(day, quantidadesMonitoramento.get(day));
+							quantidadesMonitoramento.put(day, quantidadesMonitoramento.get(day) + 1);
 						} else {
 							quantidadesMonitoramento.put(day, 1);
 						}
@@ -116,11 +116,19 @@ public class RelatorioService implements IRelatorioService {
 				}
 				
 				for(int i = 0; i <= 31; i++) {
-					quantidadeOcorrenciasMesDetalhadoMonitoramento.getQuantidadeOcorrenciasDia().add(quantidadesMonitoramento.get(i));
+					Integer quantidade = 0;
+					if(quantidadesMonitoramento.get(i) != null) {
+						quantidade = quantidadesMonitoramento.get(i);
+					}
+					quantidadeOcorrenciasMesDetalhadoMonitoramento.getQuantidadeOcorrenciasDia().add(quantidade);
 				}
 				
 				for(int i = 0; i <= 31; i++) {
-					quantidadeOcorrenciasMesDetalhadoSeguranca.getQuantidadeOcorrenciasDia().add(quantidadesSeguranca.get(i));
+					Integer quantidade = 0;
+					if(quantidadesSeguranca.get(i) != null) {
+						quantidade = quantidadesSeguranca.get(i);
+					}
+					quantidadeOcorrenciasMesDetalhadoSeguranca.getQuantidadeOcorrenciasDia().add(quantidade);
 				}
 				
 				quantidadesOcorrenciasMesDetalhadoMonitoramento.add(quantidadeOcorrenciasMesDetalhadoMonitoramento);
