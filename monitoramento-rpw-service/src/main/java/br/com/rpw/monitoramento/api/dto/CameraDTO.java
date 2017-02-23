@@ -3,17 +3,17 @@ package br.com.rpw.monitoramento.api.dto;
 public class CameraDTO {
 
 	private Long id;
-	private Integer numeroCamera;
+	private String numeroCamera;
 	private String descricaoCamera;
 	private String localizacaoCamera;
 	private Long idCliente;
 	private String tipoCamera;
 
-	public Integer getNumeroCamera() {
+	public String getNumeroCamera() {
 		return numeroCamera;
 	}
 
-	public void setNumeroCamera(Integer numeroCamera) {
+	public void setNumeroCamera(String numeroCamera) {
 		this.numeroCamera = numeroCamera;
 	}
 

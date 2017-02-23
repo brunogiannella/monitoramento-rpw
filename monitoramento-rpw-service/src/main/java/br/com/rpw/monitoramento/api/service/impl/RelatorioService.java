@@ -30,9 +30,11 @@ import br.com.rpw.monitoramento.api.dao.impl.SituacaoCameraDaoImpl;
 import br.com.rpw.monitoramento.api.dto.CampoCadastroOcorrenciaDTO;
 import br.com.rpw.monitoramento.api.dto.ClienteDTO;
 import br.com.rpw.monitoramento.api.dto.DetalheInoperanciaCameraDTO;
+import br.com.rpw.monitoramento.api.dto.GrupoEquipamento;
 import br.com.rpw.monitoramento.api.dto.GrupoOcorrenciasDto;
 import br.com.rpw.monitoramento.api.dto.ImagemCameraDTO;
 import br.com.rpw.monitoramento.api.dto.OcorrenciaDTO;
+import br.com.rpw.monitoramento.api.dto.QuantidadeHorasEquipamentoRelatorio;
 import br.com.rpw.monitoramento.api.dto.QuantidadeOcorrencias;
 import br.com.rpw.monitoramento.api.dto.QuantidadeOcorrenciasMesDetalhado;
 import br.com.rpw.monitoramento.api.model.Camera;
@@ -144,6 +146,31 @@ public class RelatorioService implements IRelatorioService {
             }
         });
 		
+
+		List<GrupoEquipamento> gruposEquip = new ArrayList<GrupoEquipamento>();
+		List<String> gruposCamera = cameraDaoImpl.listarCamerasGroupNumeroCamera(clienteMes);
+		if(gruposCamera != null) {
+			for(String grupo : gruposCamera) {
+				GrupoEquipamento grupoEquipamento = new GrupoEquipamento();
+				grupoEquipamento.setDescricaoGrupoEquipamento(grupo);
+				
+				List<Camera> camerasNumero = cameraDaoImpl.listarCamerasPorClienteENumero(clienteMes, grupo);
+				
+				for(Camera camera : camerasNumero) {
+					QuantidadeHorasEquipamentoRelatorio quantidadeHoras = new QuantidadeHorasEquipamentoRelatorio();
+					quantidadeHoras.setDescricaoEquipamento(camera.getDescricaoCamera());
+					
+					for(int i = 0; i <= 31; i++) {
+						quantidadeHoras.getQuantidadeHorasDia().add(0);
+					}
+					
+					grupoEquipamento.getHorasInoperantes().add(quantidadeHoras);
+				}
+				
+				gruposEquip.add(grupoEquipamento);
+			}
+		}
+		
 		relatorioMensal.setGrupoOcorrencias(converterOcorrenciasEmGrupoOcorrencias(ocorrenciasMensalCliente));
 		relatorioMensal.setCliente(converterClienteEmClienteDTO(clienteMes));
 		relatorioMensal.setImagemCamera(converterSituacaoCameraEmImagemCamera(imagensCameraMensal, detalhesInoperanciaCamera, mes, ano));
@@ -151,6 +178,7 @@ public class RelatorioService implements IRelatorioService {
 		relatorioMensal.setQuantidadeOcorrencias(quantidadeOcorrencias);
 		relatorioMensal.setQuantidadesOcorrenciasMesDetalhadoMonitoramento(quantidadesOcorrenciasMesDetalhadoMonitoramento);
 		relatorioMensal.setQuantidadesOcorrenciasMesDetalhadoSeguranca(quantidadesOcorrenciasMesDetalhadoSeguranca);
+		relatorioMensal.setGruposEquipamento(gruposEquip);
 		return relatorioMensal;
 	}
 	

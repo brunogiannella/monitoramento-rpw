@@ -13,5 +13,7 @@ public interface ICameraDao {
     Camera consultarCamera(Long idCamera);
     void atualizarCamera(Camera Camera);
 	void deleteCamerasByCliente(Long codigoCliente);
+	List<String> listarCamerasGroupNumeroCamera(Cliente cliente);
+	List<Camera> listarCamerasPorClienteENumero(Cliente cliente, String numeroCamera);
 	
 }

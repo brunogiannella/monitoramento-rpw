@@ -29,7 +29,7 @@ public class Camera implements Serializable {
 	private Long id;
 
 	@Column(name = "NUMERO_CAMERA")
-	private Integer numeroCamera;
+	private String numeroCamera;
 
 	@Column(name = "DESCRICAO_CAMERA")
 	private String descricaoCamera;
@@ -56,11 +56,11 @@ public class Camera implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getNumeroCamera() {
+	public String getNumeroCamera() {
 		return numeroCamera;
 	}
 
-	public void setNumeroCamera(Integer numeroCamera) {
+	public void setNumeroCamera(String numeroCamera) {
 		this.numeroCamera = numeroCamera;
 	}
 

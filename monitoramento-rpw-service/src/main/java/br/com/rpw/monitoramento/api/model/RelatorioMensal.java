@@ -6,6 +6,7 @@ import java.util.List;
 
 import br.com.rpw.monitoramento.api.dto.ClienteDTO;
 import br.com.rpw.monitoramento.api.dto.DetalheInoperanciaCameraDTO;
+import br.com.rpw.monitoramento.api.dto.GrupoEquipamento;
 import br.com.rpw.monitoramento.api.dto.GrupoOcorrenciasDto;
 import br.com.rpw.monitoramento.api.dto.ImagemCameraDTO;
 import br.com.rpw.monitoramento.api.dto.QuantidadeOcorrencias;
@@ -24,6 +25,7 @@ public class RelatorioMensal implements Serializable {
 	private List<DetalheInoperanciaCameraDTO> detalhesInoperanciaCamera = new ArrayList<DetalheInoperanciaCameraDTO>();
 	List<QuantidadeOcorrenciasMesDetalhado> quantidadesOcorrenciasMesDetalhadoSeguranca;
 	List<QuantidadeOcorrenciasMesDetalhado> quantidadesOcorrenciasMesDetalhadoMonitoramento;
+	List<GrupoEquipamento> gruposEquipamento;
 	private ClienteDTO cliente;
 	private String ano;
 	private String mes;
@@ -102,4 +104,12 @@ public class RelatorioMensal implements Serializable {
 		this.quantidadesOcorrenciasMesDetalhadoMonitoramento = quantidadesOcorrenciasMesDetalhadoMonitoramento;
 	}
 
+	public List<GrupoEquipamento> getGruposEquipamento() {
+		return gruposEquipamento;
+	}
+
+	public void setGruposEquipamento(List<GrupoEquipamento> gruposEquipamento) {
+		this.gruposEquipamento = gruposEquipamento;
+	}
+	
 }

@@ -1,5 +1,6 @@
 package br.com.rpw.monitoramento.api.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -27,7 +28,36 @@ public class CameraDaoImpl extends AbstractDao implements ICameraDao{
 		Criteria criteria = getSession().createCriteria(Camera.class);
 		criteria.add(Restrictions.eq("cliente.id",cliente.getId()));
 		criteria.add(Restrictions.eq("ativo", true));
+
         return (List<Camera>) criteria.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Camera> listarCamerasPorClienteENumero(Cliente cliente, String numeroCamera) {
+		Criteria criteria = getSession().createCriteria(Camera.class);
+		criteria.add(Restrictions.eq("cliente.id",cliente.getId()));
+		criteria.add(Restrictions.eq("numeroCamera", numeroCamera));
+		criteria.add(Restrictions.eq("ativo", true));
+
+        return (List<Camera>) criteria.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> listarCamerasGroupNumeroCamera(Cliente cliente) {
+		Query query = getSession().createSQLQuery("SELECT NUMERO_CAMERA FROM CAMERA WHERE ID_CLIENTE = :idCliente AND (TIPO_CAMERA = 'FIXA' OR TIPO_CAMERA = 'DOME') GROUP BY NUMERO_CAMERA");
+        query.setLong("idCliente", cliente.getId());
+
+        List<String> retorno = query.list();
+        
+        List<String> numerosCameras = new ArrayList<String>();
+        for(String row : retorno){
+        	numerosCameras.add(row);
+        }
+
+        
+		return numerosCameras;
 	}
 	
 	@Override
