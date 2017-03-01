@@ -6,7 +6,8 @@ import java.util.List;
 public class QuantidadeHorasEquipamentoRelatorio {
 
 	private String descricaoEquipamento;
-	private List<Integer> quantidadeHorasDia = new ArrayList<Integer>();
+	private Long quantidadeHorasMes;
+	private List<Long> quantidadeHorasDia = new ArrayList<Long>();
 
 	public String getDescricaoEquipamento() {
 		return descricaoEquipamento;
@@ -16,12 +17,20 @@ public class QuantidadeHorasEquipamentoRelatorio {
 		this.descricaoEquipamento = descricaoEquipamento;
 	}
 
-	public List<Integer> getQuantidadeHorasDia() {
+	public List<Long> getQuantidadeHorasDia() {
 		return quantidadeHorasDia;
 	}
 
-	public void setQuantidadeHorasDia(List<Integer> quantidadeHorasDia) {
+	public void setQuantidadeHorasDia(List<Long> quantidadeHorasDia) {
 		this.quantidadeHorasDia = quantidadeHorasDia;
+	}
+
+	public Long getQuantidadeHorasMes() {
+		return quantidadeHorasMes;
+	}
+
+	public void setQuantidadeHorasMes(Long quantidadeHorasMes) {
+		this.quantidadeHorasMes = quantidadeHorasMes;
 	}
 
 }

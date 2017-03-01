@@ -107,6 +107,17 @@ public class SituacaoCameraDaoImpl extends AbstractDao implements ISituacaoCamer
 	
 	@SuppressWarnings("unchecked")
 	@Override
+	public List<SituacaoCamera> consultarSituacaoCameraData(Camera camera, Date inicial, Date fim) {
+		Criteria criteria = getSession().createCriteria(SituacaoCamera.class);
+		criteria.add(Restrictions.eq("camera.id", camera.getId()));
+		criteria.add(Restrictions.ge("dataHoraDesligada", inicial)); 
+		criteria.add(Restrictions.or(Restrictions.lt("dataHoraLigada", fim), Restrictions.eq("dataHoraLigada", null)));
+
+		return (List<SituacaoCamera>) criteria.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
 	public List<SituacaoCamera> consultarSituacaoCameraTurno(Turno turno) {
 		Criteria criteria = getSession().createCriteria(SituacaoCamera.class);
 		criteria.add(Restrictions.eq("turno.id",turno.getId()));

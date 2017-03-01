@@ -60,22 +60,27 @@
         <br>
         <br>
 
-        <div>
+
+        <span style="font-size: 14px;font-weight: bold;color: darkblue;">1. EQUIPAMENTOS</span>
+        <br />
+        <br />
+
+        <div ng-repeat="grupoEquipamento in ImprimirRelatorioMensalCrtl.relatorio.gruposEquipamento" ng-show="ImprimirRelatorioMensalCrtl.relatorio.gruposEquipamento.length > 0">
           <table>
             <tr style="background: #4F81BD; border: solid #4F81BD 1.0pt;">
-              <td class="textBold" colspan="2">Imagem das Câmeras (Horas de inoperância).</td>
+              <td class="textBold" colspan="32">{{grupoEquipamento.descricaoGrupoEquipamento}} - TOTAL DE HORAS DE INOPERÂNCIA NO MÊS</td>
             </tr>
             <tr>
               <td width="70%" class="textBold">Câmera</td>
-              <td width="30%" class="textBold">Tempo fora (em horas)</td>
+              <td width="30%" class="textBold">Horas</td>
             </tr>
-            <tr  ng-repeat="imagem in ImprimirRelatorioMensalCrtl.relatorio.imagemCamera" ng-show="ImprimirRelatorioMensalCrtl.relatorio.imagemCamera.length > 0">
-              <td>{{imagem.descricaoCamera}}</td>
-              <td>{{imagem.horasFora}}</td>
+            <tr  ng-repeat="quantidadeHorasEquipamento in grupoEquipamento.horasInoperantes" ng-show="grupoEquipamento.horasInoperantes.length > 0">
+              <td>{{quantidadeHorasEquipamento.descricaoEquipamento}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasMes}}</td>
             </tr>
 
-            <tr  ng-show="ImprimirRelatorioMensalCrtl.relatorio.imagemCamera.length == 0">
-              <td colspan="2">Nenhuma câmera ficou fora durante o turno.</td>
+            <tr ng-show="grupoEquipamento.horasInoperantes.length == 0">
+              <td colspan="2">Não houveram inoperâncias durante o mês.</td>
             </tr>
           </table>
 
@@ -83,30 +88,95 @@
           <br>
         </div>
 
-        <div>
+
+        <div ng-repeat="grupoEquipamento in ImprimirRelatorioMensalCrtl.relatorio.gruposEquipamento" ng-show="ImprimirRelatorioMensalCrtl.relatorio.gruposEquipamento.length > 0">
           <table>
             <tr style="background: #4F81BD; border: solid #4F81BD 1.0pt;">
-              <td class="textBold" colspan="3">Detalhe inoperância das câmeras (Detalhe da inoperância).</td>
+              <td class="textBold" colspan="32">{{grupoEquipamento.descricaoGrupoEquipamento}} - CÂMERAS / HORAS DE INOPERÂNCIA POR DIA.</td>
             </tr>
             <tr>
-              <td width="40%" class="textBold">Câmera</td>
-              <td width="30%" class="textBold">Início</td>
-              <td width="30%" class="textBold">Término</td>
+              <td width="28.7%" class="textBold">Câmera</td>
+              <td width="2.3%" class="textBold">1</td>
+              <td width="2.3%" class="textBold">2</td>
+              <td width="2.3%" class="textBold">3</td>
+              <td width="2.3%" class="textBold">4</td>
+              <td width="2.3%" class="textBold">5</td>
+              <td width="2.3%" class="textBold">6</td>
+              <td width="2.3%" class="textBold">7</td>
+              <td width="2.3%" class="textBold">8</td>
+              <td width="2.3%" class="textBold">9</td>
+              <td width="2.3%" class="textBold">10</td>
+              <td width="2.3%" class="textBold">11</td>
+              <td width="2.3%" class="textBold">12</td>
+              <td width="2.3%" class="textBold">13</td>
+              <td width="2.3%" class="textBold">14</td>
+              <td width="2.3%" class="textBold">15</td>
+              <td width="2.3%" class="textBold">16</td>
+              <td width="2.3%" class="textBold">17</td>
+              <td width="2.3%" class="textBold">18</td>
+              <td width="2.3%" class="textBold">19</td>
+              <td width="2.3%" class="textBold">20</td>
+              <td width="2.3%" class="textBold">21</td>
+              <td width="2.3%" class="textBold">22</td>
+              <td width="2.3%" class="textBold">23</td>
+              <td width="2.3%" class="textBold">24</td>
+              <td width="2.3%" class="textBold">25</td>
+              <td width="2.3%" class="textBold">26</td>
+              <td width="2.3%" class="textBold">27</td>
+              <td width="2.3%" class="textBold">28</td>
+              <td width="2.3%" class="textBold">29</td>
+              <td width="2.3%" class="textBold">30</td>
+              <td width="2.3%" class="textBold">31</td>
             </tr>
-            <tr  ng-repeat="detalhe in ImprimirRelatorioMensalCrtl.relatorio.detalhesInoperanciaCamera" ng-show="ImprimirRelatorioMensalCrtl.relatorio.detalhesInoperanciaCamera.length > 0">
-              <td>{{detalhe.descricaoCamera}}</td>
-              <td>{{detalhe.inicio}}</td>
-              <td>{{detalhe.fim}}</td>
+            <tr  ng-repeat="quantidadeHorasEquipamento in grupoEquipamento.horasInoperantes" ng-show="grupoEquipamento.horasInoperantes.length > 0">
+              <td>{{quantidadeHorasEquipamento.descricaoEquipamento}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[1]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[2]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[3]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[4]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[5]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[6]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[7]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[8]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[9]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[10]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[11]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[12]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[13]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[14]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[15]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[16]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[17]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[18]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[19]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[20]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[21]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[22]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[23]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[24]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[25]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[26]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[27]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[28]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[29]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[30]}}</td>
+              <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[31]}}</td>
             </tr>
 
-            <tr ng-show="ImprimirRelatorioMensalCrtl.relatorio.detalhesInoperanciaCamera.length == 0">
-              <td colspan="3">Nenhuma câmera ficou fora durante o turno.</td>
+            <tr  ng-show="ImprimirRelatorioMensalCrtl.relatorio.quantidadeOcorrencias.length == 0">
+              <td colspan="2">Não houveram inoperâncias durante o mês.</td>
             </tr>
           </table>
 
           <br>
           <br>
         </div>
+
+
+        <span style="font-size: 14px;font-weight: bold;color: darkblue;">2. OCORRÊNCIAS</span>
+        <br />
+        <br />
+
 
         <div>
           <table>
@@ -296,6 +366,7 @@
           <br>
           <br>
         </div>
+
 
         <div ng-repeat="grupoOcorrencia in ImprimirRelatorioMensalCrtl.relatorio.grupoOcorrencias">
           <table>

@@ -8,6 +8,7 @@ import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
+import br.com.rpw.monitoramento.api.constantes.TipoCameraEnum;
 import br.com.rpw.monitoramento.api.dao.AbstractDao;
 import br.com.rpw.monitoramento.api.dao.ICameraDao;
 import br.com.rpw.monitoramento.api.model.Camera;
@@ -28,6 +29,17 @@ public class CameraDaoImpl extends AbstractDao implements ICameraDao{
 		Criteria criteria = getSession().createCriteria(Camera.class);
 		criteria.add(Restrictions.eq("cliente.id",cliente.getId()));
 		criteria.add(Restrictions.eq("ativo", true));
+
+        return (List<Camera>) criteria.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Camera> listarCameras(Cliente cliente, TipoCameraEnum tipoCamera) {
+		Criteria criteria = getSession().createCriteria(Camera.class);
+		criteria.add(Restrictions.eq("cliente.id",cliente.getId()));
+		criteria.add(Restrictions.eq("ativo", true));
+		criteria.add(Restrictions.eq("tipoCamera", tipoCamera));
 
         return (List<Camera>) criteria.list();
 	}

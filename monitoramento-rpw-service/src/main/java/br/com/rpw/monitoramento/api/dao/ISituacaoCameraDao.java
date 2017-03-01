@@ -1,6 +1,7 @@
 package br.com.rpw.monitoramento.api.dao;
 
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 import br.com.rpw.monitoramento.api.model.Camera;
@@ -19,5 +20,6 @@ public interface ISituacaoCameraDao {
 	Integer consultarSituacaoCamera(Cliente cliente, Camera camera);
 	List<SituacaoCamera> consultarSituacaoCameraTurno(Turno turno);
 	List<SituacaoCamera> listarSituacaoCamerasMensal(Cliente cliente, String mes, String ano) throws ParseException;
+	List<SituacaoCamera> consultarSituacaoCameraData(Camera camera, Date inicial, Date fim);
 	
 }

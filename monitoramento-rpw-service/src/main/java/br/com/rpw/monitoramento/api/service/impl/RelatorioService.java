@@ -11,8 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.joda.time.DateTime;
-import org.joda.time.Minutes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +20,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import br.com.rpw.monitoramento.api.constantes.InformanteOcorrenciaEnum;
+import br.com.rpw.monitoramento.api.constantes.TipoCameraEnum;
 import br.com.rpw.monitoramento.api.dao.impl.CameraDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.ClienteDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.ClienteTipoOcorrenciaDaoImpl;
@@ -29,10 +28,8 @@ import br.com.rpw.monitoramento.api.dao.impl.OcorrenciaDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.SituacaoCameraDaoImpl;
 import br.com.rpw.monitoramento.api.dto.CampoCadastroOcorrenciaDTO;
 import br.com.rpw.monitoramento.api.dto.ClienteDTO;
-import br.com.rpw.monitoramento.api.dto.DetalheInoperanciaCameraDTO;
 import br.com.rpw.monitoramento.api.dto.GrupoEquipamento;
 import br.com.rpw.monitoramento.api.dto.GrupoOcorrenciasDto;
-import br.com.rpw.monitoramento.api.dto.ImagemCameraDTO;
 import br.com.rpw.monitoramento.api.dto.OcorrenciaDTO;
 import br.com.rpw.monitoramento.api.dto.QuantidadeHorasEquipamentoRelatorio;
 import br.com.rpw.monitoramento.api.dto.QuantidadeOcorrencias;
@@ -72,8 +69,6 @@ public class RelatorioService implements IRelatorioService {
 		
 		Cliente clienteMes = clienteDaoImpl.consultarCliente(cliente.getId());
 		List<Ocorrencia> ocorrenciasMensalCliente = ocorrenciaDaoImpl.listarOcorrencias(cliente, mes, ano);
-		List<SituacaoCamera> imagensCameraMensal = situacaoCameraDaoImpl.listarSituacaoCamerasMensal(clienteMes, mes, ano);
-		List<DetalheInoperanciaCameraDTO> detalhesInoperanciaCamera = new ArrayList<DetalheInoperanciaCameraDTO>();
 		List<ClienteTipoOcorrencia> tiposOcorrenciaCliente = clienteTipoOcorrenciaDaoImpl.listarTipoOcorrencias(clienteMes);
 		List<QuantidadeOcorrencias> quantidadeOcorrencias = new ArrayList<QuantidadeOcorrencias>();
 		List<QuantidadeOcorrenciasMesDetalhado> quantidadesOcorrenciasMesDetalhadoMonitoramento = new ArrayList<QuantidadeOcorrenciasMesDetalhado>();
@@ -157,29 +152,106 @@ public class RelatorioService implements IRelatorioService {
 				List<Camera> camerasNumero = cameraDaoImpl.listarCamerasPorClienteENumero(clienteMes, grupo);
 				
 				for(Camera camera : camerasNumero) {
-					QuantidadeHorasEquipamentoRelatorio quantidadeHoras = new QuantidadeHorasEquipamentoRelatorio();
-					quantidadeHoras.setDescricaoEquipamento(camera.getDescricaoCamera());
-					
-					for(int i = 0; i <= 31; i++) {
-						quantidadeHoras.getQuantidadeHorasDia().add(0);
-					}
-					
-					grupoEquipamento.getHorasInoperantes().add(quantidadeHoras);
+					grupoEquipamento.getHorasInoperantes().add(calcularQuantidadeHorasInoperantesEquipamento(camera, mes, ano));
 				}
 				
 				gruposEquip.add(grupoEquipamento);
 			}
 		}
 		
+		GrupoEquipamento grupoEquipamentoCFTV = new GrupoEquipamento();
+		grupoEquipamentoCFTV.setDescricaoGrupoEquipamento("Sistema de Segurança eletronica: CFTV");
+		List<Camera> camerasNumeroCFTV = cameraDaoImpl.listarCameras(clienteMes, TipoCameraEnum.CFTV);
+		
+		for(Camera camera : camerasNumeroCFTV) {
+			grupoEquipamentoCFTV.getHorasInoperantes().add(calcularQuantidadeHorasInoperantesEquipamento(camera, mes, ano));
+		}
+		
+		gruposEquip.add(grupoEquipamentoCFTV);
+		
+		GrupoEquipamento grupoEquipamentoPerimetral = new GrupoEquipamento();
+		grupoEquipamentoPerimetral.setDescricaoGrupoEquipamento("PROTEÇÃO PERIMETRAL");
+		List<Camera> camerasNumeroPerimetral = cameraDaoImpl.listarCameras(clienteMes, TipoCameraEnum.PERIMETRAL);
+		
+		for(Camera camera : camerasNumeroPerimetral) {
+			grupoEquipamentoPerimetral.getHorasInoperantes().add(calcularQuantidadeHorasInoperantesEquipamento(camera, mes, ano));
+		}
+		
+		gruposEquip.add(grupoEquipamentoPerimetral);
+		
+		GrupoEquipamento grupoEquipamentoControleAcesso = new GrupoEquipamento();
+		grupoEquipamentoControleAcesso.setDescricaoGrupoEquipamento("SISTEMA DE CONTROLE DE ACESSO");
+		List<Camera> camerasNumeroControleAcesso = cameraDaoImpl.listarCameras(clienteMes, TipoCameraEnum.CONTROLE_DE_ACESSO);
+		
+		for(Camera camera : camerasNumeroControleAcesso) {
+			grupoEquipamentoControleAcesso.getHorasInoperantes().add(calcularQuantidadeHorasInoperantesEquipamento(camera, mes, ano));
+		}
+		
+		gruposEquip.add(grupoEquipamentoControleAcesso);
+		
 		relatorioMensal.setGrupoOcorrencias(converterOcorrenciasEmGrupoOcorrencias(ocorrenciasMensalCliente));
 		relatorioMensal.setCliente(converterClienteEmClienteDTO(clienteMes));
-		relatorioMensal.setImagemCamera(converterSituacaoCameraEmImagemCamera(imagensCameraMensal, detalhesInoperanciaCamera, mes, ano));
-		relatorioMensal.setDetalhesInoperanciaCamera(detalhesInoperanciaCamera);
 		relatorioMensal.setQuantidadeOcorrencias(quantidadeOcorrencias);
 		relatorioMensal.setQuantidadesOcorrenciasMesDetalhadoMonitoramento(quantidadesOcorrenciasMesDetalhadoMonitoramento);
 		relatorioMensal.setQuantidadesOcorrenciasMesDetalhadoSeguranca(quantidadesOcorrenciasMesDetalhadoSeguranca);
 		relatorioMensal.setGruposEquipamento(gruposEquip);
 		return relatorioMensal;
+	}
+	
+	private QuantidadeHorasEquipamentoRelatorio calcularQuantidadeHorasInoperantesEquipamento(Camera camera, String mes, String ano) {
+		QuantidadeHorasEquipamentoRelatorio quantidadeHoras = new QuantidadeHorasEquipamentoRelatorio();
+		quantidadeHoras.setDescricaoEquipamento(camera.getDescricaoCamera());
+		
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.DAY_OF_MONTH, 30);
+		cal.set(Calendar.MONTH, Integer.parseInt(mes));
+		cal.set(Calendar.YEAR, Integer.parseInt(ano));
+		
+		Date dataFinal = cal.getTime();
+		
+		Long totalHorasMes = 0L;
+		for(int i = 0; i <= 31; i++) {
+			Calendar calInicio = Calendar.getInstance();
+			calInicio.set(Calendar.DAY_OF_MONTH, (i));
+			calInicio.set(Calendar.MONTH, Integer.parseInt(mes) - 1);
+			calInicio.set(Calendar.YEAR, Integer.parseInt(ano));
+			
+			Date dataInicio = calInicio.getTime();
+			List<SituacaoCamera> situacoesDia = situacaoCameraDaoImpl.consultarSituacaoCameraData(camera, dataInicio, dataFinal);
+			
+			long horasDia = 0;
+			for(SituacaoCamera situacao : situacoesDia) {
+				
+				Calendar calDesligada = Calendar.getInstance();
+				calDesligada.setTime(situacao.getDataHoraDesligada());
+				Calendar calLigada = Calendar.getInstance();
+				
+				if(situacao.getDataHoraLigada() == null) {
+					calLigada.set(Calendar.DAY_OF_MONTH, calDesligada.get(Calendar.DAY_OF_MONTH));
+					calLigada.set(Calendar.MONTH, calDesligada.get(Calendar.MONTH));
+					calLigada.set(Calendar.YEAR, calDesligada.get(Calendar.YEAR));
+					calLigada.set(Calendar.HOUR_OF_DAY, 23);
+					calLigada.set(Calendar.MINUTE, 59);
+				} else {
+					calLigada.setTime(situacao.getDataHoraLigada());
+					
+					if(calDesligada.get(Calendar.DAY_OF_MONTH) != calLigada.get(Calendar.DAY_OF_MONTH)) {
+						calLigada.set(Calendar.DAY_OF_MONTH, calDesligada.get(Calendar.DAY_OF_MONTH));
+						calLigada.set(Calendar.MONTH, calDesligada.get(Calendar.MONTH));
+						calLigada.set(Calendar.YEAR, calDesligada.get(Calendar.YEAR));
+						calLigada.set(Calendar.HOUR_OF_DAY, 23);
+						calLigada.set(Calendar.MINUTE, 59);
+					}
+				}
+				
+				horasDia = horasDia + ((calLigada.getTimeInMillis() - calDesligada.getTimeInMillis()) / 3600000);
+			}
+			
+			quantidadeHoras.setQuantidadeHorasMes(totalHorasMes);;
+			quantidadeHoras.getQuantidadeHorasDia().add(horasDia);
+		}
+		
+		return quantidadeHoras;
 	}
 	
 	private ClienteDTO converterClienteEmClienteDTO(Cliente cliente) {
@@ -241,87 +313,6 @@ public class RelatorioService implements IRelatorioService {
 		}
 		
 		return gruposOcorrenciaList;
-	}
-	
-	private List<ImagemCameraDTO> converterSituacaoCameraEmImagemCamera(List<SituacaoCamera> situacoesCamera, List<DetalheInoperanciaCameraDTO> detalhesInoperanciaCamera, String mes, String ano) throws ParseException {
-		List<SituacaoCamera> situacoesCameraTurno = situacoesCamera;
-		Map<Long, Integer> mapHorasDesligadas = new HashMap<Long, Integer>();
-		
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-	    Date maxDate = null;
-	    
-	    if(mes.equals("12")) {
-	    	String myDateEnd = "01/01/"+String.valueOf((Integer.parseInt(ano) + 1));
-		    maxDate = formatter.parse(myDateEnd + " 00:01");
-	    } else {
-	    	
-	    	String mesSeguinte = "";
-	    	
-	    	if(Integer.parseInt(mes) >= 10) {
-	    		mesSeguinte = String.valueOf((Integer.parseInt(mes) + 1));
-	    	} else {
-	    		mesSeguinte = "0" + String.valueOf((Integer.parseInt(mes) + 1));
-	    	}
-	    	
-	    	String myDateEnd = "01/"+mesSeguinte+"/"+ano;
-		    maxDate = formatter.parse(myDateEnd + " 00:01");
-	    }
-		
-		for(SituacaoCamera situacao : situacoesCameraTurno) {
-			
-			DetalheInoperanciaCameraDTO detalheInoperancia = new DetalheInoperanciaCameraDTO();
-			detalheInoperancia.setDescricaoCamera(situacao.getCamera().getDescricaoCamera());
-			
-			Integer minutos = 0;
-			if(situacao.getDataHoraLigada() == null) {
-				DateTime dataInicial = new DateTime(situacao.getDataHoraDesligada());
-				DateTime dataFinal = new DateTime(maxDate);
-				minutos = minutos + Minutes.minutesBetween(dataInicial, dataFinal).getMinutes();
-				
-				detalheInoperancia.setInicio(formatter.format(situacao.getDataHoraDesligada()));
-				
-				if(maxDate == null) {
-					detalheInoperancia.setFim(formatter.format(new Date()));
-				} else {
-					detalheInoperancia.setFim(formatter.format(maxDate));
-				}
-			} else {
-				DateTime dataInicial = new DateTime(situacao.getDataHoraDesligada());
-				DateTime dataFinal = new DateTime(situacao.getDataHoraLigada());
-				minutos = minutos + Minutes.minutesBetween(dataInicial, dataFinal).getMinutes();
-				
-				detalheInoperancia.setInicio(formatter.format(situacao.getDataHoraDesligada()));
-				detalheInoperancia.setFim(formatter.format(situacao.getDataHoraLigada()));
-			}
-			
-			detalhesInoperanciaCamera.add(detalheInoperancia);
-			
-			if(mapHorasDesligadas.containsKey(situacao.getCamera().getId())) {
-				mapHorasDesligadas.put(situacao.getCamera().getId(), mapHorasDesligadas.get(situacao.getCamera().getId()) + minutos);
-			} else {
-				mapHorasDesligadas.put(situacao.getCamera().getId(), minutos);
-			}
-						
-		}
-		
-		List<ImagemCameraDTO> imagensCamera = new ArrayList<ImagemCameraDTO>();
-		for (Long codCamera  : mapHorasDesligadas.keySet()) {
-		    ImagemCameraDTO imagemCameraDTO = new ImagemCameraDTO();
-		    
-		    Camera camera = cameraDaoImpl.consultarCamera(codCamera);
-		    if(camera == null) {
-		    	continue;
-		    }
-		    
-		    imagemCameraDTO.setDescricaoCamera(camera.getDescricaoCamera());
-		    
-		    Integer minutos = mapHorasDesligadas.get(codCamera);
-		    imagemCameraDTO.setHorasFora(new Float(minutos/60));
-		    
-		    imagensCamera.add(imagemCameraDTO);
-		}
-		
-		return imagensCamera;
 	}
 	
 }
