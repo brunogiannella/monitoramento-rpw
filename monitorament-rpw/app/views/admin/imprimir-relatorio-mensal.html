@@ -65,32 +65,32 @@
         <br />
         <br />
 
-        <div ng-repeat="grupoEquipamento in ImprimirRelatorioMensalCrtl.relatorio.gruposEquipamento" ng-show="ImprimirRelatorioMensalCrtl.relatorio.gruposEquipamento.length > 0">
-          <table>
+        <div>
+          <table ng-show="ImprimirRelatorioMensalCrtl.relatorio.gruposEquipamento.length > 0">
             <tr style="background: #4F81BD; border: solid #4F81BD 1.0pt;">
-              <td class="textBold" colspan="32">{{grupoEquipamento.descricaoGrupoEquipamento}} - TOTAL DE HORAS DE INOPERÂNCIA NO MÊS</td>
+              <td class="textBold" colspan="32">CÂMERAS - TOTAL DE HORAS DE INOPERÂNCIA NO MÊS</td>
             </tr>
             <tr>
               <td width="70%" class="textBold">Câmera</td>
               <td width="30%" class="textBold">Horas</td>
             </tr>
-            <tr  ng-repeat="quantidadeHorasEquipamento in grupoEquipamento.horasInoperantes" ng-show="grupoEquipamento.horasInoperantes.length > 0">
+            <tr  ng-repeat="quantidadeHorasEquipamento in ImprimirRelatorioMensalCrtl.equipamentos track by $index">
               <td>{{quantidadeHorasEquipamento.descricaoEquipamento}}</td>
               <td>{{quantidadeHorasEquipamento.quantidadeHorasMes}}</td>
             </tr>
 
-            <tr ng-show="grupoEquipamento.horasInoperantes.length == 0">
+            <tr ng-show="ImprimirRelatorioMensalCrtl.equipamentos.length == 0">
               <td colspan="2">Não houveram inoperâncias durante o mês.</td>
             </tr>
           </table>
 
-          <br>
-          <br>
+          <br ng-show="ImprimirRelatorioMensalCrtl.equipamentos.length > 0">
+          <br ng-show="ImprimirRelatorioMensalCrtl.equipamentos.length > 0">
         </div>
 
 
         <div ng-repeat="grupoEquipamento in ImprimirRelatorioMensalCrtl.relatorio.gruposEquipamento" ng-show="ImprimirRelatorioMensalCrtl.relatorio.gruposEquipamento.length > 0">
-          <table>
+          <table ng-show="grupoEquipamento.horasInoperantes.length > 0">
             <tr style="background: #4F81BD; border: solid #4F81BD 1.0pt;">
               <td class="textBold" colspan="32">{{grupoEquipamento.descricaoGrupoEquipamento}} - CÂMERAS / HORAS DE INOPERÂNCIA POR DIA.</td>
             </tr>
@@ -128,7 +128,7 @@
               <td width="2.3%" class="textBold">30</td>
               <td width="2.3%" class="textBold">31</td>
             </tr>
-            <tr  ng-repeat="quantidadeHorasEquipamento in grupoEquipamento.horasInoperantes" ng-show="grupoEquipamento.horasInoperantes.length > 0">
+            <tr  ng-repeat="quantidadeHorasEquipamento in grupoEquipamento.horasInoperantes">
               <td>{{quantidadeHorasEquipamento.descricaoEquipamento}}</td>
               <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[1]}}</td>
               <td>{{quantidadeHorasEquipamento.quantidadeHorasDia[2]}}</td>
@@ -168,8 +168,8 @@
             </tr>
           </table>
 
-          <br>
-          <br>
+          <br ng-show="grupoEquipamento.horasInoperantes.length > 0">
+          <br ng-show="grupoEquipamento.horasInoperantes.length > 0">
         </div>
 
 

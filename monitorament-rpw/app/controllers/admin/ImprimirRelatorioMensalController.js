@@ -11,7 +11,22 @@
 
 		function inicializar() {
 			vm.relatorio = $stateParams.relatorio;
+			vm.equipamentos = [];
 			vm.consumidor = $stateParams.consumidor;
+
+
+			if(vm.relatorio.gruposEquipamento != null) {
+				for(var i = 0; i < vm.relatorio.gruposEquipamento.length; i++) {
+					if(vm.relatorio.gruposEquipamento[i].horasInoperantes != null) {
+						for(var y = 0; y < vm.relatorio.gruposEquipamento[i].horasInoperantes.length; y++) {
+							if(vm.relatorio.gruposEquipamento[i].horasInoperantes[y] != null) {
+								vm.equipamentos[vm.equipamentos.length + 1] = vm.relatorio.gruposEquipamento[i].horasInoperantes[y];
+							}	
+						}
+					}
+				}
+			}
+	
 		};
 
 		function voltar() {

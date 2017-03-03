@@ -6,7 +6,7 @@ import java.util.List;
 public class QuantidadeHorasEquipamentoRelatorio {
 
 	private String descricaoEquipamento;
-	private Long quantidadeHorasMes;
+	private Long quantidadeHorasMes = 0L;
 	private List<Long> quantidadeHorasDia = new ArrayList<Long>();
 
 	public String getDescricaoEquipamento() {

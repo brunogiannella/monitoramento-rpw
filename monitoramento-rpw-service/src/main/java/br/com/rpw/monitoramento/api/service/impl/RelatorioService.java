@@ -204,15 +204,14 @@ public class RelatorioService implements IRelatorioService {
 		
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.DAY_OF_MONTH, 30);
-		cal.set(Calendar.MONTH, Integer.parseInt(mes));
+		cal.set(Calendar.MONTH, Integer.parseInt(mes)- 1);
 		cal.set(Calendar.YEAR, Integer.parseInt(ano));
 		
 		Date dataFinal = cal.getTime();
 		
-		Long totalHorasMes = 0L;
-		for(int i = 0; i <= 31; i++) {
+		for(int i = 1; i <= 31; i++) {
 			Calendar calInicio = Calendar.getInstance();
-			calInicio.set(Calendar.DAY_OF_MONTH, (i));
+			calInicio.set(Calendar.DAY_OF_MONTH, (i - 1));
 			calInicio.set(Calendar.MONTH, Integer.parseInt(mes) - 1);
 			calInicio.set(Calendar.YEAR, Integer.parseInt(ano));
 			
@@ -224,30 +223,32 @@ public class RelatorioService implements IRelatorioService {
 				
 				Calendar calDesligada = Calendar.getInstance();
 				calDesligada.setTime(situacao.getDataHoraDesligada());
-				Calendar calLigada = Calendar.getInstance();
-				
-				if(situacao.getDataHoraLigada() == null) {
-					calLigada.set(Calendar.DAY_OF_MONTH, calDesligada.get(Calendar.DAY_OF_MONTH));
-					calLigada.set(Calendar.MONTH, calDesligada.get(Calendar.MONTH));
-					calLigada.set(Calendar.YEAR, calDesligada.get(Calendar.YEAR));
-					calLigada.set(Calendar.HOUR_OF_DAY, 23);
-					calLigada.set(Calendar.MINUTE, 59);
-				} else {
-					calLigada.setTime(situacao.getDataHoraLigada());
+				if(calDesligada.get(Calendar.DAY_OF_MONTH) == i) {
+					Calendar calLigada = Calendar.getInstance();
 					
-					if(calDesligada.get(Calendar.DAY_OF_MONTH) != calLigada.get(Calendar.DAY_OF_MONTH)) {
+					if(situacao.getDataHoraLigada() == null) {
 						calLigada.set(Calendar.DAY_OF_MONTH, calDesligada.get(Calendar.DAY_OF_MONTH));
 						calLigada.set(Calendar.MONTH, calDesligada.get(Calendar.MONTH));
 						calLigada.set(Calendar.YEAR, calDesligada.get(Calendar.YEAR));
 						calLigada.set(Calendar.HOUR_OF_DAY, 23);
 						calLigada.set(Calendar.MINUTE, 59);
+					} else {
+						calLigada.setTime(situacao.getDataHoraLigada());
+						
+						if(calDesligada.get(Calendar.DAY_OF_MONTH) != calLigada.get(Calendar.DAY_OF_MONTH)) {
+							calLigada.set(Calendar.DAY_OF_MONTH, calDesligada.get(Calendar.DAY_OF_MONTH));
+							calLigada.set(Calendar.MONTH, calDesligada.get(Calendar.MONTH));
+							calLigada.set(Calendar.YEAR, calDesligada.get(Calendar.YEAR));
+							calLigada.set(Calendar.HOUR_OF_DAY, 23);
+							calLigada.set(Calendar.MINUTE, 59);
+						}
 					}
+					
+					horasDia = horasDia + ((calLigada.getTimeInMillis() - calDesligada.getTimeInMillis()) / 3600000);
 				}
-				
-				horasDia = horasDia + ((calLigada.getTimeInMillis() - calDesligada.getTimeInMillis()) / 3600000);
 			}
 			
-			quantidadeHoras.setQuantidadeHorasMes(totalHorasMes);;
+			quantidadeHoras.setQuantidadeHorasMes(quantidadeHoras.getQuantidadeHorasMes() + horasDia);
 			quantidadeHoras.getQuantidadeHorasDia().add(horasDia);
 		}
 		
