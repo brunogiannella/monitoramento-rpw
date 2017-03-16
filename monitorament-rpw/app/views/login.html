@@ -13,8 +13,7 @@
 		<div id="login_geral" class="row">
 			<div id="login_quadro" class="col hide-on-small-only m7 l8 blue-grey darken-3"></div>
 			<div id="login_lateral" class="col s12 m5 l4">
-				<form novalidate name="mainForm" ng-submit="LoginCrtl.realizarLogin();">
-					<div>
+				<form id="login_form" novalidate name="mainForm" ng-submit="LoginCrtl.realizarLogin();">
 						<div id="login_logo"><img src="img/login_logo.jpg" width="116" height="143"></div>
 			      		<h5 id="login_titulo">Login</h5>
 	      		        <div class="input-field">
@@ -27,7 +26,7 @@
 				          <input id="icon_prefix" type="password" name="senha" data-error="wrong" data-success="right" length="6"  ng-model="LoginCrtl.senha" required>
 				          <label for="icon_prefix">Senha</label>
 				        </div>
-				        <br>
+				        <br />
 
 				        <div id="mensagensValidacaoRequired" class="row mensagensValidacao" ng-show="mainForm.usuario.$dirty && mainForm.senha.$dirty && (mainForm.usuario.$error.required || mainForm.senha.$error.required)">
 	                    	<div class="col">
@@ -81,7 +80,6 @@
 							</div>
 						</div>
 			        	<!-- / MODAL -->
-					</div>
 				</form>
 	      	</div>
 		</div>

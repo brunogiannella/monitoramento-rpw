@@ -13,7 +13,10 @@
     <body>
 
       <main>
-
+        <div class="controles">
+          <a href="#" ng-click="ImprimirRelatorioCrtl.voltar()" class="waves-effect waves-light btn blue-grey darken-1"><i class="material-icons left">arrow_back</i>Voltar</a>
+          <a href="#" onclick="imprimirRelatorio();" class="waves-effect waves-light btn"><i class="material-icons right">print</i>Imprimir</a>
+        </div>
 
         <div id="relatorio">
           <div class="logobg">
@@ -25,17 +28,16 @@
               <td class="textBold" colspan="4">Dados do Monitoramento</td>
             </tr>
             <tr>
-              <td width="55%"><span class="b">Data Início:</span> <span>{{ImprimirRelatorioCrtl.turnoConsulta.dataInicio}}</span></td>
-              <td width="45%"><span class="b">Data Fim:</span> <span>{{ImprimirRelatorioCrtl.turnoConsulta.dataFim}}</span></td>
+              <td width="55%"><span class="b">Data Início:</span> <span>12/01/2017 06:00</span></td>
+              <td width="45%"><span class="b">Data Fim:</span> <span>12/01/2017 06:00</span></td>
             </tr>
             <tr>
-              <td><span class="b">Responsável pelo relatório:</span> <span>{{ImprimirRelatorioCrtl.turnoConsulta.nomeUsuario}}</span></td>
-              <td><span class="b">Cliente:</span> <span>
-              <td></span></td>
+              <td><span class="b">Responsável pelo relatório:</span> <span>Evert Miranda Veloso dos Santos</span></td>
+              <td><span class="b">Cliente:</span> <span>Associação Residencial Tamboré 10</span></td>
             </tr>
             <tr>
-              <td><span class="b">Líder de segurança:</span> <span>{{ImprimirRelatorioCrtl.turnoConsulta.liderSeguranca}}</span></td>
-              <td><span class="b">Operadores:</span> <span>{{ImprimirRelatorioCrtl.turnoConsulta.operadores}}</span></td>
+              <td><span class="b">Líder de segurança:</span> <span>Ronan</span></td>
+              <td><span class="b">Operadores:</span> <span>["Evert"]</span></td>
             </tr>
           </table>
 
@@ -143,4 +145,4 @@
       </script>
       <!-- /Scripts -->
     </body>
-  </html>
+  </html> 

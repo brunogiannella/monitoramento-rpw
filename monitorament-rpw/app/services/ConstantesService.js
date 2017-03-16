@@ -14,7 +14,7 @@
 
 		this.URL = {
 			//SERVIDOR : 'http://localhost:8080/poc-bigdata/',
-			SERVIDOR : 'http://centerrpw.ddns.com.br:8080/monitoramento-rpw-service/',
+			SERVIDOR : 'http://187.75.196.45:8080/monitoramento-rpw-service/',
 		}
 
 		return {
