@@ -19,7 +19,7 @@
 
           <div class="controles">
             <a href="#" ng-click="ImprimirRelatorioCrtl.voltar()" class="waves-effect waves-light btn blue-grey darken-1"><i class="material-icons left">arrow_back</i>Voltar</a>
-            <a href="#" onclick="print();" class="waves-effect waves-light btn"><i class="material-icons right">print</i>Imprimir</a>
+            <a href="#" onclick="javascript:CallPrint('relatorio');" class="waves-effect waves-light btn"><i class="material-icons right">print</i>Imprimir</a>
           </div>
 
           <div class="logobg">
@@ -119,11 +119,12 @@
 
           });
 
-        function print() {
-          setTimeout(function () { // wait until all resources loaded 
-              window.print();  // change window to winPrint
-              window.close();// change window to winPrint
-          }, 200);
+        function CallPrint(strid)
+        {    
+             window.focus();
+             window.print();
+             window.close();
+             return false;
         }
 
         function imprimirRelatorio() {
