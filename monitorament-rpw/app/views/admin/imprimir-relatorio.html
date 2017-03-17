@@ -12,10 +12,16 @@
 
     <body>
 
-      <main>
+      <main style="background: white !important;">
 
 
         <div id="relatorio">
+
+          <div class="controles">
+            <a href="#" ng-click="ImprimirRelatorioCrtl.voltar()" class="waves-effect waves-light btn blue-grey darken-1"><i class="material-icons left">arrow_back</i>Voltar</a>
+            <a href="#" onclick="print();" class="waves-effect waves-light btn"><i class="material-icons right">print</i>Imprimir</a>
+          </div>
+
           <div class="logobg">
             <img src="img/logo_rpw.png" width="80" height="100">
           </div>
@@ -112,6 +118,13 @@
             $(".ng-scope").css("margin-left", "0px");
 
           });
+
+        function print() {
+          setTimeout(function () { // wait until all resources loaded 
+              window.print();  // change window to winPrint
+              window.close();// change window to winPrint
+          }, 200);
+        }
 
         function imprimirRelatorio() {
           var pdf = new jsPDF('p', 'pt', 'letter');
