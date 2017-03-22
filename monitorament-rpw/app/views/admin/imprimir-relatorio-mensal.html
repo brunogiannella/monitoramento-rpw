@@ -15,7 +15,7 @@
       <main style="background: white !important;">
 
       <div class="controles">
-        <a href="#" ng-click="ImprimirRelatorioCrtl.voltar()" class="waves-effect waves-light btn blue-grey darken-1"><i class="material-icons left">arrow_back</i>Voltar</a>
+        <a href="#" ng-click="ImprimirRelatorioMensalCrtl.voltar()" class="waves-effect waves-light btn blue-grey darken-1"><i class="material-icons left">arrow_back</i>Voltar</a>
         <a href="#" onclick="CallPrint(null);" class="waves-effect waves-light btn"><i class="material-icons right">print</i>Imprimir</a>
       </div>
 
@@ -283,7 +283,6 @@
               <td width="2.25%" class="textBold">28</td>
               <td width="2.25%" class="textBold">29</td>
               <td width="2.25%" class="textBold">30</td>
-              <td width="2.25%" class="textBold">31</td>
             </tr>
             <tr  ng-repeat="quantidadeMesSeguranca in ImprimirRelatorioMensalCrtl.relatorio.quantidadesOcorrenciasMesDetalhadoSeguranca" ng-show="ImprimirRelatorioMensalCrtl.relatorio.quantidadesOcorrenciasMesDetalhadoSeguranca.length > 0">
               <td>{{quantidadeMesSeguranca.descricaoTipoOcorrencia}}</td>

@@ -268,39 +268,41 @@ public class RelatorioService implements IRelatorioService {
 		
 		if(ocorrencias != null) {
 			for(Ocorrencia ocorrencia : ocorrencias) {
-				OcorrenciaDTO ocorrenciaDto = new OcorrenciaDTO();
-				
-				ocorrenciaDto.setIdOcorrencia(ocorrencia.getId());
-				ocorrenciaDto.setNomeUsuario(ocorrencia.getUsuario().getNome());
-				ocorrenciaDto.setIdTipoOcorrencia(ocorrencia.getTipoOcorrencia().getId());
-				ocorrenciaDto.setDescTipoOcorrencia(ocorrencia.getTipoOcorrencia().getDescricao());
-				ocorrenciaDto.setDataCadastro(formato.format(ocorrencia.getDataCadastro()));
-				
-				Gson gson = new GsonBuilder().create();
-				List<CampoCadastroOcorrenciaDTO> campos = gson.fromJson(ocorrencia.getValores(), new TypeToken<ArrayList<CampoCadastroOcorrenciaDTO>>(){}.getType());
-				ocorrenciaDto.setCampos(campos);
-				
-				if(campos != null) {
-					ocorrenciaDto.setResumoOcorrencia("");
-					for(CampoCadastroOcorrenciaDTO camposCadastro : campos) {
-						if(camposCadastro.getTipo().equals("EQUIPAMENTOS")) {
-							if(camposCadastro.getValor() != null) {
-								Camera camera = cameraDaoImpl.consultarCamera(Long.parseLong(camposCadastro.getValor()));
-								ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camera.getDescricaoCamera() + "; ");
+				if(ocorrencia.getTipoOcorrencia().getAtivo() && ocorrencia.getTipoOcorrencia().getRelatorioMensal()) {
+					OcorrenciaDTO ocorrenciaDto = new OcorrenciaDTO();
+					
+					ocorrenciaDto.setIdOcorrencia(ocorrencia.getId());
+					ocorrenciaDto.setNomeUsuario(ocorrencia.getUsuario().getNome());
+					ocorrenciaDto.setIdTipoOcorrencia(ocorrencia.getTipoOcorrencia().getId());
+					ocorrenciaDto.setDescTipoOcorrencia(ocorrencia.getTipoOcorrencia().getDescricao());
+					ocorrenciaDto.setDataCadastro(formato.format(ocorrencia.getDataCadastro()));
+					
+					Gson gson = new GsonBuilder().create();
+					List<CampoCadastroOcorrenciaDTO> campos = gson.fromJson(ocorrencia.getValores(), new TypeToken<ArrayList<CampoCadastroOcorrenciaDTO>>(){}.getType());
+					ocorrenciaDto.setCampos(campos);
+					
+					if(campos != null) {
+						ocorrenciaDto.setResumoOcorrencia("");
+						for(CampoCadastroOcorrenciaDTO camposCadastro : campos) {
+							if(camposCadastro.getTipo().equals("EQUIPAMENTOS")) {
+								if(camposCadastro.getValor() != null) {
+									Camera camera = cameraDaoImpl.consultarCamera(Long.parseLong(camposCadastro.getValor()));
+									ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camera.getDescricaoCamera() + "; ");
+								} else {
+									ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": Não informado; ");
+								}
 							} else {
-								ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": Não informado; ");
+								ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camposCadastro.getValor() + "; " );
 							}
-						} else {
-							ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camposCadastro.getValor() + "; " );
+							
 						}
-						
 					}
+					
+					if(!gruposOcorrencia.containsKey(ocorrenciaDto.getDescTipoOcorrencia())) {
+						gruposOcorrencia.put(ocorrenciaDto.getDescTipoOcorrencia(), new ArrayList<OcorrenciaDTO>());
+					}
+					gruposOcorrencia.get(ocorrenciaDto.getDescTipoOcorrencia()).add(ocorrenciaDto);
 				}
-				
-				if(!gruposOcorrencia.containsKey(ocorrenciaDto.getDescTipoOcorrencia())) {
-					gruposOcorrencia.put(ocorrenciaDto.getDescTipoOcorrencia(), new ArrayList<OcorrenciaDTO>());
-				}
-				gruposOcorrencia.get(ocorrenciaDto.getDescTipoOcorrencia()).add(ocorrenciaDto);
 			}
 		}
 		

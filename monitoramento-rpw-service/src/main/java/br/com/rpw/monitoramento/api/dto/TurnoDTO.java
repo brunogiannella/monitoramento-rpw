@@ -3,6 +3,8 @@ package br.com.rpw.monitoramento.api.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.rpw.monitoramento.api.dto.ocorrenciasPersonalizadas.chamadaPosto.ChamadaPostoDTO;
+
 public class TurnoDTO {
 
 	private Long id;
@@ -18,7 +20,8 @@ public class TurnoDTO {
 	private List<String> operadores = new ArrayList<String>();
 	private List<GrupoOcorrenciasDto> ocorrenciasDto = new ArrayList<GrupoOcorrenciasDto>();
 	private List<ImagemCameraDTO> imagemCameraDto = new ArrayList<ImagemCameraDTO>();
-	List<DetalheInoperanciaCameraDTO> detalhesInoperanciaCamera = new ArrayList<DetalheInoperanciaCameraDTO>();
+	private List<DetalheInoperanciaCameraDTO> detalhesInoperanciaCamera = new ArrayList<DetalheInoperanciaCameraDTO>();
+	private ChamadaPostoDTO chamadaPostoDTO;
 
 	public String getDataInicio() {
 		return dataInicio;
@@ -130,6 +133,14 @@ public class TurnoDTO {
 
 	public void setDetalhesInoperanciaCamera(List<DetalheInoperanciaCameraDTO> detalhesInoperanciaCamera) {
 		this.detalhesInoperanciaCamera = detalhesInoperanciaCamera;
+	}
+
+	public ChamadaPostoDTO getChamadaPostoDTO() {
+		return chamadaPostoDTO;
+	}
+
+	public void setChamadaPostoDTO(ChamadaPostoDTO chamadaPostoDTO) {
+		this.chamadaPostoDTO = chamadaPostoDTO;
 	}
 	
 }

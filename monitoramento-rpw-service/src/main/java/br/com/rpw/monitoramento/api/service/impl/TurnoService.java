@@ -33,6 +33,9 @@ import br.com.rpw.monitoramento.api.dto.GrupoOcorrenciasDto;
 import br.com.rpw.monitoramento.api.dto.ImagemCameraDTO;
 import br.com.rpw.monitoramento.api.dto.OcorrenciaDTO;
 import br.com.rpw.monitoramento.api.dto.TurnoDTO;
+import br.com.rpw.monitoramento.api.dto.ocorrenciasPersonalizadas.chamadaPosto.ChamadaPostoDTO;
+import br.com.rpw.monitoramento.api.dto.ocorrenciasPersonalizadas.chamadaPosto.EfetivoDTO;
+import br.com.rpw.monitoramento.api.dto.ocorrenciasPersonalizadas.chamadaPosto.VerificacaoEfetivoDTO;
 import br.com.rpw.monitoramento.api.model.Camera;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.Ocorrencia;
@@ -99,10 +102,10 @@ public class TurnoService implements ITurnoService {
 	}
 	
 	@Override
-	public TurnoDTO consultarTurnoDetalhado(Long idTurno) {
+	public TurnoDTO consultarTurnoDetalhado(Long idTurno, Boolean isRelatorio) {
 		Turno turno = turnoDaoImpl.consultarTurno(idTurno);
 		turno.setOcorrencias(ocorrenciaDaoImpl.listarOcorrencias(turno));
-		TurnoDTO turnoDTO = converterTurnoEmTurnoDTO(turno);
+		TurnoDTO turnoDTO = converterTurnoEmTurnoDTO(turno, isRelatorio);
 		
 		return turnoDTO;
 	}
@@ -164,7 +167,7 @@ public class TurnoService implements ITurnoService {
 		return turno;
 	}
 
-	public TurnoDTO converterTurnoEmTurnoDTO(Turno turno) {
+	public TurnoDTO converterTurnoEmTurnoDTO(Turno turno, Boolean isRelatorio) {
 		TurnoDTO turnoDTO = new TurnoDTO();
 		turnoDTO.setId(turno.getId());
 		
@@ -198,41 +201,13 @@ public class TurnoService implements ITurnoService {
 			Map<String, List<OcorrenciaDTO>> gruposOcorrencia = new HashMap<String, List<OcorrenciaDTO>>();
 			
 			for(Ocorrencia ocorrencia : turno.getOcorrencias()) {
-				OcorrenciaDTO ocorrenciaDto = new OcorrenciaDTO();
-				
-				ocorrenciaDto.setIdOcorrencia(ocorrencia.getId());
-				ocorrenciaDto.setNomeUsuario(ocorrencia.getUsuario().getNome());
-				ocorrenciaDto.setIdTipoOcorrencia(ocorrencia.getTipoOcorrencia().getId());
-				ocorrenciaDto.setDescTipoOcorrencia(ocorrencia.getTipoOcorrencia().getDescricao());
-				ocorrenciaDto.setDataCadastro(formato.format(ocorrencia.getDataCadastro()));
-				
-				Gson gson = new GsonBuilder().create();
-				List<CampoCadastroOcorrenciaDTO> campos = gson.fromJson(ocorrencia.getValores(), new TypeToken<ArrayList<CampoCadastroOcorrenciaDTO>>(){}.getType());
-				ocorrenciaDto.setCampos(campos);
-				
-				if(campos != null) {
-					ocorrenciaDto.setResumoOcorrencia("");
-					for(CampoCadastroOcorrenciaDTO camposCadastro : campos) {
-						if(camposCadastro.getTipo().equals("EQUIPAMENTOS")) {
-							if(camposCadastro.getValor() != null) {
-								Camera camera = cameraDaoImpl.consultarCamera(Long.parseLong(camposCadastro.getValor()));
-								ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camera.getDescricaoCamera() + "; ");
-							} else {
-								ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": Não informado; ");
-							}
-							
-							
-						} else {
-							ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camposCadastro.getValor() + "; " );
-						}
-						
+				if(isRelatorio) {
+					if(ocorrencia.getTipoOcorrencia().getAtivo() && ocorrencia.getTipoOcorrencia().getRelatorioDiario()) {
+						adicionarGrupoOcorrencia(ocorrencia, gruposOcorrencia);
 					}
+				} else {
+					adicionarGrupoOcorrencia(ocorrencia, gruposOcorrencia);
 				}
-				
-				if(!gruposOcorrencia.containsKey(ocorrenciaDto.getDescTipoOcorrencia())) {
-					gruposOcorrencia.put(ocorrenciaDto.getDescTipoOcorrencia(), new ArrayList<OcorrenciaDTO>());
-				}
-				gruposOcorrencia.get(ocorrenciaDto.getDescTipoOcorrencia()).add(ocorrenciaDto);
 			}
 			
 			turnoDTO.setOcorrenciasDto(new ArrayList<GrupoOcorrenciasDto>());
@@ -240,7 +215,11 @@ public class TurnoService implements ITurnoService {
 				GrupoOcorrenciasDto grupoOcorrencia = new GrupoOcorrenciasDto();
 				grupoOcorrencia.setDescricao(entry);
 				grupoOcorrencia.setOcorrenciasDto(gruposOcorrencia.get(entry));
-								
+					
+				if(entry.equals("Chamada de Postos")) {
+					grupoOcorrencia.setPersonalizada(true);
+				}
+				
 				turnoDTO.getOcorrenciasDto().add(grupoOcorrencia);
 			}
 		}
@@ -306,8 +285,51 @@ public class TurnoService implements ITurnoService {
 		}
 		
 		turnoDTO.setImagemCameraDto(imagensCamera);
+		
+		if(isRelatorio) {
+			tratarOcorrenciasPersonalizadas(turnoDTO);
+		}
 
 		return turnoDTO;
+	}
+	
+	private void adicionarGrupoOcorrencia(Ocorrencia ocorrencia, Map<String, List<OcorrenciaDTO>> gruposOcorrencia) {
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		OcorrenciaDTO ocorrenciaDto = new OcorrenciaDTO();
+		
+		ocorrenciaDto.setIdOcorrencia(ocorrencia.getId());
+		ocorrenciaDto.setNomeUsuario(ocorrencia.getUsuario().getNome());
+		ocorrenciaDto.setIdTipoOcorrencia(ocorrencia.getTipoOcorrencia().getId());
+		ocorrenciaDto.setDescTipoOcorrencia(ocorrencia.getTipoOcorrencia().getDescricao());
+		ocorrenciaDto.setDataCadastro(formato.format(ocorrencia.getDataCadastro()));
+		
+		Gson gson = new GsonBuilder().create();
+		List<CampoCadastroOcorrenciaDTO> campos = gson.fromJson(ocorrencia.getValores(), new TypeToken<ArrayList<CampoCadastroOcorrenciaDTO>>(){}.getType());
+		ocorrenciaDto.setCampos(campos);
+		
+		if(campos != null) {
+			ocorrenciaDto.setResumoOcorrencia("");
+			for(CampoCadastroOcorrenciaDTO camposCadastro : campos) {
+				if(camposCadastro.getTipo().equals("EQUIPAMENTOS")) {
+					if(camposCadastro.getValor() != null) {
+						Camera camera = cameraDaoImpl.consultarCamera(Long.parseLong(camposCadastro.getValor()));
+						ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camera.getDescricaoCamera() + "; ");
+					} else {
+						ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": Não informado; ");
+					}
+					
+					
+				} else {
+					ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camposCadastro.getValor() + "; " );
+				}
+				
+			}
+		}
+		
+		if(!gruposOcorrencia.containsKey(ocorrenciaDto.getDescTipoOcorrencia())) {
+			gruposOcorrencia.put(ocorrenciaDto.getDescTipoOcorrencia(), new ArrayList<OcorrenciaDTO>());
+		}
+		gruposOcorrencia.get(ocorrenciaDto.getDescTipoOcorrencia()).add(ocorrenciaDto);
 	}
 
 	@Override
@@ -364,6 +386,77 @@ public class TurnoService implements ITurnoService {
 	@Override
 	public List<Turno> consultarTurnosAndamentoCliente(Long idCliente) {
 		return this.turnoDaoImpl.consultarTurnosCliente(StatusTurnoEnum.EM_ANDAMENTO, idCliente);
+	}
+	
+	private ChamadaPostoDTO tratarOcorrenciaChamadaPosto(GrupoOcorrenciasDto grupoOcorrenciasDto) {
+		ChamadaPostoDTO chamadaPostoDto = new ChamadaPostoDTO();
+		
+		Map<String, EfetivoDTO> efetivos = new HashMap<String, EfetivoDTO>();
+		
+		if(grupoOcorrenciasDto != null) {
+			if(grupoOcorrenciasDto.getOcorrenciasDto() != null && grupoOcorrenciasDto.getOcorrenciasDto().size() > 0) {
+				for(OcorrenciaDTO ocorrencia : grupoOcorrenciasDto.getOcorrenciasDto()) {
+					
+					EfetivoDTO efetivoDto = new EfetivoDTO();
+					
+					for(CampoCadastroOcorrenciaDTO campo : ocorrencia.getCampos()) {
+						if(campo.getDescricao().equals("Efetivo")) {
+							efetivoDto.setNomeEfetivo(campo.getValor());
+						}
+						if(campo.getDescricao().equals("Função")) {
+							efetivoDto.setFuncao(campo.getValor());
+						}
+						if(campo.getDescricao().equals("Horário")) {
+							if(efetivoDto.getVerificacoesEfetivo() == null && efetivoDto.getVerificacoesEfetivo().size() > 0) {
+								efetivoDto.setVerificacoesEfetivo(new ArrayList<VerificacaoEfetivoDTO>());
+								VerificacaoEfetivoDTO verificacao = new VerificacaoEfetivoDTO();
+								verificacao.setHorario(campo.getValor());
+							} else {
+								efetivoDto.getVerificacoesEfetivo().get(0).setHorario(campo.getValor());
+							}
+						}
+						if(campo.getDescricao().equals("Observação")) {
+							if(efetivoDto.getVerificacoesEfetivo() == null && efetivoDto.getVerificacoesEfetivo().size() > 0) {
+								efetivoDto.setVerificacoesEfetivo(new ArrayList<VerificacaoEfetivoDTO>());
+								VerificacaoEfetivoDTO verificacao = new VerificacaoEfetivoDTO();
+								verificacao.setObservacao(campo.getValor());
+							} else {
+								efetivoDto.getVerificacoesEfetivo().get(0).setObservacao(campo.getValor());
+							}
+						}
+					}
+					
+					if(efetivos.containsKey(efetivoDto.getNomeEfetivo())) {
+						efetivos.get(efetivoDto.getNomeEfetivo()).getVerificacoesEfetivo().add(efetivoDto.getVerificacoesEfetivo().get(0));
+					} else {
+						efetivos.put(efetivoDto.getNomeEfetivo(), efetivoDto);
+					}
+				}
+			}
+		}
+		
+		for (String entry : efetivos.keySet()) {
+			chamadaPostoDto.setEfetivos(new ArrayList<EfetivoDTO>());
+			chamadaPostoDto.getEfetivos().add(efetivos.get(entry));
+		}
+		
+		return chamadaPostoDto;
+	}
+	
+	private void tratarOcorrenciasPersonalizadas(TurnoDTO turnoDTO) {
+		if(turnoDTO  != null && turnoDTO.getOcorrenciasDto() != null) {
+			for(GrupoOcorrenciasDto grupo : turnoDTO.getOcorrenciasDto()) {
+				if(grupo.getPersonalizada() != null && grupo.getPersonalizada()) {
+					switch(grupo.getDescricao()) {
+					case "Chamada de Postos" :
+						ChamadaPostoDTO chamadaPostoDto = tratarOcorrenciaChamadaPosto(grupo);
+						turnoDTO.setChamadaPostoDTO(chamadaPostoDto);
+					default:
+						
+					}
+				}
+			}
+		}
 	}
 
 }

@@ -5,9 +5,9 @@
 		.module('imprimirRelatorio.controller', [])
 		.controller('ImprimirRelatorioController' , ImprimirRelatorioController);
 
-	ImprimirRelatorioController.$inject = ['$rootScope', '$scope', '$stateParams', 'TurnoService', 'UtilsService'];
+	ImprimirRelatorioController.$inject = ['$rootScope', '$scope', '$stateParams', 'RelatorioService', 'UtilsService'];
 
-	function ImprimirRelatorioController($rootScope, $scope, $stateParams, TurnoService, UtilsService) {
+	function ImprimirRelatorioController($rootScope, $scope, $stateParams, RelatorioService, UtilsService) {
 
 		
 
@@ -25,7 +25,7 @@
 				UtilsService.desativarLoading();
 			};
 
-			TurnoService.consultarDetalheTurno(vm.idTurno, funcSucesso);
+			RelatorioService.consultarRelatorioDiario(vm.idTurno, funcSucesso);
 		};
 
 		function voltar() {

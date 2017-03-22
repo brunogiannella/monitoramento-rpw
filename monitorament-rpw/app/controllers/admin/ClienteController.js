@@ -77,7 +77,7 @@
 		}
 
 		function consultarTurnos(idCliente, nomeCliente) {
-			UtilsService.irPara('consultar-turnos-cliente', {idCliente:idCliente, nomeCliente:nomeCliente, tipoConsulta:'ultimos10'});
+			UtilsService.irPara('consultar-turnos-cliente', {idCliente:idCliente, nomeCliente:nomeCliente, tipoConsulta:'ultimos10', consumidor:'admin'});
 		}
 
 		function gerarRelatorioMensal(idCliente, nomeCliente) {

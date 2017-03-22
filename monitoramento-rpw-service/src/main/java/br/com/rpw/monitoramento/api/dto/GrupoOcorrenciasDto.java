@@ -5,6 +5,7 @@ import java.util.List;
 
 public class GrupoOcorrenciasDto {
 	private String descricao;
+	private Boolean personalizada;
 	private List<OcorrenciaDTO> ocorrenciasDto = new ArrayList<OcorrenciaDTO>();
 
 	public String getDescricao() {
@@ -23,4 +24,12 @@ public class GrupoOcorrenciasDto {
 		this.ocorrenciasDto = ocorrenciasDto;
 	}
 
+	public Boolean getPersonalizada() {
+		return personalizada;
+	}
+
+	public void setPersonalizada(Boolean personalizada) {
+		this.personalizada = personalizada;
+	}
+	
 }

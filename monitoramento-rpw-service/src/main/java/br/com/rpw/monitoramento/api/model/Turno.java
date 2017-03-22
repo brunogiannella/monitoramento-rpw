@@ -57,14 +57,6 @@ public class Turno implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private PeriodoEnum periodo;
 
-//	@Column(name = "CONDICAO_CLIMATICA", nullable = false)
-//	@Enumerated(EnumType.STRING)
-//	private CondicoesClimaticasEnum condicaoClimatica;
-//
-//	@Column(name = "TEMPO", nullable = false)
-//	@Enumerated(EnumType.STRING)
-//	private TempoEnum tempo;
-
 	@Column(name = "STATUS_TURNO", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private StatusTurnoEnum status;

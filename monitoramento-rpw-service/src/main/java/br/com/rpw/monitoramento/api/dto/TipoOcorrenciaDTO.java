@@ -8,6 +8,9 @@ public class TipoOcorrenciaDTO {
 	private Long id;
 	private String descricao;
 	private Integer quantidadeCampos;
+	private Boolean relatorioDiario;
+	private Boolean relatorioMensal;
+	private Boolean personalizada;
 	private List<CampoOcorrenciaDTO> campos = new ArrayList<CampoOcorrenciaDTO>();
 
 	public Long getId() {
@@ -41,5 +44,29 @@ public class TipoOcorrenciaDTO {
 	public void setQuantidadeCampos(Integer quantidadeCampos) {
 		this.quantidadeCampos = quantidadeCampos;
 	}
-	
+
+	public Boolean getRelatorioDiario() {
+		return relatorioDiario;
+	}
+
+	public void setRelatorioDiario(Boolean relatorioDiario) {
+		this.relatorioDiario = relatorioDiario;
+	}
+
+	public Boolean getRelatorioMensal() {
+		return relatorioMensal;
+	}
+
+	public void setRelatorioMensal(Boolean relatorioMensal) {
+		this.relatorioMensal = relatorioMensal;
+	}
+
+	public Boolean getPersonalizada() {
+		return personalizada;
+	}
+
+	public void setPersonalizada(Boolean personalizada) {
+		this.personalizada = personalizada;
+	}
+
 }

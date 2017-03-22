@@ -46,7 +46,7 @@
 		};
 
 		function visualizarTurno(id) {
-			UtilsService.irPara('consultar-turno', {idTurno: id, editar: true, consumidor: 'admin'});
+			UtilsService.irPara('consultar-turno', {idTurno: id, editar: true, consumidor: vm.consumidor});
 		}
 
 		function aprovar(id) {
@@ -58,7 +58,7 @@
 		}
 
 		function visualizarRelatorio(id) {
-			UtilsService.irPara('imprimir-relatorio', {idTurno: id, consumidor:'cliente'});
+			UtilsService.irPara('imprimir-relatorio', {idTurno: id, consumidor: vm.consumidor});
 		}
 
 

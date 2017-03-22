@@ -153,12 +153,6 @@
 
 			TipoOcorrenciaService.listarTiposOcorrencia(funcSucessoTiposOcorrencia);
 
-			var funcSucessoTiposOcorrenciaPersonalizada = function(data) {
-				$rootScope.dominios.tipoOcorrenciasPersonalizadasConsulta = data;
-			};
-
-			TipoOcorrenciaService.listarTiposOcorrenciasPersonalizadas(funcSucessoTiposOcorrenciaPersonalizada);
-
 			var funcSucessoTiposCamera = function(data) {
 				$rootScope.dominios.tipoCamerasConsulta = data;
 			};

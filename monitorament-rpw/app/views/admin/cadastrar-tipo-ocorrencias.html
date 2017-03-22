@@ -83,6 +83,23 @@
                         </div>
                       </div>
 
+                      <div class="row">
+                        <div class="input-field col s4 pr-5">
+                          <input type="checkbox" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.relatorioMensal" id="relatorioMensal" />
+                          <label for="relatorioMensal">Relatório Mensal?</label>
+                        </div>
+
+                        <div class="input-field col s4 pr-5">
+                          <input type="checkbox" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.relatorioDiario" id="relatorioDiario" />
+                          <label for="relatorioDiario">Relatório Diarío?</label>
+                        </div>
+
+                        <div class="input-field col s4 pr-5">
+                          <input type="checkbox" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.personalizada" id="personalizada" />
+                          <label for="personalizada">Personalizada?</label>
+                        </div>
+                      </div>
+
                       <!--  -->
                       <div class="row no-m">
                         <div class="input-field col s12 m4">
@@ -104,10 +121,11 @@
                           <input id="porcentagemColuna[0]" name="porcentagemColuna[0]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[0].porcentagemColuna" type="text">
                           <label for="porcentagemColuna[0]">tamanho (%)</label>
                         </div>
+                      </div>
                         <!--  -->
 
                         <!--  -->
-                        <div class="row no-m">
+                      <div class="row no-m">
                         <div class="input-field col s12 m4">
                           <input id="descricaoCampo[1]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[1].descricao" type="text" class="validate">
                           <label for="descricaoCampo[1]">campo</label>
@@ -127,6 +145,7 @@
                           <input id="porcentagemColuna[1]" name="porcentagemColuna[1]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[1].porcentagemColuna" type="text">
                           <label for="porcentagemColuna[1]">tamanho (%)</label>
                         </div>
+                      </div>
                         <!--  -->
 
                         <!--  -->
@@ -150,6 +169,7 @@
                           <input id="porcentagemColuna[2]" name="porcentagemColuna[2]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[2].porcentagemColuna" type="text">
                           <label for="porcentagemColuna[2]">tamanho (%)</label>
                         </div>
+                      </div>
                         <!--  -->
 
                         <!--  -->
@@ -173,6 +193,7 @@
                           <input id="porcentagemColuna[3]" name="porcentagemColuna[3]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[3].porcentagemColuna" type="text">
                           <label for="porcentagemColuna[3]">tamanho (%)</label>
                         </div>
+                      </div>
                         <!--  -->
 
                         <!--  -->
@@ -196,6 +217,7 @@
                           <input id="porcentagemColuna[4]" name="porcentagemColuna[4]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[4].porcentagemColuna" type="text">
                           <label for="porcentagemColuna[4]">tamanho (%)</label>
                         </div>
+                      </div>
                         <!--  -->
 
                         <!--  -->
@@ -219,10 +241,83 @@
                           <input id="porcentagemColuna[5]" name="porcentagemColuna[5]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[5].porcentagemColuna" type="text">
                           <label for="porcentagemColuna[5]">tamanho (%)</label>
                         </div>
+                      </div>
+                        <!--  -->
+
+                        <!--  -->
+                      <div class="row no-m">
+                        <div class="input-field col s12 m4">
+                          <input id="descricaoCampo[6]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[6].descricao" type="text" class="validate">
+                          <label for="descricaoCampo[6]">campo</label>
+                        </div>
+
+                        <div class="input-field col s12 m5">
+                          <input id="tipoCampo6" type="text" style="display:none;" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[6].tipoCampo" />
+                          <select onchange="alterarComboTipoOcorrencia(6);" class="tipoCampo6 selectable">
+                            <option value="" disabled selected>Selecione</option>
+                            <option ng-repeat="item in tiposCampoOcorrenciaConsulta" value="{{item}}">{{item}}</option>
+                            
+                          </select>
+                          <label>Tipo do campo</label>
+                        </div>
+
+                        <div class="input-field col s12 m3">
+                          <input id="porcentagemColuna[6]" name="porcentagemColuna[6]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[6].porcentagemColuna" type="text">
+                          <label for="porcentagemColuna[6]">tamanho (%)</label>
+                        </div>
+                      </div>
+                        <!--  -->
+
+                        <!--  -->
+                      <div class="row no-m">
+                        <div class="input-field col s12 m4">
+                          <input id="descricaoCampo[7]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[7].descricao" type="text" class="validate">
+                          <label for="descricaoCampo[7]">campo</label>
+                        </div>
+
+                        <div class="input-field col s12 m5">
+                          <input id="tipoCampo7" type="text" style="display:none;" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[7].tipoCampo" />
+                          <select onchange="alterarComboTipoOcorrencia(7);" class="tipoCampo7 selectable">
+                            <option value="" disabled selected>Selecione</option>
+                            <option ng-repeat="item in tiposCampoOcorrenciaConsulta" value="{{item}}">{{item}}</option>
+                            
+                          </select>
+                          <label>Tipo do campo</label>
+                        </div>
+
+                        <div class="input-field col s12 m3">
+                          <input id="porcentagemColuna[7]" name="porcentagemColuna[7]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[7].porcentagemColuna" type="text">
+                          <label for="porcentagemColuna[7]">tamanho (%)</label>
+                        </div>
+                      </div>
+                        <!--  -->
+
+                        <!--  -->
+                      <div class="row no-m">
+                        <div class="input-field col s12 m4">
+                          <input id="descricaoCampo[8]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[8].descricao" type="text" class="validate">
+                          <label for="descricaoCampo[8]">campo</label>
+                        </div>
+
+                        <div class="input-field col s12 m5">
+                          <input id="tipoCampo8" type="text" style="display:none;" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[8].tipoCampo" />
+                          <select onchange="alterarComboTipoOcorrencia(8);" class="tipoCampo8 selectable">
+                            <option value="" disabled selected>Selecione</option>
+                            <option ng-repeat="item in tiposCampoOcorrenciaConsulta" value="{{item}}">{{item}}</option>
+                            
+                          </select>
+                          <label>Tipo do campo</label>
+                        </div>
+
+                        <div class="input-field col s12 m3">
+                          <input id="porcentagemColuna[8]" name="porcentagemColuna[8]" ng-model="CadastrarTipoOcorrenciaCrtl.tipoOcorrencia.campos[8].porcentagemColuna" type="text">
+                          <label for="porcentagemColuna[8]">tamanho (%)</label>
+                        </div>
+                      </div>
                         <!--  -->
                       
 
-                        <div class="input-field col s12">
+                        <div class="input-field col s12" style="padding-top: 15px;">
                           <button type="submit" class="btn-large blue darken-2 waves-effect waves-light col s12" name="action" ng-disabled="mainForm.$invalid">CADASTRAR TIPO OCORRÊNCIA
                             <i class="material-icons right">send</i>
                           </button>

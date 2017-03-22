@@ -206,42 +206,6 @@
                 </div>
               </div>
 
-
-              <div class="row">
-                <div class="col s12 m12" >
-                <h5 class="header black-text text-darken-2 center-on-small-only title"><i class="material-icons">toc</i> <span class="light">Ocorrências personalizadas associadas</span></h5>
-                <div class="card-panel">
-                  <table class="responsive-table striped" ng-show="clientesListaConsulta.tiposOcorrenciaPersonalizada.length > 0">
-                    <thead>
-                      <tr>
-                          <th data-field="id">Descrição ocorrência</th>
-                          <th data-field="id" class="center-on-small-only right-align">Operações</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr  ng-repeat="ocorrencia in clientesListaConsulta.tiposOcorrenciaPersonalizada">
-                        <td>{{ocorrencia.descricao}}</td>
-                        <td class="right-align">
-                          <a class="right" href="#" ng-click="ClienteCrtl.desassociarOcorrenciaPersonalizada(clientesListaConsulta.id, ocorrencia.id, ocorrencia.descricao);"><i class="material-icons small red-text">delete</i></a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-
-                  <center><h6 ng-show="clientesListaConsulta.tiposOcorrenciaPersonalizada.length == 0">Nenhuma ocorrência personalizada associada</h6></center>
-
-                  <div class="row center">
-                    <div class="input-field col s12 m12">
-                      <a class="btn-floating right" ng-click="ClienteCrtl.associarOcorrenciaPersonalizada(clientesListaConsulta.id, clientesListaConsulta.nome);"><i class="material-icons">add</i></a>
-                    </div>
-                  </div>
-                </div>
-
-                </div>
-              </div>
-
-              
-
               <br>
               <br>
               <br>

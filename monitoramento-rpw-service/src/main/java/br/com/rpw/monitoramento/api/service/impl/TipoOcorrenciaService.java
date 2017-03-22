@@ -14,13 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.rpw.monitoramento.api.constantes.TipoCampoEnum;
 import br.com.rpw.monitoramento.api.dao.impl.CampoOcorrenciaDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.TipoOcorrenciaDaoImpl;
-import br.com.rpw.monitoramento.api.dao.impl.TipoOcorrenciaPersonalizadaDaoImpl;
 import br.com.rpw.monitoramento.api.dto.CampoOcorrenciaDTO;
 import br.com.rpw.monitoramento.api.dto.TipoOcorrenciaDTO;
 import br.com.rpw.monitoramento.api.model.CampoOcorrencia;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.TipoOcorrencia;
-import br.com.rpw.monitoramento.api.model.TipoOcorrenciaPersonalizada;
 import br.com.rpw.monitoramento.api.service.ITipoOcorrenciaService;
 
 @Service
@@ -29,9 +27,6 @@ public class TipoOcorrenciaService implements ITipoOcorrenciaService {
 
 	@Autowired
 	private TipoOcorrenciaDaoImpl tipoOcorrenciaDaoImpl;
-	
-	@Autowired
-	private TipoOcorrenciaPersonalizadaDaoImpl tipoOcorrenciaPersonalizadaDaoImpl;
 	
 	@Autowired
 	private CampoOcorrenciaDaoImpl campoOcorrenciaDaoImpl;
@@ -69,26 +64,11 @@ public class TipoOcorrenciaService implements ITipoOcorrenciaService {
 	}
 	
 	@Override
-	public Long cadastrarTipoOcorrenciaPersonalizada(TipoOcorrenciaDTO tipoOcorrenciaDTO)
-			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException {
-		TipoOcorrenciaPersonalizada tipoOcorrencia = converterTipoOcorrenciaDTOEmTipoOcorrenciaPersonalizada(tipoOcorrenciaDTO);
-		tipoOcorrenciaPersonalizadaDaoImpl.salvarTipoOcorrencia(tipoOcorrencia);
-		
-		return tipoOcorrencia.getId();
-	}
-
-	@Override
 	public TipoOcorrencia consultarTipoOcorrencia(Long idTipoOcorrencia)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		return tipoOcorrenciaDaoImpl.consultarTipoOcorrencia(idTipoOcorrencia);
 	}
 	
-	@Override
-	public TipoOcorrenciaPersonalizada consultarTipoOcorrenciaPersonalizada(Long idTipoOcorrencia)
-			throws NoSuchAlgorithmException, UnsupportedEncodingException {
-		return tipoOcorrenciaPersonalizadaDaoImpl.consultarTipoOcorrencia(idTipoOcorrencia);
-	}
-
 	@Override
 	public List<TipoOcorrenciaDTO> listarTiposOcorrencia() throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		List<TipoOcorrencia> tiposOcorrencia = tipoOcorrenciaDaoImpl.listarTipoOcorrencias();
@@ -99,6 +79,9 @@ public class TipoOcorrenciaService implements ITipoOcorrenciaService {
 			TipoOcorrenciaDTO tipoDto = new TipoOcorrenciaDTO();
 			tipoDto.setId(tipo.getId());
 			tipoDto.setDescricao(tipo.getDescricao());
+			tipoDto.setRelatorioDiario(tipo.getRelatorioDiario());
+			tipoDto.setRelatorioMensal(tipo.getRelatorioMensal());
+			tipoDto.setPersonalizada(tipo.getPersonalizada());
 			
 			List<CampoOcorrencia> campos = campoOcorrenciaDaoImpl.consultarCamposOcorrencia(tipo);
 			
@@ -113,22 +96,6 @@ public class TipoOcorrenciaService implements ITipoOcorrenciaService {
 	}
 	
 	@Override
-	public List<TipoOcorrenciaDTO> listarTiposOcorrenciaPersonalizada() throws NoSuchAlgorithmException, UnsupportedEncodingException {
-		List<TipoOcorrenciaPersonalizada> tiposOcorrencia = tipoOcorrenciaPersonalizadaDaoImpl.listarTipoOcorrencias();
-		
-		List<TipoOcorrenciaDTO> tiposOcorrenciaDto = new ArrayList<TipoOcorrenciaDTO>();
-		
-		for(TipoOcorrenciaPersonalizada tipo : tiposOcorrencia) {
-			TipoOcorrenciaDTO tipoDto = new TipoOcorrenciaDTO();
-			tipoDto.setId(tipo.getId());
-			tipoDto.setDescricao(tipo.getDescricao());
-			tiposOcorrenciaDto.add(tipoDto);
-		}
-		
-		return tiposOcorrenciaDto;
-	}
-
-	@Override
 	public List<TipoOcorrencia> listarTiposOcorrencia(Cliente cliente)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		// TODO Auto-generated method stub
@@ -138,34 +105,34 @@ public class TipoOcorrenciaService implements ITipoOcorrenciaService {
 	private static TipoOcorrencia converterTipoOcorrenciaDTOEmTipoOcorrencia(TipoOcorrenciaDTO tipoOcorrenciaDTO) {
 		TipoOcorrencia tipoOcorrencia = new TipoOcorrencia();
 		tipoOcorrencia.setDescricao(tipoOcorrenciaDTO.getDescricao());
+		
+		if(tipoOcorrenciaDTO.getRelatorioDiario() == null) {
+			tipoOcorrenciaDTO.setRelatorioDiario(false);
+		}
+		
+		if(tipoOcorrenciaDTO.getRelatorioMensal() == null) {
+			tipoOcorrenciaDTO.setRelatorioMensal(false);
+		}
+		
+		if(tipoOcorrenciaDTO.getPersonalizada() == null) {
+			tipoOcorrenciaDTO.setPersonalizada(false);
+		}
+		
+		tipoOcorrencia.setRelatorioDiario(tipoOcorrenciaDTO.getRelatorioDiario());
+		tipoOcorrencia.setRelatorioMensal(tipoOcorrenciaDTO.getRelatorioMensal());
+		tipoOcorrencia.setPersonalizada(tipoOcorrenciaDTO.getPersonalizada());
+		
 		return tipoOcorrencia;
 	}
 	
-	private TipoOcorrenciaPersonalizada converterTipoOcorrenciaDTOEmTipoOcorrenciaPersonalizada(
-			TipoOcorrenciaDTO tipoOcorrenciaDTO) {
-		TipoOcorrenciaPersonalizada tipoOcorrencia = new TipoOcorrenciaPersonalizada();
-		tipoOcorrencia.setDescricao(tipoOcorrenciaDTO.getDescricao());
-		return tipoOcorrencia;
-	}
-
 	@Override
 	public void removerTipoOcorrencia(Long idTipoOcorrencia) {
 		tipoOcorrenciaDaoImpl.deleteTipoOcorrencia(idTipoOcorrencia);
 	}
 	
 	@Override
-	public void removerTipoOcorrenciaPersonalizada(Long idTipoOcorrencia) {
-		tipoOcorrenciaPersonalizadaDaoImpl.deleteTipoOcorrencia(idTipoOcorrencia);
-	}
-
-	@Override
 	public BigInteger consultarQuantidadeTipoOcorrenciasAtivas() {
 		return tipoOcorrenciaDaoImpl.consultarQuantidadeTipoOcorrenciasAtivas();
-	}
-
-	@Override
-	public BigInteger consultarQuantidadeTipoOcorrenciasPersonalizadasAtivas() {
-		return tipoOcorrenciaPersonalizadaDaoImpl.consultarQuantidadeTipoOcorrenciaPersonalizadassAtivas();
 	}
 
 }

@@ -30,6 +30,15 @@ public class TipoOcorrencia implements Serializable {
 	@Column(name = "ATIVO", nullable = false)
 	private Boolean ativo;
 	
+	@Column(name = "REL_DIARIO", nullable = false)
+	private Boolean relatorioDiario;
+	
+	@Column(name = "REL_MENSAL", nullable = false)
+	private Boolean relatorioMensal;
+	
+	@Column(name = "PERSONALIZADA", nullable = false)
+	private Boolean personalizada;
+	
 	@Transient
 	private List<CampoOcorrencia> campos;
 	
@@ -65,4 +74,28 @@ public class TipoOcorrencia implements Serializable {
 		this.ativo = ativo;
 	}
 
+	public Boolean getRelatorioDiario() {
+		return relatorioDiario;
+	}
+
+	public void setRelatorioDiario(Boolean relatorioDiario) {
+		this.relatorioDiario = relatorioDiario;
+	}
+
+	public Boolean getRelatorioMensal() {
+		return relatorioMensal;
+	}
+
+	public void setRelatorioMensal(Boolean relatorioMensal) {
+		this.relatorioMensal = relatorioMensal;
+	}
+
+	public Boolean getPersonalizada() {
+		return personalizada;
+	}
+
+	public void setPersonalizada(Boolean personalizada) {
+		this.personalizada = personalizada;
+	}
+	
 }

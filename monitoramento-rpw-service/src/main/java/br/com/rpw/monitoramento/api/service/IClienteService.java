@@ -7,7 +7,6 @@ import br.com.rpw.monitoramento.api.dto.ClienteDTO;
 import br.com.rpw.monitoramento.api.dto.TipoOcorrenciaDTO;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.TipoOcorrencia;
-import br.com.rpw.monitoramento.api.model.TipoOcorrenciaPersonalizada;
 
 public interface IClienteService {
 
@@ -20,7 +19,5 @@ public interface IClienteService {
 	BigInteger consultarQuantidadeClientesAtivos();
 	List<TipoOcorrenciaDTO> consultarTiposOcorrencia(Cliente cliente);
 	void associarTipoOcorrencia(Cliente cliente, List<TipoOcorrencia> tiposOcorrencia);
-	void associarTipoOcorrenciaPersonalizada(Cliente cliente, List<TipoOcorrenciaPersonalizada> tiposOcorrencia);
-	void desassociarTipoOcorrenciaPersonalizada(Cliente cliente, TipoOcorrenciaPersonalizada tipoOcorrencia);
 	
 }

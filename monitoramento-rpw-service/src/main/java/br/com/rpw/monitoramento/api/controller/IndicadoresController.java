@@ -62,15 +62,6 @@ public class IndicadoresController {
 		}
 	}
 	
-	@RequestMapping(value="/quantidadeTiposOcorrenciaPersonalizadas", method = RequestMethod.GET)
-	public RestObject consultaIndicadoresTiposOcorrenciaPersonalizada() { 
-		try {
-			return new RestObject(200, true, "Consulta realizada com sucesso", tipoOcorrenciaService.consultarQuantidadeTipoOcorrenciasPersonalizadasAtivas());
-		} catch(Exception e) {
-			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
-		}
-	}
-	
 	@RequestMapping(value="/quantidadeTurnosPendentes", method = RequestMethod.GET)
 	public RestObject consultaIndicadoresTurnosPendentes() { 
 		try {

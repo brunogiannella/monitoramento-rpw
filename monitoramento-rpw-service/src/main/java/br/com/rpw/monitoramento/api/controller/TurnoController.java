@@ -103,7 +103,7 @@ public class TurnoController {
 					return new RestObject(200, true, "O turno não foi encontrado.", null);
 				}
 				
-				return new RestObject(200, true, "Turno consultado com sucesso", turnoService.converterTurnoEmTurnoDTO(turno));
+				return new RestObject(200, true, "Turno consultado com sucesso", turnoService.converterTurnoEmTurnoDTO(turno, false));
 			} else {
 				return new RestObject(401, false, "Token inválido.", null);
 			}
@@ -119,7 +119,7 @@ public class TurnoController {
 		try {
 			
 			if(TokenUtil.simpleValidToken(token)) {
-				TurnoDTO turno = turnoService.consultarTurnoDetalhado(idTurno);
+				TurnoDTO turno = turnoService.consultarTurnoDetalhado(idTurno, false);
 				
 				if(turno == null) {
 					return new RestObject(200, true, "O turno informado não existe.", null);
@@ -150,7 +150,7 @@ public class TurnoController {
 				
 				List<TurnoDTO> turnosDto = new ArrayList<TurnoDTO>();
 				for(Turno turno : turnos) {
-					turnosDto.add(turnoService.converterTurnoEmTurnoDTO(turno));
+					turnosDto.add(turnoService.converterTurnoEmTurnoDTO(turno, false));
 				}
 				
 				return new RestObject(200, true, "Turnos consultados com sucesso", turnosDto);
@@ -177,7 +177,7 @@ public class TurnoController {
 				
 				List<TurnoDTO> turnosDto = new ArrayList<TurnoDTO>();
 				for(Turno turno : turnos) {
-					turnosDto.add(turnoService.converterTurnoEmTurnoDTO(turno));
+					turnosDto.add(turnoService.converterTurnoEmTurnoDTO(turno, false));
 				}
 				
 				return new RestObject(200, true, "Turnos consultados com sucesso", turnosDto);
@@ -202,7 +202,7 @@ public class TurnoController {
 				
 				List<TurnoDTO> turnosDto = new ArrayList<TurnoDTO>();
 				for(Turno turno : turnosPendentes) {
-					turnosDto.add(turnoService.converterTurnoEmTurnoDTO(turno));
+					turnosDto.add(turnoService.converterTurnoEmTurnoDTO(turno, false));
 				}
 				
 				return new RestObject(200, true, "Turnos consultados com sucesso", turnosDto);
@@ -227,7 +227,7 @@ public class TurnoController {
 				
 				List<TurnoDTO> turnosDto = new ArrayList<TurnoDTO>();
 				for(Turno turno : turnosPendentes) {
-					turnosDto.add(turnoService.converterTurnoEmTurnoDTO(turno));
+					turnosDto.add(turnoService.converterTurnoEmTurnoDTO(turno, false));
 				}
 				
 				return new RestObject(200, true, "Turnos consultados com sucesso", turnosDto);
@@ -252,7 +252,7 @@ public class TurnoController {
 				
 				List<TurnoDTO> turnosDto = new ArrayList<TurnoDTO>();
 				for(Turno turno : turnosPendentes) {
-					turnosDto.add(turnoService.converterTurnoEmTurnoDTO(turno));
+					turnosDto.add(turnoService.converterTurnoEmTurnoDTO(turno, false));
 				}
 				
 				return new RestObject(200, true, "Turnos consultados com sucesso", turnosDto);
@@ -279,7 +279,7 @@ public class TurnoController {
 				
 				List<TurnoDTO> turnosDto = new ArrayList<TurnoDTO>();
 				for(Turno turno : ultimosDezTurnos) {
-					turnosDto.add(turnoService.converterTurnoEmTurnoDTO(turno));
+					turnosDto.add(turnoService.converterTurnoEmTurnoDTO(turno, false));
 				}
 				
 				return new RestObject(200, true, "Turnos consultados com sucesso", turnosDto);
