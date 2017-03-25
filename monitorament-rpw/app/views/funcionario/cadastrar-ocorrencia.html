@@ -81,7 +81,7 @@
 
                           <input type="text" style="display:none;" class="campoValor" ng-model="CadastrarOcorrenciaCrtl.ocorrencia.campos[$index].tamanho" ng-value="campo.porcentagemColuna"/>
 
-                          <input ng-model="CadastrarOcorrenciaCrtl.ocorrencia.campos[$index].valor" id="chamadapostos_responsavel" type="text" ng-if="campo.tipoCampo == 'TEXTO'" />
+                          <input ng-model="CadastrarOcorrenciaCrtl.ocorrencia.campos[$index].valor" id="chamadapostos_responsavel" type="text" ng-if="campo.tipoCampo == 'TEXTO'" onfocus="preencherCampoValor();"/>
                           
                           <input ng-model="CadastrarOcorrenciaCrtl.ocorrencia.campos[$index].valor" id="chamadapostos_responsavel" placeholder="00/00/0000 00:00" type="text" onfocus="(this.type='datetime-local')" onblur="(this.type='text'); preencherCampoValor();" ng-if="campo.tipoCampo == 'DATA'">
 

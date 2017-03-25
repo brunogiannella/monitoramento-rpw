@@ -1,13 +1,12 @@
 package br.com.rpw.monitoramento.api.dto.ocorrenciasPersonalizadas.chamadaPosto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EfetivoDTO {
 
 	private String nomeEfetivo;
 	private String funcao;
-	private List<VerificacaoEfetivoDTO> verificacoesEfetivo = new ArrayList<VerificacaoEfetivoDTO>();
+	private List<VerificacaoEfetivoDTO> verificacoesEfetivo;
 
 	public String getNomeEfetivo() {
 		return nomeEfetivo;

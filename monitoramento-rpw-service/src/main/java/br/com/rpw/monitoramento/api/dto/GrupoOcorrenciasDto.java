@@ -5,7 +5,7 @@ import java.util.List;
 
 public class GrupoOcorrenciasDto {
 	private String descricao;
-	private Boolean personalizada;
+	private Boolean personalizada = false;
 	private List<OcorrenciaDTO> ocorrenciasDto = new ArrayList<OcorrenciaDTO>();
 
 	public String getDescricao() {

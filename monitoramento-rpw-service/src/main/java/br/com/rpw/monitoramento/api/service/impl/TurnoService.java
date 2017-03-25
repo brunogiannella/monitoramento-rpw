@@ -216,7 +216,7 @@ public class TurnoService implements ITurnoService {
 				grupoOcorrencia.setDescricao(entry);
 				grupoOcorrencia.setOcorrenciasDto(gruposOcorrencia.get(entry));
 					
-				if(entry.equals("Chamada de Postos")) {
+				if(entry.equalsIgnoreCase("Chamada de Postos")) {
 					grupoOcorrencia.setPersonalizada(true);
 				}
 				
@@ -310,7 +310,7 @@ public class TurnoService implements ITurnoService {
 		if(campos != null) {
 			ocorrenciaDto.setResumoOcorrencia("");
 			for(CampoCadastroOcorrenciaDTO camposCadastro : campos) {
-				if(camposCadastro.getTipo().equals("EQUIPAMENTOS")) {
+				if("EQUIPAMENTOS".equals(camposCadastro.getTipo())) {
 					if(camposCadastro.getValor() != null) {
 						Camera camera = cameraDaoImpl.consultarCamera(Long.parseLong(camposCadastro.getValor()));
 						ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camera.getDescricaoCamera() + "; ");
@@ -400,28 +400,30 @@ public class TurnoService implements ITurnoService {
 					EfetivoDTO efetivoDto = new EfetivoDTO();
 					
 					for(CampoCadastroOcorrenciaDTO campo : ocorrencia.getCampos()) {
-						if(campo.getDescricao().equals("Efetivo")) {
+						if(campo.getDescricao().equalsIgnoreCase("Efetivo")) {
 							efetivoDto.setNomeEfetivo(campo.getValor());
 						}
-						if(campo.getDescricao().equals("Função")) {
+						if(campo.getDescricao().equalsIgnoreCase("Função")) {
 							efetivoDto.setFuncao(campo.getValor());
 						}
-						if(campo.getDescricao().equals("Horário")) {
-							if(efetivoDto.getVerificacoesEfetivo() == null && efetivoDto.getVerificacoesEfetivo().size() > 0) {
+						if(campo.getDescricao().equalsIgnoreCase("Horário")) {
+							if(efetivoDto.getVerificacoesEfetivo() != null && efetivoDto.getVerificacoesEfetivo().size() > 0) {
+								efetivoDto.getVerificacoesEfetivo().get(0).setHorario(campo.getValor());
+							} else {
 								efetivoDto.setVerificacoesEfetivo(new ArrayList<VerificacaoEfetivoDTO>());
 								VerificacaoEfetivoDTO verificacao = new VerificacaoEfetivoDTO();
 								verificacao.setHorario(campo.getValor());
-							} else {
-								efetivoDto.getVerificacoesEfetivo().get(0).setHorario(campo.getValor());
+								efetivoDto.getVerificacoesEfetivo().add(verificacao);
 							}
 						}
-						if(campo.getDescricao().equals("Observação")) {
-							if(efetivoDto.getVerificacoesEfetivo() == null && efetivoDto.getVerificacoesEfetivo().size() > 0) {
+						if(campo.getDescricao().equalsIgnoreCase("Observação")) {
+							if(efetivoDto.getVerificacoesEfetivo() != null && efetivoDto.getVerificacoesEfetivo().size() > 0) {
+								efetivoDto.getVerificacoesEfetivo().get(0).setObservacao(campo.getValor());
+							} else {
 								efetivoDto.setVerificacoesEfetivo(new ArrayList<VerificacaoEfetivoDTO>());
 								VerificacaoEfetivoDTO verificacao = new VerificacaoEfetivoDTO();
 								verificacao.setObservacao(campo.getValor());
-							} else {
-								efetivoDto.getVerificacoesEfetivo().get(0).setObservacao(campo.getValor());
+								efetivoDto.getVerificacoesEfetivo().add(verificacao);
 							}
 						}
 					}
@@ -435,8 +437,8 @@ public class TurnoService implements ITurnoService {
 			}
 		}
 		
+		chamadaPostoDto.setEfetivos(new ArrayList<EfetivoDTO>());
 		for (String entry : efetivos.keySet()) {
-			chamadaPostoDto.setEfetivos(new ArrayList<EfetivoDTO>());
 			chamadaPostoDto.getEfetivos().add(efetivos.get(entry));
 		}
 		
@@ -447,12 +449,9 @@ public class TurnoService implements ITurnoService {
 		if(turnoDTO  != null && turnoDTO.getOcorrenciasDto() != null) {
 			for(GrupoOcorrenciasDto grupo : turnoDTO.getOcorrenciasDto()) {
 				if(grupo.getPersonalizada() != null && grupo.getPersonalizada()) {
-					switch(grupo.getDescricao()) {
-					case "Chamada de Postos" :
+					if("Chamada de Postos".equalsIgnoreCase(grupo.getDescricao())) {
 						ChamadaPostoDTO chamadaPostoDto = tratarOcorrenciaChamadaPosto(grupo);
 						turnoDTO.setChamadaPostoDTO(chamadaPostoDto);
-					default:
-						
 					}
 				}
 			}

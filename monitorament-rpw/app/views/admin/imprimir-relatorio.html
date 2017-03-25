@@ -84,7 +84,7 @@
           </table>
 
           <div ng-repeat="grupoOcorrencia in ImprimirRelatorioCrtl.turnoConsulta.ocorrenciasDto">
-            <table class="maintable">
+            <table class="maintable" ng-if="grupoOcorrencia.personalizada == false">
               <tr class="titulo">
                 <td class="textBold" colspan="4">{{grupoOcorrencia.descricao}}</td>
               </tr>
@@ -96,6 +96,41 @@
               </tr>
             </table>
           </div>
+
+          <table class="maintable" ng-if="ImprimirRelatorioCrtl.turnoConsulta.chamadaPostoDTO != null">
+              <tr class="titulo">
+                <td class="textBold" colspan="4">Chamada de Postos</td>
+              </tr>
+              <tr>
+                <td class="textBold">Efetivo</td>
+                <td class="textBold">1</td>
+                <td class="textBold">2</td>
+                <td class="textBold">3</td>
+                <td class="textBold">4</td>
+                <td class="textBold">5</td>
+                <td class="textBold">6</td>
+                <td class="textBold">7</td>
+                <td class="textBold">8</td>
+                <td class="textBold">9</td>
+                <td class="textBold">10</td>
+              </tr>
+              <tr ng-repeat="chamada in ImprimirRelatorioCrtl.turnoConsulta.chamadaPostoDTO.efetivos">
+                <td width="20%">{{chamada.nomeEfetivo}} <br> ({{chamada.funcao}})</td>
+                <td width="8%">{{chamada.verificacoesEfetivo[0].horario}} <br> {{chamada.verificacoesEfetivo[0].observacao}}</td>
+                <td width="8%">{{chamada.verificacoesEfetivo[1].horario}} <br> {{chamada.verificacoesEfetivo[1].observacao}}</td>
+                <td width="8%">{{chamada.verificacoesEfetivo[2].horario}} <br> {{chamada.verificacoesEfetivo[2].observacao}}</td>
+                <td width="8%">{{chamada.verificacoesEfetivo[3].horario}} <br> {{chamada.verificacoesEfetivo[3].observacao}}</td>
+                <td width="8%">{{chamada.verificacoesEfetivo[4].horario}} <br> {{chamada.verificacoesEfetivo[4].observacao}}</td>
+                <td width="8%">{{chamada.verificacoesEfetivo[5].horario}} <br> {{chamada.verificacoesEfetivo[5].observacao}}</td>
+                <td width="8%">{{chamada.verificacoesEfetivo[6].horario}} <br> {{chamada.verificacoesEfetivo[6].observacao}}</td>
+                <td width="8%">{{chamada.verificacoesEfetivo[7].horario}} <br> {{chamada.verificacoesEfetivo[7].observacao}}</td>
+                <td width="8%">{{chamada.verificacoesEfetivo[8].horario}} <br> {{chamada.verificacoesEfetivo[8].observacao}}</td>
+                <td width="8%">{{chamada.verificacoesEfetivo[9].horario}} <br> {{chamada.verificacoesEfetivo[9].observacao}}</td>
+              </tr>
+            </table>
+
+            <br />
+            <br />
 
         </div>
       </main>        

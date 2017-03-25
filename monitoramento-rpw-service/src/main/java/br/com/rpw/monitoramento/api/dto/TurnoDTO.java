@@ -19,6 +19,7 @@ public class TurnoDTO {
 	private String status;
 	private List<String> operadores = new ArrayList<String>();
 	private List<GrupoOcorrenciasDto> ocorrenciasDto = new ArrayList<GrupoOcorrenciasDto>();
+	private List<GrupoOcorrenciasDto> ocorrenciasPersonalizadasDto = new ArrayList<GrupoOcorrenciasDto>();
 	private List<ImagemCameraDTO> imagemCameraDto = new ArrayList<ImagemCameraDTO>();
 	private List<DetalheInoperanciaCameraDTO> detalhesInoperanciaCamera = new ArrayList<DetalheInoperanciaCameraDTO>();
 	private ChamadaPostoDTO chamadaPostoDTO;
@@ -142,5 +143,13 @@ public class TurnoDTO {
 	public void setChamadaPostoDTO(ChamadaPostoDTO chamadaPostoDTO) {
 		this.chamadaPostoDTO = chamadaPostoDTO;
 	}
-	
+
+	public List<GrupoOcorrenciasDto> getOcorrenciasPersonalizadasDto() {
+		return ocorrenciasPersonalizadasDto;
+	}
+
+	public void setOcorrenciasPersonalizadasDto(List<GrupoOcorrenciasDto> ocorrenciasPersonalizadasDto) {
+		this.ocorrenciasPersonalizadasDto = ocorrenciasPersonalizadasDto;
+	}
+
 }
