@@ -13,7 +13,6 @@
 		vm.quantidadeClientes = $rootScope.indicadores.quantidadeClientes;
 		vm.quantidadeUsuarios = $rootScope.indicadores.quantidadeUsuarios;
 		vm.quantidadeTiposOcorrencia = $rootScope.indicadores.quantidadeTiposOcorrencia;
-		vm.quantidadeTiposOcorrenciaPersonalizadas = $rootScope.indicadores.quantidadeTiposOcorrenciaPersonalizadas;
 		vm.irPara = UtilsService.irPara;
 		vm.sair = UtilsService.logout;
 		vm.quantidadeMensagensNaoLidas = "";

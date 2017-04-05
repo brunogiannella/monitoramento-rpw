@@ -46,7 +46,7 @@
           <div class="container2">
               <div class="row no-m">
                 <div class="col">
-                  <h5 class="header blue-text text-darken-2 center-on-small-only title"><i class="material-icons">videocam</i> <span class="light"> Situação das Câmeras</span></h5>
+                  <h5 class="header blue-text text-darken-2 center-on-small-only title"><i class="material-icons">videocam</i> <span class="light"> Situação dos Equipamentos</span></h5>
                 </div>
               </div>
 
@@ -66,7 +66,7 @@
                                   <input id="cameraSelecionada" type="text" style="display:none;" ng-model="GerenciarCamerasCrtl.situacaoCameraDto.idCamera" />
                                   <select onchange="alterarComboCamera();" class="cameraSelecionada_gerenciair selectable">
                                     <option value="" disabled selected>Selecione</option>
-                                    <option ng-repeat="camera in GerenciarCamerasCrtl.camerasCliente" value="{{camera.id}}">{{camera.id}} - {{camera.descricaoCamera}}</option>
+                                    <option ng-repeat="camera in GerenciarCamerasCrtl.camerasCliente" value="{{camera.id}}">{{camera.id}} - {{camera.numeroCamera}} - {{camera.descricaoCamera}}</option>
                                   </select>
                                   <label>Equipamento</label>
                                 </div>

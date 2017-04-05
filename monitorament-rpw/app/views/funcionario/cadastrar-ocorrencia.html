@@ -88,7 +88,7 @@
                             <input id="cameraSelecionada" type="text" style="display:none;" ng-model="CadastrarOcorrenciaCrtl.ocorrencia.campos[$index].valor" ng-if="campo.tipoCampo == 'EQUIPAMENTOS'"/>
                             <select onchange="alterarComboCamera();" class="cameraSelecionada_gerenciair selectableEquip" ng-if="campo.tipoCampo == 'EQUIPAMENTOS'">
                               <option value="" disabled selected>Selecione</option>
-                              <option ng-repeat="camera in CadastrarOcorrenciaCrtl.camerasCliente" value="{{camera.id}}">{{camera.id}} - {{camera.descricaoCamera}}</option>
+                              <option ng-repeat="camera in CadastrarOcorrenciaCrtl.camerasCliente" value="{{camera.id}}">{{camera.id}} - {{camera.numeroCamera}} - {{camera.descricaoCamera}}</option>
                             </select>
                           
                           <label ng-if="campo.tipoCampo == 'EQUIPAMENTOS'">{{campo.descricao}}</label>

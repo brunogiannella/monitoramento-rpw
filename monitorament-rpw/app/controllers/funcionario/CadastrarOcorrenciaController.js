@@ -46,6 +46,7 @@
 		};
 
 		function consultarTipoOcorrencia() {
+			vm.tipoOcorrencia = null;
 			vm.tipoOcorrencia = vm.tiposOcorrencia[parseInt(vm.indexTipoOcorrenciaSelecionada)];
 		}
 
@@ -93,6 +94,8 @@
 			vm.tipoOcorrencia = null;
 			vm.ocorrencia = {};
 			vm.ocorrencia.campos = [];
+			vm.campos = null;
+			vm.indexTipoOcorrenciaSelecionada = null;
 		}
 		
 		var vm = this;

@@ -294,42 +294,47 @@ public class TurnoService implements ITurnoService {
 	}
 	
 	private void adicionarGrupoOcorrencia(Ocorrencia ocorrencia, Map<String, List<OcorrenciaDTO>> gruposOcorrencia) {
-		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		OcorrenciaDTO ocorrenciaDto = new OcorrenciaDTO();
-		
-		ocorrenciaDto.setIdOcorrencia(ocorrencia.getId());
-		ocorrenciaDto.setNomeUsuario(ocorrencia.getUsuario().getNome());
-		ocorrenciaDto.setIdTipoOcorrencia(ocorrencia.getTipoOcorrencia().getId());
-		ocorrenciaDto.setDescTipoOcorrencia(ocorrencia.getTipoOcorrencia().getDescricao());
-		ocorrenciaDto.setDataCadastro(formato.format(ocorrencia.getDataCadastro()));
-		
-		Gson gson = new GsonBuilder().create();
-		List<CampoCadastroOcorrenciaDTO> campos = gson.fromJson(ocorrencia.getValores(), new TypeToken<ArrayList<CampoCadastroOcorrenciaDTO>>(){}.getType());
-		ocorrenciaDto.setCampos(campos);
-		
-		if(campos != null) {
-			ocorrenciaDto.setResumoOcorrencia("");
-			for(CampoCadastroOcorrenciaDTO camposCadastro : campos) {
-				if("EQUIPAMENTOS".equals(camposCadastro.getTipo())) {
-					if(camposCadastro.getValor() != null) {
-						Camera camera = cameraDaoImpl.consultarCamera(Long.parseLong(camposCadastro.getValor()));
-						ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camera.getDescricaoCamera() + "; ");
+		try {
+			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+			OcorrenciaDTO ocorrenciaDto = new OcorrenciaDTO();
+			
+			ocorrenciaDto.setIdOcorrencia(ocorrencia.getId());
+			ocorrenciaDto.setNomeUsuario(ocorrencia.getUsuario().getNome());
+			ocorrenciaDto.setIdTipoOcorrencia(ocorrencia.getTipoOcorrencia().getId());
+			ocorrenciaDto.setDescTipoOcorrencia(ocorrencia.getTipoOcorrencia().getDescricao());
+			ocorrenciaDto.setDataCadastro(formato.format(ocorrencia.getDataCadastro()));
+			
+			Gson gson = new GsonBuilder().create();
+			List<CampoCadastroOcorrenciaDTO> campos = gson.fromJson(ocorrencia.getValores(), new TypeToken<ArrayList<CampoCadastroOcorrenciaDTO>>(){}.getType());
+			ocorrenciaDto.setCampos(campos);
+			
+			if(campos != null) {
+				ocorrenciaDto.setResumoOcorrencia("");
+				for(CampoCadastroOcorrenciaDTO camposCadastro : campos) {
+					if("EQUIPAMENTOS".equals(camposCadastro.getTipo())) {
+						if(camposCadastro.getValor() != null) {
+							Camera camera = cameraDaoImpl.consultarCamera(Long.parseLong(camposCadastro.getValor()));
+							ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camera.getDescricaoCamera() + "; ");
+						} else {
+							ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": Não informado; ");
+						}
+						
+						
 					} else {
-						ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": Não informado; ");
+						ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camposCadastro.getValor() + "; " );
 					}
 					
-					
-				} else {
-					ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camposCadastro.getValor() + "; " );
 				}
-				
 			}
+			
+			if(!gruposOcorrencia.containsKey(ocorrenciaDto.getDescTipoOcorrencia())) {
+				gruposOcorrencia.put(ocorrenciaDto.getDescTipoOcorrencia(), new ArrayList<OcorrenciaDTO>());
+			}
+			gruposOcorrencia.get(ocorrenciaDto.getDescTipoOcorrencia()).add(ocorrenciaDto);
+		} catch (Exception e) {
+			System.out.print(e);
 		}
 		
-		if(!gruposOcorrencia.containsKey(ocorrenciaDto.getDescTipoOcorrencia())) {
-			gruposOcorrencia.put(ocorrenciaDto.getDescTipoOcorrencia(), new ArrayList<OcorrenciaDTO>());
-		}
-		gruposOcorrencia.get(ocorrenciaDto.getDescTipoOcorrencia()).add(ocorrenciaDto);
 	}
 
 	@Override

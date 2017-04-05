@@ -188,12 +188,6 @@
 			};
 
 			IndicadoresService.consultarQuantidadeTiposOcorrencias(funcSucessoQuantidadeTiposOcorrencia);
-
-			var funcSucessoQuantidadeTiposOcorrenciaPersonalizadas = function(data) {
-				$rootScope.indicadores.quantidadeTiposOcorrenciaPersonalizadas = data;
-			};
-
-			IndicadoresService.consultarQuantidadeTiposOcorrenciaPersonalizadas(funcSucessoQuantidadeTiposOcorrenciaPersonalizadas);
 		
 			var funcSucessoToMensagens = function(data) {
 				$rootScope.dominios.toMensagens = data;
