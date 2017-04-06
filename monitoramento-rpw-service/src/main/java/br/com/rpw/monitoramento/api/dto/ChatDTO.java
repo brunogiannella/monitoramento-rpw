@@ -8,6 +8,7 @@ public class ChatDTO {
 	private Long id;
 	private Long codigoUsuarioFrom;
 	private String nomeUsuarioFrom;
+	private Boolean isDel;
 	private Long codigoUsuarioTo;
 	private String nomeUsuarioTo;
 	private String dataAbertura;
@@ -86,5 +87,13 @@ public class ChatDTO {
 	public void setNaoLida(boolean naoLida) {
 		this.naoLida = naoLida;
 	}
-	
+
+	public Boolean getIsDel() {
+		return isDel;
+	}
+
+	public void setIsDel(Boolean isDel) {
+		this.isDel = isDel;
+	}
+
 }

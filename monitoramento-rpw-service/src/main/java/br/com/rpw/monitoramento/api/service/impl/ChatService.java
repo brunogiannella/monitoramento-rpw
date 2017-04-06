@@ -100,6 +100,7 @@ public class ChatService implements IChatService {
 		chatDto.setNomeUsuarioTo(chat.getUsuarioTo().getNome());
 		chatDto.setDataAbertura("");
 		chatDto.setId(chat.getId());
+		chatDto.setIsDel(!"ADMINISTRADOR".equals(chat.getUsuarioTo().getTipoUsuario().getDescricao()));
 		
 		if(chat.getDataUltimaMensagem() != null) {
 			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm");

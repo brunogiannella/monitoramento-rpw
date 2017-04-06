@@ -112,20 +112,26 @@ public class RelatorioService implements IRelatorioService {
 					
 				}
 				
+				Integer total = 0;
 				for(int i = 0; i <= 31; i++) {
 					Integer quantidade = 0;
 					if(quantidadesMonitoramento.get(i) != null) {
 						quantidade = quantidadesMonitoramento.get(i);
+						total = total + quantidade;
 					}
 					quantidadeOcorrenciasMesDetalhadoMonitoramento.getQuantidadeOcorrenciasDia().add(quantidade);
+					quantidadeOcorrenciasMesDetalhadoMonitoramento.setTotal(total);
 				}
 				
+				total = 0;
 				for(int i = 0; i <= 31; i++) {
 					Integer quantidade = 0;
 					if(quantidadesSeguranca.get(i) != null) {
 						quantidade = quantidadesSeguranca.get(i);
+						total = total + quantidade;
 					}
 					quantidadeOcorrenciasMesDetalhadoSeguranca.getQuantidadeOcorrenciasDia().add(quantidade);
+					quantidadeOcorrenciasMesDetalhadoSeguranca.setTotal(total);
 				}
 				
 				quantidadesOcorrenciasMesDetalhadoMonitoramento.add(quantidadeOcorrenciasMesDetalhadoMonitoramento);

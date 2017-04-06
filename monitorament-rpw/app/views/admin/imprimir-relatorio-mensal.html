@@ -174,15 +174,15 @@
             </tr>
             <tr>
               <td width="32.25%" class="textBold">Tipo ocorrência</td>
-              <td width="2.25%" class="textBold">1</td>
-              <td width="2.25%" class="textBold">2</td>
-              <td width="2.25%" class="textBold">3</td>
-              <td width="2.25%" class="textBold">4</td>
-              <td width="2.25%" class="textBold">5</td>
-              <td width="2.25%" class="textBold">6</td>
-              <td width="2.25%" class="textBold">7</td>
-              <td width="2.25%" class="textBold">8</td>
-              <td width="2.25%" class="textBold">9</td>
+              <td width="2%" class="textBold">1</td>
+              <td width="2%" class="textBold">2</td>
+              <td width="2%" class="textBold">3</td>
+              <td width="2%" class="textBold">4</td>
+              <td width="2%" class="textBold">5</td>
+              <td width="2%" class="textBold">6</td>
+              <td width="2%" class="textBold">7</td>
+              <td width="2%" class="textBold">8</td>
+              <td width="2%" class="textBold">9</td>
               <td width="2.25%" class="textBold">10</td>
               <td width="2.25%" class="textBold">11</td>
               <td width="2.25%" class="textBold">12</td>
@@ -204,6 +204,7 @@
               <td width="2.25%" class="textBold">28</td>
               <td width="2.25%" class="textBold">29</td>
               <td width="2.25%" class="textBold">30</td>
+              <td width="2%" class="textBold">T</td>
             </tr>
             <tr  ng-repeat="quantidadeMesMonitoramento in ImprimirRelatorioMensalCrtl.relatorio.quantidadesOcorrenciasMesDetalhadoMonitoramento" ng-show="ImprimirRelatorioMensalCrtl.relatorio.quantidadesOcorrenciasMesDetalhadoMonitoramento.length > 0">
               <td>{{quantidadeMesMonitoramento.descricaoTipoOcorrencia}}</td>
@@ -237,6 +238,7 @@
               <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[28] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[28]}}</td>
               <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[29] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[29]}}</td>
               <td>{{quantidadeMesMonitoramento.quantidadeOcorrenciasDia[30] == 0 ? '*' : quantidadeMesMonitoramento.quantidadeOcorrenciasDia[30]}}</td>
+              <td>{{quantidadeMesMonitoramento.total}}</td>
             </tr>
 
             <tr  ng-show="ImprimirRelatorioMensalCrtl.relatorio.quantidadeOcorrencias.length == 0">
@@ -253,15 +255,15 @@
             </tr>
             <tr>
               <td width="32.25%" class="textBold">Tipo ocorrência</td>
-              <td width="2.25%" class="textBold">1</td>
-              <td width="2.25%" class="textBold">2</td>
-              <td width="2.25%" class="textBold">3</td>
-              <td width="2.25%" class="textBold">4</td>
-              <td width="2.25%" class="textBold">5</td>
-              <td width="2.25%" class="textBold">6</td>
-              <td width="2.25%" class="textBold">7</td>
-              <td width="2.25%" class="textBold">8</td>
-              <td width="2.25%" class="textBold">9</td>
+              <td width="2%" class="textBold">1</td>
+              <td width="2%" class="textBold">2</td>
+              <td width="2%" class="textBold">3</td>
+              <td width="2%" class="textBold">4</td>
+              <td width="2%" class="textBold">5</td>
+              <td width="2%" class="textBold">6</td>
+              <td width="2%" class="textBold">7</td>
+              <td width="2%" class="textBold">8</td>
+              <td width="2%" class="textBold">9</td>
               <td width="2.25%" class="textBold">10</td>
               <td width="2.25%" class="textBold">11</td>
               <td width="2.25%" class="textBold">12</td>
@@ -283,6 +285,7 @@
               <td width="2.25%" class="textBold">28</td>
               <td width="2.25%" class="textBold">29</td>
               <td width="2.25%" class="textBold">30</td>
+              <td width="2%" class="textBold">T</td>
             </tr>
             <tr  ng-repeat="quantidadeMesSeguranca in ImprimirRelatorioMensalCrtl.relatorio.quantidadesOcorrenciasMesDetalhadoSeguranca" ng-show="ImprimirRelatorioMensalCrtl.relatorio.quantidadesOcorrenciasMesDetalhadoSeguranca.length > 0">
               <td>{{quantidadeMesSeguranca.descricaoTipoOcorrencia}}</td>
@@ -316,6 +319,7 @@
               <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[28] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[28]}}</td>
               <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[29] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[29]}}</td>
               <td>{{quantidadeMesSeguranca.quantidadeOcorrenciasDia[30] == 0 ? '*' : quantidadeMesSeguranca.quantidadeOcorrenciasDia[30]}}</td>
+              <td>{{quantidadeMesSeguranca.total}}</td>
             </tr>
 
             <tr  ng-show="ImprimirRelatorioMensalCrtl.relatorio.quantidadeOcorrencias.length == 0">

@@ -32,15 +32,15 @@ public class EmailService implements IEmailService {
 //		email.setMsg(message); //conteudo do e-mail
 //		email.send(); //envia o e-mail
 		
-		final String username = "bruno.giannellam@gmail.com";
-		final String password = "#Idkfa1406!@";
+		final String username = "adm@rpwseguranca.com.br";
+		final String password = "cra+4saY";
 
 		Properties props = new Properties();
-		props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.socketFactory.port", "465");
+		props.put("mail.smtp.host", "smtp.rpwseguranca.com.br");
+        props.put("mail.smtp.socketFactory.port", "587");
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.port", "465");
+        props.put("mail.smtp.port", "587");
 
 		Session session = Session.getInstance(props,
 		  new javax.mail.Authenticator() {
@@ -52,7 +52,7 @@ public class EmailService implements IEmailService {
 		try {
 
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("bruno.giannellam@gmail.com"));
+			message.setFrom(new InternetAddress("adm@rpwseguranca.com.br"));
 			message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse(to));
 			message.setSubject(subject);

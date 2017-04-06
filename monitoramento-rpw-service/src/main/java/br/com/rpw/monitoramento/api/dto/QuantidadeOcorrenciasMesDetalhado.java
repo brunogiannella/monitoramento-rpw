@@ -7,6 +7,7 @@ public class QuantidadeOcorrenciasMesDetalhado {
 
 	private String descricaoTipoOcorrencia;
 	private List<Integer> quantidadeOcorrenciasDia = new ArrayList<Integer>();
+	private Integer total;
 
 	public String getDescricaoTipoOcorrencia() {
 		return descricaoTipoOcorrencia;
@@ -22,6 +23,14 @@ public class QuantidadeOcorrenciasMesDetalhado {
 
 	public void setQuantidadeOcorrenciasDia(List<Integer> quantidadeOcorrenciasDia) {
 		this.quantidadeOcorrenciasDia = quantidadeOcorrenciasDia;
+	}
+
+	public Integer getTotal() {
+		return total;
+	}
+
+	public void setTotal(Integer total) {
+		this.total = total;
 	}
 
 }

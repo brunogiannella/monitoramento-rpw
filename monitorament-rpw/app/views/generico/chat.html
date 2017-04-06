@@ -76,7 +76,7 @@
                         <td>{{chat.dataAbertura}}</td>
                         <td class="right-align">
                           <a href="#" ng-click="ChatCrtl.consultarChat(chat.id);"><i class="material-icons small blue-text">video_library</i></a>
-                          <a href="#" ng-click="ChatCrtl.removerChat(chat);"><i class="material-icons small red-text">delete</i></a>
+                          <a href="#" ng-click="ChatCrtl.removerChat(chat);" ng-show="chat.isDel"><i class="material-icons small red-text">delete</i></a>
                         </td>
                       </tr>
                       
