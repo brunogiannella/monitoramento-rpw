@@ -85,6 +85,11 @@ public class OcorrenciaService implements IOcorrenciaService {
 		tipoOcorrencia.setId(ocorrenciaDto.getIdTipoOcorrencia());
 		ocorrencia.setTipoOcorrencia(tipoOcorrencia);
 		
+		if(ocorrenciaDto.getDestacada() == null) {
+			ocorrenciaDto.setDestacada(false);
+		}
+		ocorrencia.setDestacada(ocorrenciaDto.getDestacada());
+		
 		InformanteOcorrenciaEnum informanteOcorrenciaEnum = null;
 		for(InformanteOcorrenciaEnum informante : InformanteOcorrenciaEnum.values()) {
 			if(informante.getDescricao().equals(ocorrenciaDto.getInformanteOcorrencia())) {

@@ -21,6 +21,7 @@ public class OcorrenciaDTO implements Serializable {
 	private String dataCadastro;
 	private String resumoOcorrencia;
 	private String informanteOcorrencia;
+	private Boolean destacada;
 	private List<CampoCadastroOcorrenciaDTO> campos = new ArrayList<CampoCadastroOcorrenciaDTO>();
 
 	public Long getIdOcorrencia() {
@@ -109,6 +110,14 @@ public class OcorrenciaDTO implements Serializable {
 
 	public void setInformanteOcorrencia(String informanteOcorrencia) {
 		this.informanteOcorrencia = informanteOcorrencia;
+	}
+
+	public Boolean getDestacada() {
+		return destacada;
+	}
+
+	public void setDestacada(Boolean destacada) {
+		this.destacada = destacada;
 	}
 	
 }

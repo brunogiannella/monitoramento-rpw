@@ -57,6 +57,9 @@ public class Ocorrencia implements Serializable {
 	@Column(name = "INFORMANTE_OCORRENCIA")
 	@Enumerated(EnumType.STRING)
 	private InformanteOcorrenciaEnum informanteOcorrencia;
+	
+	@Column(name = "DESTACADA", nullable = false)
+	private Boolean destacada;
 
 	public Long getId() {
 		return id;
@@ -120,6 +123,14 @@ public class Ocorrencia implements Serializable {
 
 	public void setInformanteOcorrencia(InformanteOcorrenciaEnum informanteOcorrencia) {
 		this.informanteOcorrencia = informanteOcorrencia;
+	}
+
+	public Boolean getDestacada() {
+		return destacada;
+	}
+
+	public void setDestacada(Boolean destacada) {
+		this.destacada = destacada;
 	}
 	
 }

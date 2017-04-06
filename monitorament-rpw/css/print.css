@@ -1,4 +1,5 @@
 
+
   -webkit-print-color-adjust:exact;
   body, page {
     background: #ffffff!important;
@@ -58,6 +59,11 @@
     width: 100%;
     border-bottom: dotted 1px black;
   }
+
+.texto-ocorrencia-destacada {
+  font-weight: bold;
+  color: red;
+}
 
 @media print {
    .controles {display: none;}

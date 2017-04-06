@@ -391,6 +391,7 @@ public class TurnoService implements ITurnoService {
 		ocorrenciaDto.setIdTipoOcorrencia(ocorrencia.getTipoOcorrencia().getId());
 		ocorrenciaDto.setDescTipoOcorrencia(ocorrencia.getTipoOcorrencia().getDescricao());
 		ocorrenciaDto.setDataCadastro(formato.format(ocorrencia.getDataCadastro()));
+		ocorrenciaDto.setDestacada(ocorrencia.getDestacada());
 
 		Gson gson = new GsonBuilder().create();
 		List<CampoCadastroOcorrenciaDTO> campos = gson.fromJson(ocorrencia.getValores(),
