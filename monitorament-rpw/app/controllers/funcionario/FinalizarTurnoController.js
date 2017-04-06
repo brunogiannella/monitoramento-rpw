@@ -31,7 +31,7 @@
 			var funcSucesso = function(data) {
 				alert("Turno finalizado com sucesso, o mesmo será enviado para validação.");
 				UtilsService.desativarLoading();
-				UtilsService.irPara("home-funcionario");
+				UtilsService.irPara("orientacoes-envio", {idTurno: vm.codigoTurno});
 			};
 
 			TurnoService.fecharTurno(vm.turnoDto, funcSucesso);

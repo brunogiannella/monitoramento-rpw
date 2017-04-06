@@ -221,6 +221,12 @@ public class TurnoService implements ITurnoService {
 		turnoDTO.setNomeCliente(turno.getCliente().getNome());
 		turnoDTO.setNomeUsuario(turno.getUsuario().getNome());
 		turnoDTO.setLiderSeguranca(turno.getLiderSeguranca());
+		
+		turnoDTO.setEmailsRelatorioDiario(new ArrayList<String>());
+		String[] emailsD = turno.getCliente().getEmailsRelatorioDiario().split(";");
+		for(String e : emailsD) {
+			turnoDTO.getEmailsRelatorioDiario().add(e);
+		}
 
 		if (turno.getOperadores() != null) {
 			turnoDTO.setOperadores(new ArrayList<String>());

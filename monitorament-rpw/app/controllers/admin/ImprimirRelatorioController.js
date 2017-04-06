@@ -31,6 +31,8 @@
 		function voltar() {
 			if(vm.consumidor == "admin") {
 				UtilsService.irPara('home-administrador');
+			} else if(vm.consumidor == "funcionario") {
+				UtilsService.irPara('home-funcionario');
 			} else {
 				UtilsService.irPara('home-cliente');
 			}

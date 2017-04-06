@@ -7,6 +7,7 @@ var app = angular.module('app',['ui.router',
                   'consultarTurnosUsuario.controller',
                   'iniciarNovoTurnoController.controller',
                   'finalizarTurno.controller',
+                  'orientacoesEnvio.controller',
                   'gerenciarCamerasController.controller',
                   'homeAdmin.controller',
                   'turnosPendentes.controller',
@@ -97,6 +98,14 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       },
       templateUrl: 'app/views/funcionario/finalizar-turno.html',
       controller: 'FinalizarTurnoController as FinalizarTurnoCrtl'
+    })
+    .state('orientacoes-envio', {
+      url: '/orientacoes-envio',
+      params: {
+        idTurno : null
+      },
+      templateUrl: 'app/views/funcionario/orientacoes-envio.html',
+      controller: 'OrientacoesEnvioController as OrientacoesEnvioCrtl'
     })
     .state('cadastrar-ocorrencia', {
       url: '/cadastrar-ocorrencia',

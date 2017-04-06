@@ -113,7 +113,7 @@ public class TurnoController {
 			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
 		}
 	}
-	
+		
 	@RequestMapping(value="/{id}/detalhe", method = RequestMethod.GET)
 	public RestObject consultarDetalheTurno(@PathVariable("id") Long idTurno, @RequestHeader(value="x-acess-token") String token) { 
 		try {

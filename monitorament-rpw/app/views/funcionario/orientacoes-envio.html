@@ -1,0 +1,101 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>RPW • Admin</title>
+        <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="css/admin.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body class="bgcliente">
+      <!-- MENU -->
+      <nav>
+
+        <div class="nav-wrapper">
+
+          <div class="logo-symbol hide-on-med-and-up">
+            <img src="img/logo_symbol.png" width="116" height="143">
+          </div>
+
+          <ul class="left hide-on-med-and-up2 btn_menu" data-activates="slide-out">
+            <li><a href="#!"><i class="material-icons">menu</i></a></li>
+          </ul>
+
+          <ul class="right hide-on-small-only btn_sair">
+            <li><a href="#" ng-click="OrientacoesEnvioCrtl.sair();"><i class="material-icons right">exit_to_app</i>Sair</a></li>
+          </ul>
+        </div>
+
+             <ul id="slide-out" class="side-nav fixed rpw-menu">
+              <li class="logo"><img src="img/logo_rpw.png" /></li>
+              <li><a ng-click="OrientacoesEnvioCrtl.inicio();" class="waves-effect"><i class="material-icons">home</i>Início</a></li>
+              <li><div class="divider"></div></li>
+              <li><a ng-click="OrientacoesEnvioCrtl.voltar();" class="waves-effect"><i class="material-icons">business</i>Voltar</a></li>
+            </ul>
+
+
+
+      </nav>
+      <!-- /MENU -->
+
+      <main class="bg-transparent">
+        <div class="section">
+          <div class="container2">
+            <div class="row no-m">
+            <form novalidate name="mainForm" ng-submit="OrientacoesEnvioCrtl.imprimirRelatorio();">
+              <div class="col s12">
+                  <h5 class="header blue-text text-darken-2 center-on-small-only title"><i class="material-icons">slow_motion_video</i> <span class="light"> Orientações de envio do relatório</span></h5>
+                  
+                    <div class="card-panel">
+                      <p>Siga as instruções abaixo para enviar o relatório do turno ao cliente {{OrientacoesEnvioCrtl.nomeCliente}}.</p>
+                      <br/>
+
+                      <p>Primeiro abra o Outlook e crie um novo e-mail.</p>
+                      <br/>
+
+                      <p>O e-mail deve ser enviado para {{OrientacoesEnvioCrtl.emailsRelatorioDiario}}.</p>
+                      <br/>
+                  
+                      <p>Após preparar o e-mail, clique em Imprimir relatório no botão abaixo. Será aberto uma página com o relatório a ser enviado.</p>
+                      <br/>
+
+                      <p>Clique no Botão Imprimir e salve em PDF.</p>
+                      <br/>
+
+                      <p>Coloque o PDF do relatório em anexo no E-mail e envie ao cliente {{OrientacoesEnvioCrtl.nomeCliente}}.</p>
+                      <br/>
+                    </div>
+
+                <div class="input-field col s12">
+                  <button type="submit" class="btn-large blue darken-2 waves-effect waves-light col s12">Imprimir Relatório
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </main>        
+      
+
+      <!-- Scripts -->
+      <script type="text/javascript" src="js/materialize.js"></script>
+      <script type="text/javascript">
+        $(document).ready(function(){
+            $('.selectable').material_select();
+            $('#fecharturno').leanModal();
+            $('.btn_menu').sideNav({
+                menuWidth: 285, 
+                closeOnClick: false
+              }
+            );
+            $('.collapsible').collapsible();
+            $('.caret').remove();
+          });
+
+      </script>
+      <!-- /Scripts -->
+    </body>
+  </html>

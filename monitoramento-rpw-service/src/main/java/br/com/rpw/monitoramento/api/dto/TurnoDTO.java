@@ -15,6 +15,7 @@ public class TurnoDTO {
 	private String nomeCliente;
 	private String liderSeguranca;
 	private Long idCliente;
+	private List<String> emailsRelatorioDiario = new ArrayList<String>();
 	private String periodo;
 	private String status;
 	private List<String> operadores = new ArrayList<String>();
@@ -150,6 +151,14 @@ public class TurnoDTO {
 
 	public void setOcorrenciasPersonalizadasDto(List<GrupoOcorrenciasDto> ocorrenciasPersonalizadasDto) {
 		this.ocorrenciasPersonalizadasDto = ocorrenciasPersonalizadasDto;
+	}
+
+	public List<String> getEmailsRelatorioDiario() {
+		return emailsRelatorioDiario;
+	}
+
+	public void setEmailsRelatorioDiario(List<String> emailsRelatorioDiario) {
+		this.emailsRelatorioDiario = emailsRelatorioDiario;
 	}
 
 }
