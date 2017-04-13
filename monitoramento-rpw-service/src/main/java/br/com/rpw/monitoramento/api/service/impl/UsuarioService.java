@@ -60,14 +60,46 @@ public class UsuarioService implements IUsuarioService {
 	@Override
 	public void atualizarUsuario(CadastrarUsuarioRequestDTO cadastrarUsuarioRequestDto) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		Usuario usuarioPrincipal = consultarUsuario(cadastrarUsuarioRequestDto.getId());
-		Usuario usuario = converterCadastrarUsuarioRequestDTOemUsuario(cadastrarUsuarioRequestDto);
-		usuario.setSenha(usuarioPrincipal.getSenha());
-		usuario.setAtivo(true);
-		enderecoDaoImpl.atualizarEndereco(usuario.getEndereco());
-		telefoneDaoImpl.atualizarTelefone(usuario.getTelefone());
-		usuarioDaoImpl.atualizarUsuario(usuario);
+		converterCadastrarUsuarioRequestDTOemUsuario(cadastrarUsuarioRequestDto, usuarioPrincipal);
+		usuarioPrincipal.setAtivo(true);
+		enderecoDaoImpl.atualizarEndereco(usuarioPrincipal.getEndereco());
+		telefoneDaoImpl.atualizarTelefone(usuarioPrincipal.getTelefone());
+		usuarioDaoImpl.atualizarUsuario(usuarioPrincipal);
 	}
 	
+	private void converterCadastrarUsuarioRequestDTOemUsuario(CadastrarUsuarioRequestDTO cadastrarUsuarioRequestDto,
+			Usuario usuarioPrincipal) {
+		
+		usuarioPrincipal.setUsuario(cadastrarUsuarioRequestDto.getUsuario());
+		usuarioPrincipal.getTelefone().setDdd(cadastrarUsuarioRequestDto.getTelefone().getDdd());
+		usuarioPrincipal.getTelefone().setTelefone(cadastrarUsuarioRequestDto.getTelefone().getTelefone());
+		usuarioPrincipal.getEndereco().setBairro(cadastrarUsuarioRequestDto.getEndereco().getBairro());
+		usuarioPrincipal.getEndereco().setCep(cadastrarUsuarioRequestDto.getEndereco().getCep());
+		usuarioPrincipal.getEndereco().setCidade(cadastrarUsuarioRequestDto.getEndereco().getCidade());
+		usuarioPrincipal.getEndereco().setEstado(cadastrarUsuarioRequestDto.getEndereco().getEstado());
+		usuarioPrincipal.getEndereco().setLogradouro(cadastrarUsuarioRequestDto.getEndereco().getLogradouro());
+		usuarioPrincipal.setEmail(cadastrarUsuarioRequestDto.getEmail());
+		usuarioPrincipal.setNome(cadastrarUsuarioRequestDto.getNome());
+		
+		TipoUsuarioEnum tipoUsuario = null;
+		
+		for(TipoUsuarioEnum tipo : TipoUsuarioEnum.values()) {
+			if(tipo.getDescricao().equals(cadastrarUsuarioRequestDto.getTipoUsuario())) {
+				tipoUsuario = tipo;
+				break;
+			}
+		}
+		
+		usuarioPrincipal.setTipoUsuario(tipoUsuario);
+		
+		if(cadastrarUsuarioRequestDto.getIdCliente() != null) {
+			Cliente cliente = new Cliente();
+			cliente.setId(cadastrarUsuarioRequestDto.getIdCliente());
+			usuarioPrincipal.setCliente(cliente);
+		}
+		
+	}
+
 	@Override
 	public Usuario consultarUsuario(Long id) {
 		return usuarioDaoImpl.consultarUsuario(id);

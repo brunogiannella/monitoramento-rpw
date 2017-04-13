@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -65,7 +66,10 @@ public class OcorrenciaService implements IOcorrenciaService {
 		return ocorrenciaDaoImpl.listarOcorrencias(cliente, mes, ano);
 	}
 	
-	private Ocorrencia converterOcorrenciaDTOEmOcorrencia(OcorrenciaDTO ocorrenciaDto) {
+	private Ocorrencia converterOcorrenciaDTOEmOcorrencia(OcorrenciaDTO ocorrenciaDto) throws ParseException {
+		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		SimpleDateFormat formatoFinal = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		
 		Ocorrencia ocorrencia = new Ocorrencia();
 		ocorrencia.setDataCadastro(new Date());
 		
@@ -104,6 +108,8 @@ public class OcorrenciaService implements IOcorrenciaService {
 				if(TipoCampoEnum.DATA.getDescricao().equals(campo.getTipo())) {
 					if(campo.getValor() != null) {
 						campo.setValor(campo.getValor().replace("T", " "));
+						Date data = formato.parse(campo.getValor());
+						campo.setValor(formatoFinal.format(data));
 					}
 				}
 			}
