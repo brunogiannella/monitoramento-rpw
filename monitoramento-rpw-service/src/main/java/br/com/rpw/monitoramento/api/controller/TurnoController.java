@@ -1,6 +1,8 @@
 package br.com.rpw.monitoramento.api.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +41,18 @@ public class TurnoController {
 			Usuario usuario = usuarioService.consultarUsuario(iniciarTurnoRequestDTO.getIdUsuario());
 			
 			if(TokenUtil.validToken(token, usuario)) {
+				
+				SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+				Date dataInicioTurno = formato.parse(iniciarTurnoRequestDTO.getDataInicio().replace("T", " "));
+				
+				if(dataInicioTurno.getTime() > new Date().getTime()){
+					return new RestObject(200, false, "A data de inicido do turno não pode ser maior que a data atual.", null);
+				}
+				
 				Long idTurno = turnoService.iniciarTurno(iniciarTurnoRequestDTO);
 				
 				if(idTurno == null) {
-					return new RestObject(200, true, "Ocorreu um problema ao cadastrar o turno", null);
+					return new RestObject(200, false, "Ocorreu um problema ao cadastrar o turno", null);
 				}
 				
 				return new RestObject(200, true, "Turno cadastrado com sucesso", idTurno);
@@ -59,6 +69,13 @@ public class TurnoController {
 	@RequestMapping(value="/finalizar", method = RequestMethod.POST)
 	public RestObject fecharTurno(@RequestBody TurnoDTO turnoDto) { 
 		try {
+			SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			Date dataInicioTurno = formato.parse(turnoDto.getDataFim().replace("T", " "));
+			
+			if(dataInicioTurno.getTime() > new Date().getTime()){
+				return new RestObject(200, false, "A data de término do turno não pode ser maior que a data atual.", null);
+			}
+			
 			Boolean sucesso = turnoService.finalizarTurno(turnoDto);
 			
 			if(!sucesso) {

@@ -338,7 +338,7 @@
               <td class="textBold" ng-repeat="campo in grupoOcorrencia.ocorrenciasDto[0].campos">{{campo.descricao}}</td>
             </tr>
             <tr ng-repeat="ocorrencia in grupoOcorrencia.ocorrenciasDto">
-              <td width="{{campo.tamanho}}%" ng-repeat="campo in ocorrencia.campos">{{campo.valor}}</td>
+              <td width="{{campo.tamanho}}%" ng-repeat="campo in ocorrencia.campos" ng-class="{'texto-ocorrencia-destacada':ocorrencia.destacada}">{{campo.valor}}</td>
             </tr>
           </table>
         </div>

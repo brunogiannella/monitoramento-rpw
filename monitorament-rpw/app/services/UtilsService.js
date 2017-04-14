@@ -38,7 +38,11 @@
 
 		function tratarErrosHttp(response) {
 			desativarLoading();
-			alert("Ocorreu um problema durante a operação. Tente novamente por favor.");
+			if(response.data.message != null && response.data.message != "") {
+				alert(response.data.message);
+			} else {
+				alert("Ocorreu um problema durante a operação. Tente novamente por favor.");
+			}
 		}
 
 		function getMonth(mes) {

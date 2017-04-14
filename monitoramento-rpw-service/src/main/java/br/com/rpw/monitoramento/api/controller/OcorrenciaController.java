@@ -1,5 +1,7 @@
 package br.com.rpw.monitoramento.api.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.rpw.monitoramento.api.constantes.InformanteOcorrenciaEnum;
+import br.com.rpw.monitoramento.api.dto.CampoCadastroOcorrenciaDTO;
 import br.com.rpw.monitoramento.api.dto.OcorrenciaDTO;
 import br.com.rpw.monitoramento.api.model.Ocorrencia;
 import br.com.rpw.monitoramento.api.model.RestObject;
@@ -30,6 +33,22 @@ public class OcorrenciaController {
 	@RequestMapping(value="", method = RequestMethod.POST)
 	public RestObject cadastrarOcorrencia(@RequestBody OcorrenciaDTO ocorrenciaDTO, @RequestHeader(value="x-acess-token") String token) { 
 		try {
+			
+			if(ocorrenciaDTO.getCampos() != null) {
+				for(CampoCadastroOcorrenciaDTO campo : ocorrenciaDTO.getCampos()) {
+					if("DATA".equals(campo.getTipo())) {
+						if(campo.getValor() != null && campo.getValor() != "") {
+							SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+							Date dataInicioTurno = formato.parse(campo.getValor().replace("T", " "));
+							
+							if(dataInicioTurno.getTime() > new Date().getTime()){
+								return new RestObject(200, false, "A data informada não pode ser maior que a data atual.", null);
+							}
+						}
+					}
+				}
+			}
+			
 			ocorrenciaService.cadastrarOcorrencia(ocorrenciaDTO);
 			return new RestObject(200, true, "Ocorrencia cadastrado com sucesso", null);
 		} catch(Exception e) {
