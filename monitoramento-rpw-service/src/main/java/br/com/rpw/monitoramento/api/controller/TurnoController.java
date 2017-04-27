@@ -130,6 +130,23 @@ public class TurnoController {
 			return new RestObject(500, false, "Ocorreu um erro na consulta: " + e.getMessage(), null);
 		}
 	}
+	
+	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
+	public RestObject removerTurno(@PathVariable("id") Long idturno, @RequestHeader(value="x-acess-token") String token) { 
+		try {
+			
+			if(TokenUtil.simpleValidToken(token)) {
+				turnoService.deletarTurno(idturno);				
+				return new RestObject(200, true, "Turno removido com sucesso", null);
+			} else {
+				return new RestObject(401, false, "Token inválido.", null);
+			}
+			
+			
+		} catch(Exception e) {
+			return new RestObject(500, false, "Ocorreu um erro ao remover: " + e.getMessage(), null);
+		}
+	}
 		
 	@RequestMapping(value="/{id}/detalhe", method = RequestMethod.GET)
 	public RestObject consultarDetalheTurno(@PathVariable("id") Long idTurno, @RequestHeader(value="x-acess-token") String token) { 
@@ -282,13 +299,13 @@ public class TurnoController {
 		}
 	}
 	
-	@RequestMapping(value="/clientes/{idCliente}/ultimos/10", method = RequestMethod.GET)
-	public RestObject consultarDezUltimosTurnosCliente(@PathVariable("idCliente") Long idUsuario, @RequestHeader(value="x-acess-token") String token) { 
+	@RequestMapping(value="/clientes/{idCliente}/ultimos/{quantidade}", method = RequestMethod.GET)
+	public RestObject consultarDezUltimosTurnosCliente(@PathVariable("idCliente") Long idUsuario, @PathVariable("quantidade") Integer quantidade, @RequestHeader(value="x-acess-token") String token) { 
 		try {
 			if(TokenUtil.simpleValidToken(token)) {
 				Cliente cliente = new Cliente();
 				cliente.setId(idUsuario);
-				List<Turno> ultimosDezTurnos = turnoService.listarUltimosDezTurnosCliente(cliente);
+				List<Turno> ultimosDezTurnos = turnoService.listarUltimosDezTurnosCliente(cliente, quantidade);
 				
 				if(ultimosDezTurnos == null) {
 					return new RestObject(200, true, "Nenhum turno encontrado para o cliente.", null);

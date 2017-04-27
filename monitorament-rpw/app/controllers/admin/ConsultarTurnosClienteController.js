@@ -22,11 +22,26 @@
 			};
 
 			if(vm.tipoConsulta == "ultimos10") {
-				TurnoService.consultarUltimosDezTurnos(vm.idCliente, funcSucesso);
+				TurnoService.consultarUltimosDezTurnos(vm.idCliente, 10, funcSucesso);
 			} else if(vm.tipoConsulta == "em_andamento") {
 				TurnoService.consultarTurnosAndamentoCliente(vm.idCliente, funcSucesso);
 			}
 			
+		};
+
+		function consultar() {
+
+			var funcSucesso = function(data) {
+				if(data != null && data.length > 0) {
+					vm.turnos = data;
+				}
+			};
+
+			if(vm.tipoConsulta == "ultimos10") {
+				TurnoService.consultarUltimosDezTurnos(vm.idCliente, vm.quantidade, funcSucesso);
+			} else if(vm.tipoConsulta == "em_andamento") {
+				TurnoService.consultarTurnosAndamentoCliente(vm.idCliente, funcSucesso);
+			}
 		};
 
 		function inicio() {
@@ -53,6 +68,10 @@
 			UtilsService.irPara('aprovar-turno', {idTurno: id});
 		}
 
+		function removerTurno(id) {
+			UtilsService.irPara('remover-turno', {idTurno: id});
+		}
+
 		function enviar(id) {
 			UtilsService.irPara('home-administrador');
 		}
@@ -71,6 +90,8 @@
 		vm.enviar = enviar;
 		vm.visualizarRelatorio = visualizarRelatorio;
 		vm.turnoSelecionado = "";
+		vm.consultar = consultar;
+		vm.removerTurno = removerTurno;
 		
 		inicializar();
 

@@ -25,6 +25,7 @@ import br.com.rpw.monitoramento.api.dao.impl.CameraDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.ClienteDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.ClienteTipoOcorrenciaDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.OcorrenciaDaoImpl;
+import br.com.rpw.monitoramento.api.dao.impl.RastreabilidadeDaoImpl;
 import br.com.rpw.monitoramento.api.dao.impl.SituacaoCameraDaoImpl;
 import br.com.rpw.monitoramento.api.dto.CampoCadastroOcorrenciaDTO;
 import br.com.rpw.monitoramento.api.dto.ClienteDTO;
@@ -38,6 +39,7 @@ import br.com.rpw.monitoramento.api.model.Camera;
 import br.com.rpw.monitoramento.api.model.Cliente;
 import br.com.rpw.monitoramento.api.model.ClienteTipoOcorrencia;
 import br.com.rpw.monitoramento.api.model.Ocorrencia;
+import br.com.rpw.monitoramento.api.model.Rastreabilidade;
 import br.com.rpw.monitoramento.api.model.RelatorioMensal;
 import br.com.rpw.monitoramento.api.model.SituacaoCamera;
 import br.com.rpw.monitoramento.api.service.IRelatorioService;
@@ -60,6 +62,9 @@ public class RelatorioService implements IRelatorioService {
 	
 	@Autowired
 	private ClienteTipoOcorrenciaDaoImpl clienteTipoOcorrenciaDaoImpl;
+	
+	@Autowired
+	private RastreabilidadeDaoImpl rastreabilidadeDaoImpl;
 
 	@Override
 	public RelatorioMensal consultarRelatorioMensal(Cliente cliente, String mes, String ano) throws ParseException {
@@ -76,67 +81,79 @@ public class RelatorioService implements IRelatorioService {
 		
 		if(tiposOcorrenciaCliente != null) {
 			for(ClienteTipoOcorrencia tipoOcorrencia : tiposOcorrenciaCliente) {
-				QuantidadeOcorrencias quantidadeOcorrencia = new QuantidadeOcorrencias();
-				quantidadeOcorrencia.setDescricaoTipoOcorrencia(tipoOcorrencia.getTipoOcorrencia().getDescricao());
-				quantidadeOcorrencia.setQuantidadeOcorrencias(ocorrenciaDaoImpl.consultarQuantidadeOcorrenciasClienteTipoOcorrencia(clienteMes, tipoOcorrencia.getTipoOcorrencia(), Integer.parseInt(mes), Integer.parseInt(ano)).intValue());
-				quantidadeOcorrencias.add(quantidadeOcorrencia);
-				
-				QuantidadeOcorrenciasMesDetalhado quantidadeOcorrenciasMesDetalhadoMonitoramento = new QuantidadeOcorrenciasMesDetalhado();
-				quantidadeOcorrenciasMesDetalhadoMonitoramento.setDescricaoTipoOcorrencia(tipoOcorrencia.getTipoOcorrencia().getDescricao());
-				
-				QuantidadeOcorrenciasMesDetalhado quantidadeOcorrenciasMesDetalhadoSeguranca = new QuantidadeOcorrenciasMesDetalhado();
-				quantidadeOcorrenciasMesDetalhadoSeguranca.setDescricaoTipoOcorrencia(tipoOcorrencia.getTipoOcorrencia().getDescricao());
-				
-				List<Ocorrencia> ocorrenciasPeriodo = ocorrenciaDaoImpl.consultarOcorrencia(clienteMes, tipoOcorrencia.getTipoOcorrencia(), Integer.parseInt(mes), Integer.parseInt(ano));
-				Map<Integer, Integer> quantidadesSeguranca = new HashMap<Integer, Integer>();
-				Map<Integer, Integer> quantidadesMonitoramento = new HashMap<Integer, Integer>();
-				
-				for(Ocorrencia ocorrencia : ocorrenciasPeriodo) {
-					Calendar cal = Calendar.getInstance();
-					cal.setTime(ocorrencia.getDataCadastro());
-					int day = cal.get(Calendar.DAY_OF_MONTH);
+				try {
+					QuantidadeOcorrencias quantidadeOcorrencia = new QuantidadeOcorrencias();
+					quantidadeOcorrencia.setDescricaoTipoOcorrencia(tipoOcorrencia.getTipoOcorrencia().getDescricao());
+					quantidadeOcorrencia.setQuantidadeOcorrencias(ocorrenciaDaoImpl.consultarQuantidadeOcorrenciasClienteTipoOcorrencia(clienteMes, tipoOcorrencia.getTipoOcorrencia(), Integer.parseInt(mes), Integer.parseInt(ano)).intValue());
+					quantidadeOcorrencias.add(quantidadeOcorrencia);
+					
+					QuantidadeOcorrenciasMesDetalhado quantidadeOcorrenciasMesDetalhadoMonitoramento = new QuantidadeOcorrenciasMesDetalhado();
+					quantidadeOcorrenciasMesDetalhadoMonitoramento.setDescricaoTipoOcorrencia(tipoOcorrencia.getTipoOcorrencia().getDescricao());
+					
+					QuantidadeOcorrenciasMesDetalhado quantidadeOcorrenciasMesDetalhadoSeguranca = new QuantidadeOcorrenciasMesDetalhado();
+					quantidadeOcorrenciasMesDetalhadoSeguranca.setDescricaoTipoOcorrencia(tipoOcorrencia.getTipoOcorrencia().getDescricao());
+					
+					List<Ocorrencia> ocorrenciasPeriodo = ocorrenciaDaoImpl.consultarOcorrencia(clienteMes, tipoOcorrencia.getTipoOcorrencia(), Integer.parseInt(mes), Integer.parseInt(ano));
+					Map<Integer, Integer> quantidadesSeguranca = new HashMap<Integer, Integer>();
+					Map<Integer, Integer> quantidadesMonitoramento = new HashMap<Integer, Integer>();
+					
+					for(Ocorrencia ocorrencia : ocorrenciasPeriodo) {
+						Calendar cal = Calendar.getInstance();
+						cal.setTime(ocorrencia.getDataCadastro());
+						int day = cal.get(Calendar.DAY_OF_MONTH);
 
-					if(InformanteOcorrenciaEnum.SEGURANCA.equals(ocorrencia.getInformanteOcorrencia())) {
-						if(quantidadesSeguranca.containsKey(day)) {
-							quantidadesSeguranca.put(day, quantidadesSeguranca.get(day) + 1);
+						if(InformanteOcorrenciaEnum.SEGURANCA.equals(ocorrencia.getInformanteOcorrencia())) {
+							if(quantidadesSeguranca.containsKey(day)) {
+								quantidadesSeguranca.put(day, quantidadesSeguranca.get(day) + 1);
+							} else {
+								quantidadesSeguranca.put(day, 1);
+							}
 						} else {
-							quantidadesSeguranca.put(day, 1);
+							if(quantidadesMonitoramento.containsKey(day)) {
+								quantidadesMonitoramento.put(day, quantidadesMonitoramento.get(day) + 1);
+							} else {
+								quantidadesMonitoramento.put(day, 1);
+							}
 						}
-					} else {
-						if(quantidadesMonitoramento.containsKey(day)) {
-							quantidadesMonitoramento.put(day, quantidadesMonitoramento.get(day) + 1);
-						} else {
-							quantidadesMonitoramento.put(day, 1);
-						}
+						
 					}
 					
-				}
-				
-				Integer total = 0;
-				for(int i = 0; i <= 31; i++) {
-					Integer quantidade = 0;
-					if(quantidadesMonitoramento.get(i) != null) {
-						quantidade = quantidadesMonitoramento.get(i);
-						total = total + quantidade;
+					Integer total = 0;
+					for(int i = 0; i <= 31; i++) {
+						Integer quantidade = 0;
+						if(quantidadesMonitoramento.get(i) != null) {
+							quantidade = quantidadesMonitoramento.get(i);
+							total = total + quantidade;
+						}
+						quantidadeOcorrenciasMesDetalhadoMonitoramento.getQuantidadeOcorrenciasDia().add(quantidade);
+						quantidadeOcorrenciasMesDetalhadoMonitoramento.setTotal(total);
 					}
-					quantidadeOcorrenciasMesDetalhadoMonitoramento.getQuantidadeOcorrenciasDia().add(quantidade);
-					quantidadeOcorrenciasMesDetalhadoMonitoramento.setTotal(total);
-				}
-				
-				total = 0;
-				for(int i = 0; i <= 31; i++) {
-					Integer quantidade = 0;
-					if(quantidadesSeguranca.get(i) != null) {
-						quantidade = quantidadesSeguranca.get(i);
-						total = total + quantidade;
+					
+					total = 0;
+					for(int i = 0; i <= 31; i++) {
+						Integer quantidade = 0;
+						if(quantidadesSeguranca.get(i) != null) {
+							quantidade = quantidadesSeguranca.get(i);
+							total = total + quantidade;
+						}
+						quantidadeOcorrenciasMesDetalhadoSeguranca.getQuantidadeOcorrenciasDia().add(quantidade);
+						quantidadeOcorrenciasMesDetalhadoSeguranca.setTotal(total);
 					}
-					quantidadeOcorrenciasMesDetalhadoSeguranca.getQuantidadeOcorrenciasDia().add(quantidade);
-					quantidadeOcorrenciasMesDetalhadoSeguranca.setTotal(total);
-				}
-				
-				quantidadesOcorrenciasMesDetalhadoMonitoramento.add(quantidadeOcorrenciasMesDetalhadoMonitoramento);
-				quantidadesOcorrenciasMesDetalhadoSeguranca.add(quantidadeOcorrenciasMesDetalhadoSeguranca);
+					
+					quantidadesOcorrenciasMesDetalhadoMonitoramento.add(quantidadeOcorrenciasMesDetalhadoMonitoramento);
+					quantidadesOcorrenciasMesDetalhadoSeguranca.add(quantidadeOcorrenciasMesDetalhadoSeguranca);
+				} catch (Exception e) {
 
+					Rastreabilidade rastreabilidade = new Rastreabilidade();
+					rastreabilidade.setFuncao("Gerar relatório mensal - ClienteTipoOcorrencia");
+					rastreabilidade.setDataHora(new Date());
+					rastreabilidade.setException(e.getMessage());
+					rastreabilidade.setComplemento("ID Cliente: " + tipoOcorrencia.getCliente().getId());
+
+					rastreabilidadeDaoImpl.salvarRastreabilidade(rastreabilidade);
+
+					continue;
+				}
 			}
 		}
 
@@ -152,16 +169,29 @@ public class RelatorioService implements IRelatorioService {
 		List<String> gruposCamera = cameraDaoImpl.listarCamerasGroupNumeroCamera(clienteMes);
 		if(gruposCamera != null) {
 			for(String grupo : gruposCamera) {
-				GrupoEquipamento grupoEquipamento = new GrupoEquipamento();
-				grupoEquipamento.setDescricaoGrupoEquipamento(grupo);
-				
-				List<Camera> camerasNumero = cameraDaoImpl.listarCamerasPorClienteENumero(clienteMes, grupo);
-				
-				for(Camera camera : camerasNumero) {
-					grupoEquipamento.getHorasInoperantes().add(calcularQuantidadeHorasInoperantesEquipamento(camera, mes, ano));
+				try {
+					GrupoEquipamento grupoEquipamento = new GrupoEquipamento();
+					grupoEquipamento.setDescricaoGrupoEquipamento(grupo);
+					
+					List<Camera> camerasNumero = cameraDaoImpl.listarCamerasPorClienteENumero(clienteMes, grupo);
+					
+					for(Camera camera : camerasNumero) {
+						grupoEquipamento.getHorasInoperantes().add(calcularQuantidadeHorasInoperantesEquipamento(camera, mes, ano));
+					}
+					
+					gruposEquip.add(grupoEquipamento);
+				} catch (Exception e) {
+
+					Rastreabilidade rastreabilidade = new Rastreabilidade();
+					rastreabilidade.setFuncao("Gerar relatório mensal - GrupoEquipamento");
+					rastreabilidade.setDataHora(new Date());
+					rastreabilidade.setException(e.getMessage());
+					rastreabilidade.setComplemento("Grupo: " + grupo);
+
+					rastreabilidadeDaoImpl.salvarRastreabilidade(rastreabilidade);
+
+					continue;
 				}
-				
-				gruposEquip.add(grupoEquipamento);
 			}
 		}
 		
@@ -226,31 +256,42 @@ public class RelatorioService implements IRelatorioService {
 			
 			long horasDia = 0;
 			for(SituacaoCamera situacao : situacoesDia) {
-				
-				Calendar calDesligada = Calendar.getInstance();
-				calDesligada.setTime(situacao.getDataHoraDesligada());
-				if(calDesligada.get(Calendar.DAY_OF_MONTH) == i) {
-					Calendar calLigada = Calendar.getInstance();
-					
-					if(situacao.getDataHoraLigada() == null) {
-						calLigada.set(Calendar.DAY_OF_MONTH, calDesligada.get(Calendar.DAY_OF_MONTH));
-						calLigada.set(Calendar.MONTH, calDesligada.get(Calendar.MONTH));
-						calLigada.set(Calendar.YEAR, calDesligada.get(Calendar.YEAR));
-						calLigada.set(Calendar.HOUR_OF_DAY, 23);
-						calLigada.set(Calendar.MINUTE, 59);
-					} else {
-						calLigada.setTime(situacao.getDataHoraLigada());
+				try {
+					Calendar calDesligada = Calendar.getInstance();
+					calDesligada.setTime(situacao.getDataHoraDesligada());
+					if(calDesligada.get(Calendar.DAY_OF_MONTH) == i) {
+						Calendar calLigada = Calendar.getInstance();
 						
-						if(calDesligada.get(Calendar.DAY_OF_MONTH) != calLigada.get(Calendar.DAY_OF_MONTH)) {
+						if(situacao.getDataHoraLigada() == null) {
 							calLigada.set(Calendar.DAY_OF_MONTH, calDesligada.get(Calendar.DAY_OF_MONTH));
 							calLigada.set(Calendar.MONTH, calDesligada.get(Calendar.MONTH));
 							calLigada.set(Calendar.YEAR, calDesligada.get(Calendar.YEAR));
 							calLigada.set(Calendar.HOUR_OF_DAY, 23);
 							calLigada.set(Calendar.MINUTE, 59);
+						} else {
+							calLigada.setTime(situacao.getDataHoraLigada());
+							
+							if(calDesligada.get(Calendar.DAY_OF_MONTH) != calLigada.get(Calendar.DAY_OF_MONTH)) {
+								calLigada.set(Calendar.DAY_OF_MONTH, calDesligada.get(Calendar.DAY_OF_MONTH));
+								calLigada.set(Calendar.MONTH, calDesligada.get(Calendar.MONTH));
+								calLigada.set(Calendar.YEAR, calDesligada.get(Calendar.YEAR));
+								calLigada.set(Calendar.HOUR_OF_DAY, 23);
+								calLigada.set(Calendar.MINUTE, 59);
+							}
 						}
+						
+						horasDia = horasDia + ((calLigada.getTimeInMillis() - calDesligada.getTimeInMillis()) / 3600000);
 					}
-					
-					horasDia = horasDia + ((calLigada.getTimeInMillis() - calDesligada.getTimeInMillis()) / 3600000);
+				} catch (Exception e) {
+					Rastreabilidade rastreabilidade = new Rastreabilidade();
+					rastreabilidade.setFuncao("Gerar relatório mensal - SituacaoCamera");
+					rastreabilidade.setDataHora(new Date());
+					rastreabilidade.setException(e.getMessage());
+					rastreabilidade.setComplemento("ID Situacao: " + situacao.getId());
+
+					rastreabilidadeDaoImpl.salvarRastreabilidade(rastreabilidade);
+
+					continue;
 				}
 			}
 			
@@ -274,40 +315,52 @@ public class RelatorioService implements IRelatorioService {
 		
 		if(ocorrencias != null) {
 			for(Ocorrencia ocorrencia : ocorrencias) {
-				if(ocorrencia.getTipoOcorrencia().getAtivo() && ocorrencia.getTipoOcorrencia().getRelatorioMensal()) {
-					OcorrenciaDTO ocorrenciaDto = new OcorrenciaDTO();
-					
-					ocorrenciaDto.setIdOcorrencia(ocorrencia.getId());
-					ocorrenciaDto.setNomeUsuario(ocorrencia.getUsuario().getNome());
-					ocorrenciaDto.setIdTipoOcorrencia(ocorrencia.getTipoOcorrencia().getId());
-					ocorrenciaDto.setDescTipoOcorrencia(ocorrencia.getTipoOcorrencia().getDescricao());
-					ocorrenciaDto.setDataCadastro(formato.format(ocorrencia.getDataCadastro()));
-					
-					Gson gson = new GsonBuilder().create();
-					List<CampoCadastroOcorrenciaDTO> campos = gson.fromJson(ocorrencia.getValores(), new TypeToken<ArrayList<CampoCadastroOcorrenciaDTO>>(){}.getType());
-					ocorrenciaDto.setCampos(campos);
-					
-					if(campos != null) {
-						ocorrenciaDto.setResumoOcorrencia("");
-						for(CampoCadastroOcorrenciaDTO camposCadastro : campos) {
-							if(camposCadastro.getTipo().equals("EQUIPAMENTOS")) {
-								if(camposCadastro.getValor() != null) {
-									Camera camera = cameraDaoImpl.consultarCamera(Long.parseLong(camposCadastro.getValor()));
-									ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camera.getDescricaoCamera() + "; ");
+				try {
+					if(ocorrencia.getTipoOcorrencia().getAtivo() && ocorrencia.getTipoOcorrencia().getRelatorioMensal()) {
+						OcorrenciaDTO ocorrenciaDto = new OcorrenciaDTO();
+						
+						ocorrenciaDto.setIdOcorrencia(ocorrencia.getId());
+						ocorrenciaDto.setNomeUsuario(ocorrencia.getUsuario().getNome());
+						ocorrenciaDto.setIdTipoOcorrencia(ocorrencia.getTipoOcorrencia().getId());
+						ocorrenciaDto.setDescTipoOcorrencia(ocorrencia.getTipoOcorrencia().getDescricao());
+						ocorrenciaDto.setDataCadastro(formato.format(ocorrencia.getDataCadastro()));
+						
+						Gson gson = new GsonBuilder().create();
+						List<CampoCadastroOcorrenciaDTO> campos = gson.fromJson(ocorrencia.getValores(), new TypeToken<ArrayList<CampoCadastroOcorrenciaDTO>>(){}.getType());
+						ocorrenciaDto.setCampos(campos);
+						
+						if(campos != null) {
+							ocorrenciaDto.setResumoOcorrencia("");
+							for(CampoCadastroOcorrenciaDTO camposCadastro : campos) {
+								if(camposCadastro.getTipo().equals("EQUIPAMENTOS")) {
+									if(camposCadastro.getValor() != null) {
+										Camera camera = cameraDaoImpl.consultarCamera(Long.parseLong(camposCadastro.getValor()));
+										ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camera.getDescricaoCamera() + "; ");
+									} else {
+										ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": Não informado; ");
+									}
 								} else {
-									ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": Não informado; ");
+									ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camposCadastro.getValor() + "; " );
 								}
-							} else {
-								ocorrenciaDto.setResumoOcorrencia(ocorrenciaDto.getResumoOcorrencia() + camposCadastro.getDescricao() + ": " + camposCadastro.getValor() + "; " );
+								
 							}
-							
 						}
+						
+						if(!gruposOcorrencia.containsKey(ocorrenciaDto.getDescTipoOcorrencia())) {
+							gruposOcorrencia.put(ocorrenciaDto.getDescTipoOcorrencia(), new ArrayList<OcorrenciaDTO>());
+						}
+						gruposOcorrencia.get(ocorrenciaDto.getDescTipoOcorrencia()).add(ocorrenciaDto);
 					}
-					
-					if(!gruposOcorrencia.containsKey(ocorrenciaDto.getDescTipoOcorrencia())) {
-						gruposOcorrencia.put(ocorrenciaDto.getDescTipoOcorrencia(), new ArrayList<OcorrenciaDTO>());
-					}
-					gruposOcorrencia.get(ocorrenciaDto.getDescTipoOcorrencia()).add(ocorrenciaDto);
+				} catch (Exception e) {
+					Rastreabilidade rastreabilidade = new Rastreabilidade();
+					rastreabilidade.setFuncao("Gerar relatório mensal - converterOcorrenciasEmGrupoOcorrencias");
+					rastreabilidade.setDataHora(new Date());
+					rastreabilidade.setException(e.getMessage());
+					rastreabilidade.setComplemento("ID Ocorrencia: " + ocorrencia.getId());
+
+					rastreabilidadeDaoImpl.salvarRastreabilidade(rastreabilidade);
+
+					continue;
 				}
 			}
 		}

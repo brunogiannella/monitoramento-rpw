@@ -74,6 +74,34 @@
 			});
 		};
 
+		function removerTurno(idTurno, fncSucesso) {
+
+			var  data = {};
+
+			$http({	
+				url : ConstantesService.URL.SERVIDOR + 'turno/'+idTurno,
+				method : 'DELETE',
+				headers: {
+					'x-acess-token': UtilsService.getToken()
+				}
+			}).then(
+		       function(response){
+
+		       	  if(response.data.sucess) {
+		       	  	fncSucesso(response.data.data);
+		       	  } else {
+		       	  	return false;
+		       	  }
+
+		       }, 
+		       function(response){
+		         return false;
+		       }
+		    ).catch(function() {
+				return false;
+			});
+		};
+
 		function consultarTurno(idTurno, fncSucesso) {
 
 			var  data = {};
@@ -354,12 +382,12 @@
 			});
 		};
 
-		function consultarUltimosDezTurnos(idCliente, fncSucesso) {
+		function consultarUltimosDezTurnos(idCliente, quantidade, fncSucesso) {
 
 			var  data = {};
 
 			$http({	
-				url : ConstantesService.URL.SERVIDOR + '/turno/clientes/'+ idCliente +'/ultimos/10',
+				url : ConstantesService.URL.SERVIDOR + '/turno/clientes/'+ idCliente +'/ultimos/' + quantidade,
 				method : 'GET',
 				headers: {
 					'x-acess-token': UtilsService.getToken()
@@ -425,7 +453,8 @@
 			consultarTurnosAndamento : consultarTurnosAndamento,
 			consultarTurnosAndamentoCliente : consultarTurnosAndamentoCliente,
 			consultarUltimosDezTurnos : consultarUltimosDezTurnos,
-			aprovarTurno : aprovarTurno
+			aprovarTurno : aprovarTurno,
+			removerTurno : removerTurno
 		}
 	}
 

@@ -114,6 +114,21 @@ public class TurnoService implements ITurnoService {
 
 		return null;
 	}
+	
+	@Override
+	public void deletarTurno(Long idTurno) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		try {
+			turnoDaoImpl.deleteTurno(idTurno);
+		} catch (Exception e) {
+			Rastreabilidade rastreabilidade = new Rastreabilidade();
+			rastreabilidade.setFuncao("Consultar turno");
+			rastreabilidade.setDataHora(new Date());
+			rastreabilidade.setException(e.getMessage());
+			rastreabilidade.setComplemento("ID Turno: " + idTurno);
+
+			rastreabilidadeDaoImpl.salvarRastreabilidade(rastreabilidade);
+		}
+	}
 
 	@Override
 	public List<Turno> consultarTurnos(Long idUsuario, StatusTurnoEnum status)
@@ -136,10 +151,10 @@ public class TurnoService implements ITurnoService {
 	}
 
 	@Override
-	public List<Turno> listarUltimosDezTurnosCliente(Cliente cliente)
+	public List<Turno> listarUltimosDezTurnosCliente(Cliente cliente, Integer quantidade)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		try {
-			return turnoDaoImpl.listarUltimosDezTurnosCliente(cliente);
+			return turnoDaoImpl.listarUltimosDezTurnosCliente(cliente, quantidade);
 		} catch (Exception e) {
 			Rastreabilidade rastreabilidade = new Rastreabilidade();
 			rastreabilidade.setFuncao("Consultar últimos 10 turnos do cliente");

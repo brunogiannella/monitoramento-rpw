@@ -45,7 +45,7 @@ public class Turno implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "ID_USUARIO")
 	private Usuario usuario;
-	
+
 	@Column(name = "NOME_LIDER_SEGURANCA")
 	private String liderSeguranca;
 
@@ -60,12 +60,15 @@ public class Turno implements Serializable {
 	@Column(name = "STATUS_TURNO", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private StatusTurnoEnum status;
-	
+
 	@Column(name = "OPERADORES")
 	private String operadores;
-	
+
 	@Column(name = "ENVIADO", nullable = false)
 	private Boolean enviado;
+
+	@Column(name = "ATIVO", nullable = false)
+	private Boolean ativo;
 
 	@Transient
 	private List<Ocorrencia> ocorrencias;
@@ -156,6 +159,14 @@ public class Turno implements Serializable {
 
 	public void setEnviado(Boolean enviado) {
 		this.enviado = enviado;
+	}
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
 	}
 
 }

@@ -21,6 +21,7 @@ public class TurnoDaoImpl extends AbstractDao implements ITurnoDao {
 
 	@Override
 	public void salvarTurno(Turno turno) {
+		turno.setAtivo(true);
 		turno.setEnviado(false);
 		persist(turno);
 	}
@@ -29,6 +30,7 @@ public class TurnoDaoImpl extends AbstractDao implements ITurnoDao {
 	@Override
 	public List<Turno> listarTurnos() {
 		Criteria criteria = getSession().createCriteria(Turno.class);
+		criteria.add(Restrictions.eq("ativo",true));
         return (List<Turno>) criteria.list();
 	}
 
@@ -37,6 +39,7 @@ public class TurnoDaoImpl extends AbstractDao implements ITurnoDao {
 	public List<Turno> consultarTurnoAnterior(Cliente cliente) {
 		Criteria criteria = getSession().createCriteria(Turno.class);
 		criteria.add(Restrictions.eq("cliente.id",cliente.getId()));
+		criteria.add(Restrictions.eq("ativo",true));
 		criteria.addOrder(Order.desc("id"));
 		criteria.setMaxResults(2);
 		return (List<Turno>) criteria.list();
@@ -47,16 +50,18 @@ public class TurnoDaoImpl extends AbstractDao implements ITurnoDao {
 	public List<Turno> listarTurnos(Cliente cliente) {
 		Criteria criteria = getSession().createCriteria(Turno.class);
 		criteria.add(Restrictions.eq("cliente.id",cliente.getId()));
+		criteria.add(Restrictions.eq("ativo",true));
         return (List<Turno>) criteria.list();
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Turno> listarUltimosDezTurnosCliente(Cliente cliente) {
+	public List<Turno> listarUltimosDezTurnosCliente(Cliente cliente, Integer quantidade) {
 		Criteria criteria = getSession().createCriteria(Turno.class);
 		criteria.add(Restrictions.eq("cliente.id",cliente.getId()));
+		criteria.add(Restrictions.eq("ativo",true));
 		criteria.addOrder(Order.desc("id"));
-		criteria.setMaxResults(10);
+		criteria.setMaxResults(quantidade);
         return (List<Turno>) criteria.list();
 	}
 	
@@ -65,6 +70,7 @@ public class TurnoDaoImpl extends AbstractDao implements ITurnoDao {
 	public List<Turno> listarTurnos(Usuario usuario, StatusTurnoEnum status) {
 		Criteria criteria = getSession().createCriteria(Turno.class);
 		criteria.add(Restrictions.eq("usuario.id",usuario.getId()));
+		criteria.add(Restrictions.eq("ativo",true));
 		
 		if(status != null) {
 			criteria.add(Restrictions.eq("status",status));
@@ -75,9 +81,9 @@ public class TurnoDaoImpl extends AbstractDao implements ITurnoDao {
 
 	@Override
 	public void deleteTurno(Long codigoTurno) {
-		Query query = getSession().createSQLQuery("delete from TURNO where id = :id");
-        query.setLong("id", codigoTurno);
-        query.executeUpdate();
+		Turno turno = consultarTurno(codigoTurno);
+		turno.setAtivo(false);
+		atualizarTurno(turno);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -85,6 +91,7 @@ public class TurnoDaoImpl extends AbstractDao implements ITurnoDao {
 	public List<Turno> consultarTurno(StatusTurnoEnum status, Boolean enviado) {
 		Criteria criteria = getSession().createCriteria(Turno.class);
         criteria.add(Restrictions.eq("status",status));
+        criteria.add(Restrictions.eq("ativo",true));
         
         if(enviado != null) {
         	criteria.add(Restrictions.eq("enviado",enviado));
@@ -97,6 +104,7 @@ public class TurnoDaoImpl extends AbstractDao implements ITurnoDao {
 	public Turno consultarTurno(Long idTurno) {
 		Criteria criteria = getSession().createCriteria(Turno.class);
         criteria.add(Restrictions.eq("id",idTurno));
+        criteria.add(Restrictions.eq("ativo",true));
         return (Turno) criteria.uniqueResult();
 	}
 	
@@ -134,6 +142,7 @@ public class TurnoDaoImpl extends AbstractDao implements ITurnoDao {
 	public List<Turno> consultarTurnosCliente(StatusTurnoEnum status, Long idCliente) {
 		Criteria criteria = getSession().createCriteria(Turno.class);
         criteria.add(Restrictions.eq("status",status));
+        criteria.add(Restrictions.eq("ativo",true));
         criteria.add(Restrictions.eq("cliente.id",idCliente));
         return (List<Turno>) criteria.list();
 	}

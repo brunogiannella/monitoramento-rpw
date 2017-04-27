@@ -21,9 +21,10 @@ public interface ITurnoService {
 	List<Turno> consultarTurnosPendentes();
 	Object consultarQuantidadeTurnosPendentes();
 	Boolean aprovarTurno(Long idturno);
-	List<Turno> listarUltimosDezTurnosCliente(Cliente cliente) throws NoSuchAlgorithmException, UnsupportedEncodingException;
+	List<Turno> listarUltimosDezTurnosCliente(Cliente cliente, Integer quantidade) throws NoSuchAlgorithmException, UnsupportedEncodingException;
 	BigInteger consultarQuantidadeTurnosClienteData(Cliente cliente, Integer mes, Integer ano);
 	List<Turno> consultarTurnosAndamento();
 	Object consultarQuantidadeTurnosAndamento();
 	List<Turno> consultarTurnosAndamentoCliente(Long idCliente);
+	void deletarTurno(Long idTurno) throws NoSuchAlgorithmException, UnsupportedEncodingException;
 }

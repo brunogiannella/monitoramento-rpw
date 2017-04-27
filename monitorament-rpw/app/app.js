@@ -11,6 +11,7 @@ var app = angular.module('app',['ui.router',
                   'gerenciarCamerasController.controller',
                   'homeAdmin.controller',
                   'turnosPendentes.controller',
+                  'removerTurno.controller',
                   'turnosAndamento.controller',
                   'aprovarTurno.controller',
                   'usuario.controller',
@@ -160,6 +161,14 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       },
       templateUrl: 'app/views/admin/aprovar-turno.html',
       controller: 'AprovarTurnoController as AprovarTurnoCrtl'
+    })
+    .state('remover-turno', {
+      url: '/remover-turno',
+      params: {
+        idTurno : null,
+      },
+      templateUrl: 'app/views/admin/remover-turno.html',
+      controller: 'RemoverTurnoController as RemoverTurnoCrtl'
     })
     .state('usuarios', {
       url: '/usuarios',

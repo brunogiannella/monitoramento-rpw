@@ -61,7 +61,7 @@
                       
                         <div class="row">
 							             <div class="input-field col s12 m12">
-                              <span ng-show="ConsultarTurnosClienteCrtl.tipoConsulta == 'ultimos10'" class="text-bold">Dez últimos turnos do cliente {{ConsultarTurnosClienteCrtl.nomeCliente}}</span>
+                              <span ng-show="ConsultarTurnosClienteCrtl.tipoConsulta == 'ultimos10'" class="text-bold">Últimos turnos do cliente {{ConsultarTurnosClienteCrtl.nomeCliente}}</span>
 
                               <span ng-show="ConsultarTurnosClienteCrtl.tipoConsulta == 'em_andamento'" class="text-bold">Turnos em andamento do cliente {{ConsultarTurnosClienteCrtl.nomeCliente}}</span>
                             </div>
@@ -69,6 +69,10 @@
 
                         <div class="row">
                           <div id="dadosCliente">
+
+                            <div class="row">
+                              <label class="col s12 barraBuscaFont">Quantidade de turnos: <input style="color:black;" ng-model="ConsultarTurnosClienteCrtl.quantidade" ng-change="ConsultarTurnosClienteCrtl.consultar();"></label>
+                            </div>
 
                             <div class="row">
                               <label class="col s12 barraBuscaFont">Digite a sua pesquisa: <input style="color:black;" ng-model="searchText"></label>
@@ -98,7 +102,8 @@
                                           <a href="#" ng-click="ConsultarTurnosClienteCrtl.visualizarTurno(turno.id);" ng-hide="ConsultarTurnosClienteCrtl.consumidor == 'cliente'"><i class="material-icons small red-text">mode_edit</i></a>
                                           <a href="#" ng-click="ConsultarTurnosClienteCrtl.visualizarRelatorio(turno.id);"><i class="material-icons small blue-text">print</i></a>
                                           <a href="#" ng-click="ConsultarTurnosClienteCrtl.aprovar(turno.id);" ng-if="turno.status == 'AGUARDANDO_VALIDACAO'" ng-hide="ConsultarTurnosClienteCrtl.consumidor == 'cliente'""><i class="material-icons small green-text">done</i></a>
-                                          <a href="#" ng-click="ConsultarTurnosClienteCrtl.enviar(turno.id);" ng-if="turno.status == 'APROVADO'" ng-hide="ConsultarTurnosClienteCrtl.consumidor == 'cliente'"><i class="material-icons small black-text">email</i></a>
+                                          <a href="#" ng-click="ConsultarTurnosClienteCrtl.enviar(turno.id);" ng-if="turno.status == 'APROVADO'" ng-hide="ConsultarTurnosClienteCrtl.consumidor == 'cliente'"><i class="material-icons small red-text">email</i></a>
+                                          <a href="#" ng-click="ConsultarTurnosClienteCrtl.removerTurno(turno.id);" ng-hide="ConsultarTurnosClienteCrtl.consumidor == 'cliente'"><i class="material-icons small red-text">delete</i></a>
                                         </td>
                                       </tr>
                                       
