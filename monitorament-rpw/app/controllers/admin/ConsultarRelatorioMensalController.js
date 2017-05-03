@@ -35,8 +35,10 @@
 		};
 
 		function visualizarRelatorio() {
+			UtilsService.ativarLoading();
 			var funcSucesso = function(data) {
 				if(data != null) {
+					UtilsService.desativarLoading();
 					UtilsService.irPara('imprimir-relatorio-mensal', {relatorio: data, consumidor: 'admin'});
 				} else {
 					alert("Ocorreu um problema ao gerar o relatório mensal.");

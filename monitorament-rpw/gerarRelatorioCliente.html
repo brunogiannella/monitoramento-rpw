@@ -1,0 +1,111 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>&nbsp;</title>
+        <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="css/print.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+
+      <main style="background: white !important;">
+
+
+        <div id="relatorio" style="width: 12cm;">
+
+        <br />
+          <div class="logobg">
+            <img src="img/logo_rpw.png" width="80" height="100">
+          </div>
+
+          <br />
+
+          <table class="maintable">
+            <tr class="titulo">
+              <td class="textBold" colspan="2">Dados de acesso</td>
+            </tr>
+            <tr>
+              <td width="30%"><span class="b">Login:</span></td>
+              <td width="50%">
+                <input id="icon_prefix" type="text" name="usuario" length="10" ng-model="LoginCrtl.usuario" required>
+              </td>
+            </tr>
+            <tr>
+              <td width="30%"><span class="b">Senha:</span></td>
+              <td width="50%">
+                <input id="icon_prefix" type="text" name="usuario" length="10" ng-model="LoginCrtl.usuario" required>
+              </td>
+            </tr>
+          </table>
+
+          <br />
+
+         <div class="controles">
+            <a href="#" onclick="javascript:CallPrint('relatorio');" class="waves-effect waves-light btn"><i class="material-icons right">print</i>Imprimir</a>
+          </div>
+
+        </div>
+      </main>        
+      
+
+      <!-- Scripts -->
+      <script type="text/javascript" src="js/materialize.js"></script>
+      <script type="text/javascript">
+        $(document).ready(function(){
+            $('.selectable').material_select();
+            $('#fecharturno').leanModal();
+            $('.btn_menu').sideNav({
+                menuWidth: 285, 
+                closeOnClick: false
+              }
+            );
+            $('.collapsible').collapsible();
+            $('.caret').remove();
+
+            $(".ng-scope").css("margin-left", "0px");
+
+          });
+
+        function CallPrint(strid)
+        {    
+             window.focus();
+             window.print();
+             window.close();
+             return false;
+        }
+
+        function imprimirRelatorio() {
+          var pdf = new jsPDF('p', 'pt', 'letter');
+          var canvas = pdf.canvas;
+          canvas.height = 72 * 11;
+          canvas.width=72 * 8.5;;
+          // var width = 400;
+          html2pdf($("#relatorio"), pdf, function(pdf) {
+            var string = pdf.output('datauristring');
+            var x = window.open();
+            x.document.open();
+            x.document.location=string;
+              }
+          );
+        }
+
+        function generatePdf() {              
+          var pdf = new jsPDF('p', 'pt', 'letter');
+          var canvas = pdf.canvas;
+          canvas.height = 72 * 11;
+          canvas.width=72 * 8.5;;
+          // var width = 400;
+          html2pdf($("#relatorio"), pdf, function(pdf) {
+            var binary = doc.output();
+            return binary ? btoa(binary) : "";
+          });
+        }
+
+      </script>
+      <!-- /Scripts -->
+    </body>
+  </html>

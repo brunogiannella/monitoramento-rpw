@@ -324,6 +324,7 @@ public class RelatorioService implements IRelatorioService {
 						ocorrenciaDto.setIdTipoOcorrencia(ocorrencia.getTipoOcorrencia().getId());
 						ocorrenciaDto.setDescTipoOcorrencia(ocorrencia.getTipoOcorrencia().getDescricao());
 						ocorrenciaDto.setDataCadastro(formato.format(ocorrencia.getDataCadastro()));
+						ocorrencia.setDestacada(ocorrencia.getDestacada());
 						
 						Gson gson = new GsonBuilder().create();
 						List<CampoCadastroOcorrenciaDTO> campos = gson.fromJson(ocorrencia.getValores(), new TypeToken<ArrayList<CampoCadastroOcorrenciaDTO>>(){}.getType());

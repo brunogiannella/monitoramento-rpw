@@ -1,0 +1,103 @@
+  html,
+body {
+    height: 100%;,
+    background: #eee;
+}
+.container {
+    height: 100%;
+
+    background: #f0e68c;
+}
+#login_geral {
+    height: 100%;
+    margin-bottom: 0!important;
+    background-color: #264177;
+}
+#login_quadro {
+    height: 100%;
+
+    background: url(../img/bg.jpg) no-repeat right top;
+    background-size: cover;
+}
+#login_lateral {
+    display: table;
+    height: 100%;
+    padding: 0 5%;
+
+    background-color: #fff;
+    -webkit-box-shadow: inset 37px 0 77px -46px rgba(0,0,0,.81);
+       -moz-box-shadow: inset 37px 0 77px -46px rgba(0,0,0,.81);
+            box-shadow: inset 37px 0 77px -46px rgba(0,0,0,.81);
+}
+#login_logo {
+    text-align: center;
+}
+#login_titulo {
+    margin: 15px 0 20px;
+
+    font-weight: 300;
+
+    text-align: center;
+
+    color: #2a4885;
+}
+#login_form {
+    display: table-cell;
+
+    vertical-align: middle;
+}
+#login_form i {
+    margin-top: 7px;
+    margin-left: -2px;
+
+    font-size: 24px;
+
+    color: #757575;
+}
+.input-field input[type=text]:focus + label,
+.input-field input[type=password]:focus + label {
+    color: #2b4b8a;
+}
+.input-field input[type=text]:focus,
+.input-field input[type=password]:focus {
+    border-bottom: 1px solid #27437a;
+    box-shadow: 0 1px 0 0 #27437a;
+}
+.input-field {
+    height: 50px;
+    margin-top: 1.5rem;
+}
+.input-field .prefix ~ input {
+    width: 92%;
+    width: calc(100% - 2.4rem);
+    margin-left: 2.4rem;
+}
+.input-field .prefix ~ label,
+.input-field .prefix ~ .validate ~ label {
+    margin-left: 2.4rem;
+}
+#login_btn_entrar {
+    width: 100%;
+
+    background-image: linear-gradient(to bottom, #264177, #2b4b8a);
+}
+#login_checkbox_lembreme {
+    margin: 25px 0;
+}
+[type="checkbox"]:checked + label:before {
+    border-right: 2px solid #27437a;
+    border-bottom: 2px solid #27437a;
+}
+#login_txt_esqueci {
+    font-size: 12px;
+
+    text-align: center;
+
+    color: #999;
+}
+#login_txt_esqueci a {
+    color: #81878a;
+}
+#login_modal_esqueciminhasenha .modal-footer a {
+    width: 100%;
+}

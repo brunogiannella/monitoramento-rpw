@@ -1,0 +1,60 @@
+<!doctype html>
+<html ng-app="app">
+   <head>
+      <base href="/rpw-relatorio/index.html" />
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta http-equiv="content-language" content="pt-br" />
+      <title>RPW | Geração de relatório</title>
+      <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" /> -->
+	  <link rel="stylesheet" href="css/common.css" />
+	  <link rel="icon" href="img/favicon.png">
+  </head> 
+
+   <body> 
+      <div class="main-div" ui-view>
+      </div>
+      <img src="img/loading.gif" ng-show="loadingRodando" class="loading-gif" id="centro" />
+
+ 
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script src="js/materialize.min.js"></script>
+      <script src="js/jspdf.js"></script>
+      <script src="js/jspdf.plugin.context2d.js"></script>
+      <script src="js/jspdf.plugin.png_support.js"></script>
+      <script src="js/jspdf.plugin.from_html.js"></script>
+      <script src="js/jspdf.plugin.total_pages.js"></script>
+      <script src="js/jspdf.plugin.canvas.js"></script>
+      <script src="js/jspdf.plugin.addhtml.js"></script>
+      <script src="js/jspdf.plugin.addimage.js"></script>
+      <script src="js/jspdf.plugin.annotations.js"></script>
+      <script src="js/jspdf.plugin.autoprint.js"></script>
+      <script src="js/jspdf.plugin.cell.js"></script>
+      <script src="js/jspdf.plugin.javascript.js"></script>
+      <script src="js/jspdf.PLUGINTEMPLATE.js"></script>
+      <script src="js/jspdf.plugin.sillysvgrenderer.js"></script>
+      <script src="js/jspdf.plugin.outline.js"></script>
+      <script src="js/jspdf.plugin.split_text_to_size.js"></script>
+      <script src="js/jspdf.plugin.standard_fonts_metrics.js"></script>
+      <script src="js/libs/html2canvas/dist/html2canvas.js"></script>
+      <script src="js/libs/png_support/png.js"></script>
+      <script src="js/libs/png_support/zlib.js"></script>
+      <script src="js/libs/css_colors.js"></script>
+      <script src="js/libs/deflate.js"></script>
+      <script src="js/libs/html2pdf.js"></script>
+      <script src="lib/angular/angular.min.js"></script>
+      <script src="lib/angular/angular-ui-router.min.js"></script>
+ 
+      <script src="app/app.js"></script>
+
+      <script src="app/controllers/cliente/ImprimirRelatorioClienteController.js"></script>
+      <script src="app/controllers/admin/ImprimirRelatorioMensalController.js"></script>
+
+      <script src="app/services/ConstantesService.js"></script>
+      <script src="app/services/UtilsService.js"></script>
+      <script src="app/services/LoginService.js"></script>
+      <script src="app/services/RelatorioService.js"></script>
+
+      <script src="app/diretivas/onFinishRender.js"></script>
+
+   </body>
+</html>
