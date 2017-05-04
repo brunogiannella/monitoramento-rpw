@@ -40,7 +40,6 @@ var app = angular.module('app',['ui.router',
                   'imprimirRelatorio.controller',
                   'consultarRelatorioMensal.controller',
                   'imprimirRelatorioMensal.controller',
-                  'imprimirRelatorioClienteController.controller',
                   'homeCliente.controller',
                   'meusDados.controller',
 
@@ -353,10 +352,6 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
       },
       templateUrl: 'app/views/admin/imprimir-relatorio.html',
       controller: 'ImprimirRelatorioController as ImprimirRelatorioCrtl'
-    }).state('imprimir-relatorio-cliente', {
-      url: '/imprimir-relatorio-cliente',
-      templateUrl: 'app/views/cliente/gerarRelatorioCliente.html',
-      controller: 'ImprimirRelatorioClienteController as ImprimirRelatorioClienteCrtl'
     }).state('relatorio-mensal', {
       url: '/relatorio-mensal',
       params: {

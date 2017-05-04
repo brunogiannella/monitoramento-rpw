@@ -1,6 +1,7 @@
 var app = angular.module('app',['ui.router', 
                   'imprimirRelatorioMensal.controller',
                   'imprimirRelatorioClienteController.controller',
+                  'imprimirRelatorio.controller',
 
 							    'constantes.service',
 							    'utils.service',
@@ -19,16 +20,22 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider)
   	$stateProvider
     .state('imprimir-relatorio-cliente', {
       url: '/',
-      templateUrl: 'app/views/cliente/gerarRelatorioCliente.html',
+      templateUrl: 'app/views/gerarRelatorioCliente.html',
       controller: 'ImprimirRelatorioClienteController as ImprimirRelatorioClienteCrtl'
     }).state('imprimir-relatorio-mensal', {
       url: '/imprimir-relatorio-mensal',
       params: {
-        relatorio : null,
-        consumidor : null
+        relatorio : null
       },
-      templateUrl: 'app/views/admin/imprimir-relatorio-mensal.html',
+      templateUrl: 'app/views/imprimir-relatorio-mensal.html',
       controller: 'ImprimirRelatorioMensalController as ImprimirRelatorioMensalCrtl'
+    }).state('imprimir-relatorio-diario', {
+      url: '/imprimir-relatorio-diario',
+      params: {
+        idTurno : null
+      },
+      templateUrl: 'app/views/imprimir-relatorio.html',
+      controller: 'ImprimirRelatorioController as ImprimirRelatorioCrtl'
     });
 
 
