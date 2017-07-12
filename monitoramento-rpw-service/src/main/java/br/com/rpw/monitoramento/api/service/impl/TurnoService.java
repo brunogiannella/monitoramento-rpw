@@ -314,7 +314,7 @@ public class TurnoService implements ITurnoService {
 
 			try {
 				DetalheInoperanciaCameraDTO detalheInoperancia = new DetalheInoperanciaCameraDTO();
-				detalheInoperancia.setDescricaoCamera(situacao.getCamera().getDescricaoCamera());
+				detalheInoperancia.setDescricaoCamera(situacao.getCamera().getNumeroCamera() + " - " + situacao.getCamera().getDescricaoCamera());
 
 				Integer minutos = 0;
 				if (situacao.getDataHoraLigada() == null) {

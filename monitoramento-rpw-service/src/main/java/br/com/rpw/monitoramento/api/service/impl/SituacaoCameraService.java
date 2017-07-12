@@ -70,6 +70,9 @@ public class SituacaoCameraService implements ISituacaoCameraService {
 		situacaoCameraDto.setDescricaoCamera(situacaoCamera.getCamera().getDescricaoCamera());
 		situacaoCameraDto.setIdSituacaoCamera(situacaoCamera.getId());
 		
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		situacaoCameraDto.setDataHoraDesligada(formato.format(situacaoCamera.getDataHoraDesligada()));
+		
 		return situacaoCameraDto;
 	}
 	

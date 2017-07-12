@@ -4,6 +4,7 @@ public class SituacaoCameraDTO {
 
 	private Long idSituacaoCamera;
 	private String descricaoCamera;
+	private String dataHoraDesligada;
 	private Long idCamera;
 	private Long idCliente;
 	private Long idTurno;
@@ -64,6 +65,14 @@ public class SituacaoCameraDTO {
 
 	public void setIdCliente(Long idCliente) {
 		this.idCliente = idCliente;
+	}
+
+	public String getDataHoraDesligada() {
+		return dataHoraDesligada;
+	}
+
+	public void setDataHoraDesligada(String dataHoraDesligada) {
+		this.dataHoraDesligada = dataHoraDesligada;
 	}
 	
 }

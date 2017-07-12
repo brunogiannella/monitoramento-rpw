@@ -98,11 +98,21 @@
                         </tr>
                       </thead>
                       <tbody>
-
+                        <tr>
+                          <td>Câmera</td>
+                          <td>Data problema</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
                         <tr ng-repeat="cameraDesligada in camerasDesligadas">
                           <td>
                             <div class="input-field col s12 no-mt">
                               <span>{{cameraDesligada.descricaoCamera}}</span>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="input-field col s12 no-mt">
+                              <span>{{cameraDesligada.dataHoraDesligada}}</span>
                             </div>
                           </td>
                           <td>

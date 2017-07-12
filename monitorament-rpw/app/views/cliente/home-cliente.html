@@ -37,6 +37,8 @@
               <li><div class="divider"></div></li>
               <li><a href="#" ng-click="HomeCrtl.relatorioDiario();" class="waves-effect"><i class="material-icons">person_add</i>Relatório diário</a></li>
               <li><div class="divider"></div></li>
+              <li><a href="#" ng-click="HomeCrtl.relatorioMensal();" class="waves-effect"><i class="material-icons">person_add</i>Relatório mensal</a></li>
+              <li><div class="divider"></div></li>
             </ul>
 
       </nav>
@@ -50,6 +52,10 @@
               <h5 class="header blue-text text-darken-2 center-on-small-only"><span class="light">Bem-vindo,</span> <span ng-bind="HomeCrtl.nomeUsuario"></span> </h5>
             </div>
           </div>
+
+          <span class="col texto_destaque" style="padding:0 0.75rem;">
+            Você está no condôminio {{cliente.nome}}.
+          </span>
 
           <div class="row">
             <div class="col s12 m12">

@@ -236,7 +236,7 @@ public class RelatorioService implements IRelatorioService {
 	
 	private QuantidadeHorasEquipamentoRelatorio calcularQuantidadeHorasInoperantesEquipamento(Camera camera, String mes, String ano) {
 		QuantidadeHorasEquipamentoRelatorio quantidadeHoras = new QuantidadeHorasEquipamentoRelatorio();
-		quantidadeHoras.setDescricaoEquipamento(camera.getDescricaoCamera());
+		quantidadeHoras.setDescricaoEquipamento(camera.getNumeroCamera() + " - " + camera.getDescricaoCamera());
 		
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.DAY_OF_MONTH, 30);

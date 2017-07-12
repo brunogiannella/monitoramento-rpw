@@ -40,7 +40,7 @@
         <div class="container2">
            <div class="row no-m">
                 <div class="col">
-                  <h5 ng-show="TurnosPendentesCrtl.tipoConsulta == 'pendentes'" class="header blue-text text-darken-2 center-on-small-only title"><i class="material-icons">note_add</i> <span class="light">Turnos Pendentes</span></h5>
+                  <h5   class="header blue-text text-darken-2 center-on-small-only title"><i class="material-icons">note_add</i> <span class="light">Turnos Pendentes</span></h5>
 
                   <h5 ng-show="TurnosPendentesCrtl.tipoConsulta == 'andamento'" class="header blue-text text-darken-2 center-on-small-only title"><i class="material-icons">note_add</i> <span class="light">Turnos em andamento</span></h5>
                 </div>
@@ -63,7 +63,7 @@
                           <th data-field="id">Cliente</th>
                           <th data-field="id">Início</th>
                           <th data-field="id">Fim</th>
-                          <th data-field="id">Status</th>
+                          <th data-field="id" ng-show="TurnosPendentesCrtl.tipoConsulta != 'pendentes'">Status</th>
                           <th data-field="id" class="center-on-small-only right-align">Operações</th>
                       </tr>
                     </thead>
@@ -73,7 +73,7 @@
                         <td>{{turno.nomeCliente}}</td>
                         <td>{{turno.dataInicio}}</td>
                         <td>{{turno.dataFim}}</td>
-                        <td>{{turno.status}}</td>
+                        <td ng-show="TurnosPendentesCrtl.tipoConsulta != 'pendentes'">{{turno.status}}</td>
                         <td class="right-align">
                           <a href="#" ng-click="TurnosPendentesCrtl.visualizarTurno(turno.id);"><i class="material-icons small red-text">mode_edit</i></a>
                           <a href="#" ng-click="TurnosPendentesCrtl.visualizarRelatorio(turno.id);"><i class="material-icons small blue-text" ng-if="turno.status == 'APROVADO'">print</i></a>
